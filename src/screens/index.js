@@ -1,2 +1,3 @@
 import LandingPage from "./LandingPage";
-export { LandingPage }
+import QrCreator from "./QrCreator/QrCreator";
+export { LandingPage, QrCreator }

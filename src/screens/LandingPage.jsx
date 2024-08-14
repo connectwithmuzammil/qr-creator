@@ -15,6 +15,11 @@ import apps from "../assets/images/icon-qr-apps.svg";
 import video from "../assets/images/icon-qr-video.svg";
 import pdf from "../assets/images/icon-qr-pdf.svg";
 import links from "../assets/images/icon-qr-links.svg";
+import wifi from "../assets/images/icon-qr-wifi.svg";
+import gallery from "../assets/images/icon-qr-image.svg";
+import youtube from "../assets/images/icon-qr-youtube.svg";
+import landing from "../assets/images/icon-qr-website.svg";
+import event from "../assets/images/icon-qr-event.svg";
 
 const LandingPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,67 +82,75 @@ const LandingPage = () => {
       id: 4,
       title: "Apps",
       imgSrc: apps,
-      description: "Provide a direct download link to your app.",
+      description:
+        "Get more downloads with QR Creator. Make your app easier to find and improve user experience.",
       imgRight: "/assets/images/phone-apps.png",
     },
     {
       id: 5,
       title: "Video",
       imgSrc: video,
-      description: "Share videos with your audience through a QR code.",
+      description:
+        "Get your videos out into the world. Generate QR codes to share your videos and boost your audience.",
       imgRight: "/assets/images/phone-video.png",
     },
     {
       id: 6,
       title: "PDF",
       imgSrc: pdf,
-      description: "Share documents and brochures as PDFs.",
+      description:
+        "Create QR codes to share PDF files. The fast and secure way to make information and text available to everyone.",
       imgRight: "/assets/images/phone-pdf.png",
     },
     {
       id: 7,
       title: "Links",
       imgSrc: links,
-      description: "Provide multiple links in one QR code.",
+      description:
+        "Get your message across with QR codes. Gather your links in one place to easily share content with your audience.",
       imgRight: "/assets/images/phone-links.png",
     },
     {
       id: 8,
       title: "WI-FI",
-      imgSrc: "/assets/images/wifi.svg",
-      description: "Allow users to connect to your WI-FI network easily.",
+      imgSrc: wifi,
+      description:
+        "No more writing down passwords. Provide fast and secure Wi-Fi access with a QR code— your customers will thank you!",
       imgRight: "/assets/images/phone-wifi.png",
     },
     {
       id: 9,
       title: "Images' Gallery",
-      imgSrc: "/assets/images/images-gallery.svg",
-      description: "Showcase your photo gallery through a QR code.",
-      imgRight: "/assets/images/phone-images-gallery.png",
+      imgSrc: gallery,
+      description:
+        "Sending images is easy thanks to QR Creator. Let family and friends see your snaps and share the memories.",
+      imgRight: "/assets/images/phone-image.png",
     },
     {
       id: 10,
       title: "YouTube",
-      imgSrc: "/assets/images/youtube.svg",
-      description: "Share your YouTube videos directly.",
+      imgSrc: youtube,
+      description:
+        "Want more YouTube views and subscribers? Link the URL to a QR code and let the world see you in action.",
       imgRight: "/assets/images/phone-youtube.png",
     },
     {
       id: 11,
       title: "Landing Page",
-      imgSrc: "/assets/images/landing-page.svg",
-      description: "Guide users to a dedicated landing page for your campaign.",
-      imgRight: "/assets/images/phone-landing-page.png",
+      imgSrc: landing,
+      description:
+        "Provide instant access to your website. QR codes help drive traffic to your site and increase engagement.",
+      imgRight: "/assets/images/phone-website.png",
     },
     {
       id: 12,
       title: "Event",
-      imgSrc: "/assets/images/event.svg",
-      description: "Promote your event and allow easy access to event details.",
+      imgSrc: event,
+      description:
+        "Create a landing page with all your event info. Guests can easily add it to their calendars and RSPV.",
       imgRight: "/assets/images/phone-event.png",
     },
   ];
-
 
   // FAQ CODE LOGIC
   const faqData = {
@@ -288,7 +301,7 @@ const LandingPage = () => {
                   <span> Fast, easy, and customizable!</span>
                 </h1>
                 <p>It’s simple to make, manage, and track your own QR codes.</p>
-                <Button title={"Generate QR Code"} />
+                <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
               </div>
             </div>
             <div className="right">
@@ -318,7 +331,7 @@ const LandingPage = () => {
             ))}
           </div>
           <div className="btn-wrapper">
-            <Button title={"Generate QR Code"} />
+            <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
           </div>
         </section>
         <section className="sec-four">
@@ -339,7 +352,7 @@ const LandingPage = () => {
                   been easier!
                 </p>
                 <div className="btn-wrapper">
-                  <Button title={"Generate QR Code"} />
+                  <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
                 </div>
               </div>
             </div>
@@ -383,7 +396,10 @@ const LandingPage = () => {
                   <div className="content">
                     <h1>{buttons[activeIndex].title}</h1>
                     <p>{buttons[activeIndex].description}</p>
-                    <Button title={"Generate QR CODE"} />
+                    <Button
+                      title={"Generate QR CODE"}
+                      Redirect={"/qr-editor"}
+                    />
                   </div>
                 </div>
               </div>
@@ -402,10 +418,99 @@ const LandingPage = () => {
                   With a wide range of designs and features to choose from, you
                   can easily create QR codes that work for you.
                 </p>
-                <Button title={"Generate QR Code"} />
+                <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
               </div>
             </div>
-            <div className="right"></div>
+            <div className="right">
+              <div className="one">
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/match-your-brand.png"
+                      alt="match-your-brand"
+                      width={88}
+                    />
+                    <h2>Match your brand</h2>
+                  </div>
+                  <p>
+                    Customize your codes. Choose the shapes, logos, and colors
+                    that fit with your brand. Your QR codes, your design!
+                  </p>
+                </div>
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/data-driven-decision.png"
+                      alt="data-driven-decision"
+                      width={88}
+                    />
+                    <h2>Make data-driven decisions</h2>
+                  </div>
+                  <p>
+                    No more guesswork. Make informed marketing strategy
+                    decisions based on QR code tracking and analysis.
+                  </p>
+                </div>
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/understand-your-audience.png"
+                      alt="understand-your-audience"
+                      width={88}
+                    />
+                    <h2>Understand your audience</h2>
+                  </div>
+                  <p>
+                    Discover when and where your QR codes are scanned. Our
+                    geographical insights will help you finetune your campaigns.
+                  </p>
+                </div>
+              </div>
+              <div className="two">
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/keep-it-fresh.png"
+                      alt="keep-it-fresh"
+                      width={88}
+                    />
+                    <h2>Keep it fresh</h2>
+                  </div>
+                  <p>
+                    Need to change your QR code content or switch up the design?
+                    No problem! Edit and manage your dynamic QR codes at any
+                    time.
+                  </p>
+                </div>
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/create-unlimited-code.png"
+                      alt="create-unlimited-code"
+                    />
+                    <h2>Create unlimited codes</h2>
+                  </div>
+                  <p>
+                    Generate as many dynamic QR codes as you want. The easy way
+                    to share your website, videos, business info, and more!
+                  </p>
+                </div>
+                <div className="cardd">
+                  <div className="wrap">
+                    <img
+                      src="/assets/images/choose-your-format.png"
+                      alt="choose-your-format"
+                      width={88}
+                    />
+                    <h2>Choose your format</h2>
+                  </div>
+                  <p>
+                    From printed materials to digital displays, download your QR
+                    codes in the format that works best. We’ve got you!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section className="sec-seven">

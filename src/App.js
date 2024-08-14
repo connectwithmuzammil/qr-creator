@@ -2,8 +2,8 @@
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import { Route, Routes } from "react-router-dom";
-import { LandingPage } from "./screens";
-import { Footer, Header } from "./components";
+import { LandingPage, QrCreator } from "./screens";
+import { Footer, Header, ScrollToTop } from "./components";
 
 function App() {
   return (
@@ -12,7 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/*" element={<LandingPage />} />
+        <Route path="/qr-editor" element={<QrCreator />} />
       </Routes>
+      <ScrollToTop />
       <Footer />
     </>
   );

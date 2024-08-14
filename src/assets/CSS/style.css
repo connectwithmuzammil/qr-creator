@@ -3,7 +3,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 80px;
+  padding: 12px 80px;
 
   background-color: #fcfcfc;
   position: relative;
@@ -457,6 +457,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 40px;
 }
 .landingpage .sec-six .containerr .left {
   flex: 1;
@@ -468,7 +469,7 @@ footer .bottom p {
   font-family: "poppins", sans-serif;
   text-align: start;
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 800;
   margin-bottom: 16px;
 }
 .landingpage .sec-six .containerr .left .content p {
@@ -479,8 +480,45 @@ footer .bottom p {
 }
 .landingpage .sec-six .containerr .right {
   flex: 2;
+  display: flex;
+  gap: 20px;
 }
-
+.landingpage .sec-six .containerr .right .one .cardd {
+  margin-bottom: 26px;
+}
+.landingpage .sec-six .containerr .right .two .cardd {
+  margin: 26px 0px;
+}
+.landingpage .sec-six .containerr .right .cardd {
+  max-width: 25rem;
+  width: auto;
+  padding: 1.5rem;
+  background-color: #fcfcfc;
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  border-radius: 12px;
+}
+.landingpage .sec-six .containerr .right .cardd .wrap {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.landingpage .sec-six .containerr .right .cardd .wrap img {
+}
+.landingpage .sec-six .containerr .right .cardd .wrap h2 {
+  color: #404040;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  font-weight: 700;
+}
+.landingpage .sec-six .containerr .right .cardd p {
+  color: #404040;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  font-weight: 400;
+}
 .landingpage .sec-seven {
   padding: 72px 80px;
   background-color: #e0201c;
@@ -524,8 +562,8 @@ footer .bottom p {
   display: none;
   color: transparent;
 }
-.landingpage .sec-seven .tabs-con .faq-con .two ol li::marker{
-color: #000;
+.landingpage .sec-seven .tabs-con .faq-con .two ol li::marker {
+  color: #000;
 }
 .landingpage .sec-seven .tabs-con .faq-con .one {
   background-color: #fff;
@@ -574,4 +612,179 @@ color: #000;
   font-family: "Nunito Sans", sans-serif;
   color: #404040;
   margin-bottom: 25px;
+}
+
+/*********************************** QRCREATOR CSS *********************************************/
+.qr-creator-main {
+  /* padding: 80px; */
+  background-color: #f6fafe;
+}
+.qr-creator-main .page1 {
+}
+.qr-creator-main .page1 .containerr {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+.qr-creator-main .page1 .containerr .left {
+  flex: 2;
+  padding: 80px 0px 80px 80px;
+}
+.qr-creator-main .page1 .containerr .left .h1 {
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.qr-creator-main .page1 .containerr .left .card-con {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: space-between;
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd {
+  height: 5.125rem;
+  padding: 1rem;
+  background-color: #fcfcfc;
+  border: 2px solid #bfbfbf;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1 1 calc(50% - 25px);
+  cursor: pointer;
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .img-con {
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .img-con img {
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .wrap {
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .wrap h2 {
+  font-size: 16px;
+  color: #404040;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .wrap p {
+  margin: 0;
+  font-size: 16px;
+  color: #8c8c8c;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+}
+.qr-creator-main .page1 .containerr .right {
+  flex: 1;
+  padding: 80px;
+  background-color: #fff;
+}
+.qr-creator-main .page1 .containerr .right img {
+  width: 100%;
+}
+
+.qr-creator-main .bottom-wrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  padding: 12px 80px;
+  background-color: #fcfcfc;
+  box-shadow: 5px 0 8px 0 hsla(0, 0%, 65%, .5);
+  display: flex;
+  justify-content: space-between;
+}
+.qr-creator-main .bottom-wrapper button.cancel {
+  outline: none;
+  border: none;
+  background: none;
+  font-family: "Nunito Sans", sans-serif;
+  border: 1px solid #e0201c;
+  padding: 8px 45px;
+  border-radius: 4px;
+  /* min-width: 11.75rem; */
+  color: #e0201c;
+  font-size: 16px;
+  cursor: pointer;
+}
+.qr-creator-main .bottom-wrapper .btn-next button.next {
+  display: none;
+  display: block;
+  outline: none;
+  border: none;
+  background-color: #00af63;
+  font-family: "Nunito Sans", sans-serif;
+  padding: 8px 45px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 180px;
+  position: relative;
+}
+.qr-creator-main .bottom-wrapper .btn-next {
+  position: relative;
+}
+.qr-creator-main .bottom-wrapper .btn-next svg {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  right: 30px;
+  color: #fff;
+  font-size: 30px;
+}
+.qr-creator-main .bottom-wrapper button.next {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+.qr-creator-main .bottom-wrapper .stages-con {
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap {
+  display: flex;
+  gap: 10px;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap h5 {
+  margin: 0;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  color: #8c8c8c;
+  background-color: #f3eded;
+  padding: 10px;
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #8c8c8c;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap h5.active {
+  background-color: #e0201c;
+  color: #fff;
+  border: 1px solid #e0201c;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap p {
+  margin: 0;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap p.active {
+  color: #e0201c;
+}
+.qr-creator-main .bottom-wrapper .stages-con .select-qr svg {
+  font-size: 20px;
 }
