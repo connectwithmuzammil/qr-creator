@@ -24,12 +24,24 @@ const Footer = () => {
               </div>
               <div className="one">
                 <h1>Company</h1>
-                <p>Who we are</p>
-                <p>Terms and Conditions</p>
-                <p>Terms of Use</p>
-                <p>Privacy policy</p>
-                <p>Cookies policy</p>
-                <p>Prices</p>
+                <Link to="/who-we-are">
+                  <p>Who we are</p>
+                </Link>
+                <Link to={"/terms-and-conditions"}>
+                  <p>Terms and Conditions</p>
+                </Link>
+                <Link to={"/terms-of-use"}>
+                  <p>Terms of Use</p>
+                </Link>
+                <Link to={"/privacy-policy"}>
+                  <p>Privacy policy</p>
+                </Link>
+                <Link to={"/cookies-policy"}>
+                  <p>Cookies policy</p>
+                </Link>
+                <Link to={"/pricing"}>
+                  <p>Prices</p>
+                </Link>
               </div>
               <div className="one">
                 <h1>Need help?</h1>

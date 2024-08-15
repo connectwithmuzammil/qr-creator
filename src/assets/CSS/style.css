@@ -107,6 +107,9 @@ footer .top .right .one h1 {
   font-weight: 700;
   margin-bottom: 50px;
 }
+footer .top .right .one a {
+  text-decoration: none;
+}
 footer .top .right .one p {
   margin: 0;
   color: #262626;
@@ -691,7 +694,7 @@ footer .bottom p {
   z-index: 1;
   padding: 12px 80px;
   background-color: #fcfcfc;
-  box-shadow: 5px 0 8px 0 hsla(0, 0%, 65%, .5);
+  box-shadow: 5px 0 8px 0 hsla(0, 0%, 65%, 0.5);
   display: flex;
   justify-content: space-between;
 }
@@ -787,4 +790,275 @@ footer .bottom p {
 }
 .qr-creator-main .bottom-wrapper .stages-con .select-qr svg {
   font-size: 20px;
+}
+
+/*********************************** WHO WE ARE CSS *********************************************/
+.who-we-are {
+}
+.who-we-are .heading {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+.who-we-are .heading h1 {
+  font-size: 40px;
+  font-family: "poppins", sans-serif;
+  color: #000000;
+  font-weight: 800;
+}
+.who-we-are .content {
+  background-color: #f6fafe;
+  padding: 40px;
+}
+.who-we-are .content .wrap {
+  background-color: #fcfcfc;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  max-width: 940px;
+  margin-inline: auto;
+}
+.who-we-are .content .wrap p {
+  text-align: start;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+.who-we-are .content .wrap .bottom-con {
+  margin-top: 32px;
+}
+.who-we-are .content .wrap .bottom-con h5 {
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.who-we-are .content .wrap .bottom-con ul {
+}
+.who-we-are .content .wrap .bottom-con ul li {
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+#terms .heading p {
+  font-size: 16px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+}
+#terms .content .wrap h2 {
+  font-size: 24px;
+  font-family: "poppins", sans-serif;
+  color: #000000;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.who-we-are .content .wrap .one,
+.who-we-are .content .wrap .two,
+.who-we-are .content .wrap .three,
+.who-we-are .content .wrap .four,
+.who-we-are .content .wrap .five,
+.who-we-are .content .wrap .six,
+.who-we-are .content .wrap .seven,
+.who-we-are .content .wrap .eight,
+.who-we-are .content .wrap .nine,
+.who-we-are .content .wrap .ten,
+.who-we-are .content .wrap .eleven {
+  margin-bottom: 50px;
+}
+.who-we-are .content .wrap .nested-list {
+  margin-left: 10px;
+}
+.who-we-are .content .wrap ul li {
+  font-size: 16px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+}
+.who-we-are .content .wrap ul li span {
+  color: #e0201c;
+  cursor: pointer;
+}
+.who-we-are .content .wrap h5 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+}
+.who-we-are .content .wrap p span {
+  color: #e0201c;
+  cursor: pointer;
+}
+.who-we-are .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  table-layout: fixed;
+}
+.who-we-are .table thead tr {
+  background-color: #f6fafe;
+}
+.who-we-are .table th {
+  width: 100px;
+  overflow: hidden;
+  padding: 0.75rem 1rem;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+}
+
+.who-we-are .table td {
+  width: 100px;
+  overflow: hidden;
+  padding: 0.75rem 1rem;
+  word-break: break-word;
+  word-wrap: break-word;
+  white-space: normal;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+}
+.who-we-are .table tbody tr {
+  border-bottom: 1px solid #bfbfbf;
+}
+
+/*********************************** PRICING CSS *********************************************/
+.pricing {
+}
+.pricing .content {
+  padding: 40px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pricing .content p {
+  font-size: 24px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  font-weight: 500;
+}
+.pricing .content button {
+  border: none;
+  outline: none;
+  background: #e0201c;
+  padding: 0.7rem 1rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  min-width: 280px;
+}
+.pricing .card-container {
+  padding: 88px 80px 30px 80px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  background-color: #f6fafe;
+}
+.pricing .card-container .cardd {
+  background-color: rgb(252, 252, 252);
+  box-shadow: rgba(89, 89, 89, 0.18) 0px 5px 8px 0px;
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1;
+  cursor: pointer;
+}
+.pricing .card-container .cardd.active {
+}
+.pricing .card-container .cardd .top {
+  display: flex;
+  gap: 20px;
+}
+.pricing .card-container .cardd .top span {
+  width: 18px;
+  height: 18px;
+  background-color: transparent;
+  border-radius: 18px;
+  border: 1px solid #bfbfbf;
+}
+.pricing .card-container .cardd .top h1 {
+  font-size: 24px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+}
+.pricing .card-container .cardd .pricing {
+  font-size: 24px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+  font-weight: 800;
+  text-align: center;
+}
+
+.pricing .card-container .cardd ul {
+  list-style-type: none;
+  padding: 0;
+}
+.pricing .card-container .cardd ul li {
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #737373;
+  font-weight: 500;
+  padding-bottom: 6px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
+}
+.pricing .card-container .cardd ul li svg {
+  /* margin-right: 20px; */
+  color: #737373;
+  font-weight: 200;
+  opacity: 70%;
+  flex-shrink: 0;
+}
+.pricing .card-container .cardd ul li {
+  flex-grow: 1;
+}
+.pricing .bottom {
+  background-color: #f6fafe;
+  padding: 0px 0px 20px 0px;
+}
+.pricing .bottom p {
+  text-align: center;
+  max-width: 297px;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+  font-weight: 500;
+  margin: 0;
+  margin-inline: auto;
+}
+.pricing .bottom p span {
+  font-weight: 800;
+}
+.pricing .card-container .cardd:nth-child(2) {
+  position: relative;
+}
+.pricing .card-container .cardd .most-popular {
+  position: absolute;
+  top: -46px;
+  width: 100%;
+  left: 0;
+  height: 46px;
+}
+
+.pricing .card-container .cardd .most-popular h3 {
+  text-align: center;
+  font-family: "poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 12px;
+  background-color: #e56462;
+  color: #fff;
+  border-radius: 10px 10px 0px 0px;
+  height: 46px;
 }
