@@ -1,14 +1,18 @@
+import { useState } from "react";
 // CSS IMPORT
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import { Route, Routes } from "react-router-dom";
-import { CookiePolicy, LandingPage, Pricing, PrivacyPolicy, QrCreator, TermOfUse, TermsCondition, WhoWeAre } from "./screens";
-import { Footer, Header, ScrollToTop } from "./components";
+import { CookiePolicy, FaqPage, LandingPage, Pricing, PrivacyPolicy, QrCreator, TermOfUse, TermsCondition, UserDashboard, WhoWeAre } from "./screens";
+import { ContactUs, Footer, Header, ScrollToTop } from "./components";
 
 function App() {
+  const [User, setUser] = useState(true);
+
   return (
     <>
-      <Header />
+
+      <Header User={User} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/*" element={<LandingPage />} />
@@ -19,6 +23,9 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookies-policy" element={<CookiePolicy />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/my-qr-codes" element={<UserDashboard />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/faq" element={<FaqPage />} />
       </Routes>
       <ScrollToTop />
       <Footer />
