@@ -34,25 +34,25 @@ const Header = () => {
           <img src={logo} alt="logo" />
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
-          <div className="auth-con">
-            {User ? (
-              <button
-                onClick={() => navigate("/my-qr-codes")}
-                className="my-account-btn"
-              >
-                My Account
+        <div className="auth-con">
+          {User ? (
+            <button
+              onClick={() => navigate("/my-qr-codes")}
+              className="my-account-btn"
+            >
+              My Account
+            </button>
+          ) : (
+            <>
+              <button onClick={() => openModal("login")} className="login">
+                Login
               </button>
-            ) : (
-              <>
-                <button onClick={() => openModal("login")} className="login">
-                  Login
-                </button>
-                <button onClick={() => openModal("signup")} className="signup">
-                  Sign Up
-                </button>
-              </>
-            )}
-          </div>
+              <button onClick={() => openModal("signup")} className="signup">
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
         {/* )} */}
 
         {showModal && (
