@@ -642,7 +642,7 @@ footer .bottom p {
   margin-bottom: 25px;
 }
 
-/*********************************** QRCREATOR CSS *********************************************/
+/*********************************** QRCREATOR CSS ***************************************/
 .qr-creator-main {
   /* padding: 80px; */
   background-color: #f6fafe;
@@ -685,8 +685,16 @@ footer .bottom p {
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
 }
 .qr-creator-main .page1 .containerr .left .card-con .cardd .img-con {
+  background-color: #f2f2f2;
+  padding: 8px;
+  border-radius: 30px;
+}
+.qr-creator-main .page1 .containerr .left .card-con .cardd .img-con.active {
+  background-color: #a3ccf5;
 }
 .qr-creator-main .page1 .containerr .left .card-con .cardd .img-con img {
+  width: 25px;
+  object-fit: contain;
 }
 .qr-creator-main .page1 .containerr .left .card-con .cardd .wrap {
 }
@@ -712,8 +720,7 @@ footer .bottom p {
 .qr-creator-main .page1 .containerr .right img {
   width: 100%;
 }
-
-.qr-creator-main .bottom-wrapper {
+.bottom-wrapper-stages {
   position: sticky;
   bottom: 0;
   z-index: 1;
@@ -723,7 +730,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
 }
-.qr-creator-main .bottom-wrapper button.cancel {
+.bottom-wrapper-stages button.cancel {
   outline: none;
   border: none;
   background: none;
@@ -736,7 +743,7 @@ footer .bottom p {
   font-size: 16px;
   cursor: pointer;
 }
-.qr-creator-main .bottom-wrapper .btn-next button.next {
+.bottom-wrapper-stages .btn-next button.next {
   display: none;
   display: block;
   outline: none;
@@ -752,10 +759,10 @@ footer .bottom p {
   min-width: 180px;
   position: relative;
 }
-.qr-creator-main .bottom-wrapper .btn-next {
+.bottom-wrapper-stages .btn-next {
   position: relative;
 }
-.qr-creator-main .bottom-wrapper .btn-next svg {
+.bottom-wrapper-stages .btn-next svg {
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -763,27 +770,27 @@ footer .bottom p {
   color: #fff;
   font-size: 30px;
 }
-.qr-creator-main .bottom-wrapper button.next {
+.bottom-wrapper-stages button.next {
   display: flex;
   justify-content: space-between;
   gap: 25px;
 }
-.qr-creator-main .bottom-wrapper .stages-con {
+.bottom-wrapper-stages .stages-con {
   display: flex;
   gap: 25px;
   justify-content: space-between;
   align-items: center;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr {
+.bottom-wrapper-stages .stages-con .select-qr {
   display: flex;
   align-items: center;
   gap: 30px;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap {
+.bottom-wrapper-stages .stages-con .select-qr .wrap {
   display: flex;
   gap: 10px;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap h5 {
+.bottom-wrapper-stages .stages-con .select-qr .wrap h5 {
   margin: 0;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
@@ -799,21 +806,21 @@ footer .bottom p {
   align-items: center;
   border: 1px solid #8c8c8c;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap h5.active {
+.bottom-wrapper-stages .stages-con .select-qr .wrap h5.active {
   background-color: #e0201c;
   color: #fff;
   border: 1px solid #e0201c;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap p {
+.bottom-wrapper-stages .stages-con .select-qr .wrap p {
   margin: 0;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr .wrap p.active {
+.bottom-wrapper-stages .stages-con .select-qr .wrap p.active {
   color: #e0201c;
 }
-.qr-creator-main .bottom-wrapper .stages-con .select-qr svg {
+.bottom-wrapper-stages .stages-con .select-qr svg {
   font-size: 20px;
 }
 
@@ -1433,7 +1440,7 @@ footer .bottom p {
 }
 .qr-main-page .top .btn-wrapper {
 }
-.qr-main-page .top .btn-wrapper a{
+.qr-main-page .top .btn-wrapper a {
   text-decoration: none;
 }
 .qr-main-page .top .btn-wrapper button {
@@ -1450,11 +1457,73 @@ footer .bottom p {
   display: flex;
   justify-content: center;
   gap: 6px;
-  align-items: center ;
+  align-items: center;
   /* min-width: 188px; */
 }
 
 .qr-main-page .bottom {
   background-color: #f6fafe;
   padding: 1.5rem;
+}
+
+/*********************************** QRCREATORDETAIL CSS *********************************/
+.qr-editor-detail {
+  padding-inline: 100px;
+  /* height: 100vh; */
+  padding-top: 3rem;
+}
+.qr-editor-detail .top {
+}
+.qr-editor-detail .top h1 {
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.qr-editor-detail .bottom {
+}
+.qr-editor-detail .bottom .containerr {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.qr-editor-detail .bottom .containerr .left {
+  flex: 2;
+  background-color: #f6fafe;
+  padding: 40px;
+  border-radius: 10px;
+}
+.qr-editor-detail .bottom .containerr .right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+}
+.qr-editor-detail .bottom .containerr .right img {
+  width: 80%;
+  object-fit: contain;
+}
+.qr-editor-detail .bottom .containerr .left .cardd {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  background: #fcfcfc;
+  border-radius: 0.5rem;
+  margin-bottom: 30px;
+  padding: 28px 24px;
+}
+.qr-editor-detail .bottom .containerr .left .cardd p {
+  color: #262626;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+.qr-editor-detail .bottom .containerr .left .cardd input {
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import URL from "../../assets/images/url.svg";
 import vcard from "../../assets/images/icon-qr-vcard.svg";
 import business from "../../assets/images/icon-qr-business.svg";
@@ -13,9 +13,109 @@ import youtube from "../../assets/images/icon-qr-youtube.svg";
 import landing from "../../assets/images/icon-qr-website.svg";
 import event from "../../assets/images/icon-qr-event.svg";
 import { MdChevronRight } from "react-icons/md";
-import { Header } from "../../components";
+import { BottomWrapperStages, Header } from "../../components";
+import { useNavigate } from "react-router-dom";
 
 const QrCreator = () => {
+  const [selectedCard, setSelectedCard] = useState("url");
+  const qrCodesList = [
+    {
+      type: "url",
+      title: "URL",
+      description: "Link to a website of your choice",
+      imgSrc: URL,
+      rightImage: "/assets/images/phone-url.png",
+    },
+    {
+      type: "vcard",
+      title: "vCard",
+      description: "Create a virtual business card",
+      imgSrc: vcard,
+      rightImage: "/assets/images/phone-vcard.png",
+    },
+    {
+      type: "business",
+      title: "Business Page",
+      description: "Display your business information",
+      imgSrc: business,
+      rightImage: "/assets/images/phone-business.png",
+    },
+    {
+      type: "social",
+      title: "Social Media",
+      description: "Link to your social media channels",
+      imgSrc: social,
+      rightImage: "/assets/images/phone-social.png",
+    },
+    {
+      type: "apps",
+      title: "Apps",
+      description: "Redirect to biggest app stores",
+      imgSrc: apps,
+      rightImage: "/assets/images/phone-apps.png",
+    },
+    {
+      type: "video",
+      title: "Video",
+      description: "Share one or multiple videos",
+      imgSrc: video,
+      rightImage: "/assets/images/phone-video.png",
+    },
+    {
+      type: "pdf",
+      title: "PDF",
+      description: "Scan to display a PDF file",
+      imgSrc: pdf,
+      rightImage: "/assets/images/phone-pdf.png",
+    },
+    {
+      type: "links",
+      title: "Links",
+      description: "Create a list of useful links",
+      imgSrc: links,
+      rightImage: "/assets/images/phone-links.png",
+    },
+    {
+      type: "wifi",
+      title: "Wi-Fi",
+      description: "Connect to wireless network",
+      imgSrc: wifi,
+      rightImage: "/assets/images/phone-wifi.png",
+    },
+    {
+      type: "gallery",
+      title: "Images Gallery",
+      description: "Show a gallery of images",
+      imgSrc: gallery,
+      rightImage: "/assets/images/phone-image.png",
+    },
+    {
+      type: "youtube",
+      title: "YouTube",
+      description: "Take users to a YouTube video",
+      imgSrc: youtube,
+      rightImage: "/assets/images/phone-youtube.png",
+    },
+    {
+      type: "landing",
+      title: "Landing Page",
+      description: "Create your own website",
+      imgSrc: landing,
+      rightImage: "/assets/images/phone-website.png",
+    },
+    {
+      type: "event",
+      title: "Event",
+      description: "Share event info and invite guests",
+      imgSrc: event,
+      rightImage: "/assets/images/phone-event.png",
+    },
+  ];
+  const navigate = useNavigate();
+  const handleCardClick = (type) => {
+    setSelectedCard(type);
+    navigate(`/qr-editor/${type}`);
+  };
   return (
     <>
       <Header />
@@ -25,133 +125,47 @@ const QrCreator = () => {
             <div className="left">
               <h1 className="h1">1. Select the QR code you want to create:</h1>
               <div className="card-con">
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
+                {qrCodesList.map((qrCode) => (
+                  <div
+                    key={qrCode.type}
+                    className={`cardd ${
+                      selectedCard === qrCode.type ? "active" : ""
+                    }`}
+                    onClick={() => handleCardClick(qrCode.type)}
+                  >
+                    <div
+                      className={`img-con ${
+                        selectedCard === qrCode.type ? "active" : ""
+                      }`}
+                    >
+                      <img src={qrCode.imgSrc} alt={qrCode.type} />
+                    </div>
+                    <div className="wrap">
+                      <h2>{qrCode.title}</h2>
+                      <p>{qrCode.description}</p>
+                    </div>
                   </div>
-                  <div className="wrap">
-                    <h2>URL</h2>
-                    <p>Link to a website of your choice</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>vCard</h2>
-                    <p>Create a virtual business card</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Busness page</h2>
-                    <p>Display your business information</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Social Media</h2>
-                    <p>Link to your social media channels</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Apps</h2>
-                    <p>Redirect to biggest app stores</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Video</h2>
-                    <p>Share one or multiple videos</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>PDF</h2>
-                    <p>Scan to display a PDF file</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Links</h2>
-                    <p>Create a list of useful links</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Wi-Fi</h2>
-                    <p>connect to wireless network</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Images' Gallery</h2>
-                    <p>Show a gallery of images</p>
-                  </div>
-                </div>
-
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>YouTube</h2>
-                    <p>Take users to a YouTube video</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Landing Page</h2>
-                    <p>Create your own website</p>
-                  </div>
-                </div>
-                <div className="cardd">
-                  <div className="img-con">
-                    <img src={URL} alt="url" />
-                  </div>
-                  <div className="wrap">
-                    <h2>Event</h2>
-                    <p>Share a event info and invites guests</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="right">
-              <img src="/assets/images/phone-url.png" alt="phone-url" />
+              <img
+                src={
+                  qrCodesList.find((qrCode) => qrCode.type === selectedCard)
+                    .rightImage
+                }
+                alt={`phone-${selectedCard}`}
+              />
             </div>
           </div>
         </div>
 
-        <div className="bottom-wrapper">
+        <BottomWrapperStages
+          currentStage={1}
+          onCancelClick={() => {}}
+          onNextClick={() => {}}
+        />
+        {/* <div className="bottom-wrapper">
           <button className="cancel">Cancel</button>
           <div className="stages-con">
             <div className="select-qr">
@@ -179,7 +193,7 @@ const QrCreator = () => {
             <button className="next">Next</button>
             <MdChevronRight />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

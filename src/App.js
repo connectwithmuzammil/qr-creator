@@ -6,7 +6,8 @@ import "./assets/CSS/responsive.css";
 import { Route, Routes } from "react-router-dom";
 import {
   CookiePolicy, FaqPage, LandingPage, Pricing, PrivacyPolicy,
-  QrAnalytics, QrCreator, QrMainPage, TermOfUse, TermsCondition, UserDashboard, WhoWeAre
+  QrAnalytics, QrCreator, QRDesign, QRDetail, QrMainPage,
+  TermOfUse, TermsCondition, WhoWeAre
 } from "./screens";
 import { ContactUs, ScrollToTop } from "./components";
 
@@ -20,7 +21,11 @@ function App() {
         <Route path="/*" element={<LandingPage />} />
         {/* QR ROUTES */}
         <Route path="/qr-editor" element={<QrCreator />} />
+        <Route path="/qr-editor/:type" element={<QRDetail />} />
+        <Route path="/qr-editor/:type/design" element={<QRDesign />} />
+
         <Route path="/my-qr-analytics" element={<QrAnalytics />} />
+
 
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/terms-and-conditions" element={<TermsCondition />} />
