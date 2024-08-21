@@ -8,5 +8,10 @@ import WhoWeAre from "./WhoWeAre";
 import Pricing from "./Pricing";
 import UserDashboard from "./UserDashboard";
 import FaqPage from "./FaqPage";
+import QrAnalytics from "./QrCreator/QrAnalytics";
+import QrMainPage from "./QrCreator/QrMainPage";
 
-export { LandingPage, QrCreator, WhoWeAre, TermsCondition, TermOfUse, PrivacyPolicy, CookiePolicy, Pricing, UserDashboard, FaqPage }
+export {
+    LandingPage, QrCreator, WhoWeAre, TermsCondition, TermOfUse, PrivacyPolicy, CookiePolicy, Pricing,
+    UserDashboard, FaqPage, QrAnalytics, QrMainPage
+}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FAQ, Step } from "../components";
+import { Button, FAQ, Footer, Header, Step } from "../components";
 
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
@@ -447,6 +447,7 @@ const LandingPage = () => {
 
   return (
     <>
+      <Header />
       <div className="landingpage">
         <section className="sec-one">
           <div className="containerr">
@@ -675,7 +676,7 @@ const LandingPage = () => {
             <br />
             Here’s what you need to know
           </h1>
-          <FAQ tabs={tabs} faqData={faqData} tabColor={"#fff"}/>
+          <FAQ tabs={tabs} faqData={faqData} tabColor={"#fff"} />
           {/* <div className="tabs-con">
             <div className="btn-tabs-con">
               <p
@@ -739,6 +740,7 @@ const LandingPage = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 };

@@ -563,13 +563,13 @@ footer .bottom p {
   max-width: 800px;
   margin-inline: auto;
 }
- .tabs-con.faq .btn-tabs-con {
+.tabs-con.faq .btn-tabs-con {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
- .tabs-con.faq .btn-tabs-con p {
+.tabs-con.faq .btn-tabs-con p {
   color: #fff;
   padding: 6px 16px;
   border-radius: 6px;
@@ -578,28 +578,28 @@ footer .bottom p {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
 }
- .tabs-con.faq .btn-tabs-con p.active {
+.tabs-con.faq .btn-tabs-con p.active {
   background-color: #f27b79;
 }
- .tabs-con.faq .faq-con {
+.tabs-con.faq .faq-con {
 }
- .tabs-con.faq .faq-con ul {
+.tabs-con.faq .faq-con ul {
   padding: 0;
 }
- .tabs-con.faq .faq-con ul li::marker {
+.tabs-con.faq .faq-con ul li::marker {
   display: none;
   color: transparent;
 }
- .tabs-con.faq .faq-con .two ol li::marker {
+.tabs-con.faq .faq-con .two ol li::marker {
   color: #000;
 }
- .tabs-con.faq .faq-con .one {
+.tabs-con.faq .faq-con .one {
   background-color: #fff;
   border-radius: 12px;
   margin-bottom: 20px;
   padding: 1.5rem 1.75rem;
 }
- .tabs-con.faq .faq-con .one .wrap {
+.tabs-con.faq .faq-con .one .wrap {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -607,14 +607,14 @@ footer .bottom p {
   /* margin-bottom: 20px; */
   cursor: pointer;
 }
- .tabs-con.faq .faq-con .one .two {
+.tabs-con.faq .faq-con .one .two {
   margin-top: 20px;
   color: #262626;
   font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
- .tabs-con.faq .faq-con .one .wrap p {
+.tabs-con.faq .faq-con .one .wrap p {
   margin: 0;
   color: #262626;
   font-family: "Nunito Sans", sans-serif;
@@ -1128,7 +1128,7 @@ footer .bottom p {
 .userDashboard .content-page {
   margin-left: 278px;
   flex: 1;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   overflow-y: auto;
   /* width: calc(100% - 250px); */
 }
@@ -1257,4 +1257,204 @@ footer .bottom p {
 .faq .bottom {
   background-color: #f6fafe;
   padding: 40px;
+}
+
+/*********************************** QrAnalytics PAGE CSS *****************************************/
+.qrAnalytics {
+}
+.qrAnalytics .top {
+  padding: 2.5rem 1rem 1rem;
+}
+.qrAnalytics .top h1 {
+  font-size: 24px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+.qrAnalytics .bottom {
+  background-color: #f6fafe;
+  padding: 1.5rem;
+}
+
+.qrAnalytics .bottom .period-con {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 32px;
+}
+.qrAnalytics .bottom .period-con p {
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+.qrAnalytics
+  .bottom
+  .period-con
+  .css-hjf7j2-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: #fff;
+  outline: none;
+  /* border: 1px solid #bfbfbf; */
+  min-width: 320px;
+  height: 50px;
+}
+.qrAnalytics
+  .bottom
+  .period-con
+  .css-10o2lyd-MuiStack-root
+  > .MuiTextField-root {
+}
+.qrAnalytics
+  .bottom
+  .period-con
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0.85rem;
+}
+.qrAnalytics
+  .bottom
+  .period-con
+  .css-1xfd8nx-MuiFormLabel-root-MuiInputLabel-root {
+  color: #8c8c8c;
+  font-weight: 600;
+  font-size: 18px;
+}
+.qrAnalytics .bottom .period-con .css-10o2lyd-MuiStack-root {
+  /* padding: 0; */
+}
+.qrAnalytics .bottom .period-con .export-data {
+  border: none;
+  outline: none;
+  background: #e16a68;
+  padding: 0.7rem 1rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  align-self: flex-end;
+  height: 50px;
+  min-width: 188px;
+}
+
+.qrAnalytics .bottom .analytics-con {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.qrAnalytics .bottom .analytics-con .cardd {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  border-radius: 0.5rem;
+  background-color: #fcfcfc;
+  padding: 1.5rem;
+  flex: 1;
+}
+.qrAnalytics .bottom .analytics-con .cardd .wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.qrAnalytics .bottom .analytics-con .cardd .wrap img {
+}
+.qrAnalytics .bottom .analytics-con .cardd .wrap p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.qrAnalytics .bottom .analytics-con .cardd h3 {
+  font-size: 28px;
+  color: #212529;
+  margin: 0;
+  margin-left: 40px;
+  font-weight: bold;
+}
+.qrAnalytics .bottom .all-card-con {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+.qrAnalytics .bottom .all-card-con .cardd {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  border-radius: 0.5rem;
+  background-color: #fcfcfc;
+  padding: 1.5rem;
+  flex: 1;
+  height: 350px;
+}
+.qrAnalytics .bottom .all-card-con .cardd p {
+  font-size: 18px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+.qrAnalytics .bottom .all-card-con .cardd h4.stats-txt {
+  font-family: "Nunito Sans", sans-serif;
+  color: #403f3f;
+  font-size: 16px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.qrAnalytics .bottom .graph-con {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  border-radius: 0.5rem;
+  background-color: #fcfcfc;
+  padding: 1.5rem;
+  margin-bottom: 32px;
+}
+.qrAnalytics .bottom .graph-con p {
+  font-size: 18px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+
+/*********************************** QRMAIN PAGE CSS *****************************************/
+.qr-main-page {
+}
+.qr-main-page .top {
+  padding: 2.5rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.qr-main-page .top h1 {
+  font-size: 24px;
+  color: #000000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+.qr-main-page .top .btn-wrapper {
+}
+.qr-main-page .top .btn-wrapper a{
+  text-decoration: none;
+}
+.qr-main-page .top .btn-wrapper button {
+  border: none;
+  outline: none;
+  background: #e0201c;
+  padding: 0.7rem 1rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  align-items: center ;
+  /* min-width: 188px; */
+}
+
+.qr-main-page .bottom {
+  background-color: #f6fafe;
+  padding: 1.5rem;
 }

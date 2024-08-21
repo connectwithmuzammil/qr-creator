@@ -23,7 +23,7 @@ import {
   SidebarCompany,
   SidebarHelp,
   SidebarLogout,
-  SideBarQrCode,
+  SideBarQrCodeSVG,
 } from "./SVGIcon";
 
 const Sidebar = () => {
@@ -74,10 +74,12 @@ const Sidebar = () => {
               transition: "all 0.3s ease",
               margin: "0px 30px 0px 30px",
             }}
+            component={Link}
+            to="/my-qr-codes"
           >
             <ListItemIcon sx={{ minWidth: "40px" }}>
               {/* <HomeIcon /> */}
-              <SideBarQrCode />
+              <SideBarQrCodeSVG />
             </ListItemIcon>
             <ListItemText
               sx={{
@@ -91,7 +93,7 @@ const Sidebar = () => {
         <ListItem disablePadding>
           <ListItemButton
             component={Link}
-            to="/home"
+            to="/my-qr-analytics"
             sx={{
               "&:hover": {
                 opacity: 0.8,
@@ -126,6 +128,8 @@ const Sidebar = () => {
               transition: "all 0.3s ease",
               margin: "0px 30px 0px 30px",
             }}
+            component={Link}
+            to="/my-account"
           >
             <ListItemIcon sx={{ minWidth: "40px" }}>
               <SidebarAccount />
@@ -153,6 +157,8 @@ const Sidebar = () => {
               transition: "all 0.3s ease",
               margin: "0px 30px 0px 30px",
             }}
+            component={Link}
+            to="/my-billing"
           >
             <ListItemIcon sx={{ minWidth: "40px" }}>
               <SidebarBilling />
