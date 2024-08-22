@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-import {
-  Button,
-  DatePickerInput,
-  LineChartComp,
-  Sidebar,
-} from "../../components";
+import { DatePickerInput, LineChartComp, Sidebar } from "../../components";
 
 const QrAnalytics = () => {
   return (

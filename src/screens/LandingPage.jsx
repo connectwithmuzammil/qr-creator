@@ -23,8 +23,6 @@ import event from "../assets/images/icon-qr-event.svg";
 
 const LandingPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState("basicInfo");
-  const [activeFaq, setActiveFaq] = useState(null);
 
   const stepsData = [
     {

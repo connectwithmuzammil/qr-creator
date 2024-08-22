@@ -5,7 +5,7 @@ import "./assets/CSS/responsive.css";
 
 import { Route, Routes } from "react-router-dom";
 import {
-  CookiePolicy, FaqPage, LandingPage, Pricing, PrivacyPolicy,
+  CookiePolicy, FaqPage, LandingPage, MyAccount, MyBilling, Pricing, PrivacyPolicy,
   QrAnalytics, QrCreator, QRDesign, QRDetail, QrMainPage,
   TermOfUse, TermsCondition, WhoWeAre
 } from "./screens";
@@ -23,8 +23,9 @@ function App() {
         <Route path="/qr-editor" element={<QrCreator />} />
         <Route path="/qr-editor/:type" element={<QRDetail />} />
         <Route path="/qr-editor/:type/design" element={<QRDesign />} />
-
         <Route path="/my-qr-analytics" element={<QrAnalytics />} />
+        <Route path="/my-account" element={<MyAccount />} />
+        <Route path="/my-billing" element={<MyBilling />} />
 
 
         <Route path="/who-we-are" element={<WhoWeAre />} />

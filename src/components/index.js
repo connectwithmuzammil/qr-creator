@@ -11,8 +11,9 @@ import FAQ from "./FAQ";
 import DatePickerInput from "./DatePicker";
 import LineChartComp from "./LineChart";
 import BottomWrapperStages from "./QrBottomStages";
+import Forgot from "./Modal/Auth/Forgot";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
-    ContactUs, FAQ, DatePickerInput, LineChartComp, BottomWrapperStages
+    ContactUs, FAQ, DatePickerInput, LineChartComp, BottomWrapperStages, Forgot
 };

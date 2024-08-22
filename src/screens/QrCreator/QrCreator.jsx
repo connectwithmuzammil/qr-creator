@@ -12,7 +12,6 @@ import gallery from "../../assets/images/icon-qr-image.svg";
 import youtube from "../../assets/images/icon-qr-youtube.svg";
 import landing from "../../assets/images/icon-qr-website.svg";
 import event from "../../assets/images/icon-qr-event.svg";
-import { MdChevronRight } from "react-icons/md";
 import { BottomWrapperStages, Header } from "../../components";
 import { useNavigate } from "react-router-dom";
 

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo.svg";
-import { Login, SignUp } from "../components";
+import { Forgot, Login, SignUp } from "../components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
-  const [User, setUser] = useState(true);
+  const [User, setUser] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ const Header = () => {
 
   const switchToSignUp = () => {
     setModalType("signup");
+  };
+  const switchToForgot = () => {
+    setModalType("forgot");
   };
   return (
     <>
@@ -57,16 +61,25 @@ const Header = () => {
 
         {showModal && (
           <div className="modal">
-            {modalType === "login" ? (
+            {modalType === "login" && (
               <Login
                 showLogin={modalType === "login"}
                 setShowLogin={setShowModal}
                 onSwitchToSignUp={switchToSignUp}
+                onSwitchToForgot={switchToForgot}
               />
-            ) : (
+            )}
+            {modalType === "signup" && (
               <SignUp
                 showSignUp={modalType === "signup"}
                 setShowSignUp={setShowModal}
+                onSwitchToLogin={switchToLogin}
+              />
+            )}
+            {modalType === "forgot" && (
+              <Forgot
+                showForgot={modalType === "forgot"}
+                setShowForgot={setShowModal}
                 onSwitchToLogin={switchToLogin}
               />
             )}

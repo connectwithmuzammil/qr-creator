@@ -7,6 +7,10 @@
   max-width: 435px;
   margin-inline: auto;
 }
+.loginModal.forgot .modal-lg {
+  max-width: 350px;
+  margin-inline: auto;
+}
 .loginModal .modal-header {
   border: none;
 }

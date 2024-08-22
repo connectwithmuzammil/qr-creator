@@ -12,8 +12,10 @@ import QrAnalytics from "./QrCreator/QrAnalytics";
 import QrMainPage from "./QrCreator/QrMainPage";
 import QRDetail from "./QrCreator/QRDetail";
 import QRDesign from "./QrCreator/QRDesign";
+import MyAccount from "./QrCreator/MyAccount";
+import MyBilling from "./QrCreator/MyBilling";
 
 export {
     LandingPage, QrCreator, WhoWeAre, TermsCondition, TermOfUse, PrivacyPolicy, CookiePolicy, Pricing,
-    UserDashboard, FaqPage, QrAnalytics, QrMainPage, QRDetail, QRDesign
+    UserDashboard, FaqPage, QrAnalytics, QrMainPage, QRDetail, QRDesign, MyAccount, MyBilling
 }

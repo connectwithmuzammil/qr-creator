@@ -2,6 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap");
 
+.error {
+  font-family: "poppins", sans-serif;
+  font-size: 15px;
+  color: red;
+  margin-top: 4px;
+}
 
 * {
   margin: 0;
