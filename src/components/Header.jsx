@@ -5,13 +5,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import apis from "../services";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/slice/userSlice";
 
 const Header = () => {
+  const { user } = useSelector((store) => store.user);
+  // console.log("user", user?.user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
-  const [User, setUser] = useState(false);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const openModal = (type) => {
     setModalType(type);
@@ -34,13 +37,12 @@ const Header = () => {
   };
 
   //SIGN API CALL
-
   const { mutate: mutateSignup, isPending } = useMutation({
     mutationFn: apis.signup,
     onError: function (error) {
       const errorMessage =
         error.response?.data?.email?.[0] || "An error occurred";
-      console.log("error", error);
+      // console.log("error", error);
       toast.error(errorMessage);
     },
     onSuccess: ({ data: signupSucess, status }) => {
@@ -48,10 +50,29 @@ const Header = () => {
       if (signupSucess?.success) {
         toast.success(signupSucess?.message);
         setModalType("login");
-        // setShowModal(true);
+        setShowModal(true);
       }
     },
   });
+
+  //LOGIN API CALL
+  const { mutate: mutateLogin, isPending: isloadingLogin } = useMutation({
+    mutationFn: apis.login,
+    onError: function (error) {
+      // console.log("error", error);
+      toast.error(error?.message);
+    },
+    onSuccess: ({ data: loginSucess, status }) => {
+      console.log("loginSucessfully!!:", loginSucess);
+      if (loginSucess?.success) {
+        toast.success(loginSucess?.message);
+        setShowModal(false);
+        dispatch(setUser(loginSucess?.data));
+        localStorage.setItem("token", loginSucess?.token);
+      }
+    },
+  });
+
   return (
     <>
       {/* {location.pathname !== "/my-qr-codes" && ( */}
@@ -61,7 +82,7 @@ const Header = () => {
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
         <div className="auth-con">
-          {User ? (
+          {user?.user ? (
             <button
               onClick={() => navigate("/my-qr-codes")}
               className="my-account-btn"
@@ -89,6 +110,8 @@ const Header = () => {
                 setShowLogin={setShowModal}
                 onSwitchToSignUp={switchToSignUp}
                 onSwitchToForgot={switchToForgot}
+                mutateLogin={mutateLogin}
+                isPending={isloadingLogin}
               />
             )}
             {modalType === "signup" && (

@@ -17,7 +17,7 @@ const SignUp = ({
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (values, actions) => {
-    console.log("values", values);
+    // console.log("values", values);
     if (values) {
       mutateSignup(values, {
         onSuccess: () => {

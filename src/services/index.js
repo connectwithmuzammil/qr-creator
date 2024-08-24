@@ -28,7 +28,7 @@ const createBackendServer = (baseURL) => {
       if (error?.response?.data?.errors)
         error.errors = error?.response?.data?.errors;
       if (error?.response?.status === 401) {
-        window.location.href = "/logout";
+        // window.location.href = "/logout";
       }
 
       return Promise.reject(error);
@@ -104,12 +104,15 @@ const createBackendServer = (baseURL) => {
 
   /*========== POST REQUESTS  ==========*/
   const signup = (body) => api.post("signup", body);
+  const login = (body) => api.post("login", body);
+  const logout = (body) => api.post("logout", body);
 
 
   //Returning all the API
   return {
-    signup
-
+    signup,
+    login,
+    logout
   };
 };
 

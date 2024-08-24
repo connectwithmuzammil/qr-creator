@@ -11,11 +11,20 @@ const Login = ({
   setShowLogin,
   onSwitchToSignUp,
   onSwitchToForgot,
+  mutateLogin,
+  isPending,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLoginSubmit = (values) => {
-    console.log("Login values:", values);
+  const handleLoginSubmit = (values, actions) => {
+    // console.log("Login values:", values);
+    if (values) {
+      mutateLogin(values, {
+        onSuccess: () => {
+          actions.resetForm();
+        },
+      });
+    }
   };
   return (
     <Formik
@@ -33,8 +42,8 @@ const Login = ({
           centered
           size="lg"
           className="loginModal"
-          // backdrop="static"
-          // keyboard={false}
+          backdrop="static"
+          keyboard={false}
         >
           <Modal.Header closeButton>
             <Modal.Title>Welcome back!</Modal.Title>
@@ -80,7 +89,9 @@ const Login = ({
                 </p>
               </div>
               <div className="btn-wrapper">
-                <button type="submit">Log In</button>
+                <button type="submit" disabled={isPending}>
+                  {isPending ? "Loading..." : "Log In"}
+                </button>
               </div>
               <div className="line-container">
                 <hr className="line" />

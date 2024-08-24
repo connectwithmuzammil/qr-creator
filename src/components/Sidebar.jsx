@@ -8,7 +8,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
@@ -25,12 +25,19 @@ import {
   SidebarLogout,
   SideBarQrCodeSVG,
 } from "./SVGIcon";
+import apis from "../services";
+import { logout } from "../redux/slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.user);
+  console.log("user", user?.user);
   const [state, setState] = React.useState({
     left: false,
   });
-
   const [openCompany, setOpenCompany] = React.useState(false);
   const [openHelp, setOpenHelp] = React.useState(false);
   const handleCompanyClick = () => {
@@ -49,6 +56,18 @@ const Sidebar = () => {
       return;
     }
     setState({ ...state, [anchor]: open });
+  };
+
+  //LOGOUT API
+  const logoutHandler = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      await apis.logout(token);
+      toast.success("Logout Successfully");
+      localStorage.removeItem("token");
+      dispatch(logout());
+      navigate("/");
+    }
   };
 
   const list = (anchor) => (
@@ -321,6 +340,7 @@ const Sidebar = () => {
               }}
               primary={"Log Out"}
               className=""
+              onClick={logoutHandler}
             />
           </ListItemButton>
         </ListItem>
