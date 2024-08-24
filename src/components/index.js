@@ -12,8 +12,15 @@ import DatePickerInput from "./DatePicker";
 import LineChartComp from "./LineChart";
 import BottomWrapperStages from "./QrBottomStages";
 import Forgot from "./Modal/Auth/Forgot";
+import EditContactInfo from "./Modal/Account/EditContactInfo";
+import UpdateEmail from "./Modal/Account/UpdateEmail";
+import ResetPassword from "./Modal/Auth/ResetPassword";
+import ChangePassword from "./Modal/Auth/ChangePassword";
+import URL from "./QRDetailPages.jsx/URL";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
-    ContactUs, FAQ, DatePickerInput, LineChartComp, BottomWrapperStages, Forgot
+    ContactUs, FAQ, DatePickerInput, LineChartComp,
+    BottomWrapperStages, Forgot, EditContactInfo,
+    UpdateEmail, ResetPassword, ChangePassword, URL
 };

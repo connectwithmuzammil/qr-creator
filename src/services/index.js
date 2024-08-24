@@ -49,7 +49,6 @@ const createBackendServer = (baseURL) => {
   const authLogout = async (body) => api.post("logout", body);
 
   const authVerify = async (body) => api.post("ecomuser/otp-verify", body);
-  const authRegister = (body) => api.post("ecomuser/register", body);
   const authResend = (body) => api.post("ecomuser/resend-otp", body);
   const authForget = async (body) =>
     api.post("ecomuser/sendPasswordResetLinkEmailEcom", body);
@@ -100,29 +99,16 @@ const createBackendServer = (baseURL) => {
 
   const getOrderDetails = (id) => api.get(`/getSalesApp/${id}`);
 
+
+  // ---------------------------------------------------------------------------------------
+
+  /*========== POST REQUESTS  ==========*/
+  const signup = (body) => api.post("signup", body);
+
+
   //Returning all the API
   return {
-    getStoreSlot,
-    getStoreDetails,
-    authLogin,
-    authVerify,
-    authRegister,
-    authRegisterReferral,
-    authForget,
-    getProfile,
-    getStoreSlotwithoutStaff,
-    addFavorite,
-    updateUser,
-    authResend,
-    authResetPassword,
-    getAllProductWithCategory,
-    getProductDetails,
-    authLogout,
-    authChangePassword,
-    updateProfile,
-    removeProductFromCart,
-    authResendForgot,
-    getOrderDetails,
+    signup
 
   };
 };

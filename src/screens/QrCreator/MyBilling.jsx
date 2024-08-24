@@ -17,7 +17,7 @@ const MyBilling = () => {
               <h1>
                 Choose a plan and track all your payment info in one place
               </h1>
-              <Button title={"Browse plans"} Redirect={"/pricing"} />
+              <Button title={"Browse plans"} redirect={"/pricing"} />
             </div>
           </div>
         </div>

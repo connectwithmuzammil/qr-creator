@@ -7,28 +7,24 @@ import { signUpSchema } from "../../../Helper/ValidationSchema.js";
 
 import "../modal.css";
 import apis from "../../../services";
-const SignUp = ({ showSignUp, setShowSignUp, onSwitchToLogin }) => {
+const SignUp = ({
+  showSignUp,
+  setShowSignUp,
+  onSwitchToLogin,
+  mutateSignup,
+  isPending,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  // useEffect(() => {
-  //   const handleSubmit = async (e) => {
-  //     try {
-  //       const body = {
-  //         username: "testuser",
-  //         email: "testuser@example.com",
-  //         password: "testpassword",
-  //       };
-  //       const response = await apis.authRegister(body);
-  //       console.log("API Response:", response.data);
-  //     } catch (error) {
-  //       console.error("API Error:", error.response?.data || error.message); // Log the error if any
-  //     }
-  //   };
-  //   handleSubmit();
-  // }, []);
-
-  const handleSubmit = (values) => {
-    // console.log("values", values);
+  const handleSubmit = (values, actions) => {
+    console.log("values", values);
+    if (values) {
+      mutateSignup(values, {
+        onSuccess: () => {
+          actions.resetForm();
+        },
+      });
+    }
   };
 
   return (
@@ -47,8 +43,8 @@ const SignUp = ({ showSignUp, setShowSignUp, onSwitchToLogin }) => {
           centered
           size="lg"
           className="loginModal"
-          // backdrop="static"
-          // keyboard={false}
+          backdrop="static"
+          keyboard={false}
         >
           <Modal.Header closeButton>
             <Modal.Title>Create account</Modal.Title>
@@ -90,7 +86,9 @@ const SignUp = ({ showSignUp, setShowSignUp, onSwitchToLogin }) => {
               </div>
 
               <div className="btn-wrapper">
-                <button type="submit">Create Account</button>
+                <button type="submit" disabled={isPending}>
+                  {isPending ? "Loading..." : "Create Account"}
+                </button>
               </div>
               <div className="line-container">
                 <hr className="line" />

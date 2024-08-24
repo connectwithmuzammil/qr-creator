@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import logo from "../assets/images/logo.svg";
 import { Forgot, Login, SignUp } from "../components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import apis from "../services";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
-  const [User, setUser] = useState(true);
+  const [User, setUser] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const openModal = (type) => {
@@ -30,6 +32,26 @@ const Header = () => {
   const switchToForgot = () => {
     setModalType("forgot");
   };
+
+  //SIGN API CALL
+
+  const { mutate: mutateSignup, isPending } = useMutation({
+    mutationFn: apis.signup,
+    onError: function (error) {
+      const errorMessage =
+        error.response?.data?.email?.[0] || "An error occurred";
+      console.log("error", error);
+      toast.error(errorMessage);
+    },
+    onSuccess: ({ data: signupSucess, status }) => {
+      // console.log("signupSucessfully!!:", signupSucess);
+      if (signupSucess?.success) {
+        toast.success(signupSucess?.message);
+        setModalType("login");
+        // setShowModal(true);
+      }
+    },
+  });
   return (
     <>
       {/* {location.pathname !== "/my-qr-codes" && ( */}
@@ -74,6 +96,8 @@ const Header = () => {
                 showSignUp={modalType === "signup"}
                 setShowSignUp={setShowModal}
                 onSwitchToLogin={switchToLogin}
+                mutateSignup={mutateSignup}
+                isPending={isPending}
               />
             )}
             {modalType === "forgot" && (

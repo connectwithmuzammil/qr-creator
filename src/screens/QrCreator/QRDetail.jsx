@@ -1,19 +1,50 @@
-import React from "react";
-import Accordion from "react-bootstrap/Accordion";
-import { BottomWrapperStages, Header } from "../../components";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { BottomWrapperStages, Header, URL } from "../../components";
+import { useNavigate, useParams } from "react-router-dom";
 
 const QRDetail = () => {
+  const initialState = {
+    type: "url",
+    content: {
+      qrName: "qr-code",
+      fieldUrl: "https://www.qrcreator.com/qr-editor/url",
+    },
+    style: {
+      backgroundColor: "#FFFFFF",
+      dotsStyle: "square",
+      dotsColor: "#000000",
+      cornerStyle: "rounded-dot",
+    },
+  };
+  const [qrData, setQrData] = useState(initialState);
+  console.log("qrDataqrData",qrData)
+  const navigate = useNavigate();
   const { type } = useParams();
   // console.log("QR-TYPE", type);
 
   const handleNextClick = () => {
-    // Logic to navigate to the next page (e.g., Customize design page)
+    navigate(`/qr-editor/${type}/design`);
   };
 
   const handleCancelClick = () => {
-    // Logic for canceling the process
+    navigate(`/qr-editor`);
   };
+
+  const renderDetailContent = () => {
+    switch (type) {
+      case "url":
+        return (
+          <>
+            <URL />
+          </>
+        );
+      case "vcard":
+        return <div>Virtual Card Form</div>;
+      default:
+        return <div>No Form Available</div>;
+    }
+  };
+
   return (
     <>
       <Header />
@@ -21,50 +52,14 @@ const QRDetail = () => {
         <div className="top">
           <h1>2. Your QR code content</h1>
         </div>
-        <div className="bottom">
-          <div className="containerr">
-            <div className="left">
-              <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>
-                    Enter the name of your QR code
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <input
-                      type="text"
-                      name=""
-                      id=""
-                      placeholder="e.g My QR code"
-                    />
-                  </Accordion.Body>
-                </Accordion.Item>
-
-                <Accordion.Item eventKey="1">
-                  <Accordion.Header>
-                    Type in the URL to link with your QR Code *
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <input
-                      type="url"
-                      name=""
-                      id=""
-                      placeholder="https://surfershops.com/sale"
-                    />
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </div>
-            <div className="right">
-              <img src="/assets/images/phone-url.png" alt="" />
-            </div>
-          </div>
-        </div>
+        {renderDetailContent()}
       </div>
 
       <BottomWrapperStages
         currentStage={2}
         onNextClick={handleNextClick}
         onCancelClick={handleCancelClick}
+        showNextButton={true}
       />
     </>
   );

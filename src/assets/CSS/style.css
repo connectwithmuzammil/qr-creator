@@ -689,8 +689,11 @@ footer .bottom p {
   padding: 8px;
   border-radius: 30px;
 }
+.qr-creator-main .page1 .containerr .left .card-con .cardd.active{
+  border: 1px solid #e0201c;
+}
 .qr-creator-main .page1 .containerr .left .card-con .cardd .img-con.active {
-  background-color: #a3ccf5;
+  background-color: #ed7171;
 }
 .qr-creator-main .page1 .containerr .left .card-con .cardd .img-con img {
   width: 25px;
@@ -721,7 +724,9 @@ footer .bottom p {
   width: 100%;
 }
 .bottom-wrapper-stages {
-  position: sticky;
+  /* position: sticky; */
+  position: fixed;
+  width: 100%;
   bottom: 0;
   z-index: 1;
   padding: 12px 80px;
@@ -1484,37 +1489,37 @@ footer .bottom p {
   font-weight: 700;
   margin-bottom: 20px;
 }
-.qr-editor-detail .bottom {
+.qr-editor-detail .url {
 }
-.qr-editor-detail .bottom .containerr {
+.qr-editor-detail .url .containerr {
   display: flex;
   justify-content: space-between;
   gap: 30px;
 }
-.qr-editor-detail .bottom .containerr .left {
+.qr-editor-detail .url .containerr .left {
   flex: 2;
   background-color: #f6fafe;
   padding: 40px;
   border-radius: 10px;
 }
-.qr-editor-detail .bottom .containerr .right {
+.qr-editor-detail .url .containerr .right {
   flex: 1;
   display: flex;
   justify-content: center;
 }
-.qr-editor-detail .bottom .containerr .right img {
+.qr-editor-detail .url .containerr .right img {
   width: 80%;
   object-fit: contain;
 }
 
-.qr-editor-detail .bottom .containerr .left .accordion-item {
+.qr-editor-detail .url .containerr .left .accordion-item {
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
   background: #fcfcfc;
   border-radius: 0.5rem;
   margin-bottom: 12px;
   padding: 12px 12px;
 }
-.qr-editor-detail .bottom .containerr .left .accordion-button {
+.qr-editor-detail .url .containerr .left .accordion-button {
   background-color: transparent;
   box-shadow: none;
   color: #262626;
@@ -1522,10 +1527,10 @@ footer .bottom p {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 700;
 }
-.qr-editor-detail .bottom .containerr .left .accordion-body {
+.qr-editor-detail .url .containerr .left .accordion-body {
   /* padding: 5px 1.25rem; */
 }
-.qr-editor-detail .bottom .containerr .left .accordion-body input {
+.qr-editor-detail .url .containerr .left .accordion-body input {
   outline: none;
   display: block;
   width: 100%;

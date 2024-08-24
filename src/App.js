@@ -2,6 +2,9 @@ import { useState } from "react";
 // CSS IMPORT
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
+import 'react-toastify/dist/ReactToastify.css';
+
+import { toast } from 'react-toastify';
 
 import { Route, Routes } from "react-router-dom";
 import {
@@ -38,6 +41,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
       </Routes>
+
       <ScrollToTop />
     </>
   );

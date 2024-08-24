@@ -16,7 +16,7 @@ import { BottomWrapperStages, Header } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 const QrCreator = () => {
-  const [selectedCard, setSelectedCard] = useState("url");
+  const [selectedCard, setSelectedCard] = useState(null);
   const qrCodesList = [
     {
       type: "url",
@@ -113,7 +113,16 @@ const QrCreator = () => {
   const navigate = useNavigate();
   const handleCardClick = (type) => {
     setSelectedCard(type);
-    navigate(`/qr-editor/${type}`);
+    // navigate(`/qr-editor/${type}`);
+  };
+  const handleNextClick = () => {
+    if (selectedCard) {
+      navigate(`/qr-editor/${selectedCard}`);
+    }
+  };
+  const handleCancelClick = () => {
+    setSelectedCard(null);
+    navigate(`/my-qr-codes`);
   };
   return (
     <>
@@ -124,7 +133,7 @@ const QrCreator = () => {
             <div className="left">
               <h1 className="h1">1. Select the QR code you want to create:</h1>
               <div className="card-con">
-                {qrCodesList.map((qrCode) => (
+                {qrCodesList?.map((qrCode) => (
                   <div
                     key={qrCode.type}
                     className={`cardd ${
@@ -148,21 +157,30 @@ const QrCreator = () => {
               </div>
             </div>
             <div className="right">
-              <img
-                src={
-                  qrCodesList.find((qrCode) => qrCode.type === selectedCard)
-                    .rightImage
-                }
-                alt={`phone-${selectedCard}`}
-              />
+              {selectedCard && (
+                <img
+                  src={
+                    qrCodesList.find((qrCode) => qrCode.type === selectedCard)
+                      .rightImage
+                  }
+                  alt={`phone-${selectedCard}`}
+                />
+              )}
+              {!selectedCard && (
+                <img
+                  src="/assets/images/phone-example-default.png"
+                  alt="phone-example-default"
+                />
+              )}
             </div>
           </div>
         </div>
 
         <BottomWrapperStages
           currentStage={1}
-          onCancelClick={() => {}}
-          onNextClick={() => {}}
+          onNextClick={handleNextClick}
+          onCancelClick={handleCancelClick}
+          showNextButton={Boolean(selectedCard)}
         />
         {/* <div className="bottom-wrapper">
           <button className="cancel">Cancel</button>

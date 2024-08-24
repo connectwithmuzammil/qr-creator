@@ -456,7 +456,7 @@ const LandingPage = () => {
                   <span> Fast, easy, and customizable!</span>
                 </h1>
                 <p>It’s simple to make, manage, and track your own QR codes.</p>
-                <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
+                <Button title={"Generate QR Code"} redirect={"/qr-editor"} />
               </div>
             </div>
             <div className="right">
@@ -486,7 +486,7 @@ const LandingPage = () => {
             ))}
           </div>
           <div className="btn-wrapper">
-            <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
+            <Button title={"Generate QR Code"} redirect={"/qr-editor"} />
           </div>
         </section>
         <section className="sec-four">
@@ -507,7 +507,7 @@ const LandingPage = () => {
                   been easier!
                 </p>
                 <div className="btn-wrapper">
-                  <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
+                  <Button title={"Generate QR Code"} redirect={"/qr-editor"} />
                 </div>
               </div>
             </div>
@@ -553,7 +553,7 @@ const LandingPage = () => {
                     <p>{buttons[activeIndex].description}</p>
                     <Button
                       title={"Generate QR CODE"}
-                      Redirect={"/qr-editor"}
+                      redirect={"/qr-editor"}
                     />
                   </div>
                 </div>
@@ -573,7 +573,7 @@ const LandingPage = () => {
                   With a wide range of designs and features to choose from, you
                   can easily create QR codes that work for you.
                 </p>
-                <Button title={"Generate QR Code"} Redirect={"/qr-editor"} />
+                <Button title={"Generate QR Code"} redirect={"/qr-editor"} />
               </div>
             </div>
             <div className="right">

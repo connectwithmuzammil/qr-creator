@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { Provider } from 'react-redux';
 import store from "./redux/Store"
+import { ToastContainer } from 'react-toastify';
 
 const theme = createTheme({
   typography: {
@@ -35,6 +36,7 @@ root.render(
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <App />
+            <ToastContainer />
           </BrowserRouter>
         </ThemeProvider>,
       </PersistGate>
