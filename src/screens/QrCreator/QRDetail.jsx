@@ -17,7 +17,7 @@ const QRDetail = () => {
     },
   };
   const [qrData, setQrData] = useState(initialState);
-  console.log("qrDataqrData",qrData)
+  // console.log("qrDataqrData",qrData)
   const navigate = useNavigate();
   const { type } = useParams();
   // console.log("QR-TYPE", type);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const createBackendServer = (baseURL) => {
-  console.log("BASEURL", baseURL);
+  // console.log("BASEURL", baseURL);
   const api = axios.create({
     baseURL: `${baseURL}`,
     withCredentials: false,

@@ -689,7 +689,7 @@ footer .bottom p {
   padding: 8px;
   border-radius: 30px;
 }
-.qr-creator-main .page1 .containerr .left .card-con .cardd.active{
+.qr-creator-main .page1 .containerr .left .card-con .cardd.active {
   border: 1px solid #e0201c;
 }
 .qr-creator-main .page1 .containerr .left .card-con .cardd .img-con.active {
@@ -1702,4 +1702,214 @@ footer .bottom p {
   color: #000000;
   font-weight: 800;
   text-align: center;
+}
+
+/*********************************** QR DESIGN PAGE CSS ************************************/
+.qr-design {
+  padding-inline: 100px;
+  padding-top: 3rem;
+}
+.qr-design .top {
+  margin-bottom: 20px;
+}
+.qr-design .top h1 {
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.qr-design .containerr {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.qr-design .containerr .left {
+  flex: 2;
+}
+.qr-design .containerr .right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.qr-design .bottom {
+}
+.qr-design .bottom .one {
+  padding: 1.75rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  border-radius: 8px;
+}
+.qr-design .bottom .one h1 {
+  color: #262626;
+  font-weight: 700;
+  text-align: left;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  margin-bottom: 16px;
+}
+.qr-design .bottom .one .card-con {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+.qr-design .bottom .one .card-con .cardd {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #bfbfbf;
+  height: 108px;
+}
+.qr-design .bottom .one .card-con .cardd.active {
+  border: 2px solid #e0201c;
+}
+.qr-design .bottom .one .card-con .cardd .wrap {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; */
+}
+.qr-design .bottom .one .card-con .cardd span {
+  width: 20px;
+  height: 18px;
+  border-radius: 20px;
+  border: 1px solid #bfbfbf;
+}
+.qr-design .bottom .one .card-con .cardd.active span {
+  border: 5px solid #e0201c;
+}
+.qr-design .bottom .one .card-con .cardd .wrap h3 {
+  color: #000000;
+  text-align: left;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+.qr-design .bottom .one .card-con .cardd .wrap p {
+  color: #000000;
+  text-align: left;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+}
+.qr-design .containerr .right img {
+  width: 80%;
+  object-fit: contain;
+}
+
+.qr-design .two {
+}
+.qr-design .two .accordion .accordion-item {
+  border: none;
+}
+.qr-design .two .accordion {
+  background-color: #fcfcfc;
+  border-radius: 8px;
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+}
+.qr-design .two .accordion-header .accordion-button {
+  background-color: #fff;
+  box-shadow: none;
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+}
+.qr-design .two {
+  margin-bottom: 100px;
+}
+.qr-design .two .qr-frames-con {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.qr-design .two .qr-frames-con .img-con {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #bfbfbf;
+  cursor: pointer;
+  flex-basis: calc(100% / 6 - 12px);
+  box-sizing: border-box;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.qr-design .two .qr-frames-con .img-con svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.qr-design .two .qr-frames-con .img-con.active {
+  border: 2px solid #e0201c;
+}
+.qr-design .two .bottom{
+  background-color: #f6fafe;
+  padding: 1rem ;
+  border-radius: 8px;
+}
+.qr-design .two .bottom .top-con{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.qr-design .two .bottom .color-picker-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.qr-design .two .bottom .color-box {
+  width: 38px;
+  height: 34px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: end;
+  margin-bottom: 8px;
+}
+
+.qr-design .two .bottom .color-picker-popup {
+  position: absolute;
+  bottom: 40px; 
+  z-index: 10;
+  /* background: white;
+  padding: 10px; */
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-design .two .bottom .color-picker-wrapper .wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+.qr-design .two .bottom .color-picker-wrapper .wrap label{
+  color: #262626;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+}
+.qr-design .two .bottom .color-picker-wrapper .wrap input{
+  display: block;
+  width: 100%;
+  padding: .75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: .25rem;
+  font-size: 14px;
+  transition: border .2s ease-in-out;
 }
