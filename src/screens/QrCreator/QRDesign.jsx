@@ -158,7 +158,11 @@ const QRDesign = () => {
             </div>
           </div>
           <div className="right">
-            <img src="/assets/images/phone-url.png" alt="" />
+            {/* <img src="/assets/images/phone-url.png" alt="" /> */}
+            <div className="img-con">
+              <img src="/assets/images/phone-frame.jpeg" alt="" />
+              <img src="/assets/images/qr-code.png" alt="" />
+            </div>
           </div>
         </div>
       </div>

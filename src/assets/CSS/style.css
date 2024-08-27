@@ -763,6 +763,7 @@ footer .bottom p {
   cursor: pointer;
   min-width: 180px;
   position: relative;
+  height: 50px;
 }
 .bottom-wrapper-stages .btn-next {
   position: relative;
@@ -1796,11 +1797,24 @@ footer .bottom p {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 500;
 }
-.qr-design .containerr .right img {
+.qr-design .containerr .right {
+}
+.qr-design .containerr .right .img-con {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+.qr-design .containerr .right .img-con img:nth-child(1) {
   width: 80%;
   object-fit: contain;
+  position: relative;
 }
-
+.qr-design .containerr .right .img-con img:nth-child(2) {
+  position: absolute;
+  width: 215px;
+}
 .qr-design .two {
 }
 .qr-design .two .accordion .accordion-item {
@@ -1853,12 +1867,12 @@ footer .bottom p {
 .qr-design .two .qr-frames-con .img-con.active {
   border: 2px solid #e0201c;
 }
-.qr-design .two .bottom{
+.qr-design .two .bottom {
   background-color: #f6fafe;
-  padding: 1rem ;
+  padding: 1rem;
   border-radius: 8px;
 }
-.qr-design .two .bottom .top-con{
+.qr-design .two .bottom .top-con {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1884,7 +1898,8 @@ footer .bottom p {
 
 .qr-design .two .bottom .color-picker-popup {
   position: absolute;
-  bottom: 40px; 
+  bottom: 70px;
+  right: 0;
   z-index: 10;
   /* background: white;
   padding: 10px; */
@@ -1892,24 +1907,24 @@ footer .bottom p {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.qr-design .two .bottom .color-picker-wrapper .wrap{
+.qr-design .two .bottom .color-picker-wrapper .wrap {
   display: flex;
   flex-direction: column;
   gap: 0px;
   width: 100%;
 }
-.qr-design .two .bottom .color-picker-wrapper .wrap label{
+.qr-design .two .bottom .color-picker-wrapper .wrap label {
   color: #262626;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
   font-weight: 500;
 }
-.qr-design .two .bottom .color-picker-wrapper .wrap input{
+.qr-design .two .bottom .color-picker-wrapper .wrap input {
   display: block;
   width: 100%;
-  padding: .75rem;
+  padding: 0.75rem;
   border: 1px solid #bfbfbf;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   font-size: 14px;
-  transition: border .2s ease-in-out;
+  transition: border 0.2s ease-in-out;
 }
