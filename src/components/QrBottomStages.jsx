@@ -21,9 +21,9 @@ function BottomWrapperStages({
     { step: 3, label: "Customize design" },
   ];
 
-  // const payload = typeof getPayload === "function" ? getPayload() : {};
+  const payload = typeof getPayload === "function" ? getPayload() : {};
 
-  // console.log("payloadBefore", getPayload);
+  console.log("PayloadData", payload);
 
   const isLastStage = currentStage === stages.length;
   // const [isLoading, setIsLoading] = useState(false);
@@ -42,26 +42,6 @@ function BottomWrapperStages({
     },
   });
 
-  const generateQrCode = async (data) => {
-    console.log("dataPaylod", data);
-    const token = localStorage.getItem("token");
-    const response = await axios.post(
-      "https://qrgenarator.envobyte.dev/api/generate",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log("response", response);
-    let res = response.data;
-    console.log("resres", res);
-    navigate("/qr-image", { state: { res } });
-
-    // return response.data;
-  };
   const handleNextClick = async () => {
     if (isLastStage) {
       // const payload = getPayload;
@@ -83,19 +63,8 @@ function BottomWrapperStages({
         },
       };
       console.log("payloadStaticpayloadStatic", payloadStatic);
-      try {
-        const imagePath = await generateQrCode(payloadStatic);
-        console.log("QR code generated successfully", imagePath);
+      mutateQrCode(payloadStatic);
 
-        toast.success("QR code generated successfully");
-      } catch (error) {
-        console.error(
-          "Error generating QR code:",
-          error.response || error.message
-        );
-        toast.error(error.message || "An error occurred");
-      }
-      // mutateQrCode(payloadStatic);
     } else {
       onNextClick();
     }

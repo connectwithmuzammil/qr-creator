@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 const QRDetail = () => {
   const { type } = useParams();
   const initialState = {
-    field_url: "url",
+    qr_name: "",
+    field_url: "",
     type: "",
     style: {
       backgroundColor: "#FFFFFF",
@@ -30,7 +31,7 @@ const QRDetail = () => {
     }));
   }, [type]);
 
-  console.log("qrData.type",qrData?.type)
+  console.log("qrData.type", qrData?.type);
 
   const getPayload = () => {
     switch (qrData.type) {
@@ -54,11 +55,17 @@ const QRDetail = () => {
         };
     }
   };
-  
+
   const navigate = useNavigate();
 
   const handleNextClick = () => {
-    navigate(`/qr-editor/${type}/design`, { state: { qrData } });
+    const dataToSend = {
+      type: qrData.type,
+      style: qrData.style,
+      ...(type === 'url' ? { field_url: qrData.field_url, qr_name: qrData.qr_name } : {}),
+      ...(type === 'vcard' ? { field_name: qrData.field_name, field_phone: qrData.field_phone } : {}),
+    };
+    navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
   };
 
   const handleCancelClick = () => {
@@ -70,7 +77,7 @@ const QRDetail = () => {
       case "url":
         return (
           <>
-            <URL />
+            <URL qrData={qrData} setQrData={setQrData} />
           </>
         );
       case "vcard":

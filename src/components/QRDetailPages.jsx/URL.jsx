@@ -1,7 +1,14 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 
-const URL = () => {
+const URL = ({ qrData, setQrData }) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setQrData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   return (
     <>
       <div className="url">
@@ -15,9 +22,10 @@ const URL = () => {
                 <Accordion.Body>
                   <input
                     type="text"
-                    name=""
-                    id=""
+                    name="qr_name"
+                    value={qrData.qr_name || ""}
                     placeholder="e.g My QR code"
+                    onChange={handleChange}
                   />
                 </Accordion.Body>
               </Accordion.Item>
@@ -29,9 +37,10 @@ const URL = () => {
                 <Accordion.Body>
                   <input
                     type="url"
-                    name=""
-                    id=""
+                    name="field_url"
+                    value={qrData.field_url || ""}
                     placeholder="https://surfershops.com/sale"
+                    onChange={handleChange}
                   />
                 </Accordion.Body>
               </Accordion.Item>
