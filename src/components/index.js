@@ -17,10 +17,11 @@ import UpdateEmail from "./Modal/Account/UpdateEmail";
 import ResetPassword from "./Modal/Auth/ResetPassword";
 import ChangePassword from "./Modal/Auth/ChangePassword";
 import URL from "./QRDetailPages.jsx/URL";
+import ColorPickerComponent from "./ColorPicker";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
     ContactUs, FAQ, DatePickerInput, LineChartComp,
     BottomWrapperStages, Forgot, EditContactInfo,
-    UpdateEmail, ResetPassword, ChangePassword, URL
+    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent
 };

@@ -107,12 +107,15 @@ const createBackendServer = (baseURL) => {
   const login = (body) => api.post("login", body);
   const logout = (body) => api.post("logout", body);
 
+  const generateQrCode = (body) => api.post("generate")
+
 
   //Returning all the API
   return {
     signup,
     login,
-    logout
+    logout,
+    generateQrCode
   };
 };
 

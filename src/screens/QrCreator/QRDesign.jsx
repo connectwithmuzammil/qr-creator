@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { BottomWrapperStages, Header } from "../../components";
+import {
+  BottomWrapperStages,
+  ColorPickerComponent,
+  Header,
+} from "../../components";
 import Accordion from "react-bootstrap/Accordion";
 import { HexColorPicker } from "react-colorful";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   Frame1,
   Frame10,
@@ -16,11 +20,33 @@ import {
   Frame8,
   Frame9,
   NotSelected,
+  QRDesignCenter1,
+  QRDesignCenter2,
+  QRDesignCenter3,
+  QRDesignCenter4,
+  QRDesignCenter5,
+  QRDesignCenter6,
+  QRDesignCorner1,
+  QRDesignCorner2,
+  QRDesignCorner3,
+  QRDesignCorner4,
+  QRDesignCorner5,
+  QRDesignCorner6,
+  QRDesignDetailIcon,
 } from "../../components/SVGIcon";
 
 const QRDesign = () => {
   const { type } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { qrData } = location.state || {};
+  console.log("qrDataStateValue", qrData);
+  // State COLOR PASS IN COLOR PICKER COMPONENT
+  const [dotColor, setDotColor] = useState("#000000");
+  const [bgColor, setBgColor] = useState("#000000");
+  const [cornerColor, setCornerColor] = useState("#000000");
+  const [cornerDotColor, setCornerDotColor] = useState("#000000");
+
   const [color1, setColor1] = useState("#ff0000");
   const [showColorPicker1, setShowColorPicker1] = useState(false);
 
@@ -31,6 +57,7 @@ const QRDesign = () => {
   const handleCancelClick = () => {
     navigate(`/qr-editor/${type}`);
   };
+
   return (
     <>
       <Header />
@@ -104,7 +131,7 @@ const QRDesign = () => {
                         </div>
                       </div>
                       <div className="bottom">
-                        <div className="top-con">
+                        {/* <div className="top-con">
                           <div className="color-picker-wrapper">
                             <div className="wrap">
                               <label>Frame color</label>
@@ -149,7 +176,111 @@ const QRDesign = () => {
                               </div>
                             )}
                           </div>
+                        </div> */}
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </div>
+              <div className="three">
+                <Accordion defaultActiveKey="0">
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>QR Code pattern</Accordion.Header>
+                    <Accordion.Body>
+                      <div className="choose-contrasting-color">
+                        <QRDesignDetailIcon />
+                        <p>
+                          Choose contrasting colors to make your QR codes easier
+                          to read. We recommend using a light and dark color for
+                          optimal performance.
+                        </p>
+                      </div>
+                      <div className="dotStylePicker">
+                        <ul>
+                          <li className="active">
+                            <QRDesignCenter1 />
+                          </li>
+                          <li>
+                            <QRDesignCenter2 />
+                          </li>
+                          <li>
+                            <QRDesignCenter3 />
+                          </li>
+                          <li>
+                            <QRDesignCenter4 />
+                          </li>
+                          <li>
+                            <QRDesignCenter5 />
+                          </li>
+                          <li>
+                            <QRDesignCenter6 />
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="dot-bg-color-con">
+                        <div className="color-picker-con">
+                          {/* Dot Color Picker */}
+                          <ColorPickerComponent
+                            label="Dot Color"
+                            color={dotColor}
+                            setColor={setDotColor}
+                          />
+                          {/* Dot Color Picker */}
+                          <ColorPickerComponent
+                            label="Background Color"
+                            color={bgColor}
+                            setColor={setBgColor}
+                          />
                         </div>
+                      </div>
+                      <div className="dotStylePicker">
+                        <h3>Corners style</h3>
+                        <ul>
+                          <li className="active-corner">
+                            <QRDesignCorner1 />
+                          </li>
+                          <li>
+                            <QRDesignCorner2 />
+                          </li>
+                          <li>
+                            <QRDesignCorner3 />
+                          </li>
+                          <li>
+                            <QRDesignCorner4 />
+                          </li>
+                          <li>
+                            <QRDesignCorner5 />
+                          </li>
+                          <li>
+                            <QRDesignCorner6 />
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="dot-bg-color-con">
+                        <div className="color-picker-con">
+                          <ColorPickerComponent
+                            label="Corner square color"
+                            color={cornerColor}
+                            setColor={setCornerColor}
+                          />
+                          <ColorPickerComponent
+                            label="Corner dot color"
+                            color={cornerDotColor}
+                            setColor={setCornerDotColor}
+                          />
+                        </div>
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </div>
+              <div className="four">
+                <Accordion defaultActiveKey="0">
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Add a logo</Accordion.Header>
+                    <Accordion.Body>
+                      <div className="input-con">
+                        <p>Logo</p>
                       </div>
                     </Accordion.Body>
                   </Accordion.Item>

@@ -13,6 +13,7 @@ import {
   TermOfUse, TermsCondition, WhoWeAre
 } from "./screens";
 import { ContactUs, ScrollToTop } from "./components";
+import QRIMAGESHOW from "./screens/QRIMAGESHOW";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/my-qr-codes" element={<QrMainPage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/qr-image" element={<QRIMAGESHOW />} />
       </Routes>
 
       <ScrollToTop />
