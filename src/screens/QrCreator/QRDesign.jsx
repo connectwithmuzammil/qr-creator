@@ -71,7 +71,7 @@ const QRDesign = () => {
   const [SelectQrCode, setSelectQrCode] = useState(cards[0].id);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
-  const [dotColor, setDotColor] = useState("#000000");
+  const [dotColor, setDotColor] = useState("#404040");
   const [CornerbgColor, setCornerBgColor] = useState("#ffffff");
   const [cornerBorderColor, setCornerBorderColor] = useState("#000000");
   const [cornerDotColor, setCornerDotColor] = useState("#000000");
@@ -155,7 +155,7 @@ const QRDesign = () => {
   console.log("finalQrData", qrData);
 
   //Render Frame
-  const renderFrame = () => {
+  const renderFrame = () => { 
     switch (selectedFrame) {
       case "frame1":
         return (
@@ -645,8 +645,9 @@ const QRDesign = () => {
                     // value="https://reactjs.org/"
                     renderAs="svg"
                     size={130}
-                    fgColor={localQrData.style.dotsColor}
-                    bgColor={localQrData.style.cornerBackgroundColor}
+                    fgColor={qrData.style.dotsColor}
+                    // bgColor={qrData.style.cornerBackgroundColor}
+                    
                     className={`canvas-img ${selectedFrame}`}
                   />
                 </div>
