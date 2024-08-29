@@ -11,7 +11,16 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   CanvaFrame1,
+  CanvaFrame10,
+  CanvaFrame11,
   CanvaFrame2,
+  CanvaFrame3,
+  CanvaFrame4,
+  CanvaFrame5,
+  CanvaFrame6,
+  CanvaFrame7,
+  CanvaFrame8,
+  CanvaFrame9,
   Frame1,
   Frame10,
   Frame11,
@@ -73,7 +82,7 @@ const QRDesign = () => {
   const [frameColor, setFrameColor] = useState("#404040");
   const [frameBgColor, setFrameBgColor] = useState("#ffffff");
   const [frameText, setFrameText] = useState("Scan Me!");
-  const [frameTextColor, setFrameTextColor] = useState("#ffffff");
+  const [frameTextColor, setFrameTextColor] = useState("#000");
 
   //DOT STYLE STATE
   const [selectedDotStyle, setSelectedDotStyle] = useState("dotStyle1");
@@ -148,7 +157,7 @@ const QRDesign = () => {
   //Render Frame
   const renderFrame = () => {
     switch (selectedFrame) {
-      case 1:
+      case "frame1":
         return (
           <CanvaFrame1
             frameColor={frameColor}
@@ -157,8 +166,96 @@ const QRDesign = () => {
             frameTextColor={frameTextColor}
           />
         );
-      case 2:
-        return "";
+      case "frame2":
+        return (
+          <CanvaFrame2
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame3":
+        return (
+          <CanvaFrame3
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame4":
+        return (
+          <CanvaFrame4
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame5":
+        return (
+          <CanvaFrame5
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame6":
+        return (
+          <CanvaFrame6
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame7":
+        return (
+          <CanvaFrame7
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame8":
+        return (
+          <CanvaFrame8
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame9":
+        return (
+          <CanvaFrame9
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame10":
+        return (
+          <CanvaFrame10
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
+      case "frame11":
+        return (
+          <CanvaFrame11
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+          />
+        );
       // ... Add cases for other frames
       default:
         return null;
@@ -214,89 +311,89 @@ const QRDesign = () => {
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 1 ? "active" : ""
+                            selectedFrame === "frame1" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(1)}
+                          onClick={() => setSelectedFrame("frame1")}
                         >
                           <Frame1 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 2 ? "active" : ""
+                            selectedFrame === "frame2" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(2)}
+                          onClick={() => setSelectedFrame("frame2")}
                         >
                           <Frame2 width={72} height={96} />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 3 ? "active" : ""
+                            selectedFrame === "frame3" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(3)}
+                          onClick={() => setSelectedFrame("frame3")}
                         >
                           <Frame3 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 4 ? "active" : ""
+                            selectedFrame === "frame4" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(4)}
+                          onClick={() => setSelectedFrame("frame4")}
                         >
                           <Frame4 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 5 ? "active" : ""
+                            selectedFrame === "frame5" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(5)}
+                          onClick={() => setSelectedFrame("frame5")}
                         >
                           <Frame5 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 6 ? "active" : ""
+                            selectedFrame === "frame6" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(6)}
+                          onClick={() => setSelectedFrame("frame6")}
                         >
                           <Frame6 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 7 ? "active" : ""
+                            selectedFrame === "frame7" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(7)}
+                          onClick={() => setSelectedFrame("frame7")}
                         >
                           <Frame7 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 8 ? "active" : ""
+                            selectedFrame === "frame8" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(8)}
+                          onClick={() => setSelectedFrame("frame8")}
                         >
                           <Frame8 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 9 ? "active" : ""
+                            selectedFrame === "frame9" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(9)}
+                          onClick={() => setSelectedFrame("frame9")}
                         >
                           <Frame9 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 10 ? "active" : ""
+                            selectedFrame === "frame10" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(10)}
+                          onClick={() => setSelectedFrame("frame10")}
                         >
                           <Frame10 />
                         </div>
                         <div
                           className={`img-con ${
-                            selectedFrame === 11 ? "active" : ""
+                            selectedFrame === "frame11" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(11)}
+                          onClick={() => setSelectedFrame("frame11")}
                         >
                           <Frame11 />
                         </div>
@@ -539,16 +636,20 @@ const QRDesign = () => {
                   alt=""
                   className="mobile-frame"
                 />
-                <QRCodeCanvas
-                  // value="https://reactjs.org/"
-                  renderAs="svg"
-                  size={180}
-                  fgColor={localQrData.style.dotsColor}
-                  bgColor={localQrData.style.cornerBackgroundColor}
-                  className="canvas-img"
-                />
+
                 {/* Overlay the selected frame */}
-                <div className="frame-overlay">{renderFrame()}</div>
+                <div className="frame-overlay">
+                  {renderFrame()}
+
+                  <QRCodeCanvas
+                    // value="https://reactjs.org/"
+                    renderAs="svg"
+                    size={130}
+                    fgColor={localQrData.style.dotsColor}
+                    bgColor={localQrData.style.cornerBackgroundColor}
+                    className={`canvas-img ${selectedFrame}`}
+                  />
+                </div>
               </div>
             </div>
 

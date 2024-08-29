@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 const QRIMAGESHOW = () => {
   const location = useLocation();
   const abc = location.state || {}; // Access the image path from navigation state
-  console.log("imagePath", abc);
+  // console.log("imagePath", abc);
 
   //   if (!imagePath) {
   //     return <div>No image available</div>;

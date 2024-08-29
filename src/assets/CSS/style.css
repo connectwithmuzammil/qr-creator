@@ -2118,7 +2118,6 @@ footer .bottom p {
 
 .qr-canvas {
   position: relative;
-  /* z-index: 100; */
 }
 
 .frame-overlay {
@@ -2138,4 +2137,52 @@ footer .bottom p {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+}
+.frame-overlay .wrap {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.frame-overlay svg {
+  width: 100%;
+  height: 340px;
+}
+.frame-overlay .wrap svg {
+  width: 100%;
+  height: auto;
+}
+/* .qr-design .containerr .right .img-con .canvas-img{
+  position: absolute;
+  left: 50%;
+  top: 15px;
+  transform: translate(-50%, 5%);
+} */
+.qr-design .containerr .right .img-con .canvas-img.frame1 {
+}
+.qr-design .containerr .right .img-con .canvas-img.frame2 {
+  top: 176px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame3 {
+  top: 180px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame4{
+  top: 200px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame5{
+  top: 265px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame6{
+  top: 195px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame7{
+  top: 171px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame8{
+}
+.qr-design .containerr .right .img-con .canvas-img.frame9{}
+.qr-design .containerr .right .img-con .canvas-img.frame10{
+  top: 165px;
+}
+.qr-design .containerr .right .img-con .canvas-img.frame11{
+  top: 190px;
 }
