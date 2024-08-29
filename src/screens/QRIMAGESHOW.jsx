@@ -21,7 +21,7 @@ const QRIMAGESHOW = () => {
     >
       <h1>QR Code Image</h1>
       {/* Display QR Code Image */}
-      <img src={abc?.res?.path} alt="QR Code" />
+      <img src={abc?.generateQr?.path} alt="QR Code" />
     </div>
   );
 };

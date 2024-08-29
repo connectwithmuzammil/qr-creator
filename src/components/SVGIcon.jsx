@@ -538,18 +538,18 @@ export const Frame1 = (props) => (
     </defs>
   </svg>
 );
-export const Frame2 = (props) => (
+export const Frame2 = ({width,height}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width={72}
-    height={96}
+    width={width}
+    height={height}
     viewBox="0 0 54 72"
     fill="none"
     className="injected-svg"
     data-src="/svg/frame-black.svg"
     role="img"
-    {...props}
+    // {...props}
   >
     <rect width={54} height={72} rx={3} fill="#404040" />
     <rect x={3.375} y={3.375} width={46.8} height={46.8} fill="white" />
@@ -1783,5 +1783,70 @@ export const QRDesignCorner6 = (props) => (
     <g clipPath="url(#6g3h9xyzic-505)" transform="translate(7 7)">
       <path fill="#262626" d="M0 0h10v10H0V0z" />
     </g>
+  </svg>
+);
+
+
+//CANVAS FRAME IMG1
+export const CanvaFrame1 = ({ frameColor,frameBorderColor, frameText,frameTextColor,...props }) => (
+  <svg
+    width={300}
+    height={300}
+    viewBox="0 0 72 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+   
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0 6C0 2.68629 2.68629 0 6 0H66C69.3137 0 72 2.68629 72 6V90C72 93.3137 69.3137 96 66 96H6C2.68629 96 0 93.3137 0 90V6ZM36.0001 93.6C38.9824 93.6 41.4001 91.1823 41.4001 88.2C41.4001 85.2177 38.9824 82.8 36.0001 82.8C33.0177 82.8 30.6001 85.2177 30.6001 88.2C30.6001 91.1823 33.0177 93.6 36.0001 93.6ZM35.9997 92.1C38.1536 92.1 39.8997 90.3539 39.8997 88.2C39.8997 86.0461 38.1536 84.3 35.9997 84.3C33.8458 84.3 32.0997 86.0461 32.0997 88.2C32.0997 90.3539 33.8458 92.1 35.9997 92.1ZM67.1998 18H4.7998V80.4H67.1998V18Z"
+      fill={frameColor ? frameColor : "#404040"}
+    />
+    <foreignObject width="100%" height="18px">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          width: "100%",
+          height: "100%",
+          maxWidth: "100%",
+        }}
+        {...props}
+      >
+        <text
+          x="50%"
+          y={5}
+          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+          dominantBaseline="middle"
+          textAnchor="middle"
+          fontFamily="Nunito Sans"
+          fontWeight="bold"
+          style={{
+            fontSize: 9,
+          }}
+        >
+          {frameText ? frameText : "SCAN ME!"}
+        </text>
+      </svg>
+    </foreignObject>
+    <foreignObject width="86%" height="64px" x={5} y={17}>
+      <div
+        id="#qrCode"
+        bis_skin_checked={1}
+        style={{
+          border: `1px solid ${frameBorderColor}`,
+          width: "100%",
+          height: "100%",
+          boxSizing: "border-box",
+          padding: "3px 2px 2px",
+          backgroundColor: "white",
+        }}
+      >
+        <div bis_skin_checked={1}>
+          <canvas width={300} height={300} />
+        </div>
+      </div>
+    </foreignObject>
   </svg>
 );

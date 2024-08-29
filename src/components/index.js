@@ -18,10 +18,11 @@ import ResetPassword from "./Modal/Auth/ResetPassword";
 import ChangePassword from "./Modal/Auth/ChangePassword";
 import URL from "./QRDetailPages.jsx/URL";
 import ColorPickerComponent from "./ColorPicker";
+import QRMobileFrame from "./QRMobileFrame";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
     ContactUs, FAQ, DatePickerInput, LineChartComp,
     BottomWrapperStages, Forgot, EditContactInfo,
-    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent
+    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame
 };

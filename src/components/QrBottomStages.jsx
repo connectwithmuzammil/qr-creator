@@ -14,6 +14,7 @@ function BottomWrapperStages({
   showNextButton,
   qrData,
   getPayload,
+  generateQrPayload,
 }) {
   const stages = [
     { step: 1, label: "Select QR code" },
@@ -21,9 +22,10 @@ function BottomWrapperStages({
     { step: 3, label: "Customize design" },
   ];
 
+  console.log("generateQrPayloadgenerateQrPayload", generateQrPayload);
   const payload = typeof getPayload === "function" ? getPayload() : {};
 
-  console.log("PayloadData", payload);
+  // console.log("PayloadData", payload);
 
   const isLastStage = currentStage === stages.length;
   // const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +40,7 @@ function BottomWrapperStages({
     onSuccess: ({ data: generateQr, status }) => {
       console.log("QR code generated successfully", generateQr);
       toast.success("QR code generated successfully");
-      // navigate("/design-page", { state: { qrData } });
+      navigate("/qr-image", { state: { generateQr } });
     },
   });
 
@@ -62,9 +64,8 @@ function BottomWrapperStages({
           frameTextColor: "#FFFFFF",
         },
       };
-      console.log("payloadStaticpayloadStatic", payloadStatic);
-      mutateQrCode(payloadStatic);
-
+      // console.log("payloadStaticpayloadStatic", payloadStatic);
+      mutateQrCode(generateQrPayload);
     } else {
       onNextClick();
     }
