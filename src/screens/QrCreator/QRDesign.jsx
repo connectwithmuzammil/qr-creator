@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BottomWrapperStages,
   ColorPickerComponent,
@@ -6,6 +6,7 @@ import {
 } from "../../components";
 import Accordion from "react-bootstrap/Accordion";
 import { QRCodeCanvas } from "qrcode.react";
+import QRCodeStyling from "qr-code-styling";
 
 // import { HexColorPicker } from "react-colorful";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -71,7 +72,7 @@ const QRDesign = () => {
   const [SelectQrCode, setSelectQrCode] = useState(cards[0].id);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
-  const [dotColor, setDotColor] = useState("#404040");
+  const [dotColor, setDotColor] = useState("#000000");
   const [CornerbgColor, setCornerBgColor] = useState("#ffffff");
   const [cornerBorderColor, setCornerBorderColor] = useState("#000000");
   const [cornerDotColor, setCornerDotColor] = useState("#000000");
@@ -85,50 +86,73 @@ const QRDesign = () => {
   const [frameTextColor, setFrameTextColor] = useState("#000");
 
   //DOT STYLE STATE
-  const [selectedDotStyle, setSelectedDotStyle] = useState("dotStyle1");
+  const [selectedDotStyle, setSelectedDotStyle] = useState("classy-rounded");
   const handleDotStyleClick = (styleId) => {
     setSelectedDotStyle(styleId);
   };
 
   //DOT STYLE STATE
-  const [selectedCornerStyle, setSelectedCornerStyle] =
-    useState("cornerStyle1");
+  const [selectedCornerStyle, setSelectedCornerStyle] = useState("rounded");
+
+  const qrCode = useRef(null);
+
+  //DEFAULT QR CODE OPTIONS
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: "#000000",
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+  useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
   const handleCornerStyleClick = (styleId) => {
     setSelectedCornerStyle(styleId);
   };
 
-  const [localQrData, setLocalQrData] = useState({
-    style: {
-      dotsColor: dotColor,
-      cornerBackgroundColor: CornerbgColor,
-      backgroundColor: frameBgColor,
-      cornerBorderColor: cornerBorderColor,
-      frameColor: frameColor,
-      frameTextColor: frameTextColor,
-      frameText: frameText,
-      cornerStyle: selectedCornerStyle,
-      dotsStyle: selectedDotStyle,
-    },
-  });
-
   //useEffect
   useEffect(() => {
-    // setLocalQrData((prevData) => ({
-    //   ...prevData,
-
-    //   style: {
-    //     ...prevData.style,
-    //     dotsColor: dotColor,
-    //     cornerBackgroundColor: CornerbgColor,
-    //     backgroundColor: frameBgColor,
-    //     cornerBorderColor: cornerBorderColor,
-    //     frameColor: frameColor,
-    //     frameTextColor: frameTextColor,
-    //     frameText: frameText,
-    //     cornerStyle: selectedCornerStyle,
-    //     dotsStyle: selectedDotStyle,
-    //   },
-    // }));
     qrData.style.dotsColor = dotColor;
     qrData.style.cornerBackgroundColor = CornerbgColor;
     qrData.style.backgroundColor = frameBgColor;
@@ -151,11 +175,10 @@ const QRDesign = () => {
     qrData,
   ]);
 
-  // console.log("localQrData", localQrData);
   console.log("finalQrData", qrData);
 
   //Render Frame
-  const renderFrame = () => { 
+  const renderFrame = () => {
     switch (selectedFrame) {
       case "frame1":
         return (
@@ -456,49 +479,57 @@ const QRDesign = () => {
                         <ul>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle1" ? "active" : ""
+                              selectedDotStyle === "classy-rounded"
+                                ? "active"
+                                : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle1")}
+                            onClick={() =>
+                              handleDotStyleClick("classy-rounded")
+                            }
                           >
                             <QRDesignCenter1 />
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle2" ? "active" : ""
+                              selectedDotStyle === "rounded" ? "active" : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle2")}
+                            onClick={() => handleDotStyleClick("rounded")}
                           >
                             <QRDesignCenter2 />
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle3" ? "active" : ""
+                              selectedDotStyle === "dots" ? "active" : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle3")}
+                            onClick={() => handleDotStyleClick("dots")}
                           >
                             <QRDesignCenter3 />
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle4" ? "active" : ""
+                              selectedDotStyle === "extra-rounded"
+                                ? "active"
+                                : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle4")}
+                            onClick={() => handleDotStyleClick("extra-rounded")}
                           >
                             <QRDesignCenter4 />
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle5" ? "active" : ""
+                              selectedDotStyle === "classy" ? "active" : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle5")}
+                            onClick={() => handleDotStyleClick("classy")}
                           >
                             <QRDesignCenter5 />
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dotStyle6" ? "active" : ""
+                              selectedDotStyle === "extra-rounded"
+                                ? "active"
+                                : ""
                             }
-                            onClick={() => handleDotStyleClick("dotStyle6")}
+                            onClick={() => handleDotStyleClick("extra-rounded")}
                           >
                             <QRDesignCenter6 />
                           </li>
@@ -519,77 +550,67 @@ const QRDesign = () => {
                           />
                         </div>
                       </div>
+
+                      {/* CORNER STYLING */}
                       <div className="dotStylePicker">
                         <h3>Corners style</h3>
                         <ul>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle1"
-                                ? "active"
-                                : ""
+                              selectedCornerStyle === "rounded" ? "active" : ""
                             }
-                            onClick={() =>
-                              handleCornerStyleClick("cornerStyle1")
-                            }
+                            onClick={() => handleCornerStyleClick("rounded")}
                           >
                             <QRDesignCorner1 />
                           </li>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle2"
-                                ? "active"
-                                : ""
+                              selectedCornerStyle === "dot" ? "active" : ""
                             }
-                            onClick={() =>
-                              handleCornerStyleClick("cornerStyle2")
-                            }
+                            onClick={() => handleCornerStyleClick("dot")}
                           >
                             <QRDesignCorner2 />
                           </li>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle3"
+                              selectedCornerStyle === "extra-rounded"
                                 ? "active"
                                 : ""
                             }
                             onClick={() =>
-                              handleCornerStyleClick("cornerStyle3")
+                              handleCornerStyleClick("extra-rounded")
                             }
                           >
                             <QRDesignCorner3 />
                           </li>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle4"
+                              selectedCornerStyle === "rounded-dot"
                                 ? "active"
                                 : ""
                             }
                             onClick={() =>
-                              handleCornerStyleClick("cornerStyle4")
+                              handleCornerStyleClick("rounded-dot")
                             }
                           >
                             <QRDesignCorner4 />
                           </li>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle5"
-                                ? "active"
-                                : ""
+                              selectedCornerStyle === "square" ? "active" : ""
                             }
-                            onClick={() =>
-                              handleCornerStyleClick("cornerStyle5")
-                            }
+                            onClick={() => handleCornerStyleClick("square")}
                           >
                             <QRDesignCorner5 />
                           </li>
                           <li
                             className={
-                              selectedCornerStyle === "cornerStyle6"
+                              selectedCornerStyle === "square-square"
                                 ? "active"
                                 : ""
                             }
                             onClick={() =>
-                              handleCornerStyleClick("cornerStyle6")
+                              handleCornerStyleClick("square-square")
                             }
                           >
                             <QRDesignCorner6 />
@@ -637,51 +658,36 @@ const QRDesign = () => {
                   className="mobile-frame"
                 />
 
-                {/* Overlay the selected frame */}
                 <div className="frame-overlay">
                   {renderFrame()}
+                  <div
+                    id="qrCode"
+                    className={`canvas-img ${selectedFrame}`}
+                  ></div>
 
-                  <QRCodeCanvas
-                    // value="https://reactjs.org/"
+                  {/* <QRCodeCanvas
                     renderAs="svg"
                     size={130}
+                    qrStyle="dots"
                     fgColor={qrData.style.dotsColor}
-                    // bgColor={qrData.style.cornerBackgroundColor}
-                    
+                    bgColor={qrData.style.cornerBackgroundColor}
                     className={`canvas-img ${selectedFrame}`}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
 
-            {/* <div
-              className="qr-preview"
-              style={{ position: "relative", width: "256px", height: "256px" }}
-            > */}
-            {/* QR Code Canvas */}
-            {/* <QRCodeCanvas
-                // value={qrData}
-                size={256}
-                bgColor={bgColor}
-                fgColor={dotColor}
-                level={"H"}
-              /> */}
-
-            {/* Overlay the frame if selected */}
-            {/* {frame === "frame1" && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  <Frame1 /> 
-                </div>
-              )} */}
-            {/* </div> */}
+            {/* <div className="img-con">
+              <img
+                src="/assets/images/phone-frame.jpeg"
+                alt=""
+                className="mobile-framee"
+              />
+              <div className="frame-overlay">
+                {renderFrame()}
+                <div id="qrCode" className="qr-code-container"></div>
+              </div>
+            </div> */}
           </div>
         </div>
       </div>

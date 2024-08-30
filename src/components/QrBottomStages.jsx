@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdChevronRight } from "react-icons/md";
-import { AiOutlineLoading3Quarters } from "react-icons/ai"; // Loading spinner icon
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import apis from "../services";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 function BottomWrapperStages({
   currentStage,
   onNextClick,
   onCancelClick,
   showNextButton,
-  qrData,
-  getPayload,
   generateQrPayload,
+  qrData
 }) {
   const stages = [
     { step: 1, label: "Select QR code" },
@@ -22,14 +19,10 @@ function BottomWrapperStages({
     { step: 3, label: "Customize design" },
   ];
 
-  console.log("generateQrPayloadgenerateQrPayload", generateQrPayload);
-  const payload = typeof getPayload === "function" ? getPayload() : {};
-
-  // console.log("PayloadData", payload);
-
   const isLastStage = currentStage === stages.length;
-  // const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  console.log("qrDataqrData",qrData)
 
   //QR CODE API CALL
   const { mutate: mutateQrCode, isPending: isLoading } = useMutation({
@@ -38,9 +31,10 @@ function BottomWrapperStages({
       toast.error(message);
     },
     onSuccess: ({ data: generateQr, status }) => {
-      console.log("QR code generated successfully", generateQr);
+      // console.log("QR code generated successfully", generateQr);
       toast.success("QR code generated successfully");
-      navigate("/qr-image", { state: { generateQr } });
+      navigate("/pricing");
+      // navigate("/qr-image", { state: { generateQr } });
     },
   });
 

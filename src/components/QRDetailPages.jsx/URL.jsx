@@ -1,7 +1,27 @@
 import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import Accordion from "react-bootstrap/Accordion";
 
 const URL = ({ qrData, setQrData }) => {
+  const validationSchema = yup.object().shape({
+    qr_name: yup.string().required("QR Name is required"),
+    field_url: yup
+      .string()
+      .url("Must be a valid URL")
+      .required("URL is required"),
+  });
+  // Initialize Formik
+  const formik = useFormik({
+    initialValues: qrData,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      setQrData(values);
+      // You can perform additional actions here
+    },
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({

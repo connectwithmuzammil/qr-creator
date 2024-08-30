@@ -13,7 +13,7 @@ const QRDetail = () => {
       dotsStyle: "square",
       dotsColor: "#000000",
       cornerStyle: "rounded-dot",
-      cornerBackgroundColor: "#404040",
+      cornerBackgroundColor: "#ffffff",
       cornerBorderColor: "#000000",
       frameStyle: "none",
       frameColor: "#404040",
@@ -33,28 +33,7 @@ const QRDetail = () => {
 
   console.log("qrData.type", qrData?.type);
 
-  const getPayload = () => {
-    switch (qrData.type) {
-      case "url":
-        return {
-          field_url: qrData.field_url,
-          type: qrData.type,
-          style: qrData.style,
-        };
-      case "vcard":
-        return {
-          name: "John Doe", // Example vCard fields
-          phone: "1234567890",
-          type: qrData.type,
-          style: qrData.style,
-        };
-      // Add other cases for different types if needed
-      default:
-        return {
-          error: "Unknown type",
-        };
-    }
-  };
+
 
   const navigate = useNavigate();
 
@@ -102,8 +81,7 @@ const QRDetail = () => {
         onNextClick={handleNextClick}
         onCancelClick={handleCancelClick}
         showNextButton={true}
-        qrData={qrData}
-        getPayload={getPayload}
+ 
       />
     </>
   );
