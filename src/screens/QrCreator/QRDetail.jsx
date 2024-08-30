@@ -19,6 +19,7 @@ const QRDetail = () => {
       frameColor: "#404040",
       frameText: "SCAN ME!",
       frameTextColor: "#FFFFFF",
+      frameName: "",
     },
   };
   const [qrData, setQrData] = useState(initialState);
@@ -33,18 +34,20 @@ const QRDetail = () => {
 
   console.log("qrData.type", qrData?.type);
 
-
-
   const navigate = useNavigate();
 
   const handleNextClick = () => {
     const dataToSend = {
       type: qrData.type,
       style: qrData.style,
-      ...(type === 'url' ? { field_url: qrData.field_url, qr_name: qrData.qr_name } : {}),
-      ...(type === 'vcard' ? { field_name: qrData.field_name, field_phone: qrData.field_phone } : {}),
+      ...(type === "url"
+        ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
+        : {}),
+      ...(type === "vcard"
+        ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
+        : {}),
     };
-      navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
+    navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
   };
 
   const handleCancelClick = () => {
@@ -81,7 +84,7 @@ const QRDetail = () => {
         onNextClick={handleNextClick}
         onCancelClick={handleCancelClick}
         showNextButton={true}
- 
+        // qrData={qrData}
       />
     </>
   );

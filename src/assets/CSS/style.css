@@ -2241,3 +2241,8 @@ footer .bottom p {
 .mobile-framee{
   width: 80%;
 } */
+
+.qr-image-show-delete svg{
+  position: absolute;
+  z-index: 1
+}

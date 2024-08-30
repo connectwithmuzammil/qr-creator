@@ -68,3 +68,8 @@
     transform: rotate(1turn);
   }
 }
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+}

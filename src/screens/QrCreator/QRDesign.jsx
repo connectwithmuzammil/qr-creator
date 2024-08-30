@@ -162,6 +162,7 @@ const QRDesign = () => {
     qrData.style.frameText = frameText;
     qrData.style.cornerStyle = selectedCornerStyle;
     qrData.style.dotsStyle = selectedDotStyle;
+    qrData.style.frameName = selectedFrame;
   }, [
     dotColor,
     CornerbgColor,
@@ -173,6 +174,7 @@ const QRDesign = () => {
     selectedCornerStyle,
     selectedDotStyle,
     qrData,
+    selectedFrame
   ]);
 
   console.log("finalQrData", qrData);
