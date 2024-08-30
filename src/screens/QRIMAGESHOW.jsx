@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   CanvaFrame1,
@@ -26,11 +26,14 @@ const QRIMAGESHOW = () => {
     abc.generateQr?.data?.style?.frameName
   );
   console.log("selectedFrame", selectedFrame);
+  useEffect(()=>{
+    setSelectedFrame( abc.generateQr?.data?.style?.frameName)
+  },[abc.generateQ])
   //FRAME FIELD STATE
-  const [frameColor, setFrameColor] = useState("#404040");
-  const [frameBgColor, setFrameBgColor] = useState("#ffffff");
-  const [frameText, setFrameText] = useState("Scan Me!");
-  const [frameTextColor, setFrameTextColor] = useState("#000000");
+  const [frameColor, setFrameColor] = useState( abc.generateQr?.data?.style?.frameColor);
+  const [frameBgColor, setFrameBgColor] = useState(abc.generateQr?.data?.style?.backgroundColor);
+  const [frameText, setFrameText] = useState(abc.generateQr?.data?.style?.frameText);
+  const [frameTextColor, setFrameTextColor] = useState(abc.generateQr?.data?.style?.frameTextColor);
 
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -172,7 +175,8 @@ const QRIMAGESHOW = () => {
             <img
               src={abc?.generateQr?.path}
               alt="QR Code"
-              style={{ width: "100px", position: "relative", zIndex: 1 }}
+              style={{ width: "150px", position: "absolute", zIndex: 1 }}
+              className={`qr-code-test ${selectedFrame}`}
             />
             {/* <div id="qrCode" className={`canvas-img ${selectedFrame}`}></div> */}
 
