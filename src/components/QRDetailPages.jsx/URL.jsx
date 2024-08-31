@@ -1,10 +1,7 @@
 import React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import Accordion from "react-bootstrap/Accordion";
 
 const URL = ({ qrData, setQrData }) => {
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({

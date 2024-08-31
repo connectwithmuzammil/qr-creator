@@ -157,6 +157,7 @@ const QRDesign = () => {
     qrData.style.cornerBackgroundColor = CornerbgColor;
     qrData.style.backgroundColor = frameBgColor;
     qrData.style.cornerBorderColor = cornerBorderColor;
+    qrData.style.cornerDotColor = cornerDotColor;
     qrData.style.frameColor = frameColor;
     qrData.style.frameTextColor = frameTextColor;
     qrData.style.frameText = frameText;
@@ -174,7 +175,8 @@ const QRDesign = () => {
     selectedCornerStyle,
     selectedDotStyle,
     qrData,
-    selectedFrame
+    selectedFrame,
+    cornerDotColor,
   ]);
 
   console.log("finalQrData", qrData);

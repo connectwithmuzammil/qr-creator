@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   CanvaFrame1,
@@ -13,6 +13,8 @@ import {
   CanvaFrame8,
   CanvaFrame9,
 } from "../components/SVGIcon";
+import QRCodeStyling from "qr-code-styling";
+
 // import {} from "../"
 const QRIMAGESHOW = () => {
   const location = useLocation();
@@ -22,6 +24,9 @@ const QRIMAGESHOW = () => {
   //   if (!imagePath) {
   //     return <div>No image available</div>;
   //   }
+
+  const qrCode = useRef(null);
+
   const [selectedFrame, setSelectedFrame] = useState(
     abc.generateQr?.data?.style?.frameName
   );
@@ -42,6 +47,43 @@ const QRIMAGESHOW = () => {
   const [frameTextColor, setFrameTextColor] = useState(
     abc.generateQr?.data?.style?.frameTextColor
   );
+
+  // State COLOR PASS IN COLOR PICKER COMPONENT
+  const [dotColor, setDotColor] = useState(abc.generateQr?.data?.style?.dotsColor);
+  const [CornerbgColor, setCornerBgColor] = useState(abc.generateQr?.data?.style?.cornerBackgroundColor);
+  const [cornerBorderColor, setCornerBorderColor] = useState(abc.generateQr?.data?.style?.cornerBorderColor);
+  const [cornerDotColor, setCornerDotColor] = useState(abc.generateQr?.data?.style?.cornerDotColor);
+  const [selectedDotStyle, setSelectedDotStyle] = useState(abc.generateQr?.data?.style?.dotsStyle);
+  const [selectedCornerStyle, setSelectedCornerStyle] = useState(abc.generateQr?.data?.style?.cornerStyle);
+
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: abc?.generateQr?.path,
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: "#000000",
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // Update corner style on change
+    },
+  };
+
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
 
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -180,22 +222,19 @@ const QRIMAGESHOW = () => {
 
           <div className="frame-overlay" style={{ position: "static" }}>
             {renderFrame()}
+            {/* 
             <img
               src={abc?.generateQr?.path}
               alt="QR Code"
               style={{ width: "150px", position: "absolute", zIndex: 1 }}
               className={`qr-code-test ${selectedFrame}`}
-            />
-            {/* <div id="qrCode" className={`canvas-img ${selectedFrame}`}></div> */}
+            /> */}
 
-            {/* <QRCodeCanvas
-                    renderAs="svg"
-                    size={130}
-                    qrStyle="dots"
-                    fgColor={qrData.style.dotsColor}
-                    bgColor={qrData.style.cornerBackgroundColor}
-                    className={`canvas-img ${selectedFrame}`}
-                  /> */}
+            <div
+              id="qrCode"
+              className={`canvas-img ${selectedFrame}`}
+              style={{ width: "150px", position: "absolute", zIndex: 1 }}
+            ></div>
           </div>
         </div>
       </div>

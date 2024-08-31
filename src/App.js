@@ -10,7 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   CookiePolicy, FaqPage, LandingPage, MyAccount, MyBilling, Pricing, PrivacyPolicy,
   QrAnalytics, QrCreator, QRDesign, QRDetail, QrMainPage,
-  TermOfUse, TermsCondition, WhoWeAre,QRIMAGESHOW
+  TermOfUse, TermsCondition, WhoWeAre, QRIMAGESHOW
 } from "./screens";
 import { ContactUs, ScrollToTop } from "./components";
 
