@@ -18,8 +18,8 @@ import QRCodeStyling from "qr-code-styling";
 // import {} from "../"
 const QRIMAGESHOW = () => {
   const location = useLocation();
-  const abc = location.state || {}; // Access the image path from navigation state
-  console.log("imagePath", abc.generateQr);
+  const QRres = location.state || {}; // Access the image path from navigation state
+  console.log("imagePath", QRres.generateQr);
 
   //   if (!imagePath) {
   //     return <div>No image available</div>;
@@ -28,38 +28,30 @@ const QRIMAGESHOW = () => {
   const qrCode = useRef(null);
 
   const [selectedFrame, setSelectedFrame] = useState(
-    abc.generateQr?.data?.style?.frameName
+    QRres.generateQr?.data?.style?.frameName
   );
   console.log("selectedFrame", selectedFrame);
   useEffect(() => {
-    setSelectedFrame(abc.generateQr?.data?.style?.frameName);
-  }, [abc.generateQ]);
-  //FRAME FIELD STATE
-  const [frameColor, setFrameColor] = useState(
-    abc.generateQr?.data?.style?.frameColor
-  );
-  const [frameBgColor, setFrameBgColor] = useState(
-    abc.generateQr?.data?.style?.backgroundColor
-  );
-  const [frameText, setFrameText] = useState(
-    abc.generateQr?.data?.style?.frameText
-  );
-  const [frameTextColor, setFrameTextColor] = useState(
-    abc.generateQr?.data?.style?.frameTextColor
-  );
+    setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
+  }, [QRres.generateQ]);
 
-  // State COLOR PASS IN COLOR PICKER COMPONENT
-  const [dotColor, setDotColor] = useState(abc.generateQr?.data?.style?.dotsColor);
-  const [CornerbgColor, setCornerBgColor] = useState(abc.generateQr?.data?.style?.cornerBackgroundColor);
-  const [cornerBorderColor, setCornerBorderColor] = useState(abc.generateQr?.data?.style?.cornerBorderColor);
-  const [cornerDotColor, setCornerDotColor] = useState(abc.generateQr?.data?.style?.cornerDotColor);
-  const [selectedDotStyle, setSelectedDotStyle] = useState(abc.generateQr?.data?.style?.dotsStyle);
-  const [selectedCornerStyle, setSelectedCornerStyle] = useState(abc.generateQr?.data?.style?.cornerStyle);
+  let data = QRres.generateQr?.url;
+  let dotColor = QRres.generateQr?.data?.style?.dotsColor;
+  let CornerbgColor = QRres.generateQr?.data?.style?.cornerBackgroundColor;
+  let cornerBorderColor = QRres.generateQr?.data?.style?.cornerBorderColor;
+  let cornerDotColor = QRres.generateQr?.data?.style?.cornerDotColor;
+  let selectedDotStyle = QRres.generateQr?.data?.style?.dotsStyle;
+  let selectedCornerStyle = QRres.generateQr?.data?.style?.cornerStyle;
+  //FRAME
+  let frameColor = QRres.generateQr?.data?.style?.frameColor;
+  let frameBgColor = QRres.generateQr?.data?.style?.backgroundColor;
+  let frameText = QRres.generateQr?.data?.style?.frameText;
+  let frameTextColor = QRres.generateQr?.data?.style?.frameTextColor;
 
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: abc?.generateQr?.path,
+    data: data,
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -94,6 +86,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame2":
@@ -103,6 +101,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame3":
@@ -112,6 +116,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame4":
@@ -121,6 +131,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame5":
@@ -130,6 +146,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame6":
@@ -139,6 +161,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame7":
@@ -148,6 +176,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame8":
@@ -157,6 +191,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame9":
@@ -166,6 +206,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame10":
@@ -175,6 +221,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame11":
@@ -184,6 +236,12 @@ const QRIMAGESHOW = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       // ... Add cases for other frames
@@ -198,8 +256,8 @@ const QRIMAGESHOW = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
-        // height: "100vh",
+        // flexDirection: "column",
+        height: "100vh",
         padding: "50px",
       }}
       className="qr-image-show-delete"

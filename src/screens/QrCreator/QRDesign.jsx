@@ -34,6 +34,7 @@ import {
   Frame8,
   Frame9,
   NotSelected,
+  NotSelectedFrameCanvas,
   QRDesignCenter1,
   QRDesignCenter2,
   QRDesignCenter3,
@@ -94,7 +95,7 @@ const QRDesign = () => {
   //DOT STYLE STATE
   const [selectedCornerStyle, setSelectedCornerStyle] = useState("rounded");
 
-  const qrCode = useRef(null);
+  // const qrCode = useRef(null);
 
   //DEFAULT QR CODE OPTIONS
   const qrCodeOptions = {
@@ -117,36 +118,36 @@ const QRDesign = () => {
     },
   };
 
-  useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
-  }, []);
+  // useEffect(() => {
+  //   qrCode.current = new QRCodeStyling(qrCodeOptions);
+  //   qrCode.current.append(document.getElementById("qrCode"));
+  // }, []);
 
-  useEffect(() => {
-    qrCode.current.update({
-      dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
-      },
-      cornersSquareOptions: {
-        color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
-      },
-      backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
-      },
-      cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
-      },
-    });
-  }, [
-    selectedDotStyle,
-    cornerBorderColor,
-    dotColor,
-    selectedCornerStyle,
-    CornerbgColor,
-    cornerDotColor,
-  ]);
+  // useEffect(() => {
+  //   qrCode.current.update({
+  //     dotsOptions: {
+  //       color: dotColor,
+  //       type: selectedDotStyle, // Update dot style on change
+  //     },
+  //     cornersSquareOptions: {
+  //       color: cornerBorderColor,
+  //       type: selectedCornerStyle, // Update corner style on change
+  //     },
+  //     backgroundOptions: {
+  //       color: CornerbgColor, // Background color of the QR code
+  //     },
+  //     cornersDotOptions: {
+  //       color: cornerDotColor, // Customize if needed
+  //     },
+  //   });
+  // }, [
+  //   selectedDotStyle,
+  //   cornerBorderColor,
+  //   dotColor,
+  //   selectedCornerStyle,
+  //   CornerbgColor,
+  //   cornerDotColor,
+  // ]);
   const handleCornerStyleClick = (styleId) => {
     setSelectedCornerStyle(styleId);
   };
@@ -180,10 +181,12 @@ const QRDesign = () => {
   ]);
 
   console.log("finalQrData", qrData);
-
+  console.log("selectedFrame", selectedFrame);
   //Render Frame
   const renderFrame = () => {
     switch (selectedFrame) {
+      case null:
+        return <NotSelectedFrameCanvas />;
       case "frame1":
         return (
           <CanvaFrame1
@@ -191,6 +194,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame2":
@@ -200,6 +209,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame3":
@@ -209,6 +224,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame4":
@@ -218,6 +239,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame5":
@@ -227,6 +254,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame6":
@@ -236,6 +269,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame7":
@@ -245,6 +284,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame8":
@@ -254,6 +299,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame9":
@@ -263,6 +314,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame10":
@@ -272,6 +329,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       case "frame11":
@@ -281,6 +344,12 @@ const QRDesign = () => {
             frameBorderColor={frameBgColor}
             frameText={frameText}
             frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
           />
         );
       // ... Add cases for other frames
@@ -662,14 +731,16 @@ const QRDesign = () => {
                   className="mobile-frame"
                 />
 
-                <div className="frame-overlay">
-                  {renderFrame()}
-                  <div
+                {renderFrame()}
+
+                {/* <div className="frame-overlay"> */}
+                {/* {renderFrame()} */}
+                {/* <div
                     id="qrCode"
                     className={`canvas-img ${selectedFrame}`}
-                  ></div>
+                  ></div> */}
 
-                  {/* <QRCodeCanvas
+                {/* <QRCodeCanvas
                     renderAs="svg"
                     size={130}
                     qrStyle="dots"
@@ -677,7 +748,7 @@ const QRDesign = () => {
                     bgColor={qrData.style.cornerBackgroundColor}
                     className={`canvas-img ${selectedFrame}`}
                   /> */}
-                </div>
+                {/* </div> */}
               </div>
             </div>
 

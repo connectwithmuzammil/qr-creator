@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BottomWrapperStages, Header, URL } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
+import apis from "../../services";
+import { toast } from "react-toastify";
 
 const QRDetail = () => {
   const { type } = useParams();
@@ -37,7 +39,7 @@ const QRDetail = () => {
 
   const navigate = useNavigate();
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     const dataToSend = {
       type: qrData.type,
       style: qrData.style,
@@ -48,6 +50,12 @@ const QRDetail = () => {
         ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
         : {}),
     };
+    try {
+      let res = await apis.validateQrCode(type);
+      console.log("ress", res);
+    } catch (error) {
+      toast.error(error?.errors?.field_url[0]);
+    }
     navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
   };
 

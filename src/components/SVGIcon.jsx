@@ -1,3 +1,14 @@
+import React, { useEffect, useRef } from "react";
+import QRCodeStyling from "qr-code-styling";
+
+//DEFAULT QR CODE OPTIONS
+const qrCodeOptions = {
+  width: 300,
+  height: 300,
+  data: "https://example.com",
+};
+
+
 export const StarIcon = ({ className }) => {
   return (
     <svg
@@ -1786,17 +1797,98 @@ export const QRDesignCorner6 = (props) => (
   </svg>
 );
 
-//CANVAS FRAME IMG1
+//CANVAS RENDER FRAME IMG1
+
+export const NotSelectedFrameCanvas = ({...props})=>{
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 180,
+    height: 180,
+    data: "https://example.com",
+   
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+
+  return(
+    <div className="notselectSvg">
+  <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+    </div>
+  )
+}
 export const CanvaFrame1 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
-  <svg
-    width={300}
-    height={300}
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return(
+    <svg
+    width={72}
+    height={96}
     viewBox="0 0 72 96"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -1820,7 +1912,7 @@ export const CanvaFrame1 = ({
       >
         <text
           x="50%"
-          y={5}
+          y={10}
           fill={frameTextColor ? frameTextColor : "#FFFFFF"}
           dominantBaseline="middle"
           textAnchor="middle"
@@ -1834,33 +1926,95 @@ export const CanvaFrame1 = ({
         </text>
       </svg>
     </foreignObject>
-    <foreignObject width="86%" height="64px" x={5} y={17}>
+
+    {/* QR Code Container */}
+    <foreignObject width="90%" height="64px" x={4} y={18}>
       <div
-        id="#qrCode"
-        bis_skin_checked={1}
         style={{
           border: `1px solid ${frameBorderColor}`,
           width: "100%",
           height: "100%",
-          boxSizing: "border-box",
-          padding: "3px 2px 2px",
           backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
       </div>
     </foreignObject>
   </svg>
-);
+  )
+}
 export const CanvaFrame2 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) =>
+  {
+    const qrCode = useRef(null);
+  
+
+
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return(
   <svg
     width={80}
     height={98}
@@ -1888,9 +2042,7 @@ export const CanvaFrame2 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={72}>
@@ -1920,15 +2072,73 @@ export const CanvaFrame2 = ({
       </svg>
     </foreignObject>
   </svg>
-);
-
+)};
 export const CanvaFrame3 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 300,
+    height: 300,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return (
   <svg
     width={72}
     height={96}
@@ -1958,9 +2168,8 @@ export const CanvaFrame3 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+               <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={72}>
@@ -1990,14 +2199,72 @@ export const CanvaFrame3 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame4 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => { 
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 300,
+    height: 300,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={72}
     height={96}
@@ -2025,9 +2292,7 @@ export const CanvaFrame4 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={72}>
@@ -2042,7 +2307,7 @@ export const CanvaFrame4 = ({
       >
         <text
           x="50%"
-          y={10}
+          y={14}
           fill={frameTextColor ? frameTextColor : "#FFFFFF"}
           dominantBaseline="middle"
           textAnchor="middle"
@@ -2057,14 +2322,73 @@ export const CanvaFrame4 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame5 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) =>{ 
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return(
   <svg
     width={72}
     height={96}
@@ -2118,20 +2442,77 @@ export const CanvaFrame5 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+              <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame6 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={72}
     height={96}
@@ -2159,9 +2540,9 @@ export const CanvaFrame6 = ({
         }}
         bis_skin_checked={1}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+        
+       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={72}>
@@ -2191,15 +2572,72 @@ export const CanvaFrame6 = ({
       </svg>
     </foreignObject>
   </svg>
-);
-
+)};
 export const CanvaFrame7 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={83}
     height={96}
@@ -2245,9 +2683,9 @@ export const CanvaFrame7 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+        
+       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={72}>
@@ -2277,14 +2715,72 @@ export const CanvaFrame7 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame8 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) =>{ 
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={84}
     height={96}
@@ -2317,9 +2813,10 @@ export const CanvaFrame8 = ({
           paddingTop: 1,
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+      
+      <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={90} style={{}}>
@@ -2349,14 +2846,72 @@ export const CanvaFrame8 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame9 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => { 
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={80}
     height={96}
@@ -2395,9 +2950,8 @@ export const CanvaFrame9 = ({
           padding: "1px 1px 1px 0px",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+         <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={90}>
@@ -2427,14 +2981,72 @@ export const CanvaFrame9 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame10 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return(
   <svg
     width={75}
     height={96}
@@ -2479,9 +3091,8 @@ export const CanvaFrame10 = ({
           backgroundColor: "white",
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" y={80}>
@@ -2511,14 +3122,73 @@ export const CanvaFrame10 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
 export const CanvaFrame11 = ({
   frameColor,
   frameBorderColor,
   frameText,
   frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
   ...props
-}) => (
+}) => {
+  const qrCode = useRef(null);
+  
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+    useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  
+  return(
   <svg
     width={80}
     height={96}
@@ -2546,9 +3216,8 @@ export const CanvaFrame11 = ({
           paddingTop: 2,
         }}
       >
-        <div bis_skin_checked={1}>
-          <canvas width={300} height={300} />
-        </div>
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+
       </div>
     </foreignObject>
     <foreignObject width="100%" height="18px" x={-3} y={80}>
@@ -2578,4 +3247,4 @@ export const CanvaFrame11 = ({
       </svg>
     </foreignObject>
   </svg>
-);
+)};
