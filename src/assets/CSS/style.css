@@ -2135,3 +2135,41 @@ footer .bottom p {
   font-size: 16px;
 }
 
+
+/* ************************ PDF ******************************** */
+.pdf-page{}
+.pdf-page .containerr{
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.pdf-page .containerr .left{
+  flex: 2;
+  background-color: #f6fafe;
+  padding: 40px;
+  border-radius: 10px;
+}
+.pdf-page .containerr .right{
+  flex: 1;
+display: flex;
+justify-content: center ;
+}
+.pdf-page .containerr .right img{
+  width: 80%;
+  object-fit: contain;
+}
+.accord-con .accordion-item {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  background: #fcfcfc;
+  border-radius: 0.5rem;
+  margin-bottom: 12px;
+  padding: 12px 12px;
+}
+.accord-con  .accordion-button {
+  background-color: transparent;
+  box-shadow: none;
+  color: #262626;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+}

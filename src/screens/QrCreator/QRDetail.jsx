@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BottomWrapperStages, Header, URL } from "../../components";
+import { BottomWrapperStages, Header, PDF, URL } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import apis from "../../services";
 import { toast } from "react-toastify";
@@ -50,12 +50,12 @@ const QRDetail = () => {
         ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
         : {}),
     };
-    try {
-      let res = await apis.validateQrCode(type);
-      console.log("ress", res);
-    } catch (error) {
-      toast.error(error?.errors?.field_url[0]);
-    }
+    // try {
+    //   let res = await apis.validateQrCode(type);
+    //   console.log("ress", res);
+    //   toast.error(res.data.message)
+    // } catch (error) {
+    // }
     navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
   };
 
@@ -73,6 +73,12 @@ const QRDetail = () => {
         );
       case "vcard":
         return <div>Virtual Card Form</div>;
+      case "pdf":
+        return (
+          <div>
+            <PDF />
+          </div>
+        );
       default:
         return <div>No Form Available</div>;
     }
