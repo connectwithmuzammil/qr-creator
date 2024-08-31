@@ -26,14 +26,22 @@ const QRIMAGESHOW = () => {
     abc.generateQr?.data?.style?.frameName
   );
   console.log("selectedFrame", selectedFrame);
-  useEffect(()=>{
-    setSelectedFrame( abc.generateQr?.data?.style?.frameName)
-  },[abc.generateQ])
+  useEffect(() => {
+    setSelectedFrame(abc.generateQr?.data?.style?.frameName);
+  }, [abc.generateQ]);
   //FRAME FIELD STATE
-  const [frameColor, setFrameColor] = useState( abc.generateQr?.data?.style?.frameColor);
-  const [frameBgColor, setFrameBgColor] = useState(abc.generateQr?.data?.style?.backgroundColor);
-  const [frameText, setFrameText] = useState(abc.generateQr?.data?.style?.frameText);
-  const [frameTextColor, setFrameTextColor] = useState(abc.generateQr?.data?.style?.frameTextColor);
+  const [frameColor, setFrameColor] = useState(
+    abc.generateQr?.data?.style?.frameColor
+  );
+  const [frameBgColor, setFrameBgColor] = useState(
+    abc.generateQr?.data?.style?.backgroundColor
+  );
+  const [frameText, setFrameText] = useState(
+    abc.generateQr?.data?.style?.frameText
+  );
+  const [frameTextColor, setFrameTextColor] = useState(
+    abc.generateQr?.data?.style?.frameTextColor
+  );
 
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -149,7 +157,7 @@ const QRIMAGESHOW = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        height: "100vh",
+        // height: "100vh",
         padding: "50px",
       }}
       className="qr-image-show-delete"
@@ -160,7 +168,7 @@ const QRIMAGESHOW = () => {
 
       <div className="qr-preview">
         <div className="img-con">
-          <img
+          {/* <img
             src="/assets/images/phone-frame.jpeg"
             alt=""
             className="mobile-frame"
@@ -168,9 +176,9 @@ const QRIMAGESHOW = () => {
               width: "100%",
               height: "500px",
             }}
-          />
+          /> */}
 
-          <div className="frame-overlay">
+          <div className="frame-overlay" style={{ position: "static" }}>
             {renderFrame()}
             <img
               src={abc?.generateQr?.path}

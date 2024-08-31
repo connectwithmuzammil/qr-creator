@@ -23,6 +23,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/*" element={<LandingPage />} />
         {/* QR ROUTES */}
+        <Route path="/my-qr-codes" element={<QrMainPage />} />
         <Route path="/qr-editor" element={<QrCreator />} />
         <Route path="/qr-editor/:type" element={<QRDetail />} />
         <Route path="/qr-editor/:type/design" element={<QRDesign />} />
@@ -37,7 +38,6 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookies-policy" element={<CookiePolicy />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/my-qr-codes" element={<QrMainPage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/qr-image" element={<QRIMAGESHOW />} />

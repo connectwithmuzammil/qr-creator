@@ -2244,37 +2244,40 @@ footer .bottom p {
 
 
 /* DELETE */
+
+.frame-overlavvy{}
+.frame-overlavvy svg{}
 .qr-image-show-delete svg{
-  position: absolute;
+  position: relative;
   z-index: 1
 } 
 .qr-code-test.frame1{
-  top: 180px;
+  top: 70px;
 }
 .qr-code-test.frame2{
-  top: 120px;
+  top: 17px;
 }
 .qr-code-test.frame3{
-  top: 140px;
+  top: 20px;
 }
 .qr-code-test.frame4{
-  top: 140px;
+  top: 30px;
 }
 .qr-code-test.frame5{
-  top: 190px;
+  top: 90px;
 }
 .qr-code-test.frame6{
-  top: 140px;
+  top: 40px;
 }
 .qr-code-test.frame7{
-  top: 120px;
+  top: 15px;
 }
 .qr-code-test.frame9{
   /* top: 120px; */
 }
 .qr-code-test.frame10{
-  top: 110px;
+  top: 10px;
 }
 .qr-code-test.frame11{
-  top: 130px;
+  top: 30px;
 }
