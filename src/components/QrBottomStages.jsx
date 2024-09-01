@@ -40,7 +40,7 @@ function BottomWrapperStages({
   const handleNextClick = async () => {
     if (isLastStage) {
       const formData = new FormData();
-      
+
       // Flatten and append existing payload data
       Object.keys(generateQrPayload).forEach((key) => {
         if (key === "style") {
@@ -49,6 +49,14 @@ function BottomWrapperStages({
             formData.append(
               `style[${styleKey}]`,
               generateQrPayload.style[styleKey]
+            );
+          });
+        } else if (key === "color") {
+          // Handle the nested color object separately
+          Object.keys(generateQrPayload.color).forEach((colorKey) => {
+            formData.append(
+              `color[${colorKey}]`,
+              generateQrPayload.color[colorKey]
             );
           });
         } else {

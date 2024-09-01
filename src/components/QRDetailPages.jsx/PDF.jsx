@@ -3,6 +3,7 @@ import { AccordianComponent } from "../AccordianComponent";
 import { FaTrash } from "react-icons/fa";
 import { InputComponent } from "../InputComponent";
 import ColorPickerComponent from "../ColorPicker";
+import CutsomColorPickerComp from "../CutsomColorPickerComp";
 
 const PDF = ({ qrData, setQrData }) => {
   const [file, setFile] = useState(qrData.pdf_file || null);
@@ -49,30 +50,13 @@ const PDF = ({ qrData, setQrData }) => {
   };
 
   const colors = [
-    {
-      id: "blue",
-      background: "#d1e5fa",
-      button: "#1466b8",
-    },
-    {
-      id: "green",
-      background: "#e8fce8",
-      button: "#0e8b70",
-    },
-    {
-      id: "yellow",
-      background: "#fff9cc",
-      button: "#998600",
-    },
-    {
-      id: "red",
-      background: "#fecdd6",
-      button: "#b00223",
-    },
+    { id: "blue", background: "#d1e5fa", button: "#1466b8" },
+    { id: "green", background: "#e8fce8", button: "#0e8b70" },
+    { id: "yellow", background: "#fff9cc", button: "#998600" },
+    { id: "red", background: "#fecdd6", button: "#b00223" },
   ];
 
-
-  const [activeColor, setActiveColor] = useState(colors[0].id); 
+  const [activeColor, setActiveColor] = useState(colors[0].id);
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   useEffect(() => {
@@ -149,73 +133,11 @@ const PDF = ({ qrData, setQrData }) => {
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
-            <div
-              data-testid="ThemePicker"
-              data-qa="qr-pdf-theme-picker"
-              className="ThemePicker"
-            >
-              <div className="ThemePicker__wrapper">
-                <div className="ThemePicker__item ThemePicker__labels">
-                  <span className="ThemePicker__label ThemePicker__label--first">
-                    Background
-                  </span>
-                  <span className="ThemePicker__label">Button</span>
-                </div>
-                {colors.map((color) => (
-                  <div
-                    key={color.id}
-                    className={`ThemePicker__item ${
-                      activeColor === color.id ? "ThemePicker--active" : ""
-                    }`}
-                    onClick={() => {
-                      setActiveColor(color.id);
-                    }}
-                    data-qa={`theme-picker-color-${color.id}-button`}
-                  >
-                    <span
-                      className="ThemePicker__swatch ThemePicker__swatch--first"
-                      style={{ backgroundColor: color.background }}
-                    />
-                    <span
-                      className="ThemePicker__swatch"
-                      style={{ backgroundColor: color.button }}
-                    />
-                  </div>
-                ))}
-                <div
-                  className="ThemePicker__item ThemePicker__item--center"
-                  onClick={handleColorPickerToggle}
-                >
-                  <span className="ThemePicker__swatch">
-                    <div
-                      id="theme-picker-color-custom-button"
-                      className="ThemePicker__add"
-                      data-qa="theme-picker-color-add-button"
-                    >
-                      <div>+</div>
-                    </div>
-                  </span>
-                </div>
-              </div>
-              {showColorPicker && (
-                <div className="color-picker-con bg-custom-color">
-                  <ColorPickerComponent
-                    label="Background Color"
-                    color={qrData.color.background}
-                    setColor={(color) =>
-                      handleCustomColorChange("background", color)
-                    }
-                  />
-                  <ColorPickerComponent
-                    label="Button Color"
-                    color={qrData.color.button}
-                    setColor={(color) =>
-                      handleCustomColorChange("button", color)
-                    }
-                  />
-                </div>
-              )}
-            </div>
+            <CutsomColorPickerComp
+              colors={colors}
+              qrData={qrData}
+              setQrData={setQrData}
+            />
           </AccordianComponent>
           <AccordianComponent title={"Enter the PDF details"}>
             <InputComponent

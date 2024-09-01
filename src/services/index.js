@@ -61,8 +61,8 @@ const createBackendServer = (baseURL) => {
   const removeProductFromCart = async (body) =>
     api.post("ecomuser/remove-cart", body);
 
-  const updateProfile = async (body) =>
-    api.post("ecommerceProfile/updateProfileEcom", body);
+  // const updateProfile = async (body) =>
+  //   api.post("ecommerceProfile/updateProfileEcom", body);
 
 
 
@@ -109,7 +109,7 @@ const createBackendServer = (baseURL) => {
 
   const generateQrCode = (body) => api.post("generate", body)
   const validateQrCode = (type) => api.get(`validations/${type}`)
-
+  const updateProfile = (body) => api.post(`update-name`, body)
 
   //Returning all the API
   return {
@@ -117,7 +117,8 @@ const createBackendServer = (baseURL) => {
     login,
     logout,
     generateQrCode,
-    validateQrCode
+    validateQrCode,
+    updateProfile
   };
 };
 

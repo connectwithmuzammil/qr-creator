@@ -113,6 +113,7 @@ const QRDetail = () => {
               pdf_title: qrData.pdf_title,
               pdf_description: qrData.pdf_description,
               pdf_website: qrData.pdf_website,
+              color: qrData.color,
             }
           : {}),
       };

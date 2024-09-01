@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
+import { useSelector } from "react-redux";
 
-const EditContactInfo = ({ showConactInfo, setShowContactInfo }) => {
+const EditContactInfo = ({
+  showConactInfo,
+  setShowContactInfo,
+  updateProfile,
+  isLoading,
+}) => {
+  const { user } = useSelector((store) => store.user); 
+  const [formData, setFormData] = useState({
+    first_name: "Muzammil",
+    last_name: "Khan",
+    phone_no: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        first_name: user?.first_name || "",
+        last_name: user?.last_name || "",
+        phone_no: user?.phone_no || "",
+      });
+    }
+  }, [user]);
+
+  // Handle input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateProfile(formData);
+  };
   return (
     <Modal
       show={showConactInfo}
@@ -16,25 +52,52 @@ const EditContactInfo = ({ showConactInfo, setShowContactInfo }) => {
         <Modal.Title>Basic Contact Information</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <div className="main-wrap">
             <div className="input-wrap">
               <label>First name</label>
-              <input type="text" name="" id="" placeholder="Muzammil" />
+              <input
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleInputChange}
+                placeholder="Muzammil"
+                required
+              />
             </div>
             <div className="input-wrap">
               <label>Last name</label>
-              <input type="text" name="" id="" placeholder="Khan" />
+              <input
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleInputChange}
+                placeholder="Khan"
+                required
+              />
             </div>
           </div>
           <div className="input-wrap last">
             <label>Phone</label>
-            <input type="text" name="" id="" placeholder="e.g 123-123-123" />
+            <input
+              type="text"
+              name="phone_no"
+              value={formData.phone_no}
+              onChange={handleInputChange}
+              placeholder="e.g 123-123-123"
+              required
+            />
           </div>
           <div className="btn-wrapper">
-            <Button title={"Save"} width={'140px'}/>
+            <Button
+              title={"Save"}
+              width={"140px"}
+              onClick={handleSubmit}
+              isLoading={isLoading}
+              disabled={isLoading}
+            />
           </div>
-        </div>
+        </form>
       </Modal.Body>
     </Modal>
   );

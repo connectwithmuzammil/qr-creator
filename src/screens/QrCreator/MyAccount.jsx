@@ -7,13 +7,39 @@ import {
   UpdateEmail,
 } from "../../components";
 import { useNavigate } from "react-router-dom";
+import apis from "../../services";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/slice/userSlice";
 
 const MyAccount = () => {
+  const { user } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showConactInfo, setShowContactInfo] = useState(false);
   const [ShowUpdateEmail, setShowUpdateEmail] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
+
+  //UPDATE USER API CALL
+  const { mutate: mutateUpdateProfile, isPending: isloadingUpdateProfile } =
+    useMutation({
+      mutationFn: apis.updateProfile,
+      onError: function (error) {
+        // console.log("error", error);
+        toast.error(error?.message);
+      },
+      onSuccess: ({ data: updateProfileSucess, status }) => {
+        console.log("update profile successfully!!:", updateProfileSucess);
+        if (updateProfileSucess?.success) {
+          toast.success(updateProfileSucess?.message);
+          dispatch(setUser(updateProfileSucess?.data));
+          setShowContactInfo(false);
+        }
+      },
+    });
+  console.log("uSERR", user);
 
   return (
     <>
@@ -36,14 +62,14 @@ const MyAccount = () => {
                   <div className="user-detail">
                     <div className="wrap">
                       <p>
-                        First name <span>Muzammil</span>
+                        First name <span>{user?.first_name}</span>
                       </p>
                       <p>
-                        Last name <span>Khan</span>
+                        Last name <span>{user?.last_name}</span>
                       </p>
                     </div>
                     <p>
-                      Phone <span></span>
+                      Phone <span>{user?.phone_no}</span>
                     </p>
                   </div>
                   <div
@@ -107,6 +133,8 @@ const MyAccount = () => {
       <EditContactInfo
         setShowContactInfo={setShowContactInfo}
         showConactInfo={showConactInfo}
+        updateProfile={mutateUpdateProfile}
+        isLoading={isloadingUpdateProfile}
       />
       <UpdateEmail
         ShowUpdateEmail={ShowUpdateEmail}
