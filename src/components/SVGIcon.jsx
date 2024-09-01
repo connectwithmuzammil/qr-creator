@@ -8,7 +8,6 @@ const qrCodeOptions = {
   data: "https://example.com",
 };
 
-
 export const StarIcon = ({ className }) => {
   return (
     <svg
@@ -1798,47 +1797,21 @@ export const QRDesignCorner6 = (props) => (
 );
 
 //CANVAS RENDER FRAME IMG1
-
-export const NotSelectedFrameCanvas = ({...props})=>{
+export const NotSelectedFrameCanvas = ({
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
+  ...props
+}) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 180,
     height: 180,
     data: "https://example.com",
-   
-  };
-  useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
-  }, []);
-
-
-  return(
-    <div className="notselectSvg">
-  <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-    </div>
-  )
-}
-export const CanvaFrame1 = ({
-  frameColor,
-  frameBorderColor,
-  frameText,
-  frameTextColor,
-  dotColor,
-  selectedDotStyle,
-  cornerBorderColor,
-  selectedCornerStyle,
-  CornerbgColor,
-  cornerDotColor,
-  ...props
-}) => {
-  const qrCode = useRef(null);
-  
-  const qrCodeOptions = {
-    width: 130,
-    height: 130,
-    data: "https://example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -1848,7 +1821,7 @@ export const CanvaFrame1 = ({
       type: selectedCornerStyle, // This will dynamically change
     },
     cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
+      color: cornerDotColor, 
     },
     backgroundOptions: {
       color: CornerbgColor, // Background color of the QR code
@@ -1859,260 +1832,7 @@ export const CanvaFrame1 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
-    qrCode.current.update({
-      dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
-      },
-      cornersSquareOptions: {
-        color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
-      },
-      backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
-      },
-      cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
-      },
-    });
-  }, [
-    selectedDotStyle,
-    cornerBorderColor,
-    dotColor,
-    selectedCornerStyle,
-    CornerbgColor,
-    cornerDotColor,
-  ]);
-
-  return(
-    <svg
-    width={72}
-    height={96}
-    viewBox="0 0 72 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0 6C0 2.68629 2.68629 0 6 0H66C69.3137 0 72 2.68629 72 6V90C72 93.3137 69.3137 96 66 96H6C2.68629 96 0 93.3137 0 90V6ZM36.0001 93.6C38.9824 93.6 41.4001 91.1823 41.4001 88.2C41.4001 85.2177 38.9824 82.8 36.0001 82.8C33.0177 82.8 30.6001 85.2177 30.6001 88.2C30.6001 91.1823 33.0177 93.6 36.0001 93.6ZM35.9997 92.1C38.1536 92.1 39.8997 90.3539 39.8997 88.2C39.8997 86.0461 38.1536 84.3 35.9997 84.3C33.8458 84.3 32.0997 86.0461 32.0997 88.2C32.0997 90.3539 33.8458 92.1 35.9997 92.1ZM67.1998 18H4.7998V80.4H67.1998V18Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="100%" height="18px">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
-          style={{
-            fontSize: 9,
-          }}
-        >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-
-    {/* QR Code Container */}
-    <foreignObject width="90%" height="64px" x={4} y={18}>
-      <div
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-      </div>
-    </foreignObject>
-  </svg>
-  )
-}
-export const CanvaFrame2 = ({
-  frameColor,
-  frameBorderColor,
-  frameText,
-  frameTextColor,
-  dotColor,
-  selectedDotStyle,
-  cornerBorderColor,
-  selectedCornerStyle,
-  CornerbgColor,
-  cornerDotColor,
-  ...props
-}) =>
-  {
-    const qrCode = useRef(null);
-  
-
-
-  const qrCodeOptions = {
-    width: 130,
-    height: 130,
-    data: "https://example.com",
-    dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
-    },
-    cornersSquareOptions: {
-      color: cornerBorderColor,
-      type: selectedCornerStyle, // This will dynamically change
-    },
-    cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
-    },
-    backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
-    },
-  };
   useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
-  }, []);
-
-    useEffect(() => {
-    qrCode.current.update({
-      dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
-      },
-      cornersSquareOptions: {
-        color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
-      },
-      backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
-      },
-      cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
-      },
-    });
-  }, [
-    selectedDotStyle,
-    cornerBorderColor,
-    dotColor,
-    selectedCornerStyle,
-    CornerbgColor,
-    cornerDotColor,
-  ]);
-
-  return(
-  <svg
-    width={80}
-    height={98}
-    viewBox="0 0 72 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M4 0C1.79086 0 0 1.79086 0 4V92C0 94.2091 1.79086 96 4 96H68C70.2091 96 72 94.2091 72 92V4C72 1.79086 70.2091 0 68 0H4ZM66.9 4.5H4.5V66.9H66.9V4.5Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="88%" height="64px" x={4} y={4}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          padding: "2px 2px 1px",
-          backgroundColor: "white",
-        }}
-      >
-        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={72}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
-          style={{
-            fontSize: 9,
-          }}
-        >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
-export const CanvaFrame3 = ({
-  frameColor,
-  frameBorderColor,
-  frameText,
-  frameTextColor,
-  dotColor,
-  selectedDotStyle,
-  cornerBorderColor,
-  selectedCornerStyle,
-  CornerbgColor,
-  cornerDotColor,
-  ...props
-}) => {
-  const qrCode = useRef(null);
-  
-  const qrCodeOptions = {
-    width: 300,
-    height: 300,
-    data: "https://example.com",
-    dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
-    },
-    cornersSquareOptions: {
-      color: cornerBorderColor,
-      type: selectedCornerStyle, // This will dynamically change
-    },
-    cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
-    },
-    backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
-    },
-  };
-  useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
-  }, []);
-
-    useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2139,68 +1859,12 @@ export const CanvaFrame3 = ({
   ]);
 
   return (
-  <svg
-    width={72}
-    height={96}
-    viewBox="0 0 72 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <rect width={72} height={96} rx={4} fill="white" />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M69 1.5H3C2.17157 1.5 1.5 2.17157 1.5 3V69C1.5 69.8284 2.17157 70.5 3 70.5H69C69.8284 70.5 70.5 69.8284 70.5 69V3C70.5 2.17157 69.8284 1.5 69 1.5ZM3 0C1.34315 0 0 1.34315 0 3V69C0 70.6569 1.34315 72 3 72H69C70.6569 72 72 70.6569 72 69V3C72 1.34315 70.6569 0 69 0H3Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <rect x={4.5} y={4.5} width={62.4} height={62.4} fill="white" />
-    <foreignObject width="88%" height="64px" x={4} y={4}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          padding: "4px 2px 2px",
-          backgroundColor: "white",
-        }}
-      >
-               <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={72}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
-          style={{
-            fontSize: 9,
-          }}
-        >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
-export const CanvaFrame4 = ({
+    <div className="notselectSvg">
+      <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+    </div>
+  );
+};
+export const CanvaFrame1 = ({
   frameColor,
   frameBorderColor,
   frameText,
@@ -2212,9 +1876,260 @@ export const CanvaFrame4 = ({
   CornerbgColor,
   cornerDotColor,
   ...props
-}) => { 
+}) => {
   const qrCode = useRef(null);
-  
+
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+  useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return (
+    <svg
+      width={72}
+      height={96}
+      viewBox="0 0 72 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 6C0 2.68629 2.68629 0 6 0H66C69.3137 0 72 2.68629 72 6V90C72 93.3137 69.3137 96 66 96H6C2.68629 96 0 93.3137 0 90V6ZM36.0001 93.6C38.9824 93.6 41.4001 91.1823 41.4001 88.2C41.4001 85.2177 38.9824 82.8 36.0001 82.8C33.0177 82.8 30.6001 85.2177 30.6001 88.2C30.6001 91.1823 33.0177 93.6 36.0001 93.6ZM35.9997 92.1C38.1536 92.1 39.8997 90.3539 39.8997 88.2C39.8997 86.0461 38.1536 84.3 35.9997 84.3C33.8458 84.3 32.0997 86.0461 32.0997 88.2C32.0997 90.3539 33.8458 92.1 35.9997 92.1ZM67.1998 18H4.7998V80.4H67.1998V18Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="100%" height="18px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+
+      {/* QR Code Container */}
+      <foreignObject width="90%" height="64px" x={4} y={18}>
+        <div
+          style={{
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+    </svg>
+  );
+};
+export const CanvaFrame2 = ({
+  frameColor,
+  frameBorderColor,
+  frameText,
+  frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
+  ...props
+}) => {
+  const qrCode = useRef(null);
+
+  const qrCodeOptions = {
+    width: 130,
+    height: 130,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+  useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+
+  return (
+    <svg
+      width={80}
+      height={98}
+      viewBox="0 0 72 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4 0C1.79086 0 0 1.79086 0 4V92C0 94.2091 1.79086 96 4 96H68C70.2091 96 72 94.2091 72 92V4C72 1.79086 70.2091 0 68 0H4ZM66.9 4.5H4.5V66.9H66.9V4.5Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="88%" height="64px" x={4} y={4}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
+          style={{
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "2px 2px 1px",
+            backgroundColor: "white",
+          }}
+        >
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={72}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
+export const CanvaFrame3 = ({
+  frameColor,
+  frameBorderColor,
+  frameText,
+  frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
+  ...props
+}) => {
+  const qrCode = useRef(null);
+
   const qrCodeOptions = {
     width: 300,
     height: 300,
@@ -2239,7 +2154,7 @@ export const CanvaFrame4 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2264,65 +2179,193 @@ export const CanvaFrame4 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={72}
-    height={96}
-    viewBox="0 0 72 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0 4C0 1.79086 1.79086 0 4 0H68C70.2091 0 72 1.79086 72 4V68C72 70.2091 70.2091 72 68 72H4C1.79086 72 0 70.2091 0 68V4ZM0 79C0 76.7909 1.79086 75 4 75H68C70.2091 75 72 76.7909 72 79V92C72 94.2091 70.2091 96 68 96H4C1.79086 96 0 94.2091 0 92V79ZM66.9 4.5H4.5V66.9H66.9V4.5Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="88%" height="63px" x={4} y={4}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          padding: "3px 2px 2px",
-          backgroundColor: "white",
-        }}
-      >
-       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={72}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={14}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+
+  return (
+    <svg
+      width={72}
+      height={96}
+      viewBox="0 0 72 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect width={72} height={96} rx={4} fill="white" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M69 1.5H3C2.17157 1.5 1.5 2.17157 1.5 3V69C1.5 69.8284 2.17157 70.5 3 70.5H69C69.8284 70.5 70.5 69.8284 70.5 69V3C70.5 2.17157 69.8284 1.5 69 1.5ZM3 0C1.34315 0 0 1.34315 0 3V69C0 70.6569 1.34315 72 3 72H69C70.6569 72 72 70.6569 72 69V3C72 1.34315 70.6569 0 69 0H3Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <rect x={4.5} y={4.5} width={62.4} height={62.4} fill="white" />
+      <foreignObject width="88%" height="64px" x={4} y={4}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "4px 2px 2px",
+            backgroundColor: "white",
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={72}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
+export const CanvaFrame4 = ({
+  frameColor,
+  frameBorderColor,
+  frameText,
+  frameTextColor,
+  dotColor,
+  selectedDotStyle,
+  cornerBorderColor,
+  selectedCornerStyle,
+  CornerbgColor,
+  cornerDotColor,
+  ...props
+}) => {
+  const qrCode = useRef(null);
+
+  const qrCodeOptions = {
+    width: 300,
+    height: 300,
+    data: "https://example.com",
+    dotsOptions: {
+      color: dotColor,
+      type: selectedDotStyle,
+    },
+    cornersSquareOptions: {
+      color: cornerBorderColor,
+      type: selectedCornerStyle, // This will dynamically change
+    },
+    cornersDotOptions: {
+      color: cornerDotColor, // Customize if needed
+    },
+    backgroundOptions: {
+      color: CornerbgColor, // Background color of the QR code
+    },
+  };
+  useEffect(() => {
+    qrCode.current = new QRCodeStyling(qrCodeOptions);
+    qrCode.current.append(document.getElementById("qrCode"));
+  }, []);
+
+  useEffect(() => {
+    qrCode.current.update({
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle, // Update dot style on change
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle, // Update corner style on change
+      },
+      backgroundOptions: {
+        color: CornerbgColor, // Background color of the QR code
+      },
+      cornersDotOptions: {
+        color: cornerDotColor, // Customize if needed
+      },
+    });
+  }, [
+    selectedDotStyle,
+    cornerBorderColor,
+    dotColor,
+    selectedCornerStyle,
+    CornerbgColor,
+    cornerDotColor,
+  ]);
+  return (
+    <svg
+      width={72}
+      height={96}
+      viewBox="0 0 72 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 4C0 1.79086 1.79086 0 4 0H68C70.2091 0 72 1.79086 72 4V68C72 70.2091 70.2091 72 68 72H4C1.79086 72 0 70.2091 0 68V4ZM0 79C0 76.7909 1.79086 75 4 75H68C70.2091 75 72 76.7909 72 79V92C72 94.2091 70.2091 96 68 96H4C1.79086 96 0 94.2091 0 92V79ZM66.9 4.5H4.5V66.9H66.9V4.5Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="88%" height="63px" x={4} y={4}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
+          style={{
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "3px 2px 2px",
+            backgroundColor: "white",
+          }}
+        >
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={72}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={14}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame5 = ({
   frameColor,
   frameBorderColor,
@@ -2335,9 +2378,9 @@ export const CanvaFrame5 = ({
   CornerbgColor,
   cornerDotColor,
   ...props
-}) =>{ 
+}) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -2362,7 +2405,7 @@ export const CanvaFrame5 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2388,66 +2431,66 @@ export const CanvaFrame5 = ({
     cornerDotColor,
   ]);
 
-  return(
-  <svg
-    width={72}
-    height={96}
-    viewBox="0 0 72 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M71.9999 8H72V88H71.9999C67.5816 88 63.9999 91.5817 63.9999 96H7.99992C7.99992 91.5817 4.41824 88 0 88V8C4.41824 7.99995 7.99992 4.41825 7.99992 0H63.9999C63.9999 4.41828 67.5816 8 71.9999 8ZM67.2003 21.6H4.80029V84H67.2003V21.6Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="100%" height="22px">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={12}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={72}
+      height={96}
+      viewBox="0 0 72 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M71.9999 8H72V88H71.9999C67.5816 88 63.9999 91.5817 63.9999 96H7.99992C7.99992 91.5817 4.41824 88 0 88V8C4.41824 7.99995 7.99992 4.41825 7.99992 0H63.9999C63.9999 4.41828 67.5816 8 71.9999 8ZM67.2003 21.6H4.80029V84H67.2003V21.6Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="100%" height="22px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
           style={{
-            fontSize: 9,
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={12}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+      <foreignObject width="86%" height="63px" y={21} x={5}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
+          style={{
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "3px 2px 2px",
+            backgroundColor: "white",
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-    <foreignObject width="86%" height="63px" y={21} x={5}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          padding: "3px 2px 2px",
-          backgroundColor: "white",
-        }}
-      >
-              <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame6 = ({
   frameColor,
   frameBorderColor,
@@ -2462,7 +2505,7 @@ export const CanvaFrame6 = ({
   ...props
 }) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -2487,7 +2530,7 @@ export const CanvaFrame6 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2512,67 +2555,66 @@ export const CanvaFrame6 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={72}
-    height={96}
-    viewBox="0 0 72 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0 73.1429V0H72V73.1429H0ZM2.46963 1.52381H69.5304L66.7447 4.57143H5.25534L2.46963 1.52381ZM2.46963 71.619L5.25535 68.5714H66.7447L69.5304 71.619H2.46963ZM66 6.09524H6V67.0476H66V6.09524Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="83%" height="60px" x={6} y={6}>
-      <div
-        id="#qrCode"
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          padding: "3px 2px 2px",
-          backgroundColor: "white",
-        }}
-        bis_skin_checked={1}
-      >
-        
-       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={72}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#000000"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={72}
+      height={96}
+      viewBox="0 0 72 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 73.1429V0H72V73.1429H0ZM2.46963 1.52381H69.5304L66.7447 4.57143H5.25534L2.46963 1.52381ZM2.46963 71.619L5.25535 68.5714H66.7447L69.5304 71.619H2.46963ZM66 6.09524H6V67.0476H66V6.09524Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="83%" height="60px" x={6} y={6}>
+        <div
+          id="#qrCode"
           style={{
-            fontSize: 9,
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "3px 2px 2px",
+            backgroundColor: "white",
           }}
+          bis_skin_checked={1}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={72}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#000000"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame7 = ({
   frameColor,
   frameBorderColor,
@@ -2587,7 +2629,7 @@ export const CanvaFrame7 = ({
   ...props
 }) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -2612,7 +2654,7 @@ export const CanvaFrame7 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2637,85 +2679,84 @@ export const CanvaFrame7 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={83}
-    height={96}
-    viewBox="0 0 77 85"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M71.6772 33.6772C69.9122 35.4421 67.6023 36.5366 65.1429 36.7969L65.1429 15.2031C67.6023 15.4634 69.9122 16.5579 71.6772 18.3228C73.7133 20.359 74.8571 23.1205 74.8571 26C74.8571 28.8795 73.7133 31.641 71.6772 33.6772Z"
-      fill={frameColor ? frameColor : "#404040"}
-      stroke="#404040"
-      strokeWidth={2.28571}
-    />
-    <path
-      d="M9 4C9 2.34315 10.3431 1 12 1H62C63.6569 1 65 2.34315 65 4V44C65 50.0751 60.0751 55 54 55H20C13.9249 55 9 50.0751 9 44V4Z"
-      fill={frameColor ? frameColor : "#404040"}
-      stroke="#404040"
-      strokeWidth={2}
-    />
-    <path
-      d="M0 52.6667C0 52.2985 0.298477 52 0.666667 52H74.3333C74.7015 52 75 52.2985 75 52.6667C75 56.7168 71.7168 60 67.6667 60H7.33333C3.28325 60 0 56.7168 0 52.6667Z"
-      fill="#404040"
-    />
-    <foreignObject
-      width="60%"
-      height="45px"
-      x={14}
-      y={4}
-      style={{
-        borderRadius: 3,
-      }}
+  return (
+    <svg
+      width={83}
+      height={96}
+      viewBox="0 0 77 85"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
+      <path
+        d="M71.6772 33.6772C69.9122 35.4421 67.6023 36.5366 65.1429 36.7969L65.1429 15.2031C67.6023 15.4634 69.9122 16.5579 71.6772 18.3228C73.7133 20.359 74.8571 23.1205 74.8571 26C74.8571 28.8795 73.7133 31.641 71.6772 33.6772Z"
+        fill={frameColor ? frameColor : "#404040"}
+        stroke="#404040"
+        strokeWidth={2.28571}
+      />
+      <path
+        d="M9 4C9 2.34315 10.3431 1 12 1H62C63.6569 1 65 2.34315 65 4V44C65 50.0751 60.0751 55 54 55H20C13.9249 55 9 50.0751 9 44V4Z"
+        fill={frameColor ? frameColor : "#404040"}
+        stroke="#404040"
+        strokeWidth={2}
+      />
+      <path
+        d="M0 52.6667C0 52.2985 0.298477 52 0.666667 52H74.3333C74.7015 52 75 52.2985 75 52.6667C75 56.7168 71.7168 60 67.6667 60H7.33333C3.28325 60 0 56.7168 0 52.6667Z"
+        fill="#404040"
+      />
+      <foreignObject
+        width="60%"
+        height="45px"
+        x={14}
+        y={4}
         style={{
-          border: "0px solid rgb(255, 255, 255)",
           borderRadius: 3,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          backgroundColor: "white",
         }}
       >
-        
-       <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={72}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={5}
-          fill="#000000"
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            border: "0px solid rgb(255, 255, 255)",
+            borderRadius: 3,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            backgroundColor: "white",
           }}
         >
-          {"SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={72}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={5}
+            fill="#000000"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {"SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame8 = ({
   frameColor,
   frameBorderColor,
@@ -2728,9 +2769,9 @@ export const CanvaFrame8 = ({
   CornerbgColor,
   cornerDotColor,
   ...props
-}) =>{ 
+}) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -2755,7 +2796,7 @@ export const CanvaFrame8 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2780,73 +2821,71 @@ export const CanvaFrame8 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={84}
-    height={96}
-    viewBox="0 0 84 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M0.0129935 25.5044C-0.275576 19.7907 4.2793 15 10.0003 15H72.9115C78.6523 15 83.2145 19.8227 82.8961 25.5547L78.5072 104.555C78.2128 109.854 73.8299 114 68.5226 114H13.9902C8.66337 114 4.27158 109.824 4.00289 104.504L0.0129935 25.5044Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <path
-      d="M48.882 30C54.6932 30 59.2806 25.0635 58.8552 19.2678L58.121 9.26785C57.7375 4.04312 53.3867 1.66943e-06 48.1479 1.21144e-06L34.2907 0C29.0799 -4.55536e-07 24.7425 4.00126 24.3231 9.19508L23.5156 19.1951C23.0455 25.0163 27.6429 30 33.4831 30L48.882 30ZM47.18 25C50.6691 25 53.4224 22.0343 53.1635 18.5548L52.5682 10.5548C52.3352 7.42246 49.7258 5 46.5848 5L35.8089 5C32.685 5 30.0837 7.39703 29.8289 10.5106L29.1742 18.5106C28.8881 22.0056 31.6474 25 35.1542 25L47.18 25Z"
-      fill={frameColor ? frameColor : "#404040"}
-      fillRule="evenodd"
-      clipRule="evenodd"
-    />
-    <foreignObject width="77%" height="64px" x={8} y={25}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          backgroundColor: "white",
-          paddingLeft: 1,
-          paddingTop: 1,
-        }}
-      >
-      
-      <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={90} style={{}}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={84}
+      height={96}
+      viewBox="0 0 84 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M0.0129935 25.5044C-0.275576 19.7907 4.2793 15 10.0003 15H72.9115C78.6523 15 83.2145 19.8227 82.8961 25.5547L78.5072 104.555C78.2128 109.854 73.8299 114 68.5226 114H13.9902C8.66337 114 4.27158 109.824 4.00289 104.504L0.0129935 25.5044Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <path
+        d="M48.882 30C54.6932 30 59.2806 25.0635 58.8552 19.2678L58.121 9.26785C57.7375 4.04312 53.3867 1.66943e-06 48.1479 1.21144e-06L34.2907 0C29.0799 -4.55536e-07 24.7425 4.00126 24.3231 9.19508L23.5156 19.1951C23.0455 25.0163 27.6429 30 33.4831 30L48.882 30ZM47.18 25C50.6691 25 53.4224 22.0343 53.1635 18.5548L52.5682 10.5548C52.3352 7.42246 49.7258 5 46.5848 5L35.8089 5C32.685 5 30.0837 7.39703 29.8289 10.5106L29.1742 18.5106C28.8881 22.0056 31.6474 25 35.1542 25L47.18 25Z"
+        fill={frameColor ? frameColor : "#404040"}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+      <foreignObject width="77%" height="64px" x={8} y={25}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            backgroundColor: "white",
+            paddingLeft: 1,
+            paddingTop: 1,
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={90} style={{}}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame9 = ({
   frameColor,
   frameBorderColor,
@@ -2859,9 +2898,9 @@ export const CanvaFrame9 = ({
   CornerbgColor,
   cornerDotColor,
   ...props
-}) => { 
+}) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -2886,7 +2925,7 @@ export const CanvaFrame9 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -2911,77 +2950,77 @@ export const CanvaFrame9 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={80}
-    height={96}
-    viewBox="0 0 80 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M1.25 13C1.25 11.4812 2.48122 10.25 4 10.25H76C77.5188 10.25 78.75 11.4812 78.75 13V105C78.75 106.519 77.5188 107.75 76 107.75H4C2.48122 107.75 1.25 106.519 1.25 105V13Z"
-      fill="#700f0f"
-      stroke="#404040"
-      strokeWidth={2.5}
-    />
-    <rect x={8} y={20} width={64} height={64} fill="url(#pattern0)" />
-    <path
-      d="M21 10.25C21 7.62665 23.1266 5.5 25.75 5.5H54.25C56.8734 5.5 59 7.62665 59 10.25C59 12.8734 56.8734 15 54.25 15H25.75C23.1266 15 21 12.8734 21 10.25Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M40 10.25C42.6232 10.25 44.75 8.12335 44.75 5.5C44.75 2.87665 42.6232 0.75 40 0.75C37.3768 0.75 35.25 2.87665 35.25 5.5C35.25 8.12335 37.3768 10.25 40 10.25ZM40 7.875C41.3116 7.875 42.375 6.81169 42.375 5.5C42.375 4.18831 41.3116 3.125 40 3.125C38.6884 3.125 37.625 4.18831 37.625 5.5C37.625 6.81169 38.6884 7.875 40 7.875Z"
-      fill={frameColor ? frameColor : "#404040"}
-    />
-    <foreignObject width="79%" height="64px" x={8} y={22}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `1px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "white",
-          boxSizing: "border-box",
-          padding: "1px 1px 1px 0px",
-        }}
-      >
-         <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={90}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={5}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={80}
+      height={96}
+      viewBox="0 0 80 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1.25 13C1.25 11.4812 2.48122 10.25 4 10.25H76C77.5188 10.25 78.75 11.4812 78.75 13V105C78.75 106.519 77.5188 107.75 76 107.75H4C2.48122 107.75 1.25 106.519 1.25 105V13Z"
+        fill="#700f0f"
+        stroke="#404040"
+        strokeWidth={2.5}
+      />
+      <rect x={8} y={20} width={64} height={64} fill="url(#pattern0)" />
+      <path
+        d="M21 10.25C21 7.62665 23.1266 5.5 25.75 5.5H54.25C56.8734 5.5 59 7.62665 59 10.25C59 12.8734 56.8734 15 54.25 15H25.75C23.1266 15 21 12.8734 21 10.25Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M40 10.25C42.6232 10.25 44.75 8.12335 44.75 5.5C44.75 2.87665 42.6232 0.75 40 0.75C37.3768 0.75 35.25 2.87665 35.25 5.5C35.25 8.12335 37.3768 10.25 40 10.25ZM40 7.875C41.3116 7.875 42.375 6.81169 42.375 5.5C42.375 4.18831 41.3116 3.125 40 3.125C38.6884 3.125 37.625 4.18831 37.625 5.5C37.625 6.81169 38.6884 7.875 40 7.875Z"
+        fill={frameColor ? frameColor : "#404040"}
+      />
+      <foreignObject width="79%" height="64px" x={8} y={22}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            border: `1px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "white",
+            boxSizing: "border-box",
+            padding: "1px 1px 1px 0px",
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={90}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={5}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame10 = ({
   frameColor,
   frameBorderColor,
@@ -2996,7 +3035,7 @@ export const CanvaFrame10 = ({
   ...props
 }) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -3021,7 +3060,7 @@ export const CanvaFrame10 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -3046,83 +3085,83 @@ export const CanvaFrame10 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  return(
-  <svg
-    width={75}
-    height={96}
-    viewBox="0 0 75 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M2 95.5667V51.394C2 50.6683 2.32395 49.9804 2.88345 49.5181L35.8757 22.2594C36.7638 21.5257 38.0447 21.5152 38.9447 22.2344L73.0857 49.5175C73.6636 49.9792 74 50.6787 74 51.4184V95.5667C74 96.9106 72.9106 98 71.5667 98H4.43333C3.08944 98 2 96.9106 2 95.5667Z"
-      fill="white"
-      stroke="#404040"
-      strokeWidth={2.43333}
-    />
-    <path
-      d="M7.215 4C7.215 2.46189 8.46189 1.215 10 1.215H66C67.5381 1.215 68.785 2.46189 68.785 4V80C68.785 81.5381 67.5381 82.785 66 82.785H10C8.46189 82.785 7.215 81.5381 7.215 80V4Z"
-      fill={frameColor ? frameColor : "#404040"}
-      stroke="#404040"
-      strokeWidth={2.43}
-    />
-    <rect x={10} y={4} width={56} height={55} />
-    <path
-      d="M71.8348 96.0938L44.4898 75.5046C43.8177 74.9986 43.8497 73.9795 44.5523 73.5167L71.8973 55.5011C72.7063 54.9681 73.7833 55.5484 73.7833 56.5171V95.1219C73.7833 96.1255 72.6366 96.6975 71.8348 96.0938ZM4.16516 55.9062L31.5102 76.4954C32.1823 77.0014 32.1503 78.0205 31.4477 78.4834L4.1027 96.4989C3.29373 97.0319 2.21667 96.4517 2.21667 95.4829L2.21667 56.8781C2.21667 55.8745 3.36338 55.3025 4.16516 55.9062Z"
-      fill={frameColor ? frameColor : "#404040"}
-      stroke="#404040"
-      strokeWidth={2.43333}
-    />
-    <path
-      d="M2 95.5182V91.7332C2 90.9999 2.318 90.3041 2.86868 89.8325L35.8612 61.5811C36.7545 60.8162 38.0543 60.8053 38.9598 61.5552L73.1006 89.8315C73.6696 90.3028 74 91.0105 74 91.7581V95.5182C74 96.8889 72.9106 98 71.5667 98H4.43333C3.08944 98 2 96.8889 2 95.5182Z"
-      stroke="#404040"
-      fill={frameColor ? frameColor : "#404040"}
-      strokeWidth={2.43333}
-    />
-    <foreignObject width="71%" height="54px" y={4} x={11}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          backgroundColor: "white",
-        }}
-      >
-        <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
-
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" y={80}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={8}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={75}
+      height={96}
+      viewBox="0 0 75 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M2 95.5667V51.394C2 50.6683 2.32395 49.9804 2.88345 49.5181L35.8757 22.2594C36.7638 21.5257 38.0447 21.5152 38.9447 22.2344L73.0857 49.5175C73.6636 49.9792 74 50.6787 74 51.4184V95.5667C74 96.9106 72.9106 98 71.5667 98H4.43333C3.08944 98 2 96.9106 2 95.5667Z"
+        fill="white"
+        stroke="#404040"
+        strokeWidth={2.43333}
+      />
+      <path
+        d="M7.215 4C7.215 2.46189 8.46189 1.215 10 1.215H66C67.5381 1.215 68.785 2.46189 68.785 4V80C68.785 81.5381 67.5381 82.785 66 82.785H10C8.46189 82.785 7.215 81.5381 7.215 80V4Z"
+        fill={frameColor ? frameColor : "#404040"}
+        stroke="#404040"
+        strokeWidth={2.43}
+      />
+      <rect x={10} y={4} width={56} height={55} />
+      <path
+        d="M71.8348 96.0938L44.4898 75.5046C43.8177 74.9986 43.8497 73.9795 44.5523 73.5167L71.8973 55.5011C72.7063 54.9681 73.7833 55.5484 73.7833 56.5171V95.1219C73.7833 96.1255 72.6366 96.6975 71.8348 96.0938ZM4.16516 55.9062L31.5102 76.4954C32.1823 77.0014 32.1503 78.0205 31.4477 78.4834L4.1027 96.4989C3.29373 97.0319 2.21667 96.4517 2.21667 95.4829L2.21667 56.8781C2.21667 55.8745 3.36338 55.3025 4.16516 55.9062Z"
+        fill={frameColor ? frameColor : "#404040"}
+        stroke="#404040"
+        strokeWidth={2.43333}
+      />
+      <path
+        d="M2 95.5182V91.7332C2 90.9999 2.318 90.3041 2.86868 89.8325L35.8612 61.5811C36.7545 60.8162 38.0543 60.8053 38.9598 61.5552L73.1006 89.8315C73.6696 90.3028 74 91.0105 74 91.7581V95.5182C74 96.8889 72.9106 98 71.5667 98H4.43333C3.08944 98 2 96.8889 2 95.5182Z"
+        stroke="#404040"
+        fill={frameColor ? frameColor : "#404040"}
+        strokeWidth={2.43333}
+      />
+      <foreignObject width="71%" height="54px" y={4} x={11}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            backgroundColor: "white",
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" y={80}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={8}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};
 export const CanvaFrame11 = ({
   frameColor,
   frameBorderColor,
@@ -3137,7 +3176,7 @@ export const CanvaFrame11 = ({
   ...props
 }) => {
   const qrCode = useRef(null);
-  
+
   const qrCodeOptions = {
     width: 130,
     height: 130,
@@ -3162,7 +3201,7 @@ export const CanvaFrame11 = ({
     qrCode.current.append(document.getElementById("qrCode"));
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
@@ -3187,64 +3226,64 @@ export const CanvaFrame11 = ({
     CornerbgColor,
     cornerDotColor,
   ]);
-  
-  return(
-  <svg
-    width={80}
-    height={96}
-    viewBox="0 0 80 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M6.81755 104.903L1.215 108.707V4C1.215 2.46189 2.46189 1.215 4 1.215H76C77.5381 1.215 78.785 2.46189 78.785 4V108.614L73.7147 104.926L72.9073 104.338L72.1746 105.017L67.5 109.344L62.8254 105.017L62.1379 104.38L61.3476 104.883L54.0727 109.514L48.2493 104.952L47.5 104.365L46.7507 104.952L41.0307 109.433L35.7862 104.982L35.0307 104.341L34.2507 104.952L28.4729 109.478L22.2147 104.926L21.5 104.406L20.7853 104.926L14.5 109.498L8.21471 104.926L7.5241 104.423L6.81755 104.903Z"
-      fill={frameColor ? frameColor : "#404040"}
-      stroke="#404040"
-      strokeWidth={2.43}
-    />
-    <foreignObject width="83%" height="68px" x={7} y={6}>
-      <div
-        id="#qrCode"
-        bis_skin_checked={1}
-        style={{
-          border: `4px solid ${frameBorderColor}`,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
-          backgroundColor: "white",
-          paddingTop: 2,
-        }}
-      >
-          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
 
-      </div>
-    </foreignObject>
-    <foreignObject width="100%" height="18px" x={-3} y={80}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "100%",
-        }}
-        {...props}
-      >
-        <text
-          x="50%"
-          y={10}
-          fill={frameTextColor ? frameTextColor : "#FFFFFF"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontFamily="Nunito Sans"
-          fontWeight="bold"
+  return (
+    <svg
+      width={80}
+      height={96}
+      viewBox="0 0 80 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M6.81755 104.903L1.215 108.707V4C1.215 2.46189 2.46189 1.215 4 1.215H76C77.5381 1.215 78.785 2.46189 78.785 4V108.614L73.7147 104.926L72.9073 104.338L72.1746 105.017L67.5 109.344L62.8254 105.017L62.1379 104.38L61.3476 104.883L54.0727 109.514L48.2493 104.952L47.5 104.365L46.7507 104.952L41.0307 109.433L35.7862 104.982L35.0307 104.341L34.2507 104.952L28.4729 109.478L22.2147 104.926L21.5 104.406L20.7853 104.926L14.5 109.498L8.21471 104.926L7.5241 104.423L6.81755 104.903Z"
+        fill={frameColor ? frameColor : "#404040"}
+        stroke="#404040"
+        strokeWidth={2.43}
+      />
+      <foreignObject width="83%" height="68px" x={7} y={6}>
+        <div
+          id="#qrCode"
+          bis_skin_checked={1}
           style={{
-            fontSize: 9,
+            border: `4px solid ${frameBorderColor}`,
+            width: "100%",
+            height: "100%",
+            boxSizing: "border-box",
+            backgroundColor: "white",
+            paddingTop: 2,
           }}
         >
-          {frameText ? frameText : "SCAN ME!"}
-        </text>
-      </svg>
-    </foreignObject>
-  </svg>
-)};
+          <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+        </div>
+      </foreignObject>
+      <foreignObject width="100%" height="18px" x={-3} y={80}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "100%",
+          }}
+          {...props}
+        >
+          <text
+            x="50%"
+            y={10}
+            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Nunito Sans"
+            fontWeight="bold"
+            style={{
+              fontSize: 9,
+            }}
+          >
+            {frameText ? frameText : "SCAN ME!"}
+          </text>
+        </svg>
+      </foreignObject>
+    </svg>
+  );
+};

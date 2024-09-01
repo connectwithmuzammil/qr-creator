@@ -11,7 +11,6 @@ function BottomWrapperStages({
   onCancelClick,
   showNextButton,
   generateQrPayload,
-  qrData
 }) {
   const stages = [
     { step: 1, label: "Select QR code" },
@@ -22,7 +21,7 @@ function BottomWrapperStages({
   const isLastStage = currentStage === stages.length;
   const navigate = useNavigate();
 
-  console.log("qrDataqrData",qrData)
+  console.log("qrDataqrData", generateQrPayload);
 
   //QR CODE API CALL
   const { mutate: mutateQrCode, isPending: isLoading } = useMutation({
@@ -40,26 +39,30 @@ function BottomWrapperStages({
 
   const handleNextClick = async () => {
     if (isLastStage) {
-      // const payload = getPayload;
-      // console.log("payloadpayload", getPayload);
-      const payloadStatic = {
-        qr_name: "test",
-        field_url: "https://www.qrcreator.com/",
-        style: {
-          backgroundColor: "#FFFFFF",
-          dotsStyle: "square",
-          dotsColor: "#000000",
-          cornerStyle: "rounded-dot",
-          cornerBackgroundColor: "#000000",
-          cornerBorderColor: "#000000",
-          frameStyle: "none",
-          frameColor: "#404040",
-          frameText: "SCAN ME!",
-          frameTextColor: "#FFFFFF",
-        },
-      };
-      // console.log("payloadStaticpayloadStatic", payloadStatic);
-      mutateQrCode(generateQrPayload);
+      const formData = new FormData();
+      
+      // Flatten and append existing payload data
+      Object.keys(generateQrPayload).forEach((key) => {
+        if (key === "style") {
+          // Handle the nested style object separately
+          Object.keys(generateQrPayload.style).forEach((styleKey) => {
+            formData.append(
+              `style[${styleKey}]`,
+              generateQrPayload.style[styleKey]
+            );
+          });
+        } else {
+          formData.append(key, generateQrPayload[key]);
+        }
+      });
+
+      if (generateQrPayload?.pdf_file) {
+        formData.append("pdf_file", generateQrPayload.pdf_file);
+      }
+      console.log("formData", formData);
+      mutateQrCode(formData);
+
+      // mutateQrCode(generateQrPayload);
     } else {
       onNextClick();
     }

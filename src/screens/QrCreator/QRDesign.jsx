@@ -94,65 +94,11 @@ const QRDesign = () => {
 
   //DOT STYLE STATE
   const [selectedCornerStyle, setSelectedCornerStyle] = useState("rounded");
-
-  // const qrCode = useRef(null);
-
-  //DEFAULT QR CODE OPTIONS
-  const qrCodeOptions = {
-    width: 130,
-    height: 130,
-    data: "https://example.com",
-    dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
-    },
-    cornersSquareOptions: {
-      color: "#000000",
-      type: selectedCornerStyle, // This will dynamically change
-    },
-    cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
-    },
-    backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
-    },
-  };
-
-  // useEffect(() => {
-  //   qrCode.current = new QRCodeStyling(qrCodeOptions);
-  //   qrCode.current.append(document.getElementById("qrCode"));
-  // }, []);
-
-  // useEffect(() => {
-  //   qrCode.current.update({
-  //     dotsOptions: {
-  //       color: dotColor,
-  //       type: selectedDotStyle, // Update dot style on change
-  //     },
-  //     cornersSquareOptions: {
-  //       color: cornerBorderColor,
-  //       type: selectedCornerStyle, // Update corner style on change
-  //     },
-  //     backgroundOptions: {
-  //       color: CornerbgColor, // Background color of the QR code
-  //     },
-  //     cornersDotOptions: {
-  //       color: cornerDotColor, // Customize if needed
-  //     },
-  //   });
-  // }, [
-  //   selectedDotStyle,
-  //   cornerBorderColor,
-  //   dotColor,
-  //   selectedCornerStyle,
-  //   CornerbgColor,
-  //   cornerDotColor,
-  // ]);
   const handleCornerStyleClick = (styleId) => {
     setSelectedCornerStyle(styleId);
   };
 
-  //useEffect
+  // SET QR DATA TO QR CODE STYLING
   useEffect(() => {
     qrData.style.dotsColor = dotColor;
     qrData.style.cornerBackgroundColor = CornerbgColor;
@@ -182,11 +128,21 @@ const QRDesign = () => {
 
   console.log("finalQrData", qrData);
   console.log("selectedFrame", selectedFrame);
-  //Render Frame
+
+  //Render Frame CANVAS
   const renderFrame = () => {
     switch (selectedFrame) {
       case null:
-        return <NotSelectedFrameCanvas />;
+        return (
+          <NotSelectedFrameCanvas
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+          />
+        );
       case "frame1":
         return (
           <CanvaFrame1
@@ -730,39 +686,9 @@ const QRDesign = () => {
                   alt=""
                   className="mobile-frame"
                 />
-
                 {renderFrame()}
-
-                {/* <div className="frame-overlay"> */}
-                {/* {renderFrame()} */}
-                {/* <div
-                    id="qrCode"
-                    className={`canvas-img ${selectedFrame}`}
-                  ></div> */}
-
-                {/* <QRCodeCanvas
-                    renderAs="svg"
-                    size={130}
-                    qrStyle="dots"
-                    fgColor={qrData.style.dotsColor}
-                    bgColor={qrData.style.cornerBackgroundColor}
-                    className={`canvas-img ${selectedFrame}`}
-                  /> */}
-                {/* </div> */}
               </div>
             </div>
-
-            {/* <div className="img-con">
-              <img
-                src="/assets/images/phone-frame.jpeg"
-                alt=""
-                className="mobile-framee"
-              />
-              <div className="frame-overlay">
-                {renderFrame()}
-                <div id="qrCode" className="qr-code-container"></div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
@@ -778,10 +704,3 @@ const QRDesign = () => {
 };
 
 export default QRDesign;
-
-{
-  /* <div className="img-con">
-              <img src="/assets/images/phone-frame.jpeg" alt="" />
-              <img src="/assets/images/qr-code.png" alt="" />
-            </div> */
-}

@@ -1491,6 +1491,7 @@ footer .bottom p {
   margin-bottom: 20px;
 }
 .qr-editor-detail .url {
+  margin-bottom: 100px;
 }
 .qr-editor-detail .url .containerr {
   display: flex;
@@ -1807,26 +1808,25 @@ footer .bottom p {
   position: relative;
   align-items: center;
 }
-.qr-design .containerr .right .qr-preview{
-  
+.qr-design .containerr .right .qr-preview {
 }
-.qr-preview svg{
+.qr-preview svg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 250px;
 }
-.qr-preview .notselectSvg{
+.qr-preview .notselectSvg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   /* width: 100%; */
   height: 250px;
 }
-.qr-preview svg canvas{
+.qr-preview svg canvas {
   width: 100%;
   height: 100%;
   padding: 8px;
@@ -2047,7 +2047,12 @@ footer .bottom p {
   justify-content: space-between;
   gap: 40px;
 }
-
+.color-picker-con.bg-custom-color {
+  background-color: #f2f2f2;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 24px;
+}
 .color-picker-con .color-picker-wrapper {
   position: relative;
   display: flex;
@@ -2135,28 +2140,33 @@ footer .bottom p {
   font-size: 16px;
 }
 
-
 /* ************************ PDF ******************************** */
-.pdf-page{}
-.pdf-page .containerr{
+.pdf-page {
+}
+.pdf-page .containerr {
   display: flex;
   justify-content: space-between;
   gap: 30px;
+  margin-bottom: 100px;
+
 }
-.pdf-page .containerr .left{
+.pdf-page .containerr .left {
   flex: 2;
   background-color: #f6fafe;
   padding: 40px;
   border-radius: 10px;
 }
-.pdf-page .containerr .right{
+.pdf-page .containerr .right {
   flex: 1;
-display: flex;
-justify-content: center ;
+  display: flex;
+  justify-content: center;
 }
-.pdf-page .containerr .right img{
+.pdf-page .containerr .right img {
   width: 80%;
   object-fit: contain;
+}
+.accord-con {
+  margin-bottom: 16px;
 }
 .accord-con .accordion-item {
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
@@ -2165,11 +2175,272 @@ justify-content: center ;
   margin-bottom: 12px;
   padding: 12px 12px;
 }
-.accord-con  .accordion-button {
+.accord-con .accordion-button {
   background-color: transparent;
   box-shadow: none;
   color: #262626;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
   font-weight: 700;
+}
+.accord-con-with-input .accordion-item {
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
+  background: #fcfcfc;
+  border-radius: 0.5rem;
+  margin-bottom: 12px;
+  padding: 12px 12px;
+}
+.accord-con-with-input {
+  margin-bottom: 16px;
+}
+.accord-con-with-input .accordion-button {
+  background-color: transparent;
+  box-shadow: none;
+  color: #262626;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+}
+.accord-con-with-input .accordion-body input {
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+.pdf-page .pdf-uploader-container {
+  text-align: center;
+  /* margin-top: 20px; */
+  border-style: dashed;
+  padding-top: 16px;
+  border-color: #ccc7c7;
+}
+
+.pdf-page .upload-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.pdf-page .upload-button:hover {
+  background-color: #45a049;
+}
+
+.pdf-page .file-size-text {
+  margin-top: 10px;
+  color: #888;
+  font-size: 14px;
+}
+
+.pdf-page .file-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* margin-top: 20px; */
+  margin: 10px 0px 20px 0px;
+}
+
+.pdf-page .delete-icon {
+  color: #f44336;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.pdf-page .delete-icon:hover {
+  color: #d32f2f;
+}
+
+.pdf-page .file-info p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* COLOR PICKER CSS */
+.ThemePicker__wrapper {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.ThemePicker__labels {
+  border: 1px solid transparent !important;
+  padding: 1.25rem 0 0;
+  flex-basis: content;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0.5rem;
+  flex-direction: column;
+}
+.ThemePicker__label--first {
+  margin-bottom: 1.25rem;
+}
+.ThemePicker__item {
+  border: 1px solid #8c8c8c;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 15%;
+  padding: 1rem 0.75rem;
+}
+.ThemePicker--active,
+.u-active {
+  outline: 2px solid #307fe2;
+  border: 1px solid transparent !important;
+}
+.ThemePicker__swatch {
+  border-radius: 0.25rem;
+  display: inline-flex;
+  width: 100%;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
+.ThemePicker__item span {
+  display: block;
+}
+.ThemePicker__add {
+  background-color: #307fe2;
+  color: #fcfcfc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 15px;
+  font-size: 25px;
+}
+.input-wrap-comp {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.input-wrap-comp label {
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+.input-wrap-comp input {
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+.select-wrap-comp{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.select-wrap-comp label{
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+.select-wrap-comp select{
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+
+/* WIFI PAGE */
+.wifi-page {
+  margin-bottom: 100px;
+
+}
+.wifi-page .containerr {
+  display: flex;
+  justify-content:space-between;
+  gap: 30px;
+}
+.wifi-page .left {
+  flex: 2;
+  background-color: #f6fafe;
+  padding: 40px;
+  border-radius: 10px;
+}
+.wifi-page  .right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.wifi-page  .right img {
+  width: 80%;
+  object-fit: contain;
+}
+.wrap-inp-cmp{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  gap: 35px;
+}
+.input-checkbox-comp{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.input-checkbox-comp label{
+  color: #262626;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+.input-checkbox-comp input{
+  outline: none;
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  transition: border 0.2s ease-in-out;
+}
+
+
+/* YOUTUBE PAGE */
+.youtube-page {
+  margin-bottom: 100px;
+
+}
+.youtube-page .containerr {
+  display: flex;
+  justify-content:space-between;
+  gap: 30px;
+}
+.youtube-page .left {
+  flex: 2;
+  background-color: #f6fafe;
+  padding: 40px;
+  border-radius: 10px;
+}
+.youtube-page  .right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.youtube-page  .right img {
+  width: 80%;
+  object-fit: contain;
 }

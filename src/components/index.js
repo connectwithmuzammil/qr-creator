@@ -20,10 +20,12 @@ import URL from "./QRDetailPages.jsx/URL";
 import ColorPickerComponent from "./ColorPicker";
 import QRMobileFrame from "./QRMobileFrame";
 import PDF from "./QRDetailPages.jsx/PDF";
+import WIFI from "./QRDetailPages.jsx/WIFI";
+import YOUTUBE from "./QRDetailPages.jsx/YOUTUBE";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
     ContactUs, FAQ, DatePickerInput, LineChartComp,
     BottomWrapperStages, Forgot, EditContactInfo,
-    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame,PDF
+    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame, PDF, WIFI, YOUTUBE
 };

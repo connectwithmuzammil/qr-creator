@@ -73,3 +73,13 @@
   color: red;
   font-size: 0.875em;
 }
+
+.input-comp-error {
+  border: 2px solid red;
+}
+
+.error-message-input-comp {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

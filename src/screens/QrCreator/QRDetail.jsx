@@ -1,14 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { BottomWrapperStages, Header, PDF, URL } from "../../components";
+import {
+  BottomWrapperStages,
+  Header,
+  PDF,
+  URL,
+  WIFI,
+  YOUTUBE,
+} from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import apis from "../../services";
+import {
+  PdfSchema,
+  UrlSchema,
+  WifiSchema,
+  youtubeSchema,
+} from "../../Helper/QRValidation";
 import { toast } from "react-toastify";
 
 const QRDetail = () => {
   const { type } = useParams();
   const initialState = {
     qr_name: "",
+    //URL
     field_url: "",
+    //WIFI
+    network_name: "",
+    network_password: "",
+    network_security_type: "",
+    //YOTUBE
+    youtube_url: "",
+    //PDF
+    pdf_file: "",
+    pdf_company: "",
+    pdf_title: "",
+    pdf_description: "",
+    pdf_website: "",
     type: "",
     style: {
       dotsStyle: "square",
@@ -37,26 +62,62 @@ const QRDetail = () => {
 
   console.log("qrData.type", qrData?.type);
 
+  console.log("qrData.pdf_file",qrData.pdf_file)
+
   const navigate = useNavigate();
 
   const handleNextClick = async () => {
-    const dataToSend = {
-      type: qrData.type,
-      style: qrData.style,
-      ...(type === "url"
-        ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
-        : {}),
-      ...(type === "vcard"
-        ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
-        : {}),
-    };
-    // try {
-    //   let res = await apis.validateQrCode(type);
-    //   console.log("ress", res);
-    //   toast.error(res.data.message)
-    // } catch (error) {
-    // }
-    navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
+    try {
+      if (type === "youtube") {
+        await youtubeSchema.validate(qrData);
+      } else if (type === "url") {
+        await UrlSchema.validate(qrData);
+      } else if (type === "wifi") {
+        await WifiSchema.validate(qrData);
+      } 
+      // else if (type === "pdf") {
+      //   await PdfSchema.validate({ file: qrData.file });
+      // }
+
+      const dataToSend = {
+        type: qrData.type,
+        style: qrData.style,
+        ...(type === "url"
+          ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
+          : {}),
+        ...(type === "vcard"
+          ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
+          : {}),
+        ...(type === "wifi"
+          ? {
+              qr_name: qrData.qr_name,
+              network_name: qrData.network_name,
+              network_password: qrData.network_password,
+              network_security_type: qrData.network_security_type,
+            }
+          : {}),
+        ...(type === "youtube"
+          ? {
+              qr_name: qrData.qr_name,
+              youtube_url: qrData.youtube_url,
+            }
+          : {}),
+        ...(type === "pdf"
+          ? {
+              qr_name: qrData.qr_name,
+              pdf_file: qrData.pdf_file,
+              pdf_company: qrData.pdf_company,
+              pdf_title: qrData.pdf_title,
+              pdf_description: qrData.pdf_description,
+              pdf_website: qrData.pdf_website,
+            }
+          : {}),
+      };
+      navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
+    } catch (error) {
+      console.log("error", error);
+      toast.error(error.errors[0]);
+    }
   };
 
   const handleCancelClick = () => {
@@ -76,7 +137,19 @@ const QRDetail = () => {
       case "pdf":
         return (
           <div>
-            <PDF />
+            <PDF qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "wifi":
+        return (
+          <div>
+            <WIFI qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "youtube":
+        return (
+          <div>
+            <YOUTUBE qrData={qrData} setQrData={setQrData} />
           </div>
         );
       default:
@@ -106,3 +179,18 @@ const QRDetail = () => {
 };
 
 export default QRDetail;
+
+// let isValid = true;
+// let errorMessage = "";
+
+// if (type === "url") {
+//   if (!qrData.field_url) {
+//     isValid = false;
+//     errorMessage = "Please enter the URL";
+//   }
+// }
+// if (!isValid) {
+
+//   toast.error(errorMessage);
+//   return;
+// }

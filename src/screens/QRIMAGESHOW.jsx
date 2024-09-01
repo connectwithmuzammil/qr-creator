@@ -12,6 +12,7 @@ import {
   CanvaFrame7,
   CanvaFrame8,
   CanvaFrame9,
+  NotSelectedFrameCanvas,
 } from "../components/SVGIcon";
 import QRCodeStyling from "qr-code-styling";
 
@@ -28,14 +29,14 @@ const QRIMAGESHOW = () => {
   const qrCode = useRef(null);
 
   const [selectedFrame, setSelectedFrame] = useState(
-    QRres.generateQr?.data?.style?.frameName
+    QRres.generateQr?.data?.style?.frameName || null
   );
   console.log("selectedFrame", selectedFrame);
-  useEffect(() => {
-    setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
-  }, [QRres.generateQ]);
+  // useEffect(() => {
+  //   setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
+  // }, [QRres.generateQ]);
 
-  let data = QRres.generateQr?.url;
+  let data = QRres.generateQr?.path;
   let dotColor = QRres.generateQr?.data?.style?.dotsColor;
   let CornerbgColor = QRres.generateQr?.data?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres.generateQr?.data?.style?.cornerBorderColor;
@@ -47,6 +48,8 @@ const QRIMAGESHOW = () => {
   let frameBgColor = QRres.generateQr?.data?.style?.backgroundColor;
   let frameText = QRres.generateQr?.data?.style?.frameText;
   let frameTextColor = QRres.generateQr?.data?.style?.frameTextColor;
+
+  console.log("datta", data);
 
   const qrCodeOptions = {
     width: 130,
@@ -79,7 +82,20 @@ const QRIMAGESHOW = () => {
 
   const renderFrame = () => {
     switch (selectedFrame) {
+      case null:
+        console.log("INSIDE NULL CASE");
+        return (
+          <NotSelectedFrameCanvas
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+          />
+        );
       case "frame1":
+        console.log("INSIDE CASE 1");
         return (
           <CanvaFrame1
             frameColor={frameColor}
@@ -268,6 +284,7 @@ const QRIMAGESHOW = () => {
 
       <div className="qr-preview">
         <div className="img-con">
+          {renderFrame()}
           {/* <img
             src="/assets/images/phone-frame.jpeg"
             alt=""
@@ -279,7 +296,6 @@ const QRIMAGESHOW = () => {
           /> */}
 
           <div className="frame-overlay" style={{ position: "static" }}>
-            {renderFrame()}
             {/* 
             <img
               src={abc?.generateQr?.path}
@@ -288,11 +304,11 @@ const QRIMAGESHOW = () => {
               className={`qr-code-test ${selectedFrame}`}
             /> */}
 
-            <div
+            {/* <div
               id="qrCode"
               className={`canvas-img ${selectedFrame}`}
               style={{ width: "150px", position: "absolute", zIndex: 1 }}
-            ></div>
+            ></div> */}
           </div>
         </div>
       </div>
