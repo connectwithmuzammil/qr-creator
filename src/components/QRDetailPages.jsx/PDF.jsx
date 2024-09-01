@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { FaTrash } from "react-icons/fa";
 import { InputComponent } from "../InputComponent";
@@ -6,10 +6,7 @@ import ColorPickerComponent from "../ColorPicker";
 
 const PDF = ({ qrData, setQrData }) => {
   const [file, setFile] = useState(qrData.pdf_file || null);
-  const [showCustomColor, setShowCustomColor] = useState(false);
 
-
-  
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type === "application/pdf") {
@@ -51,6 +48,68 @@ const PDF = ({ qrData, setQrData }) => {
     }));
   };
 
+  const colors = [
+    {
+      id: "blue",
+      background: "#d1e5fa",
+      button: "#1466b8",
+    },
+    {
+      id: "green",
+      background: "#e8fce8",
+      button: "#0e8b70",
+    },
+    {
+      id: "yellow",
+      background: "#fff9cc",
+      button: "#998600",
+    },
+    {
+      id: "red",
+      background: "#fecdd6",
+      button: "#b00223",
+    },
+  ];
+
+
+  const [activeColor, setActiveColor] = useState(colors[0].id); 
+  const [showColorPicker, setShowColorPicker] = useState(false);
+
+  useEffect(() => {
+    const color = colors.find((c) => c.id === activeColor);
+    if (color) {
+      setQrData((prevState) => ({
+        ...prevState,
+        color: {
+          background: color.background,
+          button: color.button,
+        },
+      }));
+    }
+  }, [activeColor, setQrData]);
+
+  const handleCustomColorChange = (colorType, color) => {
+    setQrData((prevState) => ({
+      ...prevState,
+      color: {
+        ...prevState.color,
+        [colorType]: color,
+      },
+    }));
+  };
+
+  const handleCustomColorSelect = () => {
+    setActiveColor("custom");
+  };
+
+  const handleColorPickerToggle = () => {
+    setShowColorPicker(!showColorPicker);
+    if (!showColorPicker) {
+      // Set the active color to 'custom' when opening the color picker
+      setActiveColor("custom");
+    }
+  };
+  // console.log("selectedColor", selectedColor);
   console.log("file", file);
   return (
     <div className="pdf-page">
@@ -102,61 +161,30 @@ const PDF = ({ qrData, setQrData }) => {
                   </span>
                   <span className="ThemePicker__label">Button</span>
                 </div>
-                <div
-                  className="ThemePicker__item ThemePicker--active"
-                  data-qa="theme-picker-color-blue-button"
-                >
-                  <span
-                    className="ThemePicker__swatch ThemePicker__swatch--first"
-                    style={{ backgroundColor: "rgb(209, 229, 250)" }}
-                  />
-                  <span
-                    className="ThemePicker__swatch"
-                    style={{ backgroundColor: "rgb(20, 102, 184)" }}
-                  />
-                </div>
-                <div
-                  className="ThemePicker__item "
-                  data-qa="theme-picker-color-green-button"
-                >
-                  <span
-                    className="ThemePicker__swatch ThemePicker__swatch--first"
-                    style={{ backgroundColor: "rgb(232, 252, 232)" }}
-                  />
-                  <span
-                    className="ThemePicker__swatch"
-                    style={{ backgroundColor: "rgb(14, 139, 112)" }}
-                  />
-                </div>
-                <div
-                  className="ThemePicker__item "
-                  data-qa="theme-picker-color-yellow-button"
-                >
-                  <span
-                    className="ThemePicker__swatch ThemePicker__swatch--first"
-                    style={{ backgroundColor: "rgb(255, 249, 204)" }}
-                  />
-                  <span
-                    className="ThemePicker__swatch"
-                    style={{ backgroundColor: "rgb(153, 134, 0)" }}
-                  />
-                </div>
-                <div
-                  className="ThemePicker__item "
-                  data-qa="theme-picker-color-red-button"
-                >
-                  <span
-                    className="ThemePicker__swatch ThemePicker__swatch--first"
-                    style={{ backgroundColor: "rgb(254, 205, 214)" }}
-                  />
-                  <span
-                    className="ThemePicker__swatch"
-                    style={{ backgroundColor: "rgb(176, 2, 35)" }}
-                  />
-                </div>
+                {colors.map((color) => (
+                  <div
+                    key={color.id}
+                    className={`ThemePicker__item ${
+                      activeColor === color.id ? "ThemePicker--active" : ""
+                    }`}
+                    onClick={() => {
+                      setActiveColor(color.id);
+                    }}
+                    data-qa={`theme-picker-color-${color.id}-button`}
+                  >
+                    <span
+                      className="ThemePicker__swatch ThemePicker__swatch--first"
+                      style={{ backgroundColor: color.background }}
+                    />
+                    <span
+                      className="ThemePicker__swatch"
+                      style={{ backgroundColor: color.button }}
+                    />
+                  </div>
+                ))}
                 <div
                   className="ThemePicker__item ThemePicker__item--center"
-                  onClick={() => setShowCustomColor(!showCustomColor)}
+                  onClick={handleColorPickerToggle}
                 >
                   <span className="ThemePicker__swatch">
                     <div
@@ -169,10 +197,22 @@ const PDF = ({ qrData, setQrData }) => {
                   </span>
                 </div>
               </div>
-              {showCustomColor && (
+              {showColorPicker && (
                 <div className="color-picker-con bg-custom-color">
-                  <ColorPickerComponent />
-                  <ColorPickerComponent />
+                  <ColorPickerComponent
+                    label="Background Color"
+                    color={qrData.color.background}
+                    setColor={(color) =>
+                      handleCustomColorChange("background", color)
+                    }
+                  />
+                  <ColorPickerComponent
+                    label="Button Color"
+                    color={qrData.color.button}
+                    setColor={(color) =>
+                      handleCustomColorChange("button", color)
+                    }
+                  />
                 </div>
               )}
             </div>

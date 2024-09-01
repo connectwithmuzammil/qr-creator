@@ -49,6 +49,10 @@ const QRDetail = () => {
       frameTextColor: "#FFFFFF",
       frameName: "",
     },
+    color: {
+      background: "",
+      button: "",
+    },
   };
   const [qrData, setQrData] = useState(initialState);
   // console.log("qrDataqrData",qrData)
@@ -60,9 +64,8 @@ const QRDetail = () => {
     }));
   }, [type]);
 
-  console.log("qrData.type", qrData?.type);
+  console.log("qrData", qrData);
 
-  console.log("qrData.pdf_file",qrData.pdf_file)
 
   const navigate = useNavigate();
 
@@ -74,7 +77,7 @@ const QRDetail = () => {
         await UrlSchema.validate(qrData);
       } else if (type === "wifi") {
         await WifiSchema.validate(qrData);
-      } 
+      }
       // else if (type === "pdf") {
       //   await PdfSchema.validate({ file: qrData.file });
       // }

@@ -2080,6 +2080,7 @@ footer .bottom p {
   border-radius: 0.25rem;
   font-size: 14px;
   transition: border 0.2s ease-in-out;
+  outline: none;
 }
 .color-picker-con .color-picker-wrapper .color-box {
   width: 38px;
@@ -2291,7 +2292,7 @@ footer .bottom p {
 }
 .ThemePicker--active,
 .u-active {
-  outline: 2px solid #307fe2;
+  outline: 2px solid #e0201c;
   border: 1px solid transparent !important;
 }
 .ThemePicker__swatch {
