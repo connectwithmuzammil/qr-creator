@@ -2445,3 +2445,19 @@ footer .bottom p {
   width: 80%;
   object-fit: contain;
 }
+.btn-wrapper .btn-updateEmail{
+  border: none;
+    outline: none;
+    background: #e0201c;
+    padding: 0.7rem 1rem;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 600;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    align-items: center;
+}

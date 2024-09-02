@@ -22,10 +22,12 @@ import QRMobileFrame from "./QRMobileFrame";
 import PDF from "./QRDetailPages.jsx/PDF";
 import WIFI from "./QRDetailPages.jsx/WIFI";
 import YOUTUBE from "./QRDetailPages.jsx/YOUTUBE";
+import UpdateEmailAndPassword from "./Modal/Account/UpdateEmailAndPassword";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
     ContactUs, FAQ, DatePickerInput, LineChartComp,
     BottomWrapperStages, Forgot, EditContactInfo,
-    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame, PDF, WIFI, YOUTUBE
+    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame, PDF, WIFI, YOUTUBE,
+    UpdateEmailAndPassword
 };

@@ -1804,6 +1804,7 @@ export const NotSelectedFrameCanvas = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -1811,7 +1812,7 @@ export const NotSelectedFrameCanvas = ({
   const qrCodeOptions = {
     width: 180,
     height: 180,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -1821,7 +1822,7 @@ export const NotSelectedFrameCanvas = ({
       type: selectedCornerStyle, // This will dynamically change
     },
     cornersDotOptions: {
-      color: cornerDotColor, 
+      color: cornerDotColor,
     },
     backgroundOptions: {
       color: CornerbgColor, // Background color of the QR code
@@ -1875,14 +1876,16 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
+  console.log("daaata QR CODE",data)
 
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2001,6 +2004,7 @@ export const CanvaFrame2 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2008,7 +2012,7 @@ export const CanvaFrame2 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2126,6 +2130,7 @@ export const CanvaFrame3 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2133,7 +2138,7 @@ export const CanvaFrame3 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2253,6 +2258,7 @@ export const CanvaFrame4 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2260,7 +2266,7 @@ export const CanvaFrame4 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2377,6 +2383,7 @@ export const CanvaFrame5 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2384,7 +2391,7 @@ export const CanvaFrame5 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2502,6 +2509,7 @@ export const CanvaFrame6 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2509,7 +2517,7 @@ export const CanvaFrame6 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2626,6 +2634,7 @@ export const CanvaFrame7 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2633,7 +2642,7 @@ export const CanvaFrame7 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2768,6 +2777,7 @@ export const CanvaFrame8 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2775,7 +2785,7 @@ export const CanvaFrame8 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2897,6 +2907,7 @@ export const CanvaFrame9 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -2904,7 +2915,7 @@ export const CanvaFrame9 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -3032,6 +3043,7 @@ export const CanvaFrame10 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -3039,7 +3051,7 @@ export const CanvaFrame10 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -3173,6 +3185,7 @@ export const CanvaFrame11 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  data,
   ...props
 }) => {
   const qrCode = useRef(null);
@@ -3180,7 +3193,7 @@ export const CanvaFrame11 = ({
   const qrCodeOptions = {
     width: 130,
     height: 130,
-    data: "https://example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,

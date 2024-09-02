@@ -5,6 +5,7 @@ import {
   ResetPassword,
   Sidebar,
   UpdateEmail,
+  UpdateEmailAndPassword,
 } from "../../components";
 import { useNavigate } from "react-router-dom";
 import apis from "../../services";
@@ -21,6 +22,7 @@ const MyAccount = () => {
   const [ShowUpdateEmail, setShowUpdateEmail] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
+  const [updateEmail, setUpdateEmail] = useState(false);
 
   //UPDATE USER API CALL
   const { mutate: mutateUpdateProfile, isPending: isloadingUpdateProfile } =
@@ -28,7 +30,11 @@ const MyAccount = () => {
       mutationFn: apis.updateProfile,
       onError: function (error) {
         // console.log("error", error);
-        toast.error(error?.message);
+        const errorMessage =
+          error.response?.data?.email?.[0] || "An error occurred";
+        // console.log("error", error);
+        toast.error(errorMessage);
+        // toast.error(error?.message);
       },
       onSuccess: ({ data: updateProfileSucess, status }) => {
         console.log("update profile successfully!!:", updateProfileSucess);
@@ -36,6 +42,23 @@ const MyAccount = () => {
           toast.success(updateProfileSucess?.message);
           dispatch(setUser(updateProfileSucess?.data));
           setShowContactInfo(false);
+        }
+      },
+    });
+  //UPDATE EMAIL API CALL
+  const { mutate: mutateUpdateEmail, isPending: isloadingUpdateEmail } =
+    useMutation({
+      mutationFn: apis.updateEmail,
+      onError: function (error) {
+        console.log("error", error);
+        toast.error(error?.message);
+      },
+      onSuccess: ({ data: updateEmailSucess, status }) => {
+        console.log("EMAIL update successfully!!:", updateEmailSucess);
+        if (updateEmailSucess?.success) {
+          toast.success(updateEmailSucess?.message);
+          dispatch(setUser(updateEmailSucess?.data));
+          setUpdateEmail(false);
         }
       },
     });
@@ -85,11 +108,11 @@ const MyAccount = () => {
                   </div>
                   <div className="user-detail">
                     <p>Click on the button below to update your email.</p>
-                    <p className="user-data-email">muzammilmmk.77@gmail.com</p>
+                    <p className="user-data-email">{user?.user?.email || user?.email}</p>
                   </div>
                   <div
                     className="edit-info"
-                    onClick={() => setShowUpdateEmail(true)}
+                    onClick={() => setUpdateEmail(true)}
                   >
                     <p>Update email</p>
                   </div>
@@ -147,6 +170,12 @@ const MyAccount = () => {
       <ChangePassword
         newPassword={newPassword}
         setNewPassword={setNewPassword}
+      />
+      <UpdateEmailAndPassword
+        updateEmail={updateEmail}
+        setUpdateEmail={setUpdateEmail}
+        mutateUpdateEmail={mutateUpdateEmail}
+        isLoading={isloadingUpdateEmail}
       />
     </>
   );

@@ -92,6 +92,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
           />
         );
       case "frame1":
@@ -108,6 +109,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame2":
@@ -123,6 +126,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame3":
@@ -138,6 +143,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame4":
@@ -153,6 +160,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame5":
@@ -168,6 +177,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame6":
@@ -183,6 +194,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame7":
@@ -198,6 +211,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame8":
@@ -213,6 +228,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
           />
         );
       case "frame9":
@@ -228,6 +244,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame10":
@@ -243,6 +261,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       case "frame11":
@@ -258,6 +278,8 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            data ={data}
+
           />
         );
       // ... Add cases for other frames
@@ -296,9 +318,9 @@ const QRIMAGESHOW = () => {
           /> */}
 
           <div className="frame-overlay" style={{ position: "static" }}>
-            {/* 
-            <img
-              src={abc?.generateQr?.path}
+            
+            {/* <img
+              src={QRres.generateQr?.path}
               alt="QR Code"
               style={{ width: "150px", position: "absolute", zIndex: 1 }}
               className={`qr-code-test ${selectedFrame}`}
