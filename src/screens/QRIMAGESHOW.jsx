@@ -36,7 +36,8 @@ const QRIMAGESHOW = () => {
   //   setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
   // }, [QRres.generateQ]);
 
-  let data = QRres.generateQr?.path;
+  let data = QRres?.generateQr?.outcome;
+  console.log("QRres?.outcome", data);
   let dotColor = QRres.generateQr?.data?.style?.dotsColor;
   let CornerbgColor = QRres.generateQr?.data?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres.generateQr?.data?.style?.cornerBorderColor;
@@ -92,7 +93,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
+            data={data}
           />
         );
       case "frame1":
@@ -109,8 +110,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame2":
@@ -126,8 +126,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame3":
@@ -143,8 +142,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame4":
@@ -160,8 +158,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame5":
@@ -177,8 +174,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame6":
@@ -194,8 +190,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame7":
@@ -211,8 +206,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame8":
@@ -228,7 +222,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
+            data={data}
           />
         );
       case "frame9":
@@ -244,8 +238,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame10":
@@ -261,8 +254,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       case "frame11":
@@ -278,8 +270,7 @@ const QRIMAGESHOW = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            data ={data}
-
+            data={data}
           />
         );
       // ... Add cases for other frames
@@ -318,7 +309,6 @@ const QRIMAGESHOW = () => {
           /> */}
 
           <div className="frame-overlay" style={{ position: "static" }}>
-            
             {/* <img
               src={QRres.generateQr?.path}
               alt="QR Code"

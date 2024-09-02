@@ -15,17 +15,19 @@ const UpdateEmailAndPassword = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const { user } = useSelector((store) => store.user);
-  console.log("userr", user);
+  console.log("userrUpdateEmailPage", user);
   const currentEmail = user?.email || user?.user?.email;
+  const currentPass = user?.password || user?.user?.password;
+  console.log("currentPass",currentPass)
 
   // Formik setup with validation schema
   const formik = useFormik({
     initialValues: {
-      password: "",
-      email: currentEmail || "", // Prefill the email field with the current email
+      password: currentPass || "",
+      email: currentEmail || "",
       confirm_email: "",
     },
-    enableReinitialize: true, // Ensure form updates when currentEmail changes
+    enableReinitialize: true,
     validationSchema: Yup.object({
       password: Yup.string().required("Password is required"),
       email: Yup.string()
@@ -43,7 +45,7 @@ const UpdateEmailAndPassword = ({
         ),
     }),
     onSubmit: (values) => {
-      mutateUpdateEmail(values); // Call React Query mutate function
+      mutateUpdateEmail(values);
     },
   });
 
@@ -114,7 +116,10 @@ const UpdateEmailAndPassword = ({
             ) : null}
           </div>
 
-          <div className="btn-wrapper" style={{ textAlign: "center" ,width:"100%"}}>
+          <div
+            className="btn-wrapper"
+            style={{ textAlign: "center", width: "100%" }}
+          >
             <button
               type="submit"
               disabled={isLoading}

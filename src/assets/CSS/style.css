@@ -1829,7 +1829,7 @@ footer .bottom p {
 .qr-preview svg canvas {
   width: 100%;
   height: 100%;
-  padding: 8px;
+  /* padding: 8px; */
 }
 .qr-design .containerr .right .img-con img.mobile-frame {
   width: 80%;
@@ -2460,4 +2460,5 @@ footer .bottom p {
     justify-content: center;
     gap: 6px;
     align-items: center;
+    width: 100%;
 }

@@ -1883,8 +1883,8 @@ export const CanvaFrame1 = ({
   console.log("daaata QR CODE",data)
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 200,
+    height: 200,
     data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
