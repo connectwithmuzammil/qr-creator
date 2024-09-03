@@ -1808,10 +1808,12 @@ export const NotSelectedFrameCanvas = ({
   ...props
 }) => {
   const qrCode = useRef(null);
+  const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
+  console.log("data null case",data)
 
   const qrCodeOptions = {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
     data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -1830,7 +1832,7 @@ export const NotSelectedFrameCanvas = ({
   };
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
+    qrCode.current.append(document.getElementById(qrCodeId.current));
   }, []);
 
   useEffect(() => {
@@ -1861,7 +1863,7 @@ export const NotSelectedFrameCanvas = ({
 
   return (
     <div className="notselectSvg">
-      <div id="qrCode" style={{ width: "100%", height: "100%" }}></div>
+      <div  id={qrCodeId.current}  style={{ width: "100%", height: "100%" }} />
     </div>
   );
 };
@@ -3191,8 +3193,8 @@ export const CanvaFrame11 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,

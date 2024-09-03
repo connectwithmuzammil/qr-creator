@@ -29,7 +29,7 @@ const QRIMAGESHOW = () => {
   const qrCode = useRef(null);
 
   const [selectedFrame, setSelectedFrame] = useState(
-    QRres.generateQr?.data?.style?.frameName || null
+    QRres.generateQr?.data?.style?.frameName
   );
   console.log("selectedFrame", selectedFrame);
   // useEffect(() => {
@@ -83,8 +83,8 @@ const QRIMAGESHOW = () => {
 
   const renderFrame = () => {
     switch (selectedFrame) {
-      case null:
-        console.log("INSIDE NULL CASE");
+      case "notSelctedFrame":
+        console.log("INSIDE notSelctedFrame CASE");
         return (
           <NotSelectedFrameCanvas
             CornerbgColor={CornerbgColor}

@@ -5,6 +5,8 @@ export const InputComponent = ({
   value,
   onChange,
   name,
+  defaultValue,
+  disabled,
   // error,
   ...props
 }) => {
@@ -17,6 +19,8 @@ export const InputComponent = ({
         value={value}
         onChange={onChange}
         name={name}
+        defaultValue={defaultValue}
+        disabled={disabled}
         // className={error ? "input-comp-error" : ""}
       />
       {/* {error && <span className="error-message-input-comp">{error}</span>} */}

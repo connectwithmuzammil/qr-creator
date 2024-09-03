@@ -23,11 +23,19 @@ import PDF from "./QRDetailPages.jsx/PDF";
 import WIFI from "./QRDetailPages.jsx/WIFI";
 import YOUTUBE from "./QRDetailPages.jsx/YOUTUBE";
 import UpdateEmailAndPassword from "./Modal/Account/UpdateEmailAndPassword";
+import VCARD from "./QRDetailPages.jsx/VCARD";
+import APPS from "./QRDetailPages.jsx/APPS";
+import GALLERY from "./QRDetailPages.jsx/GALLERY";
+import LINKS from "./QRDetailPages.jsx/LINKS";
+import LANDING from "./QRDetailPages.jsx/LANDING";
+import Social from "./QRDetailPages.jsx/Social";
+import Video from "./QRDetailPages.jsx/Video";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
     ContactUs, FAQ, DatePickerInput, LineChartComp,
     BottomWrapperStages, Forgot, EditContactInfo,
-    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent, QRMobileFrame, PDF, WIFI, YOUTUBE,
-    UpdateEmailAndPassword
+    UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent,
+    QRMobileFrame, PDF, WIFI, YOUTUBE,
+    UpdateEmailAndPassword, VCARD, APPS, GALLERY, LINKS, LANDING, Social, Video
 };

@@ -5,8 +5,11 @@ import {
   InputComponent,
   InputSelectComponent,
 } from "../InputComponent";
+import { useSelector } from "react-redux";
 
 const WIFI = ({ qrData, setQrData }) => {
+  const { user } = useSelector((store) => store.user);
+  console.log("useruser", user);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({
@@ -33,14 +36,21 @@ const WIFI = ({ qrData, setQrData }) => {
                 name={"network_name"}
                 placeholder={"e.g. centralcafe"}
                 onChange={handleInputChange}
-                value={qrData.network_name}
+                value={qrData.network_name || user?.user?.email || user?.email}
+                disabled
               />
               <InputComponent
                 label={"Network password*"}
                 name={"network_password"}
                 placeholder={"e.g. mypassword"}
                 onChange={handleInputChange}
-                value={qrData.network_password}
+                // value={qrData.network_password}
+                defaultValue={
+                  qrData.network_password ||
+                  user?.user?.password ||
+                  user?.password
+                }
+                disabled
               />
             </div>
             <div className="wrap-inp-cmp">

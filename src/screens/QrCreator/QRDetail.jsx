@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {
+  APPS,
   BottomWrapperStages,
+  GALLERY,
   Header,
+  LANDING,
+  LINKS,
   PDF,
+  Social,
   URL,
+  VCARD,
+  Video,
   WIFI,
   YOUTUBE,
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  PdfSchema,
   UrlSchema,
   WifiSchema,
   youtubeSchema,
@@ -34,6 +40,13 @@ const QRDetail = () => {
     pdf_title: "",
     pdf_description: "",
     pdf_website: "",
+    //APPS
+    app_name: "",
+    app_company: "",
+    app_description: "",
+    app_logo: "",
+    app_website: "",
+
     type: "",
     style: {
       dotsStyle: "square",
@@ -66,7 +79,6 @@ const QRDetail = () => {
 
   console.log("qrData", qrData);
 
-
   const navigate = useNavigate();
 
   const handleNextClick = async () => {
@@ -78,9 +90,6 @@ const QRDetail = () => {
       } else if (type === "wifi") {
         await WifiSchema.validate(qrData);
       }
-      // else if (type === "pdf") {
-      //   await PdfSchema.validate({ file: qrData.file });
-      // }
 
       const dataToSend = {
         type: qrData.type,
@@ -116,6 +125,16 @@ const QRDetail = () => {
               color: qrData.color,
             }
           : {}),
+        ...(type === "apps"
+          ? {
+              qr_name: qrData?.qr_name,
+              app_name: qrData?.app_name,
+              app_company: qrData?.app_company,
+              app_description: qrData?.app_description,
+              app_website: qrData?.app_website,
+              color: qrData.color,
+            }
+          : {}),
       };
       navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
     } catch (error) {
@@ -137,7 +156,7 @@ const QRDetail = () => {
           </>
         );
       case "vcard":
-        return <div>Virtual Card Form</div>;
+        return <VCARD qrData={qrData} setQrData={setQrData} />;
       case "pdf":
         return (
           <div>
@@ -154,6 +173,42 @@ const QRDetail = () => {
         return (
           <div>
             <YOUTUBE qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "apps":
+        return (
+          <div>
+            <APPS qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "gallery":
+        return (
+          <div>
+            <GALLERY qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "links":
+        return (
+          <div>
+            <LINKS qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "landing":
+        return (
+          <div>
+            <LANDING qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "social":
+        return (
+          <div>
+            <Social qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "video":
+        return (
+          <div>
+            <Video qrData={qrData} setQrData={setQrData} />
           </div>
         );
       default:

@@ -79,7 +79,7 @@ const QRDesign = () => {
   const [cornerDotColor, setCornerDotColor] = useState("#000000");
 
   //FRAME TOGGLE STATE
-  const [selectedFrame, setSelectedFrame] = useState(null);
+  const [selectedFrame, setSelectedFrame] = useState("notSelctedFrame");
   //FRAME FIELD STATE
   const [frameColor, setFrameColor] = useState("#404040");
   const [frameBgColor, setFrameBgColor] = useState("#ffffff");
@@ -132,7 +132,7 @@ const QRDesign = () => {
   //Render Frame CANVAS
   const renderFrame = () => {
     switch (selectedFrame) {
-      case null:
+      case "notSelctedFrame":
         return (
           <NotSelectedFrameCanvas
             CornerbgColor={CornerbgColor}
@@ -355,9 +355,9 @@ const QRDesign = () => {
                       <div className="qr-frames-con">
                         <div
                           className={`img-con ${
-                            selectedFrame === null ? "active" : ""
+                            selectedFrame === "notSelctedFrame" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame(null)}
+                          onClick={() => setSelectedFrame("notSelctedFrame")}
                         >
                           <NotSelected />
                         </div>
@@ -450,7 +450,7 @@ const QRDesign = () => {
                           <Frame11 />
                         </div>
                       </div>
-                      {selectedFrame !== null && selectedFrame !== 0 && (
+                      {selectedFrame !== "notSelctedFrame" && selectedFrame !== 0 && (
                         <div className="bottom">
                           <div className="up" style={{ marginBottom: "12px" }}>
                             <div className="color-picker-con">
