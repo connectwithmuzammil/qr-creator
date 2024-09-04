@@ -1,45 +1,4 @@
 import React, { useState } from "react";
-import {
-  DribbleSocial,
-  FacebookSocial,
-  FlikrSocial,
-  GithubSocial,
-  InstagramSocial,
-  LineSocial,
-  LinkedinSocial,
-  RedditSocial,
-  SkypeSocial,
-  SnapchatSocial,
-  TiktokSocial,
-  TripadvisorSocial,
-  TumblrSocial,
-  TwitterSocial,
-  VimeoSocial,
-  VkontakteSocial,
-  WebSocial,
-  XingSocial,
-} from "../Helper/SocialSvgIcons";
-
-const iconComponents = {
-  facebook: <FacebookSocial />,
-  instagram: <InstagramSocial />,
-  twitter: <TwitterSocial />,
-  dribble: <DribbleSocial />,
-  flickr: <FlikrSocial />,
-  github: <GithubSocial />,
-  line: <LineSocial />,
-  linkedin: <LinkedinSocial />,
-  reddit: <RedditSocial />,
-  skype: <SkypeSocial />,
-  snapchat: <SnapchatSocial />,
-  tiktok: <TiktokSocial />,
-  tripadvisor: <TripadvisorSocial />,
-  tumblr: <TumblrSocial />,
-  vimeo: <VimeoSocial />,
-  vkontakte: <VkontakteSocial />,
-  web: <WebSocial />,
-  xing: <XingSocial />,
-};
 
 const SocialIconsComp = ({
   title = "Social networks",
@@ -48,28 +7,52 @@ const SocialIconsComp = ({
   className,
 }) => {
   const [activeIcons, setActiveIcons] = useState([]);
+  const [iconLinks, setIconLinks] = useState({});
 
   const handleIconClick = (iconName) => {
     if (activeIcons.includes(iconName)) {
       setActiveIcons(activeIcons.filter((icon) => icon !== iconName));
+      // Remove from links when icon is deactivated
+      setIconLinks((prevLinks) => {
+        const newLinks = { ...prevLinks };
+        delete newLinks[iconName];
+        return newLinks;
+      });
     } else {
       setActiveIcons([...activeIcons, iconName]);
     }
-    if (onIconClick) onIconClick(iconName); // Call the parent function if needed
+    if (onIconClick) onIconClick(iconName, iconLinks[iconName] || ""); // Call the parent function
+  };
+
+  const handleLinkChange = (iconName, link) => {
+    setIconLinks((prevLinks) => ({
+      ...prevLinks,
+      [iconName]: link,
+    }));
+    if (onIconClick) onIconClick(iconName, link); // Call the parent function
   };
 
   const handleRemoveIcon = (iconName) => {
     setActiveIcons(activeIcons.filter((icon) => icon !== iconName));
+    setIconLinks((prevLinks) => {
+      const newLinks = { ...prevLinks };
+      delete newLinks[iconName];
+      return newLinks;
+    });
   };
 
   return (
-    // < title={title}>
     <>
       {activeIcons.map((iconName) => (
         <div className="input-box-wrapper-social" key={iconName}>
           <div className="wrap">
             <div className="icon-selected">{icons[iconName]}</div>
-            <input type="text" placeholder={`Enter your ${iconName} link`} />
+            <input
+              type="text"
+              placeholder={`Enter your ${iconName} link`}
+              value={iconLinks[iconName] || ""}
+              onChange={(e) => handleLinkChange(iconName, e.target.value)}
+            />
           </div>
           <button
             className="remove-icon"

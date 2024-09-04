@@ -88,7 +88,11 @@ const VCARD = ({ qrData, setQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Add vCard information"}>
             <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
+              defaultImage={
+                qrData?.landing_logo && qrData?.landing_logo !== ""
+                  ? qrData.landing_logo
+                  : "/assets/images/default-img.png"
+              }
               onImageUpload={handleImageUpload}
               onImageDelete={handleImageDelete}
               label="Profile picture"

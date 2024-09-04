@@ -58,6 +58,25 @@ const LANDING = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
+
+  const handleImageUpload = (mediaData, name) => {
+    console.log("Received media data", mediaData); // media data base64
+    console.log("Received media name", name); // media name
+
+    setQrData((prevData) => ({
+      ...prevData,
+      [name]: mediaData,
+    }));
+  };
+  const handleSocialIconChange = (iconName, link) => {
+    setQrData((prevData) => ({
+      ...prevData,
+      socialLinks: {
+        ...prevData.socialLinks,
+        [iconName]: link,
+      },
+    }));
+  };
   return (
     <div className="landing-page">
       <div className="containerr">
@@ -80,9 +99,10 @@ const LANDING = ({ qrData, setQrData }) => {
           <AccordianComponent title={"Website information"}>
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
-              //   onImageUpload={handleImageUpload}
+              onImageUpload={handleImageUpload}
               //   onImageDelete={handleImageDelete}
               label="Logo"
+              name="landing_logo"
             />
             <InputComponent
               label={"Company"}
@@ -100,29 +120,32 @@ const LANDING = ({ qrData, setQrData }) => {
             />
             <InputComponent
               label={"Subtitle"}
-              name={"company_subtitle"}
+              name={"landing_subtitle"}
               placeholder={"e.g. Shop for summer essentials at great prices"}
               onChange={handleInputChange}
-              value={qrData?.company_subtitle}
+              value={qrData?.landing_subtitle}
             />
             <InputComponent
               label={"Button text"}
-              name={"company_btn_text"}
+              name={"landing_btn_text"}
               placeholder={"e.g. Browse the collection"}
               onChange={handleInputChange}
-              value={qrData?.company_btn_text}
+              value={qrData?.landing_btn_text}
             />
             <InputComponent
               label={"URL"}
-              name={"company_url"}
+              name={"landing_action_url"}
               placeholder={"e.g. https://www.yourclothesshop.com/summer"}
               onChange={handleInputChange}
-              value={qrData?.company_url}
+              value={qrData?.landing_action_url}
             />
           </AccordianComponent>
           <AccordianComponent title={"Social networks"}>
             <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp icons={icons} />
+            <SocialIconsComp
+              icons={icons}
+              onIconClick={handleSocialIconChange}
+            />
           </AccordianComponent>
         </div>
         <div className="right">

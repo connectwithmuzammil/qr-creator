@@ -41,7 +41,39 @@ function BottomWrapperStages({
     if (isLastStage) {
       const formData = new FormData();
 
-      // Flatten and append existing payload data
+      // Handle the image separately if it's base64
+      if (generateQrPayload?.landing_logo) {
+        // Convert base64 to a Blob
+        const base64Data = generateQrPayload.landing_logo.split(",")[1];
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+
+        // Determine MIME type from base64 string
+        const mimeType = generateQrPayload.landing_logo
+          .split(";")[0]
+          .split(":")[1];
+        const blob = new Blob([byteArray], { type: mimeType });
+
+        // Derive file extension from MIME type
+        let extension = "png";
+        if (mimeType.includes("jpeg")) {
+          extension = "jpg";
+        } else if (mimeType.includes("svg")) {
+          extension = "svg";
+        } else if (mimeType.includes("gif")) {
+          extension = "gif";
+        } else if (mimeType.includes("webp")) {
+          extension = "webp";
+        }
+
+        formData.append("landing_logo", blob, `landing_logo.${extension}`);
+      }
+      
+      // Flatten and append existing payload data except 'landing_logo'
       Object.keys(generateQrPayload).forEach((key) => {
         if (key === "style") {
           // Handle the nested style object separately
@@ -59,7 +91,8 @@ function BottomWrapperStages({
               generateQrPayload.color[colorKey]
             );
           });
-        } else {
+        } else if (key !== "landing_logo") {
+          // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
         }
       });
@@ -67,6 +100,7 @@ function BottomWrapperStages({
       if (generateQrPayload?.pdf_file) {
         formData.append("pdf_file", generateQrPayload.pdf_file);
       }
+
       console.log("formData", formData);
       mutateQrCode(formData);
 

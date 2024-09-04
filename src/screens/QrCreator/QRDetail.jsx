@@ -46,6 +46,14 @@ const QRDetail = () => {
     app_description: "",
     app_logo: "",
     app_website: "",
+    //LANDING
+    landing_action_url: "",
+    landing_company: "",
+    landing_logo: "",
+    landing_title: "",
+    landing_subtitle: "",
+    landing_social: "",
+    landing_btn_text: "",
 
     type: "",
     style: {
@@ -132,6 +140,18 @@ const QRDetail = () => {
               app_company: qrData?.app_company,
               app_description: qrData?.app_description,
               app_website: qrData?.app_website,
+              color: qrData.color,
+            }
+          : {}),
+        ...(type === "landing"
+          ? {
+              qr_name: qrData?.qr_name,
+              landing_action_url: qrData?.landing_action_url,
+              landing_company: qrData?.landing_company,
+              landing_logo: qrData?.landing_logo,
+              landing_title: qrData?.landing_title,
+              landing_subtitle: qrData?.landing_subtitle,
+              landing_btn_text: qrData?.landing_btn_text,
               color: qrData.color,
             }
           : {}),
