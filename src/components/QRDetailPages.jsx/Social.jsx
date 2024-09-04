@@ -60,6 +60,27 @@ const Social = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
+
+  const handleImageUpload = (mediaData, name) => {
+    console.log("Received media data", mediaData); // media data base64
+    console.log("Received media name", name); // media name
+
+    setQrData((prevData) => ({
+      ...prevData,
+      [name]: mediaData,
+    }));
+  };
+  const handleSocialIconChange = (iconName, url) => {
+    console.log("ICONS NAME, URL", iconName, url);
+    setQrData((prevData) => ({
+      ...prevData,
+      media_social: {
+        ...prevData.media_social,
+        [iconName]: url,
+      },
+    }));
+  };
+
   return (
     <div className="social-page">
       <div className="containerr">
@@ -81,16 +102,34 @@ const Social = ({ qrData, setQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Basic information"}>
             <div className="wrapper-img-upload-dashed">
-            <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
-            //   onImageUpload={handleImageUpload}
-            //   onImageDelete={handleImageDelete}
-              label="Upload Your Own Image"
-            />
+              <ImageUploadComponent
+                defaultImage={"/assets/images/default-img.png"}
+                //   onImageDelete={handleImageDelete}
+                label="Upload Your Own Image"
+                onImageUpload={handleImageUpload}
+                name="landing_logo"
+              />
             </div>
+            <InputComponent
+                label={"Headline*"}
+                name={"media_headline"}
+                placeholder={"e.g. Connect with us"}
+                onChange={handleInputChange}
+                value={qrData.media_headline}
+              />
+               <InputComponent
+                label={"Description"}
+                name={"media_description"}
+                placeholder={"e.g. If you would like to keep up on the latest content, come by and follow us"}
+                onChange={handleInputChange}
+                value={qrData.media_description}
+              />
           </AccordianComponent>
           <AccordianComponent title={"Social Media Channels"}>
-            <SocialIconsComp icons={icons} />
+            <SocialIconsComp
+              icons={icons}
+              onIconClick={handleSocialIconChange}
+            />
           </AccordianComponent>
         </div>
         <div className="right">

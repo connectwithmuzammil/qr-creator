@@ -54,6 +54,10 @@ const QRDetail = () => {
     landing_subtitle: "",
     landing_social: "",
     landing_btn_text: "",
+    //SOCIAL
+    media_social: {},
+    media_headline: "",
+    media_description: "",
 
     type: "",
     style: {
@@ -74,6 +78,7 @@ const QRDetail = () => {
       background: "",
       button: "",
     },
+    social: {},
   };
   const [qrData, setQrData] = useState(initialState);
   // console.log("qrDataqrData",qrData)
@@ -153,6 +158,17 @@ const QRDetail = () => {
               landing_subtitle: qrData?.landing_subtitle,
               landing_btn_text: qrData?.landing_btn_text,
               color: qrData.color,
+              social: qrData.social,
+            }
+          : {}),
+        ...(type === "social_media"
+          ? {
+              qr_name: qrData?.qr_name,
+              media_headline: qrData.media_headline,
+              color: qrData.color,
+              media_social: qrData.media_social,
+              landing_logo: qrData.landing_logo,
+              media_description: qrData.media_description,
             }
           : {}),
       };
@@ -219,7 +235,7 @@ const QRDetail = () => {
             <LANDING qrData={qrData} setQrData={setQrData} />
           </div>
         );
-      case "social":
+      case "social_media":
         return (
           <div>
             <Social qrData={qrData} setQrData={setQrData} />

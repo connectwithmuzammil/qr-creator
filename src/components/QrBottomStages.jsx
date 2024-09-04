@@ -91,7 +91,19 @@ function BottomWrapperStages({
               generateQrPayload.color[colorKey]
             );
           });
-        } else if (key !== "landing_logo") {
+        }else if (key === "social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.social).forEach((socialKey) => {
+            formData.append(`social[${socialKey}]`, generateQrPayload.social[socialKey]);
+          });
+        }  
+        else if (key === "media_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.media_social).forEach((media_socialKey) => {
+            formData.append(`media_social[${media_socialKey}]`, generateQrPayload.media_social[media_socialKey]);
+          });
+        }
+        else if (key !== "landing_logo") {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
         }

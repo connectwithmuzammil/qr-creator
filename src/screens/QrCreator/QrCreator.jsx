@@ -36,11 +36,11 @@ const QrCreator = () => {
       type: "business",
       title: "Business Page",
       description: "Display your business information",
-      imgSrc: business,
+      imgSrc: business, 
       rightImage: "/assets/images/phone-business.png",
     },
     {
-      type: "social",
+      type: "social_media",
       title: "Social Media",
       description: "Link to your social media channels",
       imgSrc: social,

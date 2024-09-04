@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 
-const SocialIconsComp = ({
-  title = "Social networks",
-  onIconClick,
-  icons,
-  className,
-}) => {
+const SocialIconsComp = ({ title = "Social networks", onIconClick, icons, className }) => {
   const [activeIcons, setActiveIcons] = useState([]);
   const [iconLinks, setIconLinks] = useState({});
 
   const handleIconClick = (iconName) => {
     if (activeIcons.includes(iconName)) {
       setActiveIcons(activeIcons.filter((icon) => icon !== iconName));
-      // Remove from links when icon is deactivated
       setIconLinks((prevLinks) => {
         const newLinks = { ...prevLinks };
         delete newLinks[iconName];
@@ -21,7 +15,7 @@ const SocialIconsComp = ({
     } else {
       setActiveIcons([...activeIcons, iconName]);
     }
-    if (onIconClick) onIconClick(iconName, iconLinks[iconName] || ""); // Call the parent function
+    if (onIconClick) onIconClick(iconName, iconLinks[iconName] || "");
   };
 
   const handleLinkChange = (iconName, link) => {
@@ -29,7 +23,7 @@ const SocialIconsComp = ({
       ...prevLinks,
       [iconName]: link,
     }));
-    if (onIconClick) onIconClick(iconName, link); // Call the parent function
+    if (onIconClick) onIconClick(iconName, link);
   };
 
   const handleRemoveIcon = (iconName) => {

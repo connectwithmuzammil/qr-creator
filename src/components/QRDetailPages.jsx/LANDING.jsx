@@ -68,15 +68,17 @@ const LANDING = ({ qrData, setQrData }) => {
       [name]: mediaData,
     }));
   };
-  const handleSocialIconChange = (iconName, link) => {
+  const handleSocialIconChange = (iconName, url) => {
+    console.log("ICONS NAME, URL", iconName, url);
     setQrData((prevData) => ({
       ...prevData,
-      socialLinks: {
-        ...prevData.socialLinks,
-        [iconName]: link,
+      social: {
+        ...prevData.social,
+        [iconName]: url,
       },
     }));
   };
+
   return (
     <div className="landing-page">
       <div className="containerr">
