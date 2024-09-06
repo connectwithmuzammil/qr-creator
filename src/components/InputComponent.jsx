@@ -21,6 +21,7 @@ export const InputComponent = ({
         name={name}
         defaultValue={defaultValue}
         disabled={disabled}
+        {...props}
         // className={error ? "input-comp-error" : ""}
       />
       {/* {error && <span className="error-message-input-comp">{error}</span>} */}

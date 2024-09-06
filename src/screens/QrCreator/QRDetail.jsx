@@ -59,6 +59,21 @@ const QRDetail = () => {
     media_headline: "",
     media_description: "",
 
+    //image_gallery
+    gallery_image:"",
+    gallery_title: "",
+    gallery_description: "",
+    gallery_website: "",
+    gallery_url: "",
+
+    //LINKS
+    links_image:"",
+    links_title:"",
+    links_description:"" ,
+    all_links: [],
+    links_social:"",
+
+
     type: "",
     style: {
       dotsStyle: "square",
@@ -171,6 +186,29 @@ const QRDetail = () => {
               media_description: qrData.media_description,
             }
           : {}),
+        ...(type === "image_gallery"
+          ? {
+              qr_name: qrData?.qr_name,
+              color: qrData.color,
+              gallery_title: qrData.gallery_title,
+              gallery_description: qrData.gallery_description,
+              gallery_website: qrData.gallery_website,
+              gallery_url: qrData.gallery_url,
+              gallery_image: qrData.gallery_image,
+            }
+          : {}),
+        ...(type === "links"
+          ? {
+              qr_name: qrData?.qr_name,
+              color: qrData.color,
+              links_image: qrData.links_image,
+              links_title: qrData.links_title,
+              links_description: qrData.links_description,
+              all_links: qrData.all_links,
+              links_social: qrData.links_social,
+      
+            }
+          : {}),
       };
       navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
     } catch (error) {
@@ -217,7 +255,7 @@ const QRDetail = () => {
             <APPS qrData={qrData} setQrData={setQrData} />
           </div>
         );
-      case "gallery":
+      case "image_gallery":
         return (
           <div>
             <GALLERY qrData={qrData} setQrData={setQrData} />

@@ -82,7 +82,7 @@ const QrCreator = () => {
       rightImage: "/assets/images/phone-wifi.png",
     },
     {
-      type: "gallery",
+      type: "image_gallery",
       title: "Images Gallery",
       description: "Show a gallery of images",
       imgSrc: gallery,

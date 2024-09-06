@@ -24,6 +24,8 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
+import Button from "../Button";
+import VideoUpload from "../VideoUploadComp";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -59,6 +61,7 @@ const Video = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
+  const handleVideoUpload = (video) => {};
   return (
     <div className="video-page">
       <div className="containerr">
@@ -78,7 +81,26 @@ const Video = ({ qrData, setQrData }) => {
               setQrData={setQrData}
             />
           </AccordianComponent>
-          <AccordianComponent title={"Video"}></AccordianComponent>
+          <AccordianComponent title={"Video"}>
+            <div className="wrap-inp-cmp" style={{ alignItems: "center" }}>
+              <InputComponent
+                label={"Video URL"}
+                name={"video_company_name"}
+                placeholder={"e.g. https://www.myweb.com/video2"}
+                onChange={handleInputChange}
+                value={qrData?.video_company_name}
+              />
+              <Button title={"Add Video"} width={"200px"} />
+            </div>
+            <p className="social-con-content">
+              If you prefer, you can upload your video (up to 10 videos)
+            </p>
+            <div className="wrapper-img-upload-dashed">
+              <VideoUpload
+         
+              />
+            </div>
+          </AccordianComponent>
           <AccordianComponent title={"Video Information"}>
             <InputComponent
               label={"Company name"}

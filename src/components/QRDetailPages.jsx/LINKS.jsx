@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -26,6 +26,7 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import Button from "../Button";
 import { FaTrash } from "react-icons/fa";
+import { debounce } from "lodash";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -54,36 +55,98 @@ const icons = {
   xing: <XingSocial />,
 };
 const LINKS = ({ qrData, setQrData }) => {
-  const [showLink, setShowLink] = useState(false);
-
   const [links, setLinks] = useState([]);
 
+  // Debounce function to update qrData with a delay of 300ms
+  const updateQrDataDebounced = useCallback(
+    debounce((updatedLinks) => {
+
+      const sanitizedLinks = updatedLinks.map(({ id, ...rest }) => rest);
+      setQrData((prevData) => ({ ...prevData, all_links: sanitizedLinks }));
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    // Initialize links from qrData when the component mounts
+    if (qrData.all_links) {
+      setLinks(qrData.all_links);
+    }
+  }, [qrData]);
+
   const handleAddLink = () => {
-    setLinks([...links, { id: Date.now(), image: "", text: "", url: "" }]);
+    const newLink = { id: Date.now(), image: "", text: "", url: "" };
+
+    // setLinks([...links, { id: Date.now(), image: "", text: "", url: "" }]);
+    setLinks((prevLinks) => {
+      const updatedLinks = [...prevLinks, newLink];
+      // Update qrData with the new links state
+      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      return updatedLinks;
+    });
   };
 
   const handleRemoveLink = (id) => {
-    setLinks(links.filter((link) => link.id !== id));
+    // setLinks(links.filter((link) => link.id !== id));
+    setLinks((prevLinks) => {
+      const updatedLinks = prevLinks.filter((link) => link.id !== id);
+      // Update qrData with the updated links state
+      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      return updatedLinks;
+    });
   };
 
   const handleLinkInputChange = (id, name, value) => {
-    setLinks(
-      links.map((link) => (link.id === id ? { ...link, [name]: value } : link))
-    );
+    // setLinks(
+    //   links.map((link) => (link.id === id ? { ...link, [name]: value } : link))
+    // );
+    setLinks((prevLinks) => {
+      const updatedLinks = prevLinks.map((link) =>
+        link.id === id ? { ...link, [name]: value } : link
+      );
+      // Update qrData with the updated links state
+      // setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      updateQrDataDebounced(updatedLinks);
+
+      return updatedLinks;
+    });
   };
+  // Clean up debounce on unmount
+  useEffect(() => {
+    return () => {
+      updateQrDataDebounced.cancel();
+    };
+  }, [updateQrDataDebounced]);
+
 
   const handleImageUpload = (id, imageData) => {
-    setLinks(
-      links.map((link) =>
+    // setLinks(
+    //   links.map((link) =>
+    //     link.id === id ? { ...link, image: imageData } : link
+    //   )
+    // );
+    setLinks((prevLinks) => {
+      const updatedLinks = prevLinks.map((link) =>
         link.id === id ? { ...link, image: imageData } : link
-      )
-    );
+      );
+      // Update qrData with the updated links state
+      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      return updatedLinks;
+    });
   };
 
   const handleImageDelete = (id) => {
-    setLinks(
-      links.map((link) => (link.id === id ? { ...link, image: "" } : link))
-    );
+    // setLinks(
+    //   links.map((link) => (link.id === id ? { ...link, image: "" } : link))
+    // );
+    setLinks((prevLinks) => {
+      const updatedLinks = prevLinks.map((link) =>
+        link.id === id ? { ...link, image: "" } : link
+      );
+      // Update qrData with the updated links state
+      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      return updatedLinks;
+    });
   };
 
   const handleInputChange = (e) => {
@@ -94,6 +157,25 @@ const LINKS = ({ qrData, setQrData }) => {
     }));
   };
 
+  const handleSingleImageUpload = (mediaData, name) => {
+    console.log("Received media data", mediaData); // media data base64
+    console.log("Received media name", name); // media name
+
+    setQrData((prevData) => ({
+      ...prevData,
+      [name]: mediaData,
+    }));
+  };
+  const handleSocialIconChange = (iconName, url) => {
+    console.log("ICONS NAME, URL", iconName, url);
+    setQrData((prevData) => ({
+      ...prevData,
+      links_social: {
+        ...prevData.links_social,
+        [iconName]: url,
+      },
+    }));
+  };
   return (
     <div className="link-page">
       <div className="containerr">
@@ -116,9 +198,10 @@ const LINKS = ({ qrData, setQrData }) => {
           <AccordianComponent title={"Information about your List of Links"}>
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
-              //   onImageUpload={handleImageUpload}
+              onImageUpload={handleSingleImageUpload}
               //   onImageDelete={handleImageDelete}
               label="Logo"
+              name="links_image"
             />
             <InputComponent
               label={"Title"}
@@ -176,7 +259,7 @@ const LINKS = ({ qrData, setQrData }) => {
                     name={"url"}
                     placeholder={"e.g. https://..."}
                     onChange={(e) =>
-                      handleInputChange(link.id, "url", e.target.value)
+                      handleLinkInputChange(link.id, "url", e.target.value)
                     }
                     value={link.url}
                   />
@@ -191,7 +274,10 @@ const LINKS = ({ qrData, setQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Your social networks"}>
             <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp icons={icons} />
+            <SocialIconsComp
+              icons={icons}
+              onIconClick={handleSocialIconChange}
+            />
           </AccordianComponent>
         </div>
         <div className="right">

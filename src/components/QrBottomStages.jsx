@@ -37,42 +37,98 @@ function BottomWrapperStages({
     },
   });
 
+  const appendBase64ToFormData = (formData, base64Data, fieldName) => {
+    if (base64Data) {
+      // Convert base64 to a Blob
+      const base64String = base64Data.split(",")[1];
+      const byteCharacters = atob(base64String);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+
+      // Determine MIME type from base64 string
+      const mimeType = base64Data.split(";")[0].split(":")[1];
+      const blob = new Blob([byteArray], { type: mimeType });
+
+      // Derive file extension from MIME type
+      let extension = "png";
+      if (mimeType.includes("jpeg")) {
+        extension = "jpg";
+      } else if (mimeType.includes("svg")) {
+        extension = "svg";
+      } else if (mimeType.includes("gif")) {
+        extension = "gif";
+      } else if (mimeType.includes("webp")) {
+        extension = "webp";
+      }
+
+      // Create a default file name if needed, or use the field name
+      const fileName = `${fieldName}.${extension}`;
+      formData.append(fieldName, blob, fileName);
+    }
+  };
+
   const handleNextClick = async () => {
     if (isLastStage) {
       const formData = new FormData();
 
       // Handle the image separately if it's base64
+      // if (generateQrPayload?.landing_logo) {
+      //   // Convert base64 to a Blob
+      //   const base64Data = generateQrPayload.landing_logo.split(",")[1];
+      //   const byteCharacters = atob(base64Data);
+      //   const byteNumbers = new Array(byteCharacters.length);
+      //   for (let i = 0; i < byteCharacters.length; i++) {
+      //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //   }
+      //   const byteArray = new Uint8Array(byteNumbers);
+
+      //   // Determine MIME type from base64 string
+      //   const mimeType = generateQrPayload.landing_logo
+      //     .split(";")[0]
+      //     .split(":")[1];
+      //   const blob = new Blob([byteArray], { type: mimeType });
+
+      //   // Derive file extension from MIME type
+      //   let extension = "png";
+      //   if (mimeType.includes("jpeg")) {
+      //     extension = "jpg";
+      //   } else if (mimeType.includes("svg")) {
+      //     extension = "svg";
+      //   } else if (mimeType.includes("gif")) {
+      //     extension = "gif";
+      //   } else if (mimeType.includes("webp")) {
+      //     extension = "webp";
+      //   }
+
+      //   formData.append("landing_logo", blob, `landing_logo.${extension}`);
+      // }
+
       if (generateQrPayload?.landing_logo) {
-        // Convert base64 to a Blob
-        const base64Data = generateQrPayload.landing_logo.split(",")[1];
-        const byteCharacters = atob(base64Data);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-
-        // Determine MIME type from base64 string
-        const mimeType = generateQrPayload.landing_logo
-          .split(";")[0]
-          .split(":")[1];
-        const blob = new Blob([byteArray], { type: mimeType });
-
-        // Derive file extension from MIME type
-        let extension = "png";
-        if (mimeType.includes("jpeg")) {
-          extension = "jpg";
-        } else if (mimeType.includes("svg")) {
-          extension = "svg";
-        } else if (mimeType.includes("gif")) {
-          extension = "gif";
-        } else if (mimeType.includes("webp")) {
-          extension = "webp";
-        }
-
-        formData.append("landing_logo", blob, `landing_logo.${extension}`);
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.landing_logo,
+          "landing_logo"
+        );
       }
-      
+
+      if (generateQrPayload?.gallery_image) {
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.gallery_image,
+          "gallery_image"
+        );
+      }
+      if (generateQrPayload?.links_image) {
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.links_image,
+          "links_image"
+        );
+      }
+
       // Flatten and append existing payload data except 'landing_logo'
       Object.keys(generateQrPayload).forEach((key) => {
         if (key === "style") {
@@ -91,19 +147,39 @@ function BottomWrapperStages({
               generateQrPayload.color[colorKey]
             );
           });
-        }else if (key === "social") {
+        } else if (key === "social") {
           // Handle the social object separately
           Object.keys(generateQrPayload.social).forEach((socialKey) => {
-            formData.append(`social[${socialKey}]`, generateQrPayload.social[socialKey]);
+            formData.append(
+              `social[${socialKey}]`,
+              generateQrPayload.social[socialKey]
+            );
           });
-        }  
-        else if (key === "media_social") {
+        } else if (key === "media_social") {
           // Handle the social object separately
-          Object.keys(generateQrPayload.media_social).forEach((media_socialKey) => {
-            formData.append(`media_social[${media_socialKey}]`, generateQrPayload.media_social[media_socialKey]);
-          });
-        }
-        else if (key !== "landing_logo") {
+          Object.keys(generateQrPayload.media_social).forEach(
+            (media_socialKey) => {
+              formData.append(
+                `media_social[${media_socialKey}]`,
+                generateQrPayload.media_social[media_socialKey]
+              );
+            }
+          );
+        } else if (key === "links_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.links_social).forEach(
+            (links_socialKey) => {
+              formData.append(
+                `links_social[${links_socialKey}]`,
+                generateQrPayload.links_social[links_socialKey]
+              );
+            }
+          );
+        } else if (
+          key !== "landing_logo" &&
+          key !== "gallery_image" &&
+          key !== "links_image"
+        ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
         }
@@ -114,6 +190,10 @@ function BottomWrapperStages({
       }
 
       console.log("formData", formData);
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: test`, value);
+      }
+
       mutateQrCode(formData);
 
       // mutateQrCode(generateQrPayload);

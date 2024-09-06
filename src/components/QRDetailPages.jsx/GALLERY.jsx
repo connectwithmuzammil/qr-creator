@@ -18,11 +18,14 @@ const GALLERY = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
-  const handleImageUpload = (image) => {
-    console.log("Image uploaded:", image);
-  };
-  const handleImageDelete = () => {
-    console.log("Image deleted");
+  const handleImageUpload = (mediaData, name) => {
+    console.log("Received media data", mediaData); // media data base64
+    console.log("Received media name", name); // media name
+
+    setQrData((prevData) => ({
+      ...prevData,
+      [name]: mediaData,
+    }));
   };
 
   return (
@@ -49,18 +52,19 @@ const GALLERY = ({ qrData, setQrData }) => {
               <ImageUploadComponent
                 defaultImage={"/assets/images/default-img.png"}
                 onImageUpload={handleImageUpload}
-                onImageDelete={handleImageDelete}
+                // onImageDelete={handleImageDelete}
                 label="Upload Image"
+                name="gallery_image"
               />
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Information about your images' gallery"}>
             <InputComponent
               label={"Image/photo/album title"}
-              name={"gallery_image_title"}
+              name={"gallery_title"}
               placeholder={"e.g. Our wedding album"}
               onChange={handleInputChange}
-              value={qrData?.image_title}
+              value={qrData?.gallery_title}
             />
             <InputComponent
               label={"Description"}
