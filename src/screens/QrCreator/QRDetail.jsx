@@ -60,19 +60,37 @@ const QRDetail = () => {
     media_description: "",
 
     //image_gallery
-    gallery_image:"",
+    gallery_image: "",
     gallery_title: "",
     gallery_description: "",
     gallery_website: "",
     gallery_url: "",
 
     //LINKS
-    links_image:"",
-    links_title:"",
-    links_description:"" ,
+    links_image: "",
+    links_title: "",
+    links_description: "",
     all_links: [],
-    links_social:"",
+    links_social: "",
 
+    //VCARD
+    vcard_address: "",
+    vcard_city: "",
+    vcard_company_name: "",
+    vcard_country: "",
+    vcard_email: "",
+    vcard_fax: "",
+    vcard_full_name: "",
+    vcard_landline_phone: "",
+    vcard_mobile_phone: "",
+    vcard_numeration: "",
+    vcard_profession: "",
+    vcard_state: "",
+    vcard_summary: "",
+    vcard_website: "",
+    vcard_zip_code: "",
+    vcard_social: "",
+    vcard_image: "",
 
     type: "",
     style: {
@@ -124,9 +142,6 @@ const QRDetail = () => {
         style: qrData.style,
         ...(type === "url"
           ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
-          : {}),
-        ...(type === "vcard"
-          ? { field_name: qrData.field_name, field_phone: qrData.field_phone }
           : {}),
         ...(type === "wifi"
           ? {
@@ -206,7 +221,29 @@ const QRDetail = () => {
               links_description: qrData.links_description,
               all_links: qrData.all_links,
               links_social: qrData.links_social,
-      
+            }
+          : {}),
+        ...(type === "vcard"
+          ? {
+              qr_name: qrData?.qr_name,
+              color: qrData.color,
+              vcard_address: qrData?.vcard_address || "",
+              vcard_city: qrData?.vcard_city || "",
+              vcard_company_name: qrData?.vcard_company_name || "",
+              vcard_country: qrData?.vcard_country || "",
+              vcard_email: qrData?.vcard_email || "",
+              vcard_fax: qrData?.vcard_fax || "",
+              vcard_full_name: qrData?.vcard_full_name || "",
+              vcard_landline_phone: qrData?.vcard_landline_phone || "",
+              vcard_mobile_phone: qrData?.vcard_mobile_phone || "",
+              vcard_numeration: qrData?.vcard_numeration || "",
+              vcard_profession: qrData?.vcard_profession || "",
+              vcard_state: qrData?.vcard_state || "",
+              vcard_summary: qrData?.vcard_summary || "",
+              vcard_website: qrData?.vcard_website || "",
+              vcard_zip_code: qrData?.vcard_zip_code || "",
+              vcard_social: qrData?.vcard_social || "",
+              vcard_image: qrData?.vcard_image || "",
             }
           : {}),
       };

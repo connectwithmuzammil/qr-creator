@@ -128,6 +128,13 @@ function BottomWrapperStages({
           "links_image"
         );
       }
+      if (generateQrPayload?.vcard_image) {
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.vcard_image,
+          "vcard_image"
+        );
+      }
 
       // Flatten and append existing payload data except 'landing_logo'
       Object.keys(generateQrPayload).forEach((key) => {
@@ -175,10 +182,21 @@ function BottomWrapperStages({
               );
             }
           );
+        } else if (key === "vcard_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.vcard_social).forEach(
+            (vcard_socialKey) => {
+              formData.append(
+                `vcard_social[${vcard_socialKey}]`,
+                generateQrPayload.vcard_social[vcard_socialKey]
+              );
+            }
+          );
         } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
-          key !== "links_image"
+          key !== "links_image" &&
+          key !== "vcard_image"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
