@@ -1474,6 +1474,20 @@ footer .bottom p {
   background-color: #f6fafe;
   padding: 1.5rem;
 }
+.qr-main-page .bottom .all-qrCode-con {
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd {
+  background-color: #fcfcfc;
+  padding: 1rem;
+  display: block;
+  margin-bottom: 1.25rem;
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
 
 /*********************************** QRCREATORDETAIL CSS *********************************/
 .qr-editor-detail {
@@ -3267,7 +3281,7 @@ p.social-con-content {
   font-family: "Nunito Sans", sans-serif;
   color: #262626;
 }
-.eventScheduleComp .bottom .timezone-con .timezone-main select{
+.eventScheduleComp .bottom .timezone-con .timezone-main select {
   width: 100%;
   padding: 8px 12px;
   border-radius: 4px;
@@ -3275,7 +3289,7 @@ p.social-con-content {
   outline: none;
   border: 1px solid #bfbfbf;
 }
-.eventScheduleComp .bottom .allow-guest-txt{
+.eventScheduleComp .bottom .allow-guest-txt {
   color: #a6a6a6;
   font-size: 12px;
   font-family: "Nunito Sans", sans-serif;

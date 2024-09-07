@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
-const TimeInputComponent = () => {
-  const [is24HourFormat, setIs24HourFormat] = useState(false);
+const TimeInputComponent = ({ onTimeDataChange, is24HourFormat, setIs24HourFormat }) => {
   const [timeData, setTimeData] = useState({
     Monday: [{ from: "", to: "", enabled: false }],
     Tuesday: [{ from: "", to: "", enabled: false }],
@@ -12,6 +11,10 @@ const TimeInputComponent = () => {
     Saturday: [{ from: "", to: "", enabled: false }],
     Sunday: [{ from: "", to: "", enabled: false }],
   });
+
+  useEffect(() => {
+    onTimeDataChange(timeData);
+  }, [timeData, is24HourFormat]);
 
   const toggleTimeFormat = () => {
     setIs24HourFormat((prev) => !prev);
@@ -39,8 +42,6 @@ const TimeInputComponent = () => {
 
   const addTimeSlot = (day) => {
     if (!timeData[day][0].enabled) {
-      // Optionally, show a message or feedback to the user
-      // alert("Please select the checkbox to enable time slots.");
       return;
     }
     setTimeData((prevData) => ({
@@ -62,7 +63,6 @@ const TimeInputComponent = () => {
 
   return (
     <div className="time-input-component">
-      {/* Time format toggle */}
       <div className="time-format-toggle">
         <button
           className={!is24HourFormat ? "active" : ""}
@@ -78,7 +78,6 @@ const TimeInputComponent = () => {
         </button>
       </div>
 
-      {/* Days with time inputs */}
       <div className="days-time-wrapper">
         {Object.keys(timeData).map((day) => (
           <div key={day} className="day-row">
@@ -90,7 +89,6 @@ const TimeInputComponent = () => {
               />
               {day}
             </label>
-            {/* Time inputs visible by default, but disabled until checkbox is checked */}
             <div className="time-slots-container">
               {timeData[day].map((timeSlot, index) => (
                 <div key={index} className="time-slot">
@@ -125,7 +123,7 @@ const TimeInputComponent = () => {
                         onClick={() => removeTimeSlot(day, index)}
                         className="remove-btn"
                       >
-                        <FaTrash color={"#e0201c"}/>
+                        <FaTrash color={"#e0201c"} />
                       </button>
                     )}
                   </div>

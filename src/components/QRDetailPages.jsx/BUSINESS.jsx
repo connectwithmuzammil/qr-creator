@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { InputComponent } from "../InputComponent";
@@ -83,6 +83,8 @@ const FacilitiesIcon = {
 };
 
 const BUSINESS = ({ qrData, setQrData }) => {
+  const [is24HourFormat, setIs24HourFormat] = useState(false);
+
   const handleImageUpload = (mediaData, name) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
@@ -112,12 +114,43 @@ const BUSINESS = ({ qrData, setQrData }) => {
   const handleFacilitiesIconChange = (iconName, isSelected) => {
     setQrData((prevQrData) => ({
       ...prevQrData,
-      facilities_icon: {
-        ...prevQrData.facilities_icon,
+      business_facilities: {
+        ...prevQrData.business_facilities,
         [iconName]: isSelected,
       },
     }));
   };
+
+  const handleTimeDataChange = (timeData) => {
+    const days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    const updatedOpeningHours = {};
+
+    days.forEach((day) => {
+      const dayData = timeData[day][0];
+      updatedOpeningHours[day.toLowerCase()] = {
+        enabled: dayData.enabled,
+        times: timeData[day].map((slot) => ({
+          start: slot.from,
+          end: slot.to,
+        })),
+      };
+    });
+
+    setQrData((prevData) => ({
+      ...prevData,
+      opening_hours_days: updatedOpeningHours,
+      opening_hours_format: is24HourFormat ? "24-Hour" : "AM-PM", // Update format based on toggle
+    }));
+  };
+
   return (
     <div className="business-page">
       <div className="containerr">
@@ -147,10 +180,10 @@ const BUSINESS = ({ qrData, setQrData }) => {
             />
             <InputComponent
               label={"Company name"}
-              name={"business_company_name"}
+              name={"business_company"}
               placeholder={"e.g. Artisan Bakery"}
               onChange={handleInputChange}
-              value={qrData?.business_company_name}
+              value={qrData?.business_company}
             />
             <InputComponent
               label={"Title"}
@@ -186,53 +219,57 @@ const BUSINESS = ({ qrData, setQrData }) => {
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Opening hours"}>
-            <TimeInputComponent />
+            <TimeInputComponent
+              onTimeDataChange={handleTimeDataChange}
+              is24HourFormat={is24HourFormat}
+              setIs24HourFormat={setIs24HourFormat}
+            />
           </AccordianComponent>
           <AccordianComponent title={"Location"}>
             <div className="wrap-inp-cmp">
               <InputComponent
                 label={"Address"}
-                name={"vcard_address"}
+                name={"business_address"}
                 placeholder={"e.g. High Street"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_address}
+                value={qrData?.business_address}
               />
               <InputComponent
                 label={"Number"}
-                name={"vcard_numeration"}
+                name={"business_numeration"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_numeration}
+                value={qrData?.business_numeration}
               />
               <InputComponent
                 label={"Zip code"}
-                name={"vcard_zip_code"}
+                name={"business_postalcode"}
                 placeholder={"e.g. 12548"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_zip_code}
+                value={qrData?.business_postalcode}
               />
             </div>
             <div className="wrap-inp-cmp">
               <InputComponent
                 label={"City"}
-                name={"vcard_city"}
+                name={"business_city"}
                 placeholder={"e.g. New York"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_city}
+                value={qrData?.business_city}
               />
               <InputComponent
                 label={"State"}
-                name={"vcard_state"}
+                name={"business_state"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_state}
+                value={qrData?.business_state}
               />
               <InputComponent
                 label={"Country"}
-                name={"vcard_country"}
+                name={"business_country"}
                 placeholder={"e.g. USA"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_country}
+                value={qrData?.business_country}
               />
             </div>
           </AccordianComponent>

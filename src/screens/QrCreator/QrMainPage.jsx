@@ -19,7 +19,18 @@ const QrMainPage = () => {
               </Link>
             </div>
           </div>
-          <div className="bottom"></div>
+          <div className="bottom">
+            <div className="status-con"></div>
+            <div className="all-qrCode-con">
+              <div className="result-cardd">
+                <div className="one"></div>
+                <div className="two"></div>
+                <div className="three"></div>
+                <div className="four"></div>
+              </div>
+            </div>
+            <div className="pagination-con"></div>
+          </div>
         </div>
       </div>
     </div>

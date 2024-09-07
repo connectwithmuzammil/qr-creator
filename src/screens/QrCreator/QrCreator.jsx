@@ -33,7 +33,7 @@ const QrCreator = () => {
       rightImage: "/assets/images/phone-vcard.png",
     },
     {
-      type: "business",
+      type: "business_page",
       title: "Business Page",
       description: "Display your business information",
       imgSrc: business, 

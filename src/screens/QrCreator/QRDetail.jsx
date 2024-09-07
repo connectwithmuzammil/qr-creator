@@ -19,6 +19,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import {
   UrlSchema,
+  videoSchema,
   WifiSchema,
   youtubeSchema,
 } from "../../Helper/QRValidation";
@@ -95,12 +96,46 @@ const QRDetail = () => {
     vcard_image: "",
 
     //BUSINESS
-    facilities_image: "",
-    facilities_icon: "",
+    business_email: "", //
+    business_name: "", //
+    business_phone: "", //
+    business_website: "", //
+    business_action_title: "",
+    business_url: "", //
+    business_company: "", //
+    business_subtitle: "", //
+    business_title: "", //
+    business_address: "", //
+    business_city: "", //
+    business_country: "", //
+    business_numeration: "", //
+    business_postalcode: "", //
+    business_state: "", //
+
+    opening_hours_days: {
+      monday: { enabled: false, times: [] },
+      tuesday: { enabled: false, times: [] },
+      wednesday: { enabled: false, times: [] },
+      thursday: { enabled: false, times: [] },
+      friday: { enabled: false, times: [] },
+      saturday: { enabled: false, times: [] },
+      sunday: { enabled: false, times: [] },
+    },
+    opening_hours_format: "AM-PM",
+
+    business_facilities: "",
+    business_social: "",
+    business_image: "",
 
     //EVENTS
 
     //VIDEO
+    video: null,
+    video_title: "",
+    video_description: "",
+    video_button: " ",
+    video_url: "",
+    video_social: "",
 
     type: "",
     style: {
@@ -145,6 +180,8 @@ const QRDetail = () => {
         await UrlSchema.validate(qrData);
       } else if (type === "wifi") {
         await WifiSchema.validate(qrData);
+      } else if (type === "video") {
+        // await videoSchema.validate(qrData);
       }
 
       const dataToSend = {
@@ -256,12 +293,42 @@ const QRDetail = () => {
               vcard_image: qrData?.vcard_image || "",
             }
           : {}),
-        ...(type === "business"
+        ...(type === "business_page"
+          ? {
+              qr_name: qrData?.qr_name,
+              color: qrData?.color,
+              business_email: qrData?.business_email,
+              business_name: qrData?.business_name,
+              business_phone: qrData?.business_phone,
+              business_website: qrData?.business_website,
+              business_action_title: qrData?.business_action_title,
+              business_url: qrData?.business_url,
+              business_company: qrData?.business_company,
+              business_subtitle: qrData?.business_subtitle,
+              business_title: qrData?.business_title,
+              business_address: qrData?.business_address,
+              business_city: qrData?.business_city,
+              business_country: qrData?.business_country,
+              business_numeration: qrData?.business_numeration,
+              business_postalcode: qrData?.business_postalcode,
+              business_state: qrData?.business_state,
+              business_facilities: qrData?.business_facilities,
+              business_social: qrData?.business_social,
+              business_image: qrData?.business_image,
+              opening_hours_days: qrData?.opening_hours_days,
+              opening_hours_format: qrData?.opening_hours_format,
+            }
+          : {}),
+        ...(type === "video"
           ? {
               qr_name: qrData?.qr_name,
               color: qrData.color,
-              facilities_image: qrData.facilities_image,
-              facilities_icon: qrData.facilities_icon,
+              video_social: qrData.video_social,
+              video: qrData.video,
+              video_title: qrData.video_title,
+              video_description: qrData.video_description,
+              video_button: qrData.video_button,
+              video_url: qrData.video_url,
             }
           : {}),
       };
@@ -340,7 +407,7 @@ const QRDetail = () => {
             <Video qrData={qrData} setQrData={setQrData} />
           </div>
         );
-      case "business":
+      case "business_page":
         return (
           <div>
             <BUSINESS qrData={qrData} setQrData={setQrData} />

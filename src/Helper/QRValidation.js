@@ -49,4 +49,15 @@ const WifiSchema = yup.object({
 //     }),
 // });
 
-export { youtubeSchema, UrlSchema, WifiSchema };
+const videoSchema = yup.object().shape({
+  video: yup
+    .mixed()
+    .required('Video is required')
+    .test('fileSize', 'The video is too large, maximum size is 2MB', (value) => {
+      return !value || (value.size <= 2048 * 1024); // Validate size only if file exists
+    }),
+});
+
+
+
+export { youtubeSchema, UrlSchema, WifiSchema, videoSchema };

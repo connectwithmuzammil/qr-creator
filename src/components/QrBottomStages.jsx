@@ -135,6 +135,46 @@ function BottomWrapperStages({
           "vcard_image"
         );
       }
+      if (generateQrPayload?.business_image) {
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.business_image,
+          "business_image"
+        );
+      }
+
+      // Handle opening_hours_days
+      // Handle opening_hours_days
+      if (generateQrPayload?.opening_hours_days) {
+        Object.keys(generateQrPayload.opening_hours_days).forEach((day) => {
+          const dayData = generateQrPayload.opening_hours_days[day];
+
+          // Only include days that are enabled or have non-empty times
+          if (
+            dayData.enabled ||
+            dayData.times.some((timeSlot) => timeSlot.start || timeSlot.end)
+          ) {
+            formData.append(
+              `opening_hours_days[${day}][enabled]`,
+              dayData.enabled
+            );
+
+            dayData.times.forEach((timeSlot, index) => {
+              if (timeSlot.start || timeSlot.end) {
+                // Check if timeSlot has valid data
+                formData.append(
+                  `opening_hours_days[${day}][times][${index}][start]`,
+                  timeSlot.start
+                );
+                formData.append(
+                  `opening_hours_days[${day}][times][${index}][end]`,
+                  timeSlot.end
+                );
+              }
+            });
+          }
+        });
+      }
 
       // Flatten and append existing payload data except 'landing_logo'
       Object.keys(generateQrPayload).forEach((key) => {
@@ -192,11 +232,35 @@ function BottomWrapperStages({
               );
             }
           );
+        } else if (key === "business_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.business_social).forEach(
+            (business_socialKey) => {
+              formData.append(
+                `business_social[${business_socialKey}]`,
+                generateQrPayload.business_social[business_socialKey]
+              );
+            }
+          );
+        } else if (key === "business_facilities") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.business_facilities).forEach(
+            (businessFacilities_socialKey) => {
+              formData.append(
+                `business_facilities[${businessFacilities_socialKey}]`,
+                generateQrPayload.business_facilities[
+                  businessFacilities_socialKey
+                ]
+              );
+            }
+          );
         } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
           key !== "links_image" &&
-          key !== "vcard_image"
+          key !== "vcard_image" &&
+          key !== "business_image" &&
+          key !== "opening_hours_days"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);

@@ -61,7 +61,23 @@ const Video = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
-  const handleVideoUpload = (video) => {};
+  const handleSocialIconChange = (iconName, url) => {
+    console.log("ICONS NAME, URL", iconName, url);
+    setQrData((prevData) => ({
+      ...prevData,
+      video_social: {
+        ...prevData.video_social,
+        [iconName]: url,
+      },
+    }));
+  };
+  const handleVideoUpload = (video) => {
+    console.log("VIDEO UPLOAD", video);
+    setQrData((prevData) => ({
+      ...prevData,
+      video: video,
+    }));
+  };
   return (
     <div className="video-page">
       <div className="containerr">
@@ -71,7 +87,7 @@ const Video = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={qrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
@@ -82,7 +98,10 @@ const Video = ({ qrData, setQrData }) => {
             />
           </AccordianComponent>
           <AccordianComponent title={"Video"}>
-            <div className="wrap-inp-cmp" style={{ alignItems: "center" }}>
+            <div
+              className="wrap-inp-cmp"
+              style={{ alignItems: "center", display: "none" }}
+            >
               <InputComponent
                 label={"Video URL"}
                 name={"video_company_name"}
@@ -96,9 +115,7 @@ const Video = ({ qrData, setQrData }) => {
               If you prefer, you can upload your video (up to 10 videos)
             </p>
             <div className="wrapper-img-upload-dashed">
-              <VideoUpload
-         
-              />
+              <VideoUpload onVideoUpload={handleVideoUpload} />
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Video Information"}>
@@ -111,36 +128,41 @@ const Video = ({ qrData, setQrData }) => {
             />
             <InputComponent
               label={"Video title"}
-              name={"video_company_name"}
-              placeholder={"e.g. Furniture Store"}
+              name={"video_title"}
+              placeholder={"e.g. Assemble your flat-pack wardrobe"}
               onChange={handleInputChange}
-              value={qrData?.video_company_name}
+              value={qrData?.video_title}
             />
             <InputComponent
-              label={"Company name"}
-              name={"video_company_name"}
-              placeholder={"e.g. Furniture Store"}
+              label={"Description"}
+              name={"video_description"}
+              placeholder={
+                "e.g. A video guide to putting together your new furniture store wardrobe"
+              }
               onChange={handleInputChange}
-              value={qrData?.video_company_name}
+              value={qrData?.video_description}
             />
             <InputComponent
-              label={"Company name"}
-              name={"video_company_name"}
-              placeholder={"e.g. Furniture Store"}
+              label={"Button text"}
+              name={"video_button"}
+              placeholder={"e.g. Watch now"}
               onChange={handleInputChange}
-              value={qrData?.video_company_name}
+              value={qrData?.video_button}
             />
             <InputComponent
-              label={"Company name"}
-              name={"video_company_name"}
-              placeholder={"e.g. Furniture Store"}
+              label={"URL"}
+              name={"video_url"}
+              placeholder={"e.g. https://www.myvideo..."}
               onChange={handleInputChange}
-              value={qrData?.video_company_name}
+              value={qrData?.video_url}
             />
           </AccordianComponent>
           <AccordianComponent title={"Social networks"}>
             <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp icons={icons} />
+            <SocialIconsComp
+              icons={icons}
+              onIconClick={handleSocialIconChange}
+            />
           </AccordianComponent>
         </div>
         <div className="right">
