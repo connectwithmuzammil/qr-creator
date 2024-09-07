@@ -13,6 +13,8 @@ import {
   Video,
   WIFI,
   YOUTUBE,
+  BUSINESS,
+  EVENT,
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -91,6 +93,14 @@ const QRDetail = () => {
     vcard_zip_code: "",
     vcard_social: "",
     vcard_image: "",
+
+    //BUSINESS
+    facilities_image: "",
+    facilities_icon: "",
+
+    //EVENTS
+
+    //VIDEO
 
     type: "",
     style: {
@@ -246,6 +256,14 @@ const QRDetail = () => {
               vcard_image: qrData?.vcard_image || "",
             }
           : {}),
+        ...(type === "business"
+          ? {
+              qr_name: qrData?.qr_name,
+              color: qrData.color,
+              facilities_image: qrData.facilities_image,
+              facilities_icon: qrData.facilities_icon,
+            }
+          : {}),
       };
       navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
     } catch (error) {
@@ -320,6 +338,18 @@ const QRDetail = () => {
         return (
           <div>
             <Video qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "business":
+        return (
+          <div>
+            <BUSINESS qrData={qrData} setQrData={setQrData} />
+          </div>
+        );
+      case "event":
+        return (
+          <div>
+            <EVENT qrData={qrData} setQrData={setQrData} />
           </div>
         );
       default:

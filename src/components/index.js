@@ -30,6 +30,8 @@ import LINKS from "./QRDetailPages.jsx/LINKS";
 import LANDING from "./QRDetailPages.jsx/LANDING";
 import Social from "./QRDetailPages.jsx/Social";
 import Video from "./QRDetailPages.jsx/Video";
+import BUSINESS from "./QRDetailPages.jsx/BUSINESS";
+import EVENT from "./QRDetailPages.jsx/EVENT";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
@@ -37,5 +39,6 @@ export {
     BottomWrapperStages, Forgot, EditContactInfo,
     UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent,
     QRMobileFrame, PDF, WIFI, YOUTUBE,
-    UpdateEmailAndPassword, VCARD, APPS, GALLERY, LINKS, LANDING, Social, Video
+    UpdateEmailAndPassword, VCARD, APPS, GALLERY, LINKS, LANDING, Social, Video,
+    BUSINESS, EVENT
 };

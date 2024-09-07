@@ -525,3 +525,252 @@ export const AmazonSocial = (props) => (
     </g>
   </svg>
 );
+
+//FACILITIES ICON
+export const FacilitiesAccommodationIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-accommodation.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M7.455 12.273a2.724 2.724 0 0 0 2.727-2.728 2.724 2.724 0 0 0-2.727-2.727 2.724 2.724 0 0 0-2.728 2.727 2.724 2.724 0 0 0 2.728 2.728zm10.909-5.455h-5.455c-1 0-1.818.818-1.818 1.818v4.546H3.818V5.909c0-.5-.409-.909-.909-.909S2 5.41 2 5.91v11.817c0 .5.41.91.91.91s.908-.41.908-.91V15.91h16.364v1.818c0 .5.409.91.909.91s.909-.41.909-.91v-7.272a3.635 3.635 0 0 0-3.636-3.637z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesBarIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-bar.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M21 4.45c0-.8-.65-1.45-1.45-1.45H4.45C3.65 3 3 3.65 3 4.45c0 .35.13.7.37.96L11 14v5H7c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1h-4v-5l7.63-8.59c.24-.26.37-.61.37-.96zM7.43 7 5.66 5h12.69l-1.78 2H7.43z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesCafeIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-cafe.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M20 3H6c-1.1 0-2 .9-2 2v8c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2a2 2 0 0 0 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM5 19h14c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesChildFriendlyIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-child-friendly.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M13 3.08V10h8a8 8 0 0 0-6.86-7.92c-.6-.09-1.14.39-1.14 1zm6.32 12.81A7.948 7.948 0 0 0 21 11H6.44l-.68-1.43a.993.993 0 0 0-.9-.57H3c-.55 0-1 .45-1 1s.45 1 1 1h1.22s1.89 4.07 2.12 4.42a3.505 3.505 0 0 0-1.74 3.94c.3 1.26 1.34 2.27 2.6 2.55 2.1.46 3.98-.96 4.25-2.91h2.08a3.498 3.498 0 0 0 4.22 2.92 3.493 3.493 0 0 0 2.63-2.53c.35-1.39-.14-2.68-1.06-3.5zM8 20c-.83 0-1.5-.67-1.5-1.5S7.17 17 8 17s1.5.67 1.5 1.5S8.83 20 8 20zm9 0c-.83 0-1.5-.67-1.5-1.5S16.17 17 17 17s1.5.67 1.5 1.5S17.83 20 17 20z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesParkingIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-parking.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M12.79 3H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2s2-.9 2-2v-4h3c3.57 0 6.42-3.13 5.95-6.79C18.56 5.19 15.84 3 12.79 3zm.41 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesPetFriendlyIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-pet-friendly.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M12 10.5c.26 0 .53 0 .78.04.11.02.22.05.33.09.7.24 1.29.78 1.75 1.32.88 1.02 1.61 1.89 2.48 2.91 1.31 1.31 2.92 2.76 2.61 4.8-.29 1.01-1.02 2.03-2.33 2.32-.73.14-3.06-.44-5.54-.44h-.18c-2.48 0-4.81.59-5.54.44-1.31-.29-2.04-1.3-2.33-2.32-.3-2.03 1.31-3.48 2.62-4.79.88-1.02 1.61-1.89 2.48-2.91.47-.54 1.05-1.08 1.75-1.32.11-.04.22-.07.33-.09.26-.05.53-.05.79-.05zM4.5 7a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm15 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM9 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm6 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesRestaurantIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={32}
+    height={32}
+    viewBox="0 0 32 32"
+    className="injected-svg"
+    data-src="/svg/icon-restaurant.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M21.333 8v8c0 1.467 1.2 2.667 2.667 2.667h1.333V28c0 .733.6 1.333 1.334 1.333.733 0 1.333-.6 1.333-1.333V4.173c0-.866-.813-1.506-1.653-1.306-2.88.706-5.014 3.146-5.014 5.133zm-6.666 4H12V4c0-.733-.6-1.333-1.333-1.333-.734 0-1.334.6-1.334 1.333v8H6.667V4c0-.733-.6-1.333-1.334-1.333C4.6 2.667 4 3.267 4 4v8a5.332 5.332 0 0 0 5.333 5.333V28c0 .733.6 1.333 1.334 1.333.733 0 1.333-.6 1.333-1.333V17.333A5.332 5.332 0 0 0 17.333 12V4c0-.733-.6-1.333-1.333-1.333s-1.333.6-1.333 1.333v8z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesRestroomIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-restrooms.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M5.49 21v-6.5h-.5c-.55 0-1-.45-1-1V9c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v4.5c0 .55-.45 1-1 1h-.5V21c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1zm12.5 0v-5h1.61c.68 0 1.16-.67.95-1.32l-2.1-6.31A2.01 2.01 0 0 0 16.55 7h-.12a2 2 0 0 0-1.9 1.37l-2.1 6.31c-.22.65.26 1.32.95 1.32h1.61v5c0 .55.45 1 1 1h1c.55 0 1-.45 1-1zM7.49 6c1.11 0 2-.89 2-2 0-1.11-.89-2-2-2-1.11 0-2 .89-2 2 0 1.11.89 2 2 2zm9 0c1.11 0 2-.89 2-2 0-1.11-.89-2-2-2-1.11 0-2 .89-2 2 0 1.11.89 2 2 2z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesSeatingIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-seating.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M20.182 9.333c1 0 1.818.8 1.818 1.778v4.445c0 1.466-1.227 2.666-2.727 2.666v.89c0 .488-.41.888-.91.888s-.908-.4-.908-.889v-.889H6.545v.89c0 .488-.409.888-.909.888s-.909-.4-.909-.889v-.889c-1.5 0-2.727-1.2-2.727-2.666V11.11c0-.978.818-1.778 1.818-1.778s1.818.8 1.818 1.778v3.556h12.728V11.11c0-.978.818-1.778 1.818-1.778zM16.545 4c1.5 0 2.728 1.2 2.728 2.667V7.68c-1.564.4-2.728 1.778-2.728 3.431v1.778h-9.09V11.11c0-1.653-1.164-3.031-2.728-3.431V6.667C4.727 5.2 5.955 4 7.455 4z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesNearPublicTransportIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-near-public-transport.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19l-1.15 1.15a.5.5 0 0 0 .36.85H7.8c.13 0 .26-.05.35-.15L10 19h4l1.85 1.85c.09.09.22.15.35.15h1.09c.45 0 .67-.54.35-.85L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm5.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-7h-5V6h5v4z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesTaxiIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-taxi.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H15V4c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v1H6.5c-.66 0-1.21.42-1.42 1.01l-1.97 5.67c-.07.21-.11.43-.11.66v7.16c0 .83.67 1.5 1.5 1.5S6 20.33 6 19.5V19h12v.5c0 .82.67 1.5 1.5 1.5.82 0 1.5-.67 1.5-1.5v-7.16c0-.22-.04-.45-.11-.66l-1.97-5.67zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesWheelChairAccessIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    className="injected-svg"
+    data-src="/svg/icon-wheelchair-access.svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    role="img"
+    {...props}
+  >
+    <path
+      d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm7 5.9c0-.49-.36-.89-.84-.97a5.762 5.762 0 0 1-3.23-1.76l-1.29-1.43c-.17-.19-.38-.34-.61-.45-.01 0-.01-.01-.02-.01H13c-.37-.21-.78-.31-1.25-.25C10.73 7.15 10 8.07 10 9.1V15c0 1.1.9 2 2 2h5v4c0 .55.45 1 1 1s1-.45 1-1v-4.5c0-1.1-.9-2-2-2h-3v-3.45c1 .83 2.4 1.54 3.8 1.82.62.13 1.2-.34 1.2-.97zM12.83 18c-.41 1.16-1.52 2-2.83 2-1.66 0-3-1.34-3-3 0-1.31.84-2.41 2-2.83V12.1a5 5 0 1 0 5.9 5.9h-2.07z"
+      fill="#262626"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+export const FacilitiesWifiIcon = (props) => (
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={24}
+  height={24}
+  viewBox="0 0 24 24"
+  className="injected-svg"
+  data-src="/svg/icon-wifi.svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+  role="img"
+  {...props}
+>
+  <path
+    d="M2.06 10.06c.51.51 1.32.56 1.87.1 4.67-3.84 11.45-3.84 16.13-.01.56.46 1.38.42 1.89-.09.59-.59.55-1.57-.1-2.1-5.71-4.67-13.97-4.67-19.69 0-.65.52-.7 1.5-.1 2.1zm7.76 7.76 1.47 1.47c.39.39 1.02.39 1.41 0l1.47-1.47c.47-.47.37-1.28-.23-1.59a4.28 4.28 0 0 0-3.91 0c-.57.31-.68 1.12-.21 1.59zm-3.73-3.73c.49.49 1.26.54 1.83.13a7.064 7.064 0 0 1 8.16 0c.57.4 1.34.36 1.83-.13l.01-.01c.6-.6.56-1.62-.13-2.11-3.44-2.49-8.13-2.49-11.58 0-.69.5-.73 1.51-.12 2.12z"
+    fill="#262626"
+    fillRule="evenodd"
+  />
+</svg>
+);

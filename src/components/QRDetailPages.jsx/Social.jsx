@@ -111,19 +111,21 @@ const Social = ({ qrData, setQrData }) => {
               />
             </div>
             <InputComponent
-                label={"Headline*"}
-                name={"media_headline"}
-                placeholder={"e.g. Connect with us"}
-                onChange={handleInputChange}
-                value={qrData.media_headline}
-              />
-               <InputComponent
-                label={"Description"}
-                name={"media_description"}
-                placeholder={"e.g. If you would like to keep up on the latest content, come by and follow us"}
-                onChange={handleInputChange}
-                value={qrData.media_description}
-              />
+              label={"Headline*"}
+              name={"media_headline"}
+              placeholder={"e.g. Connect with us"}
+              onChange={handleInputChange}
+              value={qrData.media_headline}
+            />
+            <InputComponent
+              label={"Description"}
+              name={"media_description"}
+              placeholder={
+                "e.g. If you would like to keep up on the latest content, come by and follow us"
+              }
+              onChange={handleInputChange}
+              value={qrData.media_description}
+            />
           </AccordianComponent>
           <AccordianComponent title={"Social Media Channels"}>
             <SocialIconsComp
