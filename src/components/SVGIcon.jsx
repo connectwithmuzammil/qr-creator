@@ -1812,8 +1812,8 @@ export const NotSelectedFrameCanvas = ({
   console.log("data null case",data)
 
   const qrCodeOptions = {
-    width: 200,
-    height: 200,
+    width: 215,
+    height: 215,
     data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2012,8 +2012,8 @@ export const CanvaFrame2 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2391,8 +2391,8 @@ export const CanvaFrame5 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ?  data: "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2517,8 +2517,8 @@ export const CanvaFrame6 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2642,8 +2642,8 @@ export const CanvaFrame7 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2785,8 +2785,8 @@ export const CanvaFrame8 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2915,8 +2915,8 @@ export const CanvaFrame9 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
@@ -2974,14 +2974,14 @@ export const CanvaFrame9 = ({
     >
       <path
         d="M1.25 13C1.25 11.4812 2.48122 10.25 4 10.25H76C77.5188 10.25 78.75 11.4812 78.75 13V105C78.75 106.519 77.5188 107.75 76 107.75H4C2.48122 107.75 1.25 106.519 1.25 105V13Z"
-        fill="#700f0f"
+        fill={frameColor ? frameColor : "#404040"}
         stroke="#404040"
         strokeWidth={2.5}
       />
       <rect x={8} y={20} width={64} height={64} fill="url(#pattern0)" />
       <path
         d="M21 10.25C21 7.62665 23.1266 5.5 25.75 5.5H54.25C56.8734 5.5 59 7.62665 59 10.25C59 12.8734 56.8734 15 54.25 15H25.75C23.1266 15 21 12.8734 21 10.25Z"
-        fill={frameColor ? frameColor : "#404040"}
+        fill={ "#404040"}
       />
       <path
         fillRule="evenodd"
@@ -3051,8 +3051,8 @@ export const CanvaFrame10 = ({
   const qrCode = useRef(null);
 
   const qrCodeOptions = {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 300,
     data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,

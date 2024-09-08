@@ -2,7 +2,12 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
 
-const ResetPassword = ({resetPassword, setResetPassword}) => {
+const ResetPassword = ({
+  resetPassword,
+  setResetPassword,
+  sendResetEmail,
+  isLoading,
+}) => {
   return (
     <Modal
       show={resetPassword}
@@ -18,7 +23,7 @@ const ResetPassword = ({resetPassword, setResetPassword}) => {
           <h3>Want to change your password?</h3>
           <p>We’ll send you an email to reset your password.</p>
 
-          <Button title={"Reset password"} />
+          <Button title={"Reset password"} onClick={sendResetEmail} />
         </div>
       </Modal.Body>
     </Modal>

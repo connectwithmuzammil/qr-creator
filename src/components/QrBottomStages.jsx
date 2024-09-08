@@ -142,6 +142,13 @@ function BottomWrapperStages({
           "business_image"
         );
       }
+      if (generateQrPayload?.event_image) {
+        appendBase64ToFormData(
+          formData,
+          generateQrPayload?.event_image,
+          "event_image"
+        );
+      }
 
       // Handle opening_hours_days
       // Handle opening_hours_days
@@ -254,13 +261,24 @@ function BottomWrapperStages({
               );
             }
           );
+        } else if (key === "event_facilities") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.event_facilities).forEach(
+            (event_facilities_socialKey) => {
+              formData.append(
+                `event_facilities[${event_facilities_socialKey}]`,
+                generateQrPayload.event_facilities[event_facilities_socialKey]
+              );
+            }
+          );
         } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
           key !== "links_image" &&
           key !== "vcard_image" &&
           key !== "business_image" &&
-          key !== "opening_hours_days"
+          key !== "opening_hours_days" &&
+          key !== "event_image"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment-timezone";
 import { InputComponent } from "./InputComponent";
 
-const EventSchedularComp = () => {
-  const [selectedTimeZone, setSelectedTimeZone] = useState(moment.tz.guess());
+const EventSchedularComp = ({ qrData, setQrData, onChangeTime }) => {
+  const [selectedTimeZone, setSelectedTimeZone] = useState(
+    qrData.event_time_timezone || moment.tz.guess()
+  );
+  const [timeFormat, setTimeFormat] = useState("24h"); // New state to manage time format (AM/PM or 24-hour)
 
   // Get all time zone names and format them with offsets
   const timeZones = moment.tz.names().map((zone) => {
@@ -11,33 +14,117 @@ const EventSchedularComp = () => {
     return `${zone} (GMT${offset})`;
   });
 
+  useEffect(() => {
+    setQrData((prev) => ({
+      ...prev,
+      event_time_timezone: selectedTimeZone,
+    }));
+  }, [selectedTimeZone, setQrData]);
+
+  const handleTimeFormatChange = (format) => {
+    setTimeFormat(format);
+    // You could also trigger further changes based on the format here (e.g., converting times)
+  };
+
+  const handleStartDateChange = (e) => {
+    setQrData((prev) => ({
+      ...prev,
+      event_time_start: e.target.value,
+    }));
+  };
+
+  const handleEndDateChange = (e) => {
+    setQrData((prev) => ({
+      ...prev,
+      event_time_end: e.target.value,
+    }));
+  };
+
+  const handleAllDayChange = (e) => {
+    setQrData((prev) => ({
+      ...prev,
+      event_time_all_day: e.target.checked,
+    }));
+  };
+
   const handleTimeZoneChange = (e) => {
     setSelectedTimeZone(e.target.value);
   };
+
   return (
     <div className="eventScheduleComp">
       <div className="top">
-        <p>AM/PM</p>
-        <p>24 Hours</p>
+        <p
+          className={`time-format-option ${
+            timeFormat === "am/pm" ? "active" : ""
+          }`}
+          onClick={() => handleTimeFormatChange("am/pm")}
+        >
+          AM/PM
+        </p>
+        <p
+          className={`time-format-option ${
+            timeFormat === "24h" ? "active" : ""
+          }`}
+          onClick={() => handleTimeFormatChange("24h")}
+        >
+          24 Hours
+        </p>
       </div>
       <div className="bottom">
         <div className="input-con">
           <div className="input-wrap">
             <label>Start</label>
-            <input type="date" name="" id="" placeholder="e.g Nov 4, 2023" />
+            <input
+              type="date"
+              value={qrData.event_time_start.split("T")[0]} // Split to remove time part
+              onChange={handleStartDateChange}
+            />
           </div>
-          <input type="time" name="" id="" />
+          <input
+            type="time"
+            onChange={(e) =>
+              setQrData((prev) => ({
+                ...prev,
+                event_time_start: `${qrData.event_time_start.split("T")[0]}T${
+                  e.target.value
+                }:00.000Z`,
+              }))
+            }
+            // Display time based on selected format
+            step={timeFormat === "am/pm" ? 60 : 1} // Adjust step depending on format
+          />
         </div>
         <div className="input-con">
           <div className="input-wrap">
             <label>End</label>
-            <input type="date" name="" id="" placeholder="e.g Nov 5, 2023" />
+            <input
+              type="date"
+              value={qrData.event_time_end.split("T")[0]}
+              onChange={handleEndDateChange}
+            />
           </div>
-          <input type="time" name="" id="" />
+          <input
+            type="time"
+            onChange={(e) =>
+              setQrData((prev) => ({
+                ...prev,
+                event_time_end: `${qrData.event_time_end.split("T")[0]}T${
+                  e.target.value
+                }:00.000Z`,
+              }))
+            }
+            // Display time based on selected format
+            step={timeFormat === "am/pm" ? 60 : 1} // Adjust step depending on format
+          />
         </div>
         <div className="timezone-con">
           <label className="label-allday">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={qrData.event_time_all_day}
+              onChange={handleAllDayChange}
+            />
             All day
           </label>
           <div className="timezone-main">
@@ -58,8 +145,13 @@ const EventSchedularComp = () => {
         <InputComponent
           label={"Add to calendar button text"}
           placeholder={"e.g. Add to calendar"}
+          name="event_time_action_title"
+          value={qrData?.event_time_action_title}
+          onChange={onChangeTime}
         />
-        <p className="allow-guest-txt">Allow guests to add your event directly to their calendars.</p>
+        <p className="allow-guest-txt">
+          Allow guests to add your event directly to their calendars.
+        </p>
       </div>
     </div>
   );

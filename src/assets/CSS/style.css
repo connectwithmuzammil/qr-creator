@@ -1830,7 +1830,7 @@ footer .bottom p {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 250px;
+  height: 300px;
 }
 .qr-preview .notselectSvg {
   position: absolute;
@@ -1838,12 +1838,12 @@ footer .bottom p {
   left: 50%;
   transform: translate(-50%, -50%);
   /* width: 100%; */
-  height: 250px;
+  height: 300px;
 }
 .qr-preview svg canvas {
   width: 100%;
   height: 100%;
-  /* padding: 8px; */
+  padding: 2px;
 }
 .qr-design .containerr .right .img-con img.mobile-frame {
   width: 80%;
@@ -3152,6 +3152,7 @@ p.social-con-content {
   width: 100%;
 }
 
+
 .add-btn,
 .remove-btn {
   background-color: transparent;
@@ -3216,6 +3217,17 @@ p.social-con-content {
   text-align: center;
   cursor: pointer;
 }
+.time-format-option {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.time-format-option.active {
+  background-color: #007bff;
+  color: #fff !important; 
+  border-radius: 4px;
+}
+
 .eventScheduleComp .bottom {
 }
 .eventScheduleComp .bottom .input-con {

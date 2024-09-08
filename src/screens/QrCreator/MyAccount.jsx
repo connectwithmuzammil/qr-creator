@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChangePassword,
   EditContactInfo,
@@ -7,7 +7,7 @@ import {
   UpdateEmail,
   UpdateEmailAndPassword,
 } from "../../components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import apis from "../../services";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
@@ -16,13 +16,18 @@ import { setUser } from "../../redux/slice/userSlice";
 
 const MyAccount = () => {
   const { user } = useSelector((store) => store.user);
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showConactInfo, setShowContactInfo] = useState(false);
   const [ShowUpdateEmail, setShowUpdateEmail] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
+  const [newPassword, setNewPassword] = useState(true);
+  const [token, setToken] = useState(null);
+  const [searchParams] = useSearchParams();
+
 
   //UPDATE USER API CALL
   const { mutate: mutateUpdateProfile, isPending: isloadingUpdateProfile } =
@@ -37,7 +42,7 @@ const MyAccount = () => {
         // toast.error(error?.message);
       },
       onSuccess: ({ data: updateProfileSucess, status }) => {
-        console.log("update profile successfully!!:", updateProfileSucess);
+        // console.log("update profile successfully!!:", updateProfileSucess);
         if (updateProfileSucess?.success) {
           toast.success(updateProfileSucess?.message);
           dispatch(setUser(updateProfileSucess?.data));
@@ -54,7 +59,7 @@ const MyAccount = () => {
         toast.error(error?.message);
       },
       onSuccess: ({ data: updateEmailSucess, status }) => {
-        console.log("EMAIL update successfully!!:", updateEmailSucess);
+        // console.log("EMAIL update successfully!!:", updateEmailSucess);
         if (updateEmailSucess?.success) {
           toast.success(updateEmailSucess?.message);
           dispatch(setUser(updateEmailSucess?.data));
@@ -63,6 +68,31 @@ const MyAccount = () => {
       },
     });
   console.log("uSERR", user);
+
+  //---------------------------------- RESET PASSWORD ---------------------------------------------------------//
+  useEffect(() => {
+    const tokenFromUrl = searchParams.get("token");
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+      setNewPassword(true); // Open the change password modal if token is present
+    }
+  }, [searchParams]);
+
+  // API CALL RESET PASS
+  const { mutate: sendResetEmail, isLoadingResetPass } = useMutation({
+    mutationFn: apis.sendPasswordResetEmail, // API method to send the reset email
+    onError: (error) => {
+      toast.error(error?.message || "Failed to send reset email");
+    },
+    onSuccess: (response) => {
+      if (response?.success) {
+        toast.success("Password reset email sent successfully!");
+        setResetPassword(false); // Close modal after successful email
+      } else {
+        toast.error(response?.message || "Failed to send reset email");
+      }
+    },
+  });
 
   return (
     <>
@@ -108,7 +138,9 @@ const MyAccount = () => {
                   </div>
                   <div className="user-detail">
                     <p>Click on the button below to update your email.</p>
-                    <p className="user-data-email">{user?.user?.email || user?.email}</p>
+                    <p className="user-data-email">
+                      {user?.user?.email || user?.email}
+                    </p>
                   </div>
                   <div
                     className="edit-info"
@@ -166,6 +198,8 @@ const MyAccount = () => {
       <ResetPassword
         resetPassword={resetPassword}
         setResetPassword={setResetPassword}
+        sendResetEmail={sendResetEmail}
+        isLoading={isLoadingResetPass}
       />
       <ChangePassword
         newPassword={newPassword}

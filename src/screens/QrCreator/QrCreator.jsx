@@ -103,7 +103,7 @@ const QrCreator = () => {
       rightImage: "/assets/images/phone-website.png",
     },
     {
-      type: "event",
+      type: "events",
       title: "Event",
       description: "Share event info and invite guests",
       imgSrc: event,
