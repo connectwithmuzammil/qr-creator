@@ -2,8 +2,24 @@ import React from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import { DatePickerInput, LineChartComp, Sidebar } from "../../components";
+import { useQuery } from "@tanstack/react-query";
+import apis from "../../services";
 
 const QrAnalytics = () => {
+  const {
+    isLoading,
+    error,
+    refetch,
+    data: { data: getQrCount } = {},
+  } = useQuery({
+    queryKey: ["getQrCount"],
+    queryFn: () => apis.QRCount(),
+    onError: (error) => {
+      console.error("Error geting Order History:", error);
+      // toast.error("Failed to fetch products. Please try again later.");
+    },
+  });
+  console.log("getQrCount", getQrCount);
   return (
     <div className="qrAnalytics">
       <div className="userDashboard">
@@ -32,14 +48,14 @@ const QrAnalytics = () => {
                   <img src="/assets/images/icons/eye.png" alt="eye" />
                   <p>Number of QR codes</p>
                 </div>
-                <h3>1</h3>
+                <h3>{getQrCount?.count}</h3>
               </div>
               <div className="cardd">
                 <div className="wrap">
                   <img src="/assets/images/icons/eye.png" alt="eye" />
                   <p>Number of scans</p>
                 </div>
-                <h3>0</h3>
+                <h3>{getQrCount?.count}</h3>
               </div>
               <div className="cardd">
                 <div className="wrap">

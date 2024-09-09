@@ -21,7 +21,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/*" element={<LandingPage />} />
+        {/* <Route path="/*" element={<LandingPage />} /> */}
         {/* QR ROUTES */}
         <Route path="/my-qr-codes" element={<QrMainPage />} />
         <Route path="/qr-editor" element={<QrCreator />} />
