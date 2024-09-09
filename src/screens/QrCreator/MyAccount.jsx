@@ -24,10 +24,9 @@ const MyAccount = () => {
   const [ShowUpdateEmail, setShowUpdateEmail] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
-  const [newPassword, setNewPassword] = useState(true);
+  const [newPassword, setNewPassword] = useState(false);
   const [token, setToken] = useState(null);
   const [searchParams] = useSearchParams();
-
 
   //UPDATE USER API CALL
   const { mutate: mutateUpdateProfile, isPending: isloadingUpdateProfile } =
@@ -67,11 +66,12 @@ const MyAccount = () => {
         }
       },
     });
-  console.log("uSERR", user);
+  // console.log("uSERR", user);
 
   //---------------------------------- RESET PASSWORD ---------------------------------------------------------//
   useEffect(() => {
     const tokenFromUrl = searchParams.get("token");
+    console.log("tokenFromUrl",tokenFromUrl)
     if (tokenFromUrl) {
       setToken(tokenFromUrl);
       setNewPassword(true); // Open the change password modal if token is present
@@ -79,15 +79,16 @@ const MyAccount = () => {
   }, [searchParams]);
 
   // API CALL RESET PASS
-  const { mutate: sendResetEmail, isLoadingResetPass } = useMutation({
+  const { mutate: sendResetEmailMutate, isLoadingResetPass } = useMutation({
     mutationFn: apis.sendPasswordResetEmail, // API method to send the reset email
     onError: (error) => {
       toast.error(error?.message || "Failed to send reset email");
     },
     onSuccess: (response) => {
-      if (response?.success) {
-        toast.success("Password reset email sent successfully!");
-        setResetPassword(false); // Close modal after successful email
+      console.log("RESPONSE", response);
+      if (response?.status) {
+        toast.success(response?.data?.message);
+        setResetPassword(false);
       } else {
         toast.error(response?.message || "Failed to send reset email");
       }
@@ -198,7 +199,7 @@ const MyAccount = () => {
       <ResetPassword
         resetPassword={resetPassword}
         setResetPassword={setResetPassword}
-        sendResetEmail={sendResetEmail}
+        sendResetEmailMutate={sendResetEmailMutate}
         isLoading={isLoadingResetPass}
       />
       <ChangePassword

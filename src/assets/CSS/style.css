@@ -1472,7 +1472,7 @@ footer .bottom p {
 
 .qr-main-page .bottom {
   background-color: #f6fafe;
-  padding: 1.5rem;
+  padding: 10px;
 }
 .qr-main-page .bottom .all-qrCode-con {
 }
@@ -1487,8 +1487,146 @@ footer .bottom p {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, .18);
 }
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  border: 1px solid #e0201c;
+  border-radius: 4px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con img {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .content-wrap {
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .content-wrap h4 {
+  color: #e0201c;
+  font-size: 12px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  font-weight: 600;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .content-wrap h3 {
+  color: #404040;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  font-weight: 700;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two p.status {
+  border: 1px solid #737373;
+  color: #737373;
+  background-color: #f2f2f2;
+  padding: 4px 8px;
+  min-width: 50px;
+  font-size: 10px;
+  border-radius: 16px;
+  white-space: nowrap;
+  text-align: center;
+  margin: 0;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con{
 
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con .wrap{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con .wrap h6{
+  color: #8c8c8c;
+  font-size: 12px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .three {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .three p{
+  color: #8c8c8c;
+  margin: 0;
+  font-size: 12px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .three h1{
+  color: #000000;
+  font-family: poppin,sans-serif;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 800;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p{
+  margin: 0;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid #e0201c;
+  color: #e0201c;
+  font-size: 12px;
+  font-family: "Nunito Sans", sans-serif;
+cursor: pointer;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(2){
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-end;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(3){
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-end;
+  
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box{
+  position: relative;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box{
+  gap: 4px;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: #fcfcfc;
+  box-shadow: 2px 0 6px 0 hsla(0, 0%, 65%, .25);
+  border-radius: 8px;
+  transition: bottom .2s ease-in-out;
+  height: auto;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box h4{
+  font-size: 12px;
+  color: #e0201c;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box svg{}
 /*********************************** QRCREATORDETAIL CSS *********************************/
 .qr-editor-detail {
   padding-inline: 100px;
@@ -3152,7 +3290,6 @@ p.social-con-content {
   width: 100%;
 }
 
-
 .add-btn,
 .remove-btn {
   background-color: transparent;
@@ -3224,7 +3361,7 @@ p.social-con-content {
 
 .time-format-option.active {
   background-color: #007bff;
-  color: #fff !important; 
+  color: #fff !important;
   border-radius: 4px;
 }
 

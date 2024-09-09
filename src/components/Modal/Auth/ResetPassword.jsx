@@ -1,13 +1,22 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
+import { useSelector } from "react-redux";
 
 const ResetPassword = ({
   resetPassword,
   setResetPassword,
-  sendResetEmail,
+  sendResetEmailMutate,
   isLoading,
 }) => {
+  const { user } = useSelector((store) => store.user);
+  // console.log("USER EMAUIL", user);
+  const userEmail = user?.user?.email || user?.email;
+  const handleSubmit = () => {
+    sendResetEmailMutate({
+      email: userEmail,
+    });
+  };
   return (
     <Modal
       show={resetPassword}
@@ -23,7 +32,7 @@ const ResetPassword = ({
           <h3>Want to change your password?</h3>
           <p>We’ll send you an email to reset your password.</p>
 
-          <Button title={"Reset password"} onClick={sendResetEmail} />
+          <Button title={"Reset password"} onClick={handleSubmit} />
         </div>
       </Modal.Body>
     </Modal>
