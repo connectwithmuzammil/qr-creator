@@ -113,6 +113,7 @@ const createBackendServer = (baseURL) => {
   const updateEmail = (body) => api.post(`update-email`, body);
   const sendPasswordResetEmail = (body) => api.post(`restpassword`, body);
   const QRCount = () => api.get(`qr_count`);
+  const GETAllQrCode = () => api.get(`user_qr`);
 
   //Returning all the API
   return {
@@ -124,7 +125,8 @@ const createBackendServer = (baseURL) => {
     updateProfile,
     updateEmail,
     sendPasswordResetEmail,
-    QRCount
+    QRCount,
+    GETAllQrCode
   };
 };
 
