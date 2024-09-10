@@ -112,8 +112,11 @@ const createBackendServer = (baseURL) => {
   const updateProfile = (body) => api.post(`update-name`, body);
   const updateEmail = (body) => api.post(`update-email`, body);
   const sendPasswordResetEmail = (body) => api.post(`restpassword`, body);
+  const scanQrCode = (body) => api.post(`qr_scan`, body);
   const QRCount = () => api.get(`qr_count`);
   const GETAllQrCode = () => api.get(`user_qr`);
+  const getScanCount = () => api.get(`getScanCount`);
+  const deleteQrCode = (body) => api.delete(`delete_user`, { data: body });
 
   //Returning all the API
   return {
@@ -126,7 +129,10 @@ const createBackendServer = (baseURL) => {
     updateEmail,
     sendPasswordResetEmail,
     QRCount,
-    GETAllQrCode
+    GETAllQrCode,
+    scanQrCode,
+    getScanCount,
+    deleteQrCode
   };
 };
 

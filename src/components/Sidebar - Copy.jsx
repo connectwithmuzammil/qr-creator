@@ -77,7 +77,7 @@ const Sidebar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Box sx={{}} className="logo" onClick={()=>navigate("/")}>
+      <Box sx={{}} className="logo">
         <Logo color={"#fcfcfc"} />
       </Box>
       <List>

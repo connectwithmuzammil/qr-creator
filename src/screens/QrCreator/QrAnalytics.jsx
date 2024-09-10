@@ -20,6 +20,21 @@ const QrAnalytics = () => {
     },
   });
   console.log("getQrCount", getQrCount);
+
+  const {
+    isLoading : isLoadingScanCount,
+    error : errorScanCount,
+    refetch : refetchScanCount,
+    data: { data: getScanCount } = {},
+  } = useQuery({
+    queryKey: ["getQrCount"],
+    queryFn: () => apis.getScanCount(),
+    onError: (error) => {
+      console.error("Error geting Order History:", error);
+      // toast.error("Failed to fetch products. Please try again later.");
+    },
+  });
+  console.log("getScanCount",getScanCount)
   return (
     <div className="qrAnalytics">
       <div className="userDashboard">
@@ -55,7 +70,7 @@ const QrAnalytics = () => {
                   <img src="/assets/images/icons/eye.png" alt="eye" />
                   <p>Number of scans</p>
                 </div>
-                <h3>{getQrCount?.count}</h3>
+                <h3>{getScanCount?.count}</h3>
               </div>
               <div className="cardd">
                 <div className="wrap">

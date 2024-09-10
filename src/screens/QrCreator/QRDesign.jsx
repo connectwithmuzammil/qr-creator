@@ -49,6 +49,7 @@ import {
   QRDesignCorner6,
   QRDesignDetailIcon,
 } from "../../components/SVGIcon";
+import apis from "../../services";
 
 const QRDesign = () => {
   const { type } = useParams();
@@ -129,6 +130,25 @@ const QRDesign = () => {
   console.log("finalQrData", qrData);
   console.log("selectedFrame", selectedFrame);
 
+  const scanQrCode = async (body) => {
+    try {
+      const response = await apis.post('qr_scan', body);
+      console.log("RESPONSE SCAN QR CODE", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error scanning QR code:", error);
+      throw error;
+    }
+  };
+  const handleQrCodeScan = async (data) => {
+    try {
+      const result = await scanQrCode({ id: data });
+      console.log("QR Code scan result:", result);
+    } catch (error) {
+      console.error("Failed to scan QR Code:", error);
+    }
+  };
+  
   //Render Frame CANVAS
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -156,6 +176,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            onScan={handleQrCodeScan} 
           />
         );
       case "frame2":

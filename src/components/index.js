@@ -32,6 +32,7 @@ import Social from "./QRDetailPages.jsx/Social";
 import Video from "./QRDetailPages.jsx/Video";
 import BUSINESS from "./QRDetailPages.jsx/BUSINESS";
 import EVENT from "./QRDetailPages.jsx/EVENT";
+import QRCodeScanner from "./QRCodeScanner";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,

@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import { Sidebar } from "../../components";
 import {
+  CanvaFrame1,
+  CanvaFrame10,
+  CanvaFrame11,
+  CanvaFrame2,
+  CanvaFrame3,
+  CanvaFrame4,
+  CanvaFrame5,
+  CanvaFrame6,
+  CanvaFrame7,
+  CanvaFrame8,
+  CanvaFrame9,
   CreatedIconDashboard,
   ModifiedIconDashboard,
+  NotSelectedFrameCanvas,
   SideBarQrCodeSVG,
 } from "../../components/SVGIcon";
 import { Link } from "react-router-dom";
@@ -14,12 +26,15 @@ import apis from "../../services";
 import { useQuery } from "@tanstack/react-query";
 
 const QrMainPage = () => {
-  const [showDeleteBox, setShowDeleteBox] = useState(false);
+  const [showDeleteBox, setShowDeleteBox] = useState(null);
+  const handleDeleteBoxToggle = (id) => {
+    setShowDeleteBox(showDeleteBox === id ? null : id);
+  };
 
   const {
     isLoading,
     error,
-    refetch,
+    refetch: refetchAllQrCodes,
     data: { data: getALLQrCodes } = {},
   } = useQuery({
     queryKey: ["getALLQrCodes"],
@@ -31,6 +46,214 @@ const QrMainPage = () => {
   });
   console.log("getALLQrCodes", getALLQrCodes);
 
+  // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
+  // console.log("selectedFrame",selectedFrame)
+
+  const renderFrame = () => {
+    switch (selectedFrame) {
+      case "notSelctedFrame":
+        console.log("INSIDE notSelctedFrame CASE");
+        return (
+          <NotSelectedFrameCanvas
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame1":
+        console.log("INSIDE CASE 1");
+        return (
+          <CanvaFrame1
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame2":
+        return (
+          <CanvaFrame2
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame3":
+        return (
+          <CanvaFrame3
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame4":
+        return (
+          <CanvaFrame4
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame5":
+        return (
+          <CanvaFrame5
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame6":
+        return (
+          <CanvaFrame6
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame7":
+        return (
+          <CanvaFrame7
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame8":
+        return (
+          <CanvaFrame8
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame9":
+        return (
+          <CanvaFrame9
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame10":
+        return (
+          <CanvaFrame10
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      case "frame11":
+        return (
+          <CanvaFrame11
+            frameColor={frameColor}
+            frameBorderColor={frameBgColor}
+            frameText={frameText}
+            frameTextColor={frameTextColor}
+            CornerbgColor={CornerbgColor}
+            dotColor={dotColor}
+            cornerBorderColor={cornerBorderColor}
+            cornerDotColor={cornerDotColor}
+            selectedCornerStyle={selectedCornerStyle}
+            selectedDotStyle={selectedDotStyle}
+            data={data}
+          />
+        );
+      // ... Add cases for other frames
+      default:
+        return null;
+    }
+  };
+
+  const handleDelete = async (id) => {
+    console.log("delete_id", id);
+    const res = await apis.deleteQrCode({ id });
+    console.log("ress", res);
+    refetchAllQrCodes();
+    setShowDeleteBox(null);
+  };
   return (
     <div className="qr-main-page">
       <div className="userDashboard">
@@ -52,9 +275,9 @@ const QrMainPage = () => {
             <div className="bottom">
               <div className="status-con"></div>
               {getALLQrCodes?.data.length > 0 &&
-                getALLQrCodes?.data.map((qrCode) => {
+                getALLQrCodes?.data.map((qrCode, index) => {
                   return (
-                    <div className="all-qrCode-con">
+                    <div className="all-qrCode-con" key={index}>
                       {console.log("qrCode", qrCode)}
                       <div className="result-cardd">
                         <div className="one">
@@ -101,12 +324,15 @@ const QrMainPage = () => {
                             </span>
                           </p>
                           <div className="delete-box">
-                            <p onClick={() => setShowDeleteBox(!showDeleteBox)}>
+                            <p onClick={() => handleDeleteBoxToggle(qrCode.id)}>
                               <BsThreeDotsVertical size={18} />
                             </p>
-                            {showDeleteBox && (
+                            {showDeleteBox === qrCode.id && (
                               <div className="box">
-                                <MdDelete className="delete-icon" />
+                                <MdDelete
+                                  className="delete-icon"
+                                  onClick={() => handleDelete(qrCode.id)}
+                                />
                                 <h4>Delete</h4>
                               </div>
                             )}
