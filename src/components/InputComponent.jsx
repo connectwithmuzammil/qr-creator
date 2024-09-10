@@ -6,7 +6,7 @@ export const InputComponent = ({
   onChange,
   name,
   defaultValue,
-  disabled,
+  disabled = false,
   // error,
   ...props
 }) => {

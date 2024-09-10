@@ -36,8 +36,8 @@ const WIFI = ({ qrData, setQrData }) => {
                 name={"network_name"}
                 placeholder={"e.g. centralcafe"}
                 onChange={handleInputChange}
-                value={qrData.network_name || user?.user?.email || user?.email}
-                disabled
+                value={qrData.network_name}
+                // disabled
               />
               <InputComponent
                 label={"Network password*"}
@@ -45,12 +45,8 @@ const WIFI = ({ qrData, setQrData }) => {
                 placeholder={"e.g. mypassword"}
                 onChange={handleInputChange}
                 // value={qrData.network_password}
-                defaultValue={
-                  qrData.network_password ||
-                  user?.user?.password ||
-                  user?.password
-                }
-                disabled
+                value={qrData?.network_password}
+                // disabled
               />
             </div>
             <div className="wrap-inp-cmp">

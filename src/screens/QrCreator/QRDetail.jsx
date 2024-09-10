@@ -24,16 +24,19 @@ import {
   youtubeSchema,
 } from "../../Helper/QRValidation";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const QRDetail = () => {
+  const { user } = useSelector((store) => store.user);
+
   const { type } = useParams();
   const initialState = {
     qr_name: "",
     //URL
     field_url: "",
     //WIFI
-    network_name: "",
-    network_password: "",
+    network_name: user?.user?.email || user?.email,
+    network_password: user?.user?.password || user?.password,
     network_security_type: "",
     //YOTUBE
     youtube_url: "",
@@ -136,29 +139,28 @@ const QRDetail = () => {
     video_social: "",
 
     //EVENTS
-    event_action_title:"",
-    event_action_url:"", //
-    event_description:"", //
-    event_title:"", //
-    event_location_address:"", //
-    event_location_city:"", //
-    event_location_country:"", //
-    event_location_numeration:"", //
-    event_location_postal_code:"", //
-    event_location_state:"", //
-    event_organizer_about:"",  //
-    event_organizer_email:"",  //
-    event_organizer_name:"", //
-    event_organizer_phone:"", //
-    event_organizer_website:"", //
-    event_time_action_title:"",
-    event_time_all_day:true,
-    event_time_end:"2024-09-29T19:00:00.000Z",
-    event_time_start:"2024-09-28T19:00:00.000Z",
-    event_time_timezone:"",
-    event_image:"",
-    event_facilities:"",
-
+    event_action_title: "",
+    event_action_url: "", //
+    event_description: "", //
+    event_title: "", //
+    event_location_address: "", //
+    event_location_city: "", //
+    event_location_country: "", //
+    event_location_numeration: "", //
+    event_location_postal_code: "", //
+    event_location_state: "", //
+    event_organizer_about: "", //
+    event_organizer_email: "", //
+    event_organizer_name: "", //
+    event_organizer_phone: "", //
+    event_organizer_website: "", //
+    event_time_action_title: "",
+    event_time_all_day: true,
+    event_time_end: "2024-09-29T19:00:00.000Z",
+    event_time_start: "2024-09-28T19:00:00.000Z",
+    event_time_timezone: "",
+    event_image: "",
+    event_facilities: "",
 
     type: "",
     style: {
@@ -202,7 +204,7 @@ const QRDetail = () => {
       } else if (type === "url") {
         await UrlSchema.validate(qrData);
       } else if (type === "wifi") {
-        await WifiSchema.validate(qrData);
+        // await WifiSchema.validate(qrData);
       } else if (type === "video") {
         // await videoSchema.validate(qrData);
       }
@@ -365,8 +367,10 @@ const QRDetail = () => {
               event_location_address: qrData?.event_location_address || "",
               event_location_city: qrData?.event_location_city || "",
               event_location_country: qrData?.event_location_country || "",
-              event_location_numeration: qrData?.event_location_numeration || "",
-              event_location_postal_code: qrData?.event_location_postal_code || "",
+              event_location_numeration:
+                qrData?.event_location_numeration || "",
+              event_location_postal_code:
+                qrData?.event_location_postal_code || "",
               event_location_state: qrData?.event_location_state || "",
               event_organizer_about: qrData?.event_organizer_about || "",
               event_organizer_email: qrData?.event_organizer_email || "",
@@ -375,12 +379,13 @@ const QRDetail = () => {
               event_organizer_website: qrData?.event_organizer_website || "",
               event_time_action_title: qrData?.event_time_action_title || "",
               event_time_all_day: qrData?.event_time_all_day || true,
-              event_time_start: qrData?.event_time_start || "2024-09-28T19:00:00.000Z",
-              event_time_end: qrData?.event_time_end || "2024-09-29T19:00:00.000Z",
+              event_time_start:
+                qrData?.event_time_start || "2024-09-28T19:00:00.000Z",
+              event_time_end:
+                qrData?.event_time_end || "2024-09-29T19:00:00.000Z",
               event_time_timezone: qrData?.event_time_timezone || "",
               event_image: qrData?.event_image || "",
               event_facilities: qrData?.event_facilities || "",
-              
             }
           : {}),
       };
