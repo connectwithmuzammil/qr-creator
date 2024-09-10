@@ -32,8 +32,9 @@ function BottomWrapperStages({
     onSuccess: ({ data: generateQr, status }) => {
       // console.log("QR code generated successfully", generateQr);
       toast.success("QR code generated successfully");
+      navigate("/my-qr-codes")
       // navigate("/pricing");
-      navigate("/qr-image", { state: { generateQr } });
+      // navigate("/qr-image", { state: { generateQr } });
     },
   });
 

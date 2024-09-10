@@ -1487,19 +1487,36 @@ footer .bottom p {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, .18);
+  box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con {
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   border: 1px solid #e0201c;
   border-radius: 4px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con svg {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con svg canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con canvas{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con img {
   width: 100%;
@@ -1526,6 +1543,7 @@ footer .bottom p {
   display: flex;
   align-items: center;
   gap: 24px;
+  flex: 2;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .two p.status {
   border: 1px solid #737373;
@@ -1539,16 +1557,28 @@ footer .bottom p {
   text-align: center;
   margin: 0;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con{
-
+.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con {
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con .wrap{
+.qr-main-page
+  .bottom
+  .all-qrCode-con
+  .result-cardd
+  .two
+  .modifiedDate-con
+  .wrap {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 2px;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .two .modifiedDate-con .wrap h6{
+.qr-main-page
+  .bottom
+  .all-qrCode-con
+  .result-cardd
+  .two
+  .modifiedDate-con
+  .wrap
+  h6 {
   color: #8c8c8c;
   font-size: 12px;
   font-family: "Nunito Sans", sans-serif;
@@ -1559,16 +1589,17 @@ footer .bottom p {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  flex: 1;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .three p{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .three p {
   color: #8c8c8c;
   margin: 0;
   font-size: 12px;
   font-family: "Nunito Sans", sans-serif;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .three h1{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .three h1 {
   color: #000000;
-  font-family: poppin,sans-serif;
+  font-family: poppin, sans-serif;
   font-size: 18px;
   margin: 0;
   font-weight: 800;
@@ -1577,8 +1608,10 @@ footer .bottom p {
   display: flex;
   align-items: center;
   gap: 6px;
+  justify-content: end;
+  flex: 2;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four p{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p {
   margin: 0;
   padding: 4px 6px;
   border-radius: 4px;
@@ -1586,25 +1619,24 @@ footer .bottom p {
   color: #e0201c;
   font-size: 12px;
   font-family: "Nunito Sans", sans-serif;
-cursor: pointer;
+  cursor: pointer;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(2){
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(2) {
   display: flex;
   align-items: center;
   gap: 5px;
   align-self: flex-end;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(3){
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four p:nth-child(3) {
   display: flex;
   align-items: center;
   gap: 5px;
   align-self: flex-end;
-  
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box {
   position: relative;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box {
   gap: 4px;
   position: absolute;
   right: 0;
@@ -1612,21 +1644,22 @@ cursor: pointer;
   padding: 18px;
   box-sizing: border-box;
   background-color: #fcfcfc;
-  box-shadow: 2px 0 6px 0 hsla(0, 0%, 65%, .25);
+  box-shadow: 2px 0 6px 0 hsla(0, 0%, 65%, 0.25);
   border-radius: 8px;
-  transition: bottom .2s ease-in-out;
+  transition: bottom 0.2s ease-in-out;
   height: auto;
   z-index: 2;
   display: flex;
   align-items: center;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box h4{
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box h4 {
   font-size: 12px;
   color: #e0201c;
   margin: 0;
   font-family: "Nunito Sans", sans-serif;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box svg{}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box svg {
+}
 /*********************************** QRCREATORDETAIL CSS *********************************/
 .qr-editor-detail {
   padding-inline: 100px;

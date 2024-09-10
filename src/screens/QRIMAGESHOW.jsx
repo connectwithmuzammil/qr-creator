@@ -20,7 +20,7 @@ import QRCodeStyling from "qr-code-styling";
 const QRIMAGESHOW = () => {
   const location = useLocation();
   const QRres = location.state || {}; // Access the image path from navigation state
-  console.log("imagePath", QRres.generateQr);
+  console.log("QRres", QRres?.singleViewDetail);
 
   //   if (!imagePath) {
   //     return <div>No image available</div>;
@@ -28,8 +28,11 @@ const QRIMAGESHOW = () => {
 
   const qrCode = useRef(null);
 
+  // const [selectedFrame, setSelectedFrame] = useState(
+  //   QRres.generateQr?.data?.style?.frameName
+  // );
   const [selectedFrame, setSelectedFrame] = useState(
-    QRres.generateQr?.data?.style?.frameName
+    QRres?.singleViewDetail?.style?.frameName
   );
   console.log("selectedFrame", selectedFrame);
   // useEffect(() => {
@@ -38,17 +41,17 @@ const QRIMAGESHOW = () => {
 
   let data = QRres?.generateQr?.outcome;
   console.log("QRres?.outcome", data);
-  let dotColor = QRres.generateQr?.data?.style?.dotsColor;
-  let CornerbgColor = QRres.generateQr?.data?.style?.cornerBackgroundColor;
-  let cornerBorderColor = QRres.generateQr?.data?.style?.cornerBorderColor;
-  let cornerDotColor = QRres.generateQr?.data?.style?.cornerDotColor;
-  let selectedDotStyle = QRres.generateQr?.data?.style?.dotsStyle;
-  let selectedCornerStyle = QRres.generateQr?.data?.style?.cornerStyle;
+  let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
+  let CornerbgColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
+  let cornerBorderColor = QRres?.singleViewDetail?.style?.cornerBorderColor;
+  let cornerDotColor = QRres?.singleViewDetail?.style?.cornerDotColor;
+  let selectedDotStyle = QRres?.singleViewDetail?.style?.dotsStyle;
+  let selectedCornerStyle = QRres?.singleViewDetail?.style?.cornerStyle;
   //FRAME
-  let frameColor = QRres.generateQr?.data?.style?.frameColor;
-  let frameBgColor = QRres.generateQr?.data?.style?.backgroundColor;
-  let frameText = QRres.generateQr?.data?.style?.frameText;
-  let frameTextColor = QRres.generateQr?.data?.style?.frameTextColor;
+  let frameColor = QRres?.singleViewDetail?.style?.frameColor;
+  let frameBgColor = QRres?.singleViewDetail?.style?.backgroundColor;
+  let frameText = QRres?.singleViewDetail?.style?.frameText;
+  let frameTextColor = QRres?.singleViewDetail?.style?.frameTextColor;
 
   console.log("datta", data);
 
