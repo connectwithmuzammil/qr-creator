@@ -52,18 +52,55 @@ const QrMainPage = () => {
   // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
   // console.log("selectedFrame",selectedFrame)
 
-  const handleDownload = (qrCodeName) => {
-    if (qrCodeRef.current) {
-      toPng(qrCodeRef.current)
-        .then((dataUrl) => {
-          const link = document.createElement("a");
-          link.href = dataUrl;
-          link.download = `${qrCodeName}.png`; // Download with the QR code name
-          link.click();
-        })
-        .catch((err) => {
-          console.error("Error generating QR code image:", err);
-        });
+  const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+
+  const handleDownload = (qrCode) => {
+    // if (qrCodeRef.current) {
+    //   toPng(qrCodeRef.current)
+    //     .then((dataUrl) => {
+    //       const link = document.createElement("a");
+    //       link.href = dataUrl;
+    //       link.download = `${qrCodeName}.png`; // Download with the QR code name
+    //       link.click();
+    //     })
+    //     .catch((err) => {
+    //       console.error("Error generating QR code image:", err);
+    //     });
+    // }
+
+    // const imageUrl = qrCode?.image_path;
+
+    // if (imageUrl) {
+    //   const proxiedUrl = CORS_PROXY + imageUrl;
+  
+    //   fetch(proxiedUrl)
+    //     .then((response) => response.blob())
+    //     .then((blob) => {
+    //       saveAs(blob, 'qr-code.png');
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error downloading the image:', error);
+    //     });
+    // } else {
+    //   console.error('No image path provided.');
+    // }
+
+    if (qrCode?.image_path) {
+      console.log("INSIDE IF CONDITION");
+      const link = document.createElement("a");
+      link.href = qrCode.image_path; // Set the href to the image path
+      link.download = `${qrCode?.qr_name || "qr-code"}.png`; // Set the download name
+  
+      // Append link to the body (required for some browsers)
+      document.body.appendChild(link);
+  
+      // Programmatically click the link to trigger the download
+      link.click();
+  
+      // Remove the link from the body
+      document.body.removeChild(link);
+    } else {
+      console.error("No image path available for download.");
     }
   };
 
@@ -294,7 +331,9 @@ const QrMainPage = () => {
             </div>
           </div>
           {isLoading ? (
-            <></>
+            <div className="loader-wrapper">
+              <div className="loaderr" />
+            </div>
           ) : (
             <div className="bottom">
               <div className="status-con"></div>
@@ -334,7 +373,9 @@ const QrMainPage = () => {
                         </div>
                         <div className="three">
                           <p>Scans</p>
-                          <h1>0</h1>
+                          <h1>
+                            {qrCode?.scan_count ? qrCode?.scan_count : "0"}
+                          </h1>
                         </div>
                         <div className="four">
                           <p onClick={() => handleViewDetail(qrCode)}>
@@ -346,7 +387,7 @@ const QrMainPage = () => {
                               <MdEdit size={14} />
                             </span>
                           </p>
-                          <p onClick={() => handleDownload(qrCode?.qr_name)}>
+                          <p onClick={() => handleDownload(qrCode)}>
                             Download
                             <span>
                               <MdDownload size={18} />
