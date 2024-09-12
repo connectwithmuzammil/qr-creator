@@ -33,6 +33,7 @@ import Video from "./QRDetailPages.jsx/Video";
 import BUSINESS from "./QRDetailPages.jsx/BUSINESS";
 import EVENT from "./QRDetailPages.jsx/EVENT";
 import QRCodeScanner from "./QRCodeScanner";
+import PrivateRoute from "./PrivateRoutes";
 
 export {
     Header, Footer, Button, Step, Login, SignUp, ScrollToTop, Sidebar,
@@ -41,5 +42,5 @@ export {
     UpdateEmail, ResetPassword, ChangePassword, URL, ColorPickerComponent,
     QRMobileFrame, PDF, WIFI, YOUTUBE,
     UpdateEmailAndPassword, VCARD, APPS, GALLERY, LINKS, LANDING, Social, Video,
-    BUSINESS, EVENT
+    BUSINESS, EVENT, PrivateRoute
 };
