@@ -4,10 +4,12 @@ import { setUser } from "../redux/slice/userSlice";
 import { useMutation } from "@tanstack/react-query";
 import apis from "../services";
 import { Forgot, Login, SignUp } from "../components";
+import { useDispatch } from "react-redux";
 
 const LOGINSCREEN = () => {
   const [showModal, setShowModal] = useState(true);
   const [modalType, setModalType] = useState("login");
+  const dispatch = useDispatch()
 
   const openModal = (type) => {
     setModalType(type);
