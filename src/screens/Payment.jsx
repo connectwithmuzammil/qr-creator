@@ -9,6 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../components";
+import apis from "../services";
 
 const Payment = () => {
   const { user } = useSelector((store) => store.user);
@@ -26,12 +27,12 @@ const Payment = () => {
   const [cvcError, setCvcError] = useState(null);
   const [cardHolderName, setCardHolderName] = useState("");
 
-  const [processing, setProcessing] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   const location = useLocation();
   const state = location.state || {};
-  console.log("state", state);
+  console.log("location", state);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -77,8 +78,7 @@ const Payment = () => {
 
     const cardNumberElement = elements.getElement(CardNumberElement);
 
-    if (!cardNumberElement) {
-      setCardNumberError("Card number is not available.");
+    if (!cardNumberElement || !cardHolderName) {
       setProcessing(false);
       return;
     }
@@ -87,14 +87,35 @@ const Payment = () => {
       name: cardHolderName,
     });
 
+    console.log("tokenIDD", token);
     if (error) {
       setCardNumberError(error.message);
       setProcessing(false);
       return;
     }
 
-    // Handle token (e.g., send it to your server)
-    console.log(token);
+
+    const subPlan = state?.name.replace("7-Day", "").trim();
+    const paymentData = {
+      amount: parseFloat(state?.price.replace(/[^0-9.]/g, "")),
+      stripeToken: token.id,
+      sub_plan: subPlan,
+    };
+
+    console.log("PAYMENTDATA", paymentData);
+    try {
+      const response = await apis.checkout(paymentData);
+      console.log("responsee", response);
+      if (response.status === 200) {
+        // Navigate to a success page or confirmation
+        navigate("/my-qr-codes");
+      } else {
+        // Handle errors or payment failures
+        console.error("Payment failed: ", response.data.message);
+      }
+    } catch (error) {
+      console.error("Payment API error: ", error);
+    }
 
     setProcessing(false);
   };

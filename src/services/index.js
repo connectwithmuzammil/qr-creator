@@ -117,6 +117,7 @@ const createBackendServer = (baseURL) => {
   const GETAllQrCode = () => api.get(`user_qr`);
   const getScanCount = () => api.get(`getScanCount`);
   const deleteQrCode = (body) => api.delete(`delete_user`, { data: body });
+  const checkout = (body) => api.post(`craetePayment`, body);
 
   //Returning all the API
   return {
@@ -132,7 +133,8 @@ const createBackendServer = (baseURL) => {
     GETAllQrCode,
     scanQrCode,
     getScanCount,
-    deleteQrCode
+    deleteQrCode,
+    checkout,
   };
 };
 

@@ -30,7 +30,7 @@ function App() {
         <Route path="/*" element={<LandingPage />} />
         <Route path="/login" element={<LOGINSCREEN />} />
         {/* QR ROUTES */}
-        <Route path="/my-qr-codes" element={<PrivateRoute element={QrMainPage}  />} />
+        <Route path="/my-qr-codes" element={<PrivateRoute element={QrMainPage} />} />
 
         <Route path="/qr-editor" element={<QrCreator />} />
         <Route path="/qr-editor/:type" element={<QRDetail />} />
@@ -45,7 +45,7 @@ function App() {
         <Route path="/terms-of-use" element={<TermOfUse />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookies-policy" element={<CookiePolicy />} />
-        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/pricing" element={<PrivateRoute element={Pricing} />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/qr-image" element={<QRIMAGESHOW />} />
