@@ -995,7 +995,7 @@ footer .bottom p {
   font-weight: 600;
   min-width: 280px;
 }
-.pricing .content button.disabled-btn{
+.pricing .content button.disabled-btn {
   background-color: #ccc;
   cursor: not-allowed;
   color: #fff;
@@ -3588,14 +3588,14 @@ p.social-con-content {
   border-radius: 4px;
   margin-bottom: 40px;
 }
-.payment-page .containerr .left form .terms{
+.payment-page .containerr .left form .terms {
   margin: 0;
   font-size: 12px;
   font-family: "Nunito Sans", sans-serif;
   color: #000000;
   text-align: center;
 }
-.payment-page .containerr .left form .terms span{
+.payment-page .containerr .left form .terms span {
   color: #e0201c;
   cursor: pointer;
 }
@@ -3645,4 +3645,41 @@ p.social-con-content {
 .payment-page .containerr .right .payment-certificate .payment-logo img {
   width: 3.5rem;
   margin-right: 1rem;
+}
+
+/* subscriptionPopup */
+.subscriptionPopup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #facf51;
+  padding: 8px 24px;
+  border-radius: 0.5rem;
+  margin-top: 16px;
+}
+.subscriptionPopup .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.subscriptionPopup p {
+  color: #000;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+}
+.subscriptionPopup svg {
+  font-size: 24px;
+  color: #000;
+}
+
+.subscriptionPopup button{
+  background-color: #fff;
+  color: #e0201c;
+  border: 1px solid #e0201c;
+  font-size: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  padding: 5px 14px;
+  border-radius: 0.5rem;
+
 }

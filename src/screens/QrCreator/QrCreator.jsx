@@ -14,8 +14,12 @@ import landing from "../../assets/images/icon-qr-website.svg";
 import event from "../../assets/images/icon-qr-event.svg";
 import { BottomWrapperStages, Header } from "../../components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const QrCreator = () => {
+  const { user } = useSelector((store) => store.user);
+  const subPlan = user?.subscription_plan;
+  console.log("subPlan", subPlan);
   const [selectedCard, setSelectedCard] = useState(null);
   const qrCodesList = [
     {
@@ -36,7 +40,7 @@ const QrCreator = () => {
       type: "business_page",
       title: "Business Page",
       description: "Display your business information",
-      imgSrc: business, 
+      imgSrc: business,
       rightImage: "/assets/images/phone-business.png",
     },
     {
@@ -124,6 +128,30 @@ const QrCreator = () => {
     setSelectedCard(null);
     navigate(`/my-qr-codes`);
   };
+
+  const allowedQrCodes = {
+    "Limited Access": ["url", "vcard", "wifi"],
+    "Full Access": ["url", "vcard", "social_media", "wifi", "video"],
+    "Yearly Unlimited": [
+      "url",
+      "vcard",
+      "social_media",
+      "wifi",
+      "video",
+      "apps",
+      "pdf",
+      "links",
+      "gallery",
+      "youtube",
+      "landing",
+      "events",
+    ],
+  };
+  // Filter the QR codes based on the user's subscription plan
+  const filteredQrCodes = qrCodesList.filter((qrCode) =>
+    allowedQrCodes[subPlan]?.includes(qrCode.type)
+  );
+
   return (
     <>
       <Header />
@@ -133,7 +161,7 @@ const QrCreator = () => {
             <div className="left">
               <h1 className="h1">1. Select the QR code you want to create:</h1>
               <div className="card-con">
-                {qrCodesList?.map((qrCode) => (
+                {filteredQrCodes?.map((qrCode) => (
                   <div
                     key={qrCode.type}
                     className={`cardd ${

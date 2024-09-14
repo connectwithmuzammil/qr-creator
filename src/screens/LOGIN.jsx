@@ -5,11 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 import apis from "../services";
 import { Forgot, Login, SignUp } from "../components";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LOGINSCREEN = () => {
   const [showModal, setShowModal] = useState(true);
   const [modalType, setModalType] = useState("login");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const openModal = (type) => {
     setModalType(type);
@@ -58,6 +60,7 @@ const LOGINSCREEN = () => {
       console.log("loginSucessfully!!:", loginSucess);
       if (loginSucess?.success) {
         toast.success(loginSucess?.message);
+        navigate("/");
         setShowModal(false);
         dispatch(setUser(loginSucess?.data));
         localStorage.setItem("token", loginSucess?.token);

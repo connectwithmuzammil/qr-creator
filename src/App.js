@@ -19,7 +19,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 function App() {
   const stripePromise = loadStripe(
-    "pk_test_51MvYFsHR4p2bAk2CwOzjbovbZZQI05WyT3OlF7Ov1jEB8s3qApeF7VK1DoZJDpXXg24IcfuEMou7gxeKtjLYpqrd00XW9orPni"
+    "pk_test_51FTEPWIJaRH6RptoWVl1Wp7i3zV0GRlJfe9jShWK8qaBkHKYC4c8h3IG6NH7vIRlxCb7jjRVoqMMjbt3wIi9o0em00dwOlJmRV"
   );
 
   return (

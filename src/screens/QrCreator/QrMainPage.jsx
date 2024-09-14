@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Sidebar } from "../../components";
+import { Sidebar, SubscriptionPopup } from "../../components";
 import {
   CanvaFrame1,
   CanvaFrame10,
@@ -52,7 +52,7 @@ const QrMainPage = () => {
   // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
   // console.log("selectedFrame",selectedFrame)
 
-  const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
   const handleDownload = (qrCode) => {
     // if (qrCodeRef.current) {
@@ -72,7 +72,7 @@ const QrMainPage = () => {
 
     // if (imageUrl) {
     //   const proxiedUrl = CORS_PROXY + imageUrl;
-  
+
     //   fetch(proxiedUrl)
     //     .then((response) => response.blob())
     //     .then((blob) => {
@@ -90,13 +90,13 @@ const QrMainPage = () => {
       const link = document.createElement("a");
       link.href = qrCode.image_path; // Set the href to the image path
       link.download = `${qrCode?.qr_name || "qr-code"}.png`; // Set the download name
-  
+
       // Append link to the body (required for some browsers)
       document.body.appendChild(link);
-  
+
       // Programmatically click the link to trigger the download
       link.click();
-  
+
       // Remove the link from the body
       document.body.removeChild(link);
     } else {
@@ -330,6 +330,7 @@ const QrMainPage = () => {
               </Link>
             </div>
           </div>
+          <SubscriptionPopup />
           {isLoading ? (
             <div className="loader-wrapper">
               <div className="loaderr" />
