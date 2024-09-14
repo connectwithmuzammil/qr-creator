@@ -6,7 +6,7 @@ const SubscriptionPopup = () => {
   const { user } = useSelector((store) => store.user);
   console.log("userSubscriptionPopup", user.expiry);
   return (
-    user?.expiry === true && (
+   ( user?.expiry === true || user?.user?.expiry === true )&& (
       <div className="subscriptionPopup">
         <div className="left">
           <MdErrorOutline />
