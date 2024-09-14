@@ -18,9 +18,9 @@ import { useSelector } from "react-redux";
 
 const QrCreator = () => {
   const { user } = useSelector((store) => store.user);
-  console.log("userr",user)
-  const subPlan = user?.subscription_plan || user?.user?.subscription_plan;
-  console.log("subPlan", subPlan); 
+  console.log("userrSTAGING", user);
+  const subPlan = user?.user?.subscription_plan || user?.subscription_plan;
+  console.log("subPlan", subPlan);
   const [selectedCard, setSelectedCard] = useState(null);
   const qrCodesList = [
     {
