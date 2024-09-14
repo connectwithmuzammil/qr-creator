@@ -6,14 +6,17 @@ import {
   CardCvcElement,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../components";
 import apis from "../services";
+import { setUser } from "../redux/slice/userSlice";
+import { toast } from "react-toastify";
 
 const Payment = () => {
   const { user } = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user?.user || !user) {
@@ -94,7 +97,6 @@ const Payment = () => {
       return;
     }
 
-
     const subPlan = state?.name.replace("7-Day", "").trim();
     const paymentData = {
       amount: parseFloat(state?.price.replace(/[^0-9.]/g, "")),
@@ -106,11 +108,14 @@ const Payment = () => {
     try {
       const response = await apis.checkout(paymentData);
       console.log("responsee", response);
+      console.log("checkUserData", response?.data?.data);
       if (response.status === 200) {
-        // Navigate to a success page or confirmation
+        console.log("INSIDE STATUS 200");
+        dispatch(setUser(response?.data?.data));
+        await new Promise((resolve) => setTimeout(resolve, 200));
+        toast.success(response.data.message);
         navigate("/my-qr-codes");
       } else {
-        // Handle errors or payment failures
         console.error("Payment failed: ", response.data.message);
       }
     } catch (error) {

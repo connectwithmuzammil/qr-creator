@@ -12,7 +12,11 @@ import gallery from "../../assets/images/icon-qr-image.svg";
 import youtube from "../../assets/images/icon-qr-youtube.svg";
 import landing from "../../assets/images/icon-qr-website.svg";
 import event from "../../assets/images/icon-qr-event.svg";
-import { BottomWrapperStages, Header } from "../../components";
+import {
+  BottomWrapperStages,
+  Header,
+  SubscriptionPopup,
+} from "../../components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -156,62 +160,65 @@ const QrCreator = () => {
   return (
     <>
       <Header />
-      <div className="qr-creator-main">
-        <div className="page1">
-          <div className="containerr">
-            <div className="left">
-              <h1 className="h1">1. Select the QR code you want to create:</h1>
-              <div className="card-con">
-                {filteredQrCodes?.map((qrCode) => (
-                  <div
-                    key={qrCode.type}
-                    className={`cardd ${
-                      selectedCard === qrCode.type ? "active" : ""
-                    }`}
-                    onClick={() => handleCardClick(qrCode.type)}
-                  >
+      {user?.user?.expiry === false || user?.expiry === false ? (
+        <div className="qr-creator-main">
+          <div className="page1">
+            <div className="containerr">
+              <div className="left">
+                <h1 className="h1">
+                  1. Select the QR code you want to create:
+                </h1>
+                <div className="card-con">
+                  {filteredQrCodes?.map((qrCode) => (
                     <div
-                      className={`img-con ${
+                      key={qrCode.type}
+                      className={`cardd ${
                         selectedCard === qrCode.type ? "active" : ""
                       }`}
+                      onClick={() => handleCardClick(qrCode.type)}
                     >
-                      <img src={qrCode.imgSrc} alt={qrCode.type} />
+                      <div
+                        className={`img-con ${
+                          selectedCard === qrCode.type ? "active" : ""
+                        }`}
+                      >
+                        <img src={qrCode.imgSrc} alt={qrCode.type} />
+                      </div>
+                      <div className="wrap">
+                        <h2>{qrCode.title}</h2>
+                        <p>{qrCode.description}</p>
+                      </div>
                     </div>
-                    <div className="wrap">
-                      <h2>{qrCode.title}</h2>
-                      <p>{qrCode.description}</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+              <div className="right">
+                {selectedCard && (
+                  <img
+                    src={
+                      qrCodesList.find((qrCode) => qrCode.type === selectedCard)
+                        .rightImage
+                    }
+                    alt={`phone-${selectedCard}`}
+                  />
+                )}
+                {!selectedCard && (
+                  <img
+                    src="/assets/images/phone-example-default.png"
+                    alt="phone-example-default"
+                  />
+                )}
               </div>
             </div>
-            <div className="right">
-              {selectedCard && (
-                <img
-                  src={
-                    qrCodesList.find((qrCode) => qrCode.type === selectedCard)
-                      .rightImage
-                  }
-                  alt={`phone-${selectedCard}`}
-                />
-              )}
-              {!selectedCard && (
-                <img
-                  src="/assets/images/phone-example-default.png"
-                  alt="phone-example-default"
-                />
-              )}
-            </div>
           </div>
-        </div>
 
-        <BottomWrapperStages
-          currentStage={1}
-          onNextClick={handleNextClick}
-          onCancelClick={handleCancelClick}
-          showNextButton={Boolean(selectedCard)}
-        />
-        {/* <div className="bottom-wrapper">
+          <BottomWrapperStages
+            currentStage={1}
+            onNextClick={handleNextClick}
+            onCancelClick={handleCancelClick}
+            showNextButton={Boolean(selectedCard)}
+          />
+          {/* <div className="bottom-wrapper">
           <button className="cancel">Cancel</button>
           <div className="stages-con">
             <div className="select-qr">
@@ -240,7 +247,12 @@ const QrCreator = () => {
             <MdChevronRight />
           </div>
         </div> */}
-      </div>
+        </div>
+      ) : (
+        <div style={{}}>
+          <SubscriptionPopup />
+        </div>
+      )}
     </>
   );
 };

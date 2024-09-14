@@ -1,11 +1,13 @@
 import React from "react";
 import { MdErrorOutline } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SubscriptionPopup = () => {
   const { user } = useSelector((store) => store.user);
   console.log("USERSUBSCRIPTIONSTAGING", user);
   console.log("userSubscriptionPopup", user.expiry);
+  const navigate = useNavigate();
   return (
     (user?.user?.expiry === true || user?.expiry === true) && (
       <div className="subscriptionPopup">
@@ -16,7 +18,7 @@ const SubscriptionPopup = () => {
             analytics, and more premium features!
           </p>
         </div>
-        <button>Upgrade now</button>
+        <button onClick={()=>navigate("/pricing")}>Upgrade now</button>
       </div>
     )
   );
