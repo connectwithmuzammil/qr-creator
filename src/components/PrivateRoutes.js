@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ element: Component, ...rest }) => {
-  const { user } = useSelector((store) => store.user);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useSelector((store) => store.user); 
   const location = useLocation();
-
-  useEffect(() => {
-    if (user !== (undefined || null)) {
-      setIsLoading(false);
-    }
-  }, [user]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  console.log("userstateprivate", user);
+  console.log(" ", location); // Log the location object
 
   // If there is no user (not authenticated), redirect to login page
-  if (!user) {
+  if (!user?.user || !user) {
+    console.log("locationtest", location);
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

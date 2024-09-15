@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../components";
 import apis from "../services";
-import { setUser } from "../redux/slice/userSlice";
+import { setUser, startLoading } from "../redux/slice/userSlice";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 const Payment = () => {
   const { user } = useSelector((store) => store.user);
@@ -75,6 +76,23 @@ const Payment = () => {
     }
   };
 
+  // const { mutate: mutatePayment, isPending } = useMutation({
+  //   mutationFn: apis.checkout,
+  //   onError: function (error) {
+  //     // console.log("error", error);
+  //     toast.error(error?.message);
+  //   },
+  //   onSuccess: async ({ data: success, status }) => {
+  //     console.log("success!!:", success);
+  //     if (success) {
+  //       toast.success(success?.message);
+  //       dispatch(setUser(success?.data));
+  //       await new Promise((resolve) => setTimeout(resolve, 300));
+  //       navigate("/my-qr-codes")
+  //     }
+  //   },
+  // });
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     setProcessing(true);
@@ -103,8 +121,9 @@ const Payment = () => {
       stripeToken: token.id,
       sub_plan: subPlan,
     };
-
     console.log("PAYMENTDATA", paymentData);
+    // mutatePayment(paymentData);
+
     try {
       const response = await apis.checkout(paymentData);
       console.log("responsee", response);
@@ -112,7 +131,7 @@ const Payment = () => {
       if (response.status === 200) {
         console.log("INSIDE STATUS 200");
         dispatch(setUser(response?.data?.data));
-        await new Promise((resolve) => setTimeout(resolve, 200));
+        await new Promise((resolve) => setTimeout(resolve, 300));
         toast.success(response.data.message);
         navigate("/my-qr-codes");
       } else {

@@ -249,7 +249,7 @@ const QrCreator = () => {
         </div> */}
         </div>
       ) : (
-        <div style={{}}>
+        <div style={{paddingInline:"80px"}}>
           <SubscriptionPopup />
         </div>
       )}
