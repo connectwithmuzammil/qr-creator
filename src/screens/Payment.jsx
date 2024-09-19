@@ -133,7 +133,7 @@ const Payment = () => {
         dispatch(setUser(response?.data?.data));
         await new Promise((resolve) => setTimeout(resolve, 300));
         toast.success(response.data.message);
-        navigate("/my-qr-codes");
+        navigate("/qr-editor");
       } else {
         console.error("Payment failed: ", response.data.message);
       }

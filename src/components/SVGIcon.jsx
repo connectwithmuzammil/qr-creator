@@ -3206,7 +3206,8 @@ export const CanvaFrame11 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: data ? data : "www.example.com",
+    // data: data ? data : "www.example.com",
+    data: "https://qrgenarator.envobyte.dev/images/qr_code_29_FJjUEVbpHd.png",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,

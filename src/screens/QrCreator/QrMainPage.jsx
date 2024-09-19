@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Sidebar, SubscriptionPopup } from "../../components";
+import { QrCodeScanner, Sidebar, SubscriptionPopup } from "../../components";
 import {
   CanvaFrame1,
   CanvaFrame10,
@@ -33,6 +33,19 @@ const QrMainPage = () => {
     setShowDeleteBox(showDeleteBox === id ? null : id);
   };
   const navigate = useNavigate();
+
+  const [scanCounts, setScanCounts] = useState({});
+
+  const handleScan = (data) => {
+    // Assuming `data` is the scanned QR code's value
+    // Update the scan count for the scanned QR code
+    console.log("DATA SCANNED", data);
+    setScanCounts((prevCounts) => {
+      const newCounts = { ...prevCounts };
+      newCounts[data] = (newCounts[data] || 0) + 1; // Increment scan count
+      return newCounts;
+    });
+  };
 
   const {
     isLoading,
@@ -105,8 +118,8 @@ const QrMainPage = () => {
   };
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
-    console.log("qrCodeData", qrCodeData);
-    console.log("dataQrCodeee", data);
+    // console.log("qrCodeData", qrCodeData);
+    // console.log("dataQrCodeee", data);
     switch (selectedFrame) {
       case "notSelctedFrame":
         console.log("INSIDE notSelctedFrame CASE");
@@ -341,6 +354,10 @@ const QrMainPage = () => {
               {getALLQrCodes?.data.length > 0 &&
                 getALLQrCodes?.data.map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
+                  const scanCount = scanCounts[qrCode.qr_name] || 0;
+                  console.log("SCANCOUNTTTTTTTT", scanCount);
+                  console.log("qrCode.qr_name:", qrCode.qr_name);
+
                   return (
                     <div className="all-qrCode-con" key={index}>
                       {console.log("qrCode", qrCode)}
@@ -374,8 +391,9 @@ const QrMainPage = () => {
                         </div>
                         <div className="three">
                           <p>Scans</p>
+                          <p>{scanCount}</p>
                           <h1>
-                            {qrCode?.scan_count ? qrCode?.scan_count : "0"}
+                            {/* {qrCode?.scan_count ? qrCode?.scan_count : "0"} */}
                           </h1>
                         </div>
                         <div className="four">
@@ -419,6 +437,7 @@ const QrMainPage = () => {
               <div className="pagination-con"></div>
             </div>
           )}
+          <QrCodeScanner onScan={handleScan} />
         </div>
       </div>
     </div>
