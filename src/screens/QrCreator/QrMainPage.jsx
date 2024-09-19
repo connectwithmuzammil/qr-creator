@@ -34,19 +34,6 @@ const QrMainPage = () => {
   };
   const navigate = useNavigate();
 
-  const [scanCounts, setScanCounts] = useState({});
-
-  const handleScan = (data) => {
-    // Assuming `data` is the scanned QR code's value
-    // Update the scan count for the scanned QR code
-    console.log("DATA SCANNED", data);
-    setScanCounts((prevCounts) => {
-      const newCounts = { ...prevCounts };
-      newCounts[data] = (newCounts[data] || 0) + 1; // Increment scan count
-      return newCounts;
-    });
-  };
-
   const {
     isLoading,
     error,
@@ -354,9 +341,6 @@ const QrMainPage = () => {
               {getALLQrCodes?.data.length > 0 &&
                 getALLQrCodes?.data.map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
-                  const scanCount = scanCounts[qrCode.qr_name] || 0;
-                  console.log("SCANCOUNTTTTTTTT", scanCount);
-                  console.log("qrCode.qr_name:", qrCode.qr_name);
 
                   return (
                     <div className="all-qrCode-con" key={index}>
@@ -391,9 +375,8 @@ const QrMainPage = () => {
                         </div>
                         <div className="three">
                           <p>Scans</p>
-                          <p>{scanCount}</p>
                           <h1>
-                            {/* {qrCode?.scan_count ? qrCode?.scan_count : "0"} */}
+                            {qrCode?.scan_count ? qrCode?.scan_count : "0"}
                           </h1>
                         </div>
                         <div className="four">
@@ -437,7 +420,6 @@ const QrMainPage = () => {
               <div className="pagination-con"></div>
             </div>
           )}
-          <QrCodeScanner onScan={handleScan} />
         </div>
       </div>
     </div>

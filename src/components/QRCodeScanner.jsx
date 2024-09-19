@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
-import QrReader from 'react-qr-reader';
+import React, { useEffect, useState } from 'react';
+import { BrowserMultiFormatReader } from '@zxing/library';
 
-const QrCodeScanner = ({ onScan }) => {
-  const [error, setError] = useState(null);
+const QRScanner = () => {
+  const [scanCount, setScanCount] = useState(0);
+  const [scanned, setScanned] = useState(false); // Flag to stop scanning
 
-  const handleScan = (data) => {
-    if (data) {
-      onScan(data); // Pass the scanned data to the parent component
-    }
-  };
+  useEffect(() => {
+    const codeReader = new BrowserMultiFormatReader();
 
-  const handleError = (err) => {
-    setError(err);
-    console.error(err);
-  };
+    const decode = () => {
+      codeReader.decodeFromVideoDevice(null, 'video', (result, err) => {
+        if (result && !scanned) {
+          console.log(result); // Handle the result
+          setScanCount(prevCount => prevCount + 1); // Increment scan count
+          setScanned(true); // Stop further scanning
+        }
+        if (err) {
+          console.error(err); // Handle errors
+        }
+      });
+    };
+
+    decode(); // Start scanning
+
+    return () => {
+      codeReader.reset(); // Stop scanning on unmount
+    };
+  }, [scanned]);
 
   return (
     <div>
-      <QrReader
-        delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        style={{ width: '100%' }}
-      />
-      {error && <p>Error: {error.message}</p>}
+      <video id="video" style={{ width: '100%' }} />
+      <p>Scan Count: {scanCount}</p>
     </div>
   );
 };
 
-export default QrCodeScanner;
+export default QRScanner;
