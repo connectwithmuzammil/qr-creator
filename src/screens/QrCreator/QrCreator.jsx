@@ -137,7 +137,7 @@ const QrCreator = () => {
   const allowedQrCodes = {
     "Limited Access": ["url", "vcard", "wifi"],
     "Full Access": ["url", "vcard", "social_media", "wifi", "video"],
-    "Yearly Unlimited": [
+    "Yearly UnLimited": [
       "url",
       "vcard",
       "social_media",
@@ -156,6 +156,7 @@ const QrCreator = () => {
   const filteredQrCodes = qrCodesList.filter((qrCode) =>
     allowedQrCodes[subPlan]?.includes(qrCode.type)
   );
+  console.log("filteredQrCodes",filteredQrCodes)
 
   return (
     <>

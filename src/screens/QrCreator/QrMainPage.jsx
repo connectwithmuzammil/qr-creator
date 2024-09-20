@@ -315,6 +315,16 @@ const QrMainPage = () => {
     console.log("singleViewDetail", singleViewDetail);
     navigate("/qr-image", { state: { singleViewDetail } });
   };
+  const handleEdit = async (id, type) => {
+    console.log("EDIT IDDD", id);
+    try {
+      let res = await apis.getSingleQr(id);
+      let qrData = res.data;
+      navigate(`/qr-editor/${type}`, { state: { qrData } });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <div className="qr-main-page">
       <div className="userDashboard">
@@ -339,7 +349,7 @@ const QrMainPage = () => {
             <div className="bottom">
               <div className="status-con"></div>
               {getALLQrCodes?.data.length > 0 &&
-                getALLQrCodes?.data.map((qrCode, index) => {
+                getALLQrCodes?.data.reverse().map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
 
                   return (
@@ -356,7 +366,7 @@ const QrMainPage = () => {
                             /> */}
                           </div>
                           <div className="content-wrap">
-                            <h4>Wifi</h4>
+                            <h4>{qrCode?.type}</h4>
                             <h3>{qrCode?.qr_name}</h3>
                           </div>
                         </div>
@@ -365,11 +375,11 @@ const QrMainPage = () => {
                           <div className="modifiedDate-con">
                             <div className="wrap">
                               <CreatedIconDashboard />
-                              <h6>Created: Sep 7, 2024</h6>
+                              <h6>Created: {qrCode?.created_at}</h6>
                             </div>
                             <div className="wrap">
                               <ModifiedIconDashboard />
-                              <h6>Modified: Sep 7, 2024</h6>
+                              <h6>Modified: {qrCode?.updated_at}</h6>
                             </div>
                           </div>
                         </div>
@@ -383,7 +393,9 @@ const QrMainPage = () => {
                           <p onClick={() => handleViewDetail(qrCode)}>
                             View details
                           </p>
-                          <p>
+                          <p
+                            onClick={() => handleEdit(qrCode?.id, qrCode.type)}
+                          >
                             Edit
                             <span>
                               <MdEdit size={14} />

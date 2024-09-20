@@ -3088,17 +3088,17 @@ export const CanvaFrame10 = ({
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
+        type: selectedDotStyle, 
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
+        type: selectedCornerStyle, 
       },
       backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
+        color: CornerbgColor,
       },
       cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
+        color: cornerDotColor, 
       },
     });
   }, [
@@ -3206,8 +3206,7 @@ export const CanvaFrame11 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    // data: data ? data : "www.example.com",
-    data: "https://qrgenarator.envobyte.dev/images/qr_code_29_FJjUEVbpHd.png",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,

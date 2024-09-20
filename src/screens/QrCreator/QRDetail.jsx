@@ -164,17 +164,17 @@ const QRDetail = () => {
 
     type: "",
     style: {
-      dotsStyle: "square",
+      dotsStyle: "", //square
       dotsColor: "#000000",
       cornerStyle: "rounded-dot",
       cornerBackgroundColor: "#ffffff",
-      cornerBorderColor: "#000000",
-      cornerDotColor: "#000000",
-      backgroundColor: "#FFFFFF",
-      frameStyle: "none",
-      frameColor: "#404040",
-      frameText: "SCAN ME!",
-      frameTextColor: "#FFFFFF",
+      cornerBorderColor: "",
+      cornerDotColor: "",
+      backgroundColor: "",
+      frameStyle: "",
+      frameColor: "", //#404040
+      frameText: "",
+      frameTextColor: "",
       frameName: "",
     },
     color: {

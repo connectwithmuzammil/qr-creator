@@ -6,6 +6,7 @@ import apis from "../services";
 import { Forgot, Login, SignUp } from "../components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import LandingPage from "./LandingPage";
 
 const LOGINSCREEN = () => {
   const [showModal, setShowModal] = useState(true);
@@ -29,9 +30,8 @@ const LOGINSCREEN = () => {
     setModalType("forgot");
   };
 
-
-   //SIGN API CALL
-   const { mutate: mutateSignup, isPending } = useMutation({
+  //SIGN API CALL
+  const { mutate: mutateSignup, isPending } = useMutation({
     mutationFn: apis.signup,
     onError: function (error) {
       const errorMessage =
@@ -69,7 +69,8 @@ const LOGINSCREEN = () => {
   });
   return (
     <>
-    
+      <LandingPage />
+
       {showModal && (
         <div className="modal">
           {modalType === "login" && (

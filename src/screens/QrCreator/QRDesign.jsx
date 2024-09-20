@@ -74,44 +74,68 @@ const QRDesign = () => {
   const [SelectQrCode, setSelectQrCode] = useState(cards[0].id);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
-  const [dotColor, setDotColor] = useState("#000000");
-  const [CornerbgColor, setCornerBgColor] = useState("#ffffff");
-  const [cornerBorderColor, setCornerBorderColor] = useState("#000000");
-  const [cornerDotColor, setCornerDotColor] = useState("#000000");
+  const [dotColor, setDotColor] = useState(
+    qrData?.style?.dotsColor || "#000000"
+  );
+  const [CornerbgColor, setCornerBgColor] = useState(
+    qrData?.style?.backgroundColor || "#ffffff"
+  );
+  const [cornerBorderColor, setCornerBorderColor] = useState(
+    qrData?.style?.cornerBorderColor || "#000000"
+  );
+  const [cornerDotColor, setCornerDotColor] = useState(
+    qrData?.style?.cornerDotColor || "#000000"
+  );
 
   //FRAME TOGGLE STATE
-  const [selectedFrame, setSelectedFrame] = useState("notSelctedFrame");
+  const [selectedFrame, setSelectedFrame] = useState(
+    qrData?.style?.frameName || "notSelctedFrame"
+  ); //"notSelctedFrame"
   //FRAME FIELD STATE
-  const [frameColor, setFrameColor] = useState("#404040");
-  const [frameBgColor, setFrameBgColor] = useState("#ffffff");
-  const [frameText, setFrameText] = useState("Scan Me!");
-  const [frameTextColor, setFrameTextColor] = useState("#000");
+  const [frameColor, setFrameColor] = useState(
+    qrData?.style?.frameColor || "#404040"
+  );
+  const [frameBgColor, setFrameBgColor] = useState(
+    qrData?.style?.frameStyle || "#ffffff"
+  );
+  const [frameText, setFrameText] = useState(
+    qrData?.style?.frameText || "Scan Me!"
+  );
+  const [frameTextColor, setFrameTextColor] = useState(
+    qrData?.style?.frameTextColor || "#000000"
+  );
 
   //DOT STYLE STATE
-  const [selectedDotStyle, setSelectedDotStyle] = useState("classy-rounded");
+  const [selectedDotStyle, setSelectedDotStyle] = useState(
+    qrData?.style?.dotsStyle || "classy-rounded"
+  );
   const handleDotStyleClick = (styleId) => {
     setSelectedDotStyle(styleId);
   };
 
   //DOT STYLE STATE
-  const [selectedCornerStyle, setSelectedCornerStyle] = useState("rounded");
+  const [selectedCornerStyle, setSelectedCornerStyle] = useState(
+    qrData?.style?.cornerStyle || "rounded"
+  );
   const handleCornerStyleClick = (styleId) => {
     setSelectedCornerStyle(styleId);
   };
 
   // SET QR DATA TO QR CODE STYLING
   useEffect(() => {
-    qrData.style.dotsColor = dotColor;
-    qrData.style.cornerBackgroundColor = CornerbgColor;
-    qrData.style.backgroundColor = frameBgColor;
-    qrData.style.cornerBorderColor = cornerBorderColor;
-    qrData.style.cornerDotColor = cornerDotColor;
-    qrData.style.frameColor = frameColor;
-    qrData.style.frameTextColor = frameTextColor;
-    qrData.style.frameText = frameText;
-    qrData.style.cornerStyle = selectedCornerStyle;
-    qrData.style.dotsStyle = selectedDotStyle;
-    qrData.style.frameName = selectedFrame;
+    if (qrData && qrData.style) {
+      qrData.style.dotsColor = dotColor;
+      qrData.style.cornerBackgroundColor = CornerbgColor;
+      qrData.style.backgroundColor = frameBgColor;
+      qrData.style.cornerBorderColor = cornerBorderColor;
+      qrData.style.cornerDotColor = cornerDotColor;
+      qrData.style.frameColor = frameColor;
+      qrData.style.frameTextColor = frameTextColor;
+      qrData.style.frameText = frameText;
+      qrData.style.cornerStyle = selectedCornerStyle;
+      qrData.style.dotsStyle = selectedDotStyle;
+      qrData.style.frameName = selectedFrame;
+    }
   }, [
     dotColor,
     CornerbgColor,
@@ -132,7 +156,7 @@ const QRDesign = () => {
 
   const scanQrCode = async (body) => {
     try {
-      const response = await apis.post('qr_scan', body);
+      const response = await apis.post("qr_scan", body);
       console.log("RESPONSE SCAN QR CODE", response);
       return response.data;
     } catch (error) {
@@ -148,7 +172,7 @@ const QRDesign = () => {
       console.error("Failed to scan QR Code:", error);
     }
   };
-  
+
   //Render Frame CANVAS
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -176,7 +200,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            onScan={handleQrCodeScan} 
+            onScan={handleQrCodeScan}
           />
         );
       case "frame2":
@@ -471,43 +495,49 @@ const QRDesign = () => {
                           <Frame11 />
                         </div>
                       </div>
-                      {selectedFrame !== "notSelctedFrame" && selectedFrame !== 0 && (
-                        <div className="bottom">
-                          <div className="up" style={{ marginBottom: "12px" }}>
-                            <div className="color-picker-con">
-                              <ColorPickerComponent
-                                label="Frame color"
-                                color={frameColor}
-                                setColor={setFrameColor}
-                              />
-                              <ColorPickerComponent
-                                label="Background color"
-                                color={frameBgColor}
-                                setColor={setFrameBgColor}
-                              />
-                            </div>
-                          </div>
-                          <div className="down">
-                            <div className="color-picker-con">
-                              <div className="input-text-con">
-                                <label htmlFor="">Frame text</label>
-                                <input
-                                  type="text"
-                                  name=""
-                                  id=""
-                                  defaultValue={frameText}
-                                  onChange={(e) => setFrameText(e.target.value)}
+                      {selectedFrame !== "notSelctedFrame" &&
+                        selectedFrame !== 0 && (
+                          <div className="bottom">
+                            <div
+                              className="up"
+                              style={{ marginBottom: "12px" }}
+                            >
+                              <div className="color-picker-con">
+                                <ColorPickerComponent
+                                  label="Frame color"
+                                  color={frameColor}
+                                  setColor={setFrameColor}
+                                />
+                                <ColorPickerComponent
+                                  label="Background color"
+                                  color={frameBgColor}
+                                  setColor={setFrameBgColor}
                                 />
                               </div>
-                              <ColorPickerComponent
-                                label="Text color"
-                                color={frameTextColor}
-                                setColor={setFrameTextColor}
-                              />
+                            </div>
+                            <div className="down">
+                              <div className="color-picker-con">
+                                <div className="input-text-con">
+                                  <label htmlFor="">Frame text</label>
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    defaultValue={frameText}
+                                    onChange={(e) =>
+                                      setFrameText(e.target.value)
+                                    }
+                                  />
+                                </div>
+                                <ColorPickerComponent
+                                  label="Text color"
+                                  color={frameTextColor}
+                                  setColor={setFrameTextColor}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>

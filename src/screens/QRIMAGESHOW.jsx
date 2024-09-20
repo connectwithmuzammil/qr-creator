@@ -39,8 +39,8 @@ const QRIMAGESHOW = () => {
   //   setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
   // }, [QRres.generateQ]);
 
-  let data = QRres?.generateQr?.outcome;
-  console.log("QRres?.outcome", data);
+  let data = QRres?.singleViewDetail?.outcome;
+  console.log("QRres?.singleViewDetail?.outcome", data);
   let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
   let CornerbgColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres?.singleViewDetail?.style?.cornerBorderColor;

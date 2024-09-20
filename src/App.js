@@ -2,18 +2,38 @@ import { useState } from "react";
 // CSS IMPORT
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 import { Route, Routes } from "react-router-dom";
 import {
-  CookiePolicy, FaqPage, LandingPage, MyAccount, MyBilling, Pricing, PrivacyPolicy,
-  QrAnalytics, QrCreator, QRDesign, QRDetail, QrMainPage,
-  TermOfUse, TermsCondition, WhoWeAre, QRIMAGESHOW,
-  Payment, LOGINSCREEN
+  CookiePolicy,
+  FaqPage,
+  LandingPage,
+  MyAccount,
+  MyBilling,
+  Pricing,
+  PrivacyPolicy,
+  QrAnalytics,
+  QrCreator,
+  QRDesign,
+  QRDetail,
+  QrMainPage,
+  TermOfUse,
+  TermsCondition,
+  WhoWeAre,
+  QRIMAGESHOW,
+  Payment,
+  LOGINSCREEN,
 } from "./screens";
-import { ContactUs, Login, PrivateRoute, ScrollToTop } from "./components";
+import {
+  ContactUs,
+  Login,
+  PrivateRoute,
+  ScanAndRedirectQr,
+  ScrollToTop,
+} from "./components";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -24,21 +44,19 @@ function App() {
 
   return (
     <>
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/*" element={<LandingPage />} />
         <Route path="/login" element={<LOGINSCREEN />} />
         {/* QR ROUTES */}
-        <Route path="/my-qr-codes" element={<PrivateRoute element={QrMainPage} />} />
+        <Route path="/my-qr-codes" element={<QrMainPage />} />
 
-        <Route path="/qr-editor" element={<PrivateRoute element={QrCreator} />} />
+        <Route path="/qr-editor" element={<QrCreator />} />
         <Route path="/qr-editor/:type" element={<QRDetail />} />
         <Route path="/qr-editor/:type/design" element={<QRDesign />} />
         <Route path="/my-qr-analytics" element={<QrAnalytics />} />
         <Route path="/my-account" element={<MyAccount />} />
         <Route path="/my-billing" element={<MyBilling />} />
-
 
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/terms-and-conditions" element={<TermsCondition />} />
@@ -49,9 +67,16 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/qr-image" element={<QRIMAGESHOW />} />
-        <Route path="/payment" element={<Elements stripe={stripePromise}>
-          <Payment />
-        </Elements>} />
+        <Route
+          path="/payment"
+          element={
+            <Elements stripe={stripePromise}>
+              <Payment />
+            </Elements>
+          }
+        />
+
+        <Route path="/qrcode/:qrCodeId" element={<ScanAndRedirectQr />} />
       </Routes>
 
       <ScrollToTop />
