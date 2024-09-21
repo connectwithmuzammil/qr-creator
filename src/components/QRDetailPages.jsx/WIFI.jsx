@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import {
   InputCheckboxComponent,
@@ -6,10 +6,18 @@ import {
   InputSelectComponent,
 } from "../InputComponent";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const WIFI = ({ qrData, setQrData }) => {
   const { user } = useSelector((store) => store.user);
-  console.log("useruser", user);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state?.qrData) {
+      setQrData(location.state.qrData.data);
+    }
+  }, [location.state, setQrData]);
+
+  // console.log("useruser", user);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({
@@ -17,6 +25,8 @@ const WIFI = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
+  console.log("location", location);
+
   return (
     <div className="wifi-page">
       <div className="containerr">

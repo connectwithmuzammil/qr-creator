@@ -1707,8 +1707,11 @@ footer .bottom p {
   justify-content: center;
 }
 .qr-editor-detail .url .containerr .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 .qr-editor-detail .url .containerr .left .accordion-item {
@@ -2359,8 +2362,11 @@ footer .bottom p {
   justify-content: center;
 }
 .pdf-page .containerr .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 .accord-con {
   margin-bottom: 16px;
@@ -2583,8 +2589,11 @@ footer .bottom p {
   justify-content: center;
 }
 .wifi-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 .wrap-inp-cmp {
   display: flex;
@@ -2674,8 +2683,11 @@ footer .bottom p {
   justify-content: center;
 }
 .vcard-page .containerr .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 p.social-con-content {
@@ -2837,8 +2849,11 @@ p.social-con-content {
   justify-content: center;
 }
 .app-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 /* IMAGE UPLOAD */
@@ -2963,8 +2978,11 @@ p.social-con-content {
   justify-content: center;
 }
 .gallery-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 .wrapper-img-upload-dashed {
   display: flex;
@@ -2995,8 +3013,11 @@ p.social-con-content {
   justify-content: center;
 }
 .link-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 .show-link-con {
   border-top: 3px solid #bfbfbf;
@@ -3045,8 +3066,11 @@ p.social-con-content {
   justify-content: center;
 }
 .landing-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 /* SOCIAL PAGE */
 .social-page {
@@ -3069,8 +3093,11 @@ p.social-con-content {
   justify-content: center;
 }
 .social-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 /* VIDEO PAGE */
 .video-page {
@@ -3093,8 +3120,11 @@ p.social-con-content {
   justify-content: center;
 }
 .video-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 /* UPLOAD VIDEO */
@@ -3177,8 +3207,11 @@ p.social-con-content {
   justify-content: center;
 }
 .business-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 /* FACILITES COMP */
@@ -3371,8 +3404,11 @@ p.social-con-content {
   justify-content: center;
 }
 .event-page .right img {
-  width: 80%;
+  width: 100%;
   object-fit: contain;
+  height: 550px;
+  position: sticky;
+  top: 0px;
 }
 
 /* EVENT SCHEDULE COMP */

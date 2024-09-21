@@ -27,12 +27,13 @@ import { useQuery } from "@tanstack/react-query";
 import { toPng } from "html-to-image";
 
 const QrMainPage = () => {
+  const navigate = useNavigate();
   const qrCodeRef = useRef(null);
   const [showDeleteBox, setShowDeleteBox] = useState(null);
   const handleDeleteBoxToggle = (id) => {
+    // console.log("handleDeleteBoxToggleIDDD", id);
     setShowDeleteBox(showDeleteBox === id ? null : id);
   };
-  const navigate = useNavigate();
 
   const {
     isLoading,
@@ -312,11 +313,11 @@ const QrMainPage = () => {
     setShowDeleteBox(null);
   };
   const handleViewDetail = (singleViewDetail) => {
-    console.log("singleViewDetail", singleViewDetail);
+    // console.log("singleViewDetail", singleViewDetail);
     navigate("/qr-image", { state: { singleViewDetail } });
   };
   const handleEdit = async (id, type) => {
-    console.log("EDIT IDDD", id);
+    // console.log("EDIT IDDD", id);
     try {
       let res = await apis.getSingleQr(id);
       let qrData = res.data;
@@ -346,15 +347,15 @@ const QrMainPage = () => {
               <div className="loaderr" />
             </div>
           ) : (
-            <div className="bottom">
+            <div className="bottom">  
               <div className="status-con"></div>
               {getALLQrCodes?.data.length > 0 &&
-                getALLQrCodes?.data.reverse().map((qrCode, index) => {
+                 [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
 
                   return (
                     <div className="all-qrCode-con" key={index}>
-                      {console.log("qrCode", qrCode)}
+                      {/* {console.log("qrCode", qrCode)} */}
                       <div className="result-cardd">
                         <div className="one">
                           <div className="img-con" ref={qrCodeRef}>

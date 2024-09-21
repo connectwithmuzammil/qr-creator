@@ -21,7 +21,7 @@ const URL = ({ qrData, setQrData }) => {
     }));
   };
 
-  console.log("QRDATAUPDATED", qrData);
+  // console.log("QRDATAUPDATED", qrData);
   return (
     <>
       <div className="url">

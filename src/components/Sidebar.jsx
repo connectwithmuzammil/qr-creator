@@ -7,10 +7,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, IconButton } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -34,7 +34,9 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  console.log("user", user?.user);
+  // console.log("user", user?.user);
+  // State to control the sidebar and toggle between MenuIcon and CloseIcon
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [state, setState] = React.useState({
     left: false,
   });
@@ -56,6 +58,7 @@ const Sidebar = () => {
       return;
     }
     setState({ ...state, [anchor]: open });
+    setIsDrawerOpen(open); // Toggle the drawer open/close state
   };
 
   //LOGOUT API
@@ -77,7 +80,7 @@ const Sidebar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Box sx={{}} className="logo" onClick={()=>navigate("/")}>
+      <Box sx={{}} className="logo" onClick={() => navigate("/")}>
         <Logo color={"#fcfcfc"} />
       </Box>
       <List>
@@ -361,10 +364,16 @@ const Sidebar = () => {
       )}
       {isMobile && (
         <>
-          <MenuIcon
-            onClick={toggleDrawer("left", true)}
-            style={{ position: "fixed", top: 0, left: 0, zIndex: 1300 }}
-          />
+          <IconButton
+            onClick={toggleDrawer("left", !isDrawerOpen)}
+            style={{ position: "fixed", top: 10, left: 10, zIndex: 1300 }}
+          >
+            {isDrawerOpen ? (
+              <CloseIcon sx={{ color: "#fff" }} />
+            ) : (
+              <MenuIcon sx={{ color: "#000" }} />
+            )}
+          </IconButton>
           <Drawer
             anchor={"left"}
             open={state["left"]}

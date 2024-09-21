@@ -1,10 +1,8 @@
-import { useState } from "react";
 // CSS IMPORT
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { toast } from "react-toastify";
 
 import { Route, Routes } from "react-router-dom";
 import {
@@ -29,7 +27,6 @@ import {
 } from "./screens";
 import {
   ContactUs,
-  Login,
   PrivateRoute,
   ScanAndRedirectQr,
   ScrollToTop,

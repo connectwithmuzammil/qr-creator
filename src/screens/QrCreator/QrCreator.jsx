@@ -140,6 +140,7 @@ const QrCreator = () => {
     "Yearly UnLimited": [
       "url",
       "vcard",
+      "business_page",
       "social_media",
       "wifi",
       "video",
@@ -147,6 +148,7 @@ const QrCreator = () => {
       "pdf",
       "links",
       "gallery",
+      "image_gallery",
       "youtube",
       "landing",
       "events",

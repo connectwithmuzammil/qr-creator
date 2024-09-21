@@ -4,8 +4,24 @@ import { FaTrash } from "react-icons/fa";
 import { InputComponent } from "../InputComponent";
 import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
+import { useLocation } from "react-router-dom";
 
 const PDF = ({ qrData, setQrData }) => {
+  const location = useLocation();
+  console.log("LOCATIONURL", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      setQrData(qrDataFromLocation);
+
+      // Set the file from qrData if it exists
+      if (qrDataFromLocation.pdf_file) {
+        setFile(qrDataFromLocation.pdf_file);
+      }
+    }
+  }, [location.state, setQrData]);
+
   const [file, setFile] = useState(qrData.pdf_file || null);
 
   const handleFileChange = (e) => {
@@ -29,18 +45,23 @@ const PDF = ({ qrData, setQrData }) => {
     }));
   };
 
+  // const formatFileSize = (size) => {
+  //   const units = ["B", "KB", "MB", "GB"];
+  //   let unitIndex = 0;
+  //   let fileSize = size;
+
+  //   while (fileSize >= 1024 && unitIndex < units.length - 1) {
+  //     fileSize /= 1024;
+  //     unitIndex++;
+  //   }
+
+  //   return `${fileSize.toFixed(2)} ${units[unitIndex]}`;
+  // };
+  // Function to format file size (in MB)
   const formatFileSize = (size) => {
-    const units = ["B", "KB", "MB", "GB"];
-    let unitIndex = 0;
-    let fileSize = size;
-
-    while (fileSize >= 1024 && unitIndex < units.length - 1) {
-      fileSize /= 1024;
-      unitIndex++;
-    }
-
-    return `${fileSize.toFixed(2)} ${units[unitIndex]}`;
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({
@@ -56,45 +77,24 @@ const PDF = ({ qrData, setQrData }) => {
     { id: "red", background: "#fecdd6", button: "#b00223" },
   ];
 
-  const [activeColor, setActiveColor] = useState(colors[0].id);
-  const [showColorPicker, setShowColorPicker] = useState(false);
+  // const [activeColor, setActiveColor] = useState(colors[0].id);
 
-  useEffect(() => {
-    const color = colors.find((c) => c.id === activeColor);
-    if (color) {
-      setQrData((prevState) => ({
-        ...prevState,
-        color: {
-          background: color.background,
-          button: color.button,
-        },
-      }));
-    }
-  }, [activeColor, setQrData]);
+  // useEffect(() => {
+  //   const color = colors.find((c) => c.id === activeColor);
+  //   if (color) {
+  //     setQrData((prevState) => ({
+  //       ...prevState,
+  //       color: {
+  //         background: color.background,
+  //         button: color.button,
+  //       },
+  //     }));
+  //   }
+  // }, [activeColor, setQrData]);
 
-  const handleCustomColorChange = (colorType, color) => {
-    setQrData((prevState) => ({
-      ...prevState,
-      color: {
-        ...prevState.color,
-        [colorType]: color,
-      },
-    }));
-  };
-
-  const handleCustomColorSelect = () => {
-    setActiveColor("custom");
-  };
-
-  const handleColorPickerToggle = () => {
-    setShowColorPicker(!showColorPicker);
-    if (!showColorPicker) {
-      // Set the active color to 'custom' when opening the color picker
-      setActiveColor("custom");
-    }
-  };
-  // console.log("selectedColor", selectedColor);
   console.log("file", file);
+
+  console.log("updatedQRData", qrData);
   return (
     <div className="pdf-page">
       <div className="containerr">
@@ -125,8 +125,33 @@ const PDF = ({ qrData, setQrData }) => {
                 </>
               ) : (
                 <div className="file-info">
-                  <p>{file.name}</p>
-                  <p>{formatFileSize(file.size)}</p>
+                  {typeof file === "string" ? (
+                    // If file is a URL, show link or iframe
+                    <>
+                      <p>Uploaded PDF:</p>
+                      <a href={file} target="_blank" rel="noopener noreferrer">
+                        View PDF
+                      </a>
+                      {/* <iframe
+                        src={file}
+                        width="100%"
+                        height="500px"
+                        title="PDF Preview"
+                      ></iframe> */}
+                    </>
+                  ) : (
+                    // If file is an actual file object
+                    <>
+                      {file.name ? (
+                        <>
+                          <p>{file.name}</p>
+                          <p>{formatFileSize(file.size)}</p>
+                        </>
+                      ) : (
+                        <p>No file name available</p>
+                      )}
+                    </>
+                  )}
                   <FaTrash className="delete-icon" onClick={handleDelete} />
                 </div>
               )}

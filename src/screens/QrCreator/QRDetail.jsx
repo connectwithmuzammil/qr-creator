@@ -166,7 +166,7 @@ const QRDetail = () => {
     style: {
       dotsStyle: "", //square
       dotsColor: "#000000",
-      cornerStyle: "rounded-dot",
+      cornerStyle: "",
       cornerBackgroundColor: "#ffffff",
       cornerBorderColor: "",
       cornerDotColor: "",

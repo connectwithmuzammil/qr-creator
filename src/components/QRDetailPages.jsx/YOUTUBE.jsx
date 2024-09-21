@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import Button from "../Button";
+import { useLocation } from "react-router-dom";
 
 const YOUTUBE = ({ qrData, setQrData }) => {
+  const location = useLocation();
+  // console.log("LOCATIONURL",location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      setQrData(location.state.qrData.data);
+    }
+  }, [location.state, setQrData]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -12,6 +22,8 @@ const YOUTUBE = ({ qrData, setQrData }) => {
       [name]: value,
     }));
   };
+  
+  console.log("updatedQrData",qrData)
   return (
     <div className="youtube-page">
       <div className="containerr">
@@ -32,7 +44,7 @@ const YOUTUBE = ({ qrData, setQrData }) => {
                 value={qrData.youtube_url}
                 name="youtube_url"
               />
-              <Button title={"Upload Video"} width={"200px"} />
+              {/* <Button title={"Upload Video"} width={"200px"} /> */}
             </div>
           </AccordianComponent>
         </div>
