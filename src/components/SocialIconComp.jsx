@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const SocialIconsComp = ({ title = "Social networks", onIconClick, icons, className }) => {
+const SocialIconsComp = ({ title = "Social networks", onIconClick, icons, className, initialLinks = {} }) => {
   const [activeIcons, setActiveIcons] = useState([]);
   const [iconLinks, setIconLinks] = useState({});
+
+  // Sync iconLinks and activeIcons with initialLinks when initialLinks change
+  useEffect(() => {
+    setIconLinks(initialLinks); // Update the iconLinks when initialLinks changes
+    setActiveIcons(Object.keys(initialLinks)); // Activate the icons based on the initial links
+  }, [initialLinks]);
 
   const handleIconClick = (iconName) => {
     if (activeIcons.includes(iconName)) {
@@ -56,14 +62,12 @@ const SocialIconsComp = ({ title = "Social networks", onIconClick, icons, classN
           </button>
         </div>
       ))}
-      <div className="social-con-comp ">
+      <div className="social-con-comp">
         <ul className={`wrapper ${className}`}>
           {Object.keys(icons).map((icon) => (
             <li
               key={icon}
-              className={`icon ${icon} ${
-                activeIcons.includes(icon) ? "active" : ""
-              }`}
+              className={`icon ${icon} ${activeIcons.includes(icon) ? "active" : ""}`}
               onClick={() => handleIconClick(icon)}
             >
               <span className="tooltip">

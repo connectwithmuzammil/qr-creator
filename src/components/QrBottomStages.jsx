@@ -259,20 +259,21 @@ function BottomWrapperStages({
         }
       });
 
+      if (generateQrPayload?.pdf_file) {
+        formData.append("pdf_file", generateQrPayload.pdf_file);
+      }
+
       // if (generateQrPayload?.pdf_file) {
-      //   formData.append("pdf_file", generateQrPayload.pdf_file);
+      //   if (generateQrPayload.pdf_file instanceof File) {
+      //     formData.append("pdf_file", generateQrPayload.pdf_file);
+      //   }
+      // } else if (typeof generateQrPayload.pdf_file === 'string') {
+      //   formData.append("pdf_file_url", generateQrPayload.pdf_file);
       // }
 
-      if (generateQrPayload?.pdf_file) {
-        // If it's a File object (newly uploaded file), append it
-        if (generateQrPayload.pdf_file instanceof File) {
-          formData.append("pdf_file", generateQrPayload.pdf_file);
-        }
-      } else if (typeof generateQrPayload.pdf_file === 'string') {
-        // If it's a string (URL), you may not need to append anything for pdf_file.
-        // Handle the URL separately if needed.
-        formData.append("pdf_file_url", generateQrPayload.pdf_file);
-      }
+      // if (generateQrPayload?.pdf_file instanceof File) {
+      //   formData.append("pdf_file", generateQrPayload.pdf_file);
+      // }
       
 
       console.log("formData", formData);

@@ -1514,10 +1514,20 @@ footer .bottom p {
   border: 1px solid #e0201c;
   border-radius: 4px;
 }
-.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con svg {
-  width: 100%;
-  height: 100%;
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con .notselectSvg{
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
   padding: 3px;
+
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con svg {
+  /* width: 100%;
+  height: 100%; */
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  padding: 5px;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con svg canvas {
   width: 100%;

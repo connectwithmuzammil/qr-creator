@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -24,6 +24,7 @@ import {
   XingSocial,
 } from "../../Helper/SocialSvgIcons";
 import ImageUploadComponent from "../ImageUploadComp";
+import { useLocation } from "react-router-dom";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -53,6 +54,32 @@ const icons = {
 };
 
 const VCARD = ({ qrData, setQrData }) => {
+  const location = useLocation();
+  console.log("LOCATIONURL", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      setQrData(qrDataFromLocation);
+
+      // If there's color data in qrData, ensure it's set correctly
+      if (qrDataFromLocation.color) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation.color,
+        }));
+      }
+
+      // Set initial vcard_social links if present (edit mode)
+      if (qrDataFromLocation.vcard_social) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          vcard_social: qrDataFromLocation.vcard_social,
+        }));
+      }
+    }
+  }, [location.state, setQrData]);
+
   const handleImageUpload = (mediaData, name) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
@@ -83,6 +110,7 @@ const VCARD = ({ qrData, setQrData }) => {
       },
     }));
   };
+  console.log("UPDATEDQRCODE", qrData);
   return (
     <div className="vcard-page">
       <div className="containerr">
@@ -237,6 +265,7 @@ const VCARD = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
+              initialLinks={qrData.vcard_social}
             />
           </AccordianComponent>
         </div>

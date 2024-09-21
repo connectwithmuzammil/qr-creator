@@ -311,7 +311,7 @@ const QrMainPage = () => {
     setShowDeleteBox(null);
   };
   const handleViewDetail = (singleViewDetail) => {
-    // console.log("singleViewDetail", singleViewDetail);
+    console.log("singleViewDetail", singleViewDetail);
     navigate("/qr-image", { state: { singleViewDetail } });
   };
   const handleEdit = async (id, type) => {
@@ -319,6 +319,7 @@ const QrMainPage = () => {
     try {
       let res = await apis.getSingleQr(id);
       let qrData = res.data;
+      console.log("qrDataEdit",qrData)
       navigate(`/qr-editor/${type}`, { state: { qrData } });
     } catch (error) {
       console.log("error", error);
