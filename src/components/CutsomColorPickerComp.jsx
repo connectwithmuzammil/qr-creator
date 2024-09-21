@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ColorPickerComponent from "./ColorPicker";
 
 const CutsomColorPickerComp = ({ colors, qrData, setQrData }) => {
-  const [activeColor, setActiveColor] = useState(colors[0].id); // Default to the first color
+  const [activeColor, setActiveColor] = useState(null); // Start with no active color
   const [showColorPicker, setShowColorPicker] = useState(false);
+
+  // Function to check if the color exists in predefined colors
+  const findMatchingColor = () => {
+    return colors.find(
+      (color) =>
+        color.background === qrData.color?.background &&
+        color.button === qrData.color?.button
+    );
+  };
+
+  useEffect(() => {
+    // Check if the qrData has a color that matches predefined colors
+    const matchingColor = findMatchingColor();
+    if (matchingColor) {
+      setActiveColor(matchingColor.id);
+    } else {
+      setActiveColor("custom"); // Set to custom if no predefined match
+    }
+  }, [qrData, colors]);
 
   // Handle color selection from predefined options
   const handleColorSelect = (colorId) => {
@@ -38,6 +57,7 @@ const CutsomColorPickerComp = ({ colors, qrData, setQrData }) => {
       setActiveColor("custom");
     }
   };
+
   return (
     <div
       data-testid="ThemePicker"

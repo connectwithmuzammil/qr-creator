@@ -24,7 +24,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import apis from "../../services";
 import { useQuery } from "@tanstack/react-query";
-import { toPng } from "html-to-image";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
@@ -37,7 +36,6 @@ const QrMainPage = () => {
 
   const {
     isLoading,
-    error,
     refetch: refetchAllQrCodes,
     data: { data: getALLQrCodes } = {},
   } = useQuery({
@@ -53,7 +51,7 @@ const QrMainPage = () => {
   // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
   // console.log("selectedFrame",selectedFrame)
 
-  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+  // const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
   const handleDownload = (qrCode) => {
     // if (qrCodeRef.current) {

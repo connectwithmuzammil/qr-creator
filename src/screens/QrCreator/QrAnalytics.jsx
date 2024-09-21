@@ -72,13 +72,13 @@ const QrAnalytics = () => {
                 </div>
                 <h3>{getScanCount?.count}</h3>
               </div>
-              <div className="cardd">
+              {/* <div className="cardd">
                 <div className="wrap">
                   <img src="/assets/images/icons/eye.png" alt="eye" />
                   <p>Number of unique scans</p>
                 </div>
                 <h3>0</h3>
-              </div>
+              </div> */}
             </div>
 
             <div className="graph-con">

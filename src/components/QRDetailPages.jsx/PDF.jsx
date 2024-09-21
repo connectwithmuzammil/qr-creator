@@ -2,35 +2,33 @@ import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { FaTrash } from "react-icons/fa";
 import { InputComponent } from "../InputComponent";
-import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { useLocation } from "react-router-dom";
 
 const PDF = ({ qrData, setQrData }) => {
   const location = useLocation();
-  console.log("LOCATIONURL", location);
+  const [file, setFile] = useState(null); // State to manage file
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       setQrData(qrDataFromLocation);
 
-      // Set the file from qrData if it exists
-      if (qrDataFromLocation.pdf_file) {
-        setFile(qrDataFromLocation.pdf_file);
+      // Set the file from qrData if it exists (only if it's a URL)
+      if (typeof qrDataFromLocation.pdf_file === "string") {
+        setFile(qrDataFromLocation.pdf_file); // Set existing file if editing
       }
     }
   }, [location.state, setQrData]);
 
-  const [file, setFile] = useState(qrData.pdf_file || null);
-
+  // Handle file changes
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
       setQrData((prevData) => ({
         ...prevData,
-        pdf_file: selectedFile, // Store the selected PDF file
+        pdf_file: selectedFile, // Store the selected file
       }));
     } else {
       alert("Please upload a PDF file.");
@@ -41,25 +39,13 @@ const PDF = ({ qrData, setQrData }) => {
     setFile(null);
     setQrData((prevData) => ({
       ...prevData,
-      pdf_file: null, // Reset the PDF file in the state
+      pdf_file: null, // Remove file from state
     }));
   };
 
-  // const formatFileSize = (size) => {
-  //   const units = ["B", "KB", "MB", "GB"];
-  //   let unitIndex = 0;
-  //   let fileSize = size;
-
-  //   while (fileSize >= 1024 && unitIndex < units.length - 1) {
-  //     fileSize /= 1024;
-  //     unitIndex++;
-  //   }
-
-  //   return `${fileSize.toFixed(2)} ${units[unitIndex]}`;
-  // };
-  // Function to format file size (in MB)
-  const formatFileSize = (size) => {
-    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+  // Display file name from URL (when editing)
+  const getFileNameFromUrl = (url) => {
+    return url.substring(url.lastIndexOf("/") + 1);
   };
 
   const handleInputChange = (e) => {
@@ -77,24 +63,6 @@ const PDF = ({ qrData, setQrData }) => {
     { id: "red", background: "#fecdd6", button: "#b00223" },
   ];
 
-  // const [activeColor, setActiveColor] = useState(colors[0].id);
-
-  // useEffect(() => {
-  //   const color = colors.find((c) => c.id === activeColor);
-  //   if (color) {
-  //     setQrData((prevState) => ({
-  //       ...prevState,
-  //       color: {
-  //         background: color.background,
-  //         button: color.button,
-  //       },
-  //     }));
-  //   }
-  // }, [activeColor, setQrData]);
-
-  console.log("file", file);
-
-  console.log("updatedQRData", qrData);
   return (
     <div className="pdf-page">
       <div className="containerr">
@@ -107,6 +75,7 @@ const PDF = ({ qrData, setQrData }) => {
               value={qrData.qr_name}
             />
           </AccordianComponent>
+
           <AccordianComponent title={"Upload your PDF file"}>
             <div className="pdf-uploader-container">
               {!file ? (
@@ -126,30 +95,19 @@ const PDF = ({ qrData, setQrData }) => {
               ) : (
                 <div className="file-info">
                   {typeof file === "string" ? (
-                    // If file is a URL, show link or iframe
+                    // If it's a URL, display file name
                     <>
                       <p>Uploaded PDF:</p>
+                      <p>{getFileNameFromUrl(file)}</p>
                       <a href={file} target="_blank" rel="noopener noreferrer">
                         View PDF
                       </a>
-                      {/* <iframe
-                        src={file}
-                        width="100%"
-                        height="500px"
-                        title="PDF Preview"
-                      ></iframe> */}
                     </>
                   ) : (
-                    // If file is an actual file object
+                    // If it's a newly uploaded file, show the file object details
                     <>
-                      {file.name ? (
-                        <>
-                          <p>{file.name}</p>
-                          <p>{formatFileSize(file.size)}</p>
-                        </>
-                      ) : (
-                        <p>No file name available</p>
-                      )}
+                      <p>{file.name}</p>
+                      <p>{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
                     </>
                   )}
                   <FaTrash className="delete-icon" onClick={handleDelete} />
@@ -157,6 +115,7 @@ const PDF = ({ qrData, setQrData }) => {
               )}
             </div>
           </AccordianComponent>
+
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
@@ -164,6 +123,7 @@ const PDF = ({ qrData, setQrData }) => {
               setQrData={setQrData}
             />
           </AccordianComponent>
+
           <AccordianComponent title={"Enter the PDF details"}>
             <InputComponent
               label={"Company"}
@@ -174,14 +134,14 @@ const PDF = ({ qrData, setQrData }) => {
             />
             <InputComponent
               label={"PDF name/title"}
-              placeholder={"e.g. Pizza   Menu"}
+              placeholder={"e.g. Pizza Menu"}
               name={"pdf_title"}
               value={qrData.pdf_title}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Description"}
-              placeholder={"e.g. Over 50 topping to choose from!="}
+              placeholder={"e.g. Over 50 toppings to choose from!"}
               name={"pdf_description"}
               value={qrData.pdf_description}
               onChange={handleInputChange}
@@ -195,8 +155,9 @@ const PDF = ({ qrData, setQrData }) => {
             />
           </AccordianComponent>
         </div>
+
         <div className="right">
-          <img src="/assets/images/phone-pdf.png" alt="" />
+          <img src="/assets/images/phone-pdf.png" alt="Preview" />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const URL = ({ qrData, setQrData }) => {
   const location = useLocation();
-  // console.log("LOCATIONURL",location);
+  console.log("LOCATIONURL",location);
 
   useEffect(() => {
     if (location.state?.qrData) {
@@ -21,7 +21,7 @@ const URL = ({ qrData, setQrData }) => {
     }));
   };
 
-  // console.log("QRDATAUPDATED", qrData);
+  console.log("QRDATAUPDATED", qrData);
   return (
     <>
       <div className="url">

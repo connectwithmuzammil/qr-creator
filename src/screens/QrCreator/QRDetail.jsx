@@ -32,6 +32,7 @@ const QRDetail = () => {
   const { type } = useParams();
   const initialState = {
     qr_name: "",
+    id: "",
     //URL
     field_url: "",
     //WIFI
@@ -178,7 +179,7 @@ const QRDetail = () => {
       frameName: "",
     },
     color: {
-      background: "",
+      background: "",  
       button: "",
     },
     social: {},
@@ -212,6 +213,7 @@ const QRDetail = () => {
       const dataToSend = {
         type: qrData.type,
         style: qrData.style,
+        editID: qrData?.id,
         ...(type === "url"
           ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
           : {}),

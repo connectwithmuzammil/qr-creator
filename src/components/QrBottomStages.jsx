@@ -32,7 +32,7 @@ function BottomWrapperStages({
     onSuccess: ({ data: generateQr, status }) => {
       // console.log("QR code generated successfully", generateQr);
       toast.success("QR code generated successfully");
-      navigate("/my-qr-codes")
+      navigate("/my-qr-codes");
       // navigate("/pricing");
       // navigate("/qr-image", { state: { generateQr } });
     },
@@ -75,37 +75,10 @@ function BottomWrapperStages({
     if (isLastStage) {
       const formData = new FormData();
 
-      // Handle the image separately if it's base64
-      // if (generateQrPayload?.landing_logo) {
-      //   // Convert base64 to a Blob
-      //   const base64Data = generateQrPayload.landing_logo.split(",")[1];
-      //   const byteCharacters = atob(base64Data);
-      //   const byteNumbers = new Array(byteCharacters.length);
-      //   for (let i = 0; i < byteCharacters.length; i++) {
-      //     byteNumbers[i] = byteCharacters.charCodeAt(i);
-      //   }
-      //   const byteArray = new Uint8Array(byteNumbers);
-
-      //   // Determine MIME type from base64 string
-      //   const mimeType = generateQrPayload.landing_logo
-      //     .split(";")[0]
-      //     .split(":")[1];
-      //   const blob = new Blob([byteArray], { type: mimeType });
-
-      //   // Derive file extension from MIME type
-      //   let extension = "png";
-      //   if (mimeType.includes("jpeg")) {
-      //     extension = "jpg";
-      //   } else if (mimeType.includes("svg")) {
-      //     extension = "svg";
-      //   } else if (mimeType.includes("gif")) {
-      //     extension = "gif";
-      //   } else if (mimeType.includes("webp")) {
-      //     extension = "webp";
-      //   }
-
-      //   formData.append("landing_logo", blob, `landing_logo.${extension}`);
-      // }
+      //EDIT IDDDDD
+      if (generateQrPayload?.editID) {
+        formData.append("editID", generateQrPayload.editID);
+      }
 
       if (generateQrPayload?.landing_logo) {
         appendBase64ToFormData(
@@ -151,7 +124,6 @@ function BottomWrapperStages({
         );
       }
 
-      // Handle opening_hours_days
       // Handle opening_hours_days
       if (generateQrPayload?.opening_hours_days) {
         Object.keys(generateQrPayload.opening_hours_days).forEach((day) => {
@@ -279,16 +251,29 @@ function BottomWrapperStages({
           key !== "vcard_image" &&
           key !== "business_image" &&
           key !== "opening_hours_days" &&
-          key !== "event_image"
+          key !== "event_image" &&
+          key !== "pdf_file" 
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
         }
       });
 
+      // if (generateQrPayload?.pdf_file) {
+      //   formData.append("pdf_file", generateQrPayload.pdf_file);
+      // }
+
       if (generateQrPayload?.pdf_file) {
-        formData.append("pdf_file", generateQrPayload.pdf_file);
+        // If it's a File object (newly uploaded file), append it
+        if (generateQrPayload.pdf_file instanceof File) {
+          formData.append("pdf_file", generateQrPayload.pdf_file);
+        }
+      } else if (typeof generateQrPayload.pdf_file === 'string') {
+        // If it's a string (URL), you may not need to append anything for pdf_file.
+        // Handle the URL separately if needed.
+        formData.append("pdf_file_url", generateQrPayload.pdf_file);
       }
+      
 
       console.log("formData", formData);
       for (let [key, value] of formData.entries()) {
