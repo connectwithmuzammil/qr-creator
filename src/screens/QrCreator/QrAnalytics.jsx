@@ -99,9 +99,7 @@ const QrAnalytics = () => {
     },
   });
   console.log("getQrScanActivity", getQrScanActivity);
-  const dates = getQrScanActivity?.data?.dates || [];
-  const scans = getQrScanActivity?.data?.scans || [];
-  console.log("dates,scan", dates, scans);
+
 
   return (
     <div className="qrAnalytics">
@@ -149,15 +147,17 @@ const QrAnalytics = () => {
               </div> */}
             </div>
 
-            <div className="graph-con">
+            <div className="graph-con" style={{ width: '100%', height: '400px' }}>
               <p>Scans activity</p>
-              <StyledEngineProvider injectFirst>
-                {dates.length > 0 && scans.length > 0 ? (
-                  <LineChartComp dates={dates} scans={scans} />
-                ) : (
-                  <h4>Need more data to show statistics</h4>
-                )}
-              </StyledEngineProvider>
+              {/* <StyledEngineProvider injectFirst> */}
+              {/* {dates.length > 0 && scans.length > 0 ? (
+                <LineChartComp  />
+              ) : (
+                <h4>Need more data to show statistics</h4>
+              )} */}
+              {/* </StyledEngineProvider> */}
+
+              <LineChartComp />
             </div>
 
             <div className="all-card-con">
