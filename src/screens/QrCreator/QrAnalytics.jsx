@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import {
@@ -29,6 +29,10 @@ const dataCity = [
   { name: "Houston", scans: 320 },
 ];
 const QrAnalytics = () => {
+  const [dataOS, setDataOS] = useState([]);
+  const [dataCountry, setDataCountry] = useState([]);
+  const [dataCity, setDataCity] = useState([]);
+
   const {
     isLoading,
     error,
@@ -58,6 +62,31 @@ const QrAnalytics = () => {
     },
   });
   console.log("getScanCount", getScanCount);
+
+  //
+
+  const { isLoading: isLoadingStats, data: { data: getQRStats } = {} } =
+    useQuery({
+      queryKey: ["getALLQrCodes"],
+      queryFn: () => apis.getQRStats(),
+      onError: (error) => {
+        console.error("Error geting QRStats:", error);
+        // toast.error("Failed to fetch products. Please try again later.");
+      },
+    });
+  console.log("getQRStats", getQRStats);
+
+  useEffect(() => {
+    if (getQRStats?.data) {
+      const { os = [], countries = [], cities = [] } = getQRStats.data;
+
+      // Format the data for each category
+      setDataOS(os.map(({ name, scans }) => ({ name, scans })));
+      setDataCountry(countries.map(({ name, scans }) => ({ name, scans })));
+      setDataCity(cities.map(({ name, scans }) => ({ name, scans })));
+    }
+  }, [getQRStats]);
+
   return (
     <div className="qrAnalytics">
       <div className="userDashboard">
@@ -114,24 +143,28 @@ const QrAnalytics = () => {
             <div className="all-card-con">
               <div className="cardd">
                 <p>Scans per operating system</p>
-                {/* <h4 className="stats-txt">
-                  (Need more data to show statistics)
-                </h4> */}
-                <BarChartAnalytics data={dataOS} />
+                {dataOS && dataOS.length > 0 ? (
+                  <BarChartAnalytics data={dataOS} />
+                ) : (
+                  <h4>Need more data to show statistics</h4>
+                )}
               </div>
               <div className="cardd">
                 <p>Scans per country</p>
-                {/* <h4 className="stats-txt">
-                  (Need more data to show statistics)
-                </h4> */}
-                <BarChartAnalytics data={dataCountry} />
+                {dataCountry && dataCountry.length > 0 ? (
+                  <BarChartAnalytics data={dataCountry} />
+                ) : (
+                  <h4>Need more data to show statistics</h4>
+                )}
               </div>
+
               <div className="cardd">
                 <p>Scans per city/region</p>
-                {/* <h4 className="stats-txt">
-                  (Need more data to show statistics)
-                </h4> */}
-                <BarChartAnalytics data={dataCity} />
+                {dataCity && dataCity.length > 0 ? (
+                  <BarChartAnalytics data={dataCity} />
+                ) : (
+                  <h4>Need more data to show statistics</h4>
+                )}
               </div>
             </div>
           </div>

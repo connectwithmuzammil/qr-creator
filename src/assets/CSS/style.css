@@ -1399,17 +1399,20 @@ footer .bottom p {
   font-weight: bold;
 }
 .qrAnalytics .bottom .all-card-con {
-  display: flex;
-  gap: 16px;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-gap: 16px
 }
 .qrAnalytics .bottom .all-card-con .cardd {
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
   border-radius: 0.5rem;
   background-color: #fcfcfc;
   padding: 1.5rem;
-  flex: 1;
   height: 350px;
+}
+.qrAnalytics .bottom .all-card-con .cardd:last-child {
+  grid-column: span 2; 
+  width: 100%; 
 }
 .qrAnalytics .bottom .all-card-con .cardd p {
   font-size: 18px;
