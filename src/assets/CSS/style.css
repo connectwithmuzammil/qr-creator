@@ -1438,6 +1438,18 @@ footer .bottom p {
   background-color: #fcfcfc;
   padding: 1.5rem;
   margin-bottom: 32px;
+  position: relative;
+}
+.qrAnalytics .bottom .graph-con .stats-txt{
+  font-family: "Nunito Sans", sans-serif;
+    color: #403f3f;
+    font-size: 16px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
 }
 .qrAnalytics .bottom .graph-con p {
   font-size: 18px;

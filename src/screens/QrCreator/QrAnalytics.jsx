@@ -180,7 +180,13 @@ const QrAnalytics = () => {
               )} */}
               {/* </StyledEngineProvider> */}
 
-              <LineChartComp data={formattedData} />
+              {getQrScanActivity?.data?.length > 0 ? (
+                <>
+                  <LineChartComp data={formattedData} />
+                </>
+              ) : (
+                <h4 className="stats-txt">Need more data to show statistics</h4>
+              )}
             </div>
 
             <div className="all-card-con">
