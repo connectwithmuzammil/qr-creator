@@ -46,7 +46,7 @@ const QrAnalytics = () => {
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
-  console.log("getQrCount", getQrCount);
+  // console.log("getQrCount", getQrCount);
 
   const {
     isLoading: isLoadingScanCount,
@@ -54,27 +54,27 @@ const QrAnalytics = () => {
     refetch: refetchScanCount,
     data: { data: getScanCount } = {},
   } = useQuery({
-    queryKey: ["getQrCount"],
+    queryKey: ["getScanCount"],
     queryFn: () => apis.getScanCount(),
     onError: (error) => {
       console.error("Error geting Order History:", error);
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
-  console.log("getScanCount", getScanCount);
+  // console.log("getScanCount", getScanCount);
 
   //
 
   const { isLoading: isLoadingStats, data: { data: getQRStats } = {} } =
     useQuery({
-      queryKey: ["getALLQrCodes"],
+      queryKey: ["getQRStats"],
       queryFn: () => apis.getQRStats(),
       onError: (error) => {
         console.error("Error geting QRStats:", error);
         // toast.error("Failed to fetch products. Please try again later.");
       },
     });
-  console.log("getQRStats", getQRStats);
+  // console.log("getQRStats", getQRStats);
 
   useEffect(() => {
     if (getQRStats?.data) {
@@ -86,6 +86,22 @@ const QrAnalytics = () => {
       setDataCity(cities.map(({ name, scans }) => ({ name, scans })));
     }
   }, [getQRStats]);
+
+  const {
+    isLoading: isLoadingScanActivity,
+    data: { data: getQrScanActivity } = {},
+  } = useQuery({
+    queryKey: ["getQrScanActivity"],
+    queryFn: () => apis.getQRScansActivity(),
+    onError: (error) => {
+      console.error("Error geting QRStats:", error);
+      // toast.error("Failed to fetch products. Please try again later.");
+    },
+  });
+  console.log("getQrScanActivity", getQrScanActivity);
+  const dates = getQrScanActivity?.data?.dates || [];
+  const scans = getQrScanActivity?.data?.scans || [];
+  console.log("dates,scan", dates, scans);
 
   return (
     <div className="qrAnalytics">
@@ -136,7 +152,11 @@ const QrAnalytics = () => {
             <div className="graph-con">
               <p>Scans activity</p>
               <StyledEngineProvider injectFirst>
-                <LineChartComp />
+                {dates.length > 0 && scans.length > 0 ? (
+                  <LineChartComp dates={dates} scans={scans} />
+                ) : (
+                  <h4>Need more data to show statistics</h4>
+                )}
               </StyledEngineProvider>
             </div>
 
@@ -146,7 +166,9 @@ const QrAnalytics = () => {
                 {dataOS && dataOS.length > 0 ? (
                   <BarChartAnalytics data={dataOS} />
                 ) : (
-                  <h4 className="stats-txt">Need more data to show statistics</h4>
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
                 )}
               </div>
               <div className="cardd">
@@ -154,7 +176,9 @@ const QrAnalytics = () => {
                 {dataCountry && dataCountry.length > 0 ? (
                   <BarChartAnalytics data={dataCountry} />
                 ) : (
-                  <h4 className="stats-txt">Need more data to show statistics</h4>
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
                 )}
               </div>
 
@@ -163,7 +187,9 @@ const QrAnalytics = () => {
                 {dataCity && dataCity.length > 0 ? (
                   <BarChartAnalytics data={dataCity} />
                 ) : (
-                  <h4 className="stats-txt">Need more data to show statistics</h4>
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
                 )}
               </div>
             </div>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-export default function LineChartComp() {
+export default function LineChartComp({dates,scans}) {
   return (
     <LineChart
       xAxis={[{ data: [0, 0.2, 0.4, 0.6, 0.8, 1.0] }]}
