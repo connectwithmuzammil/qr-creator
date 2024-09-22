@@ -19,20 +19,27 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { name: 'Jan', scans: 120 },
-  { name: 'Feb', scans: 200 },
-  { name: 'Mar', scans: 300 },
-  { name: 'Apr', scans: 250 },
-  { name: 'May', scans: 400 },
-  { name: 'Jun', scans: 500 },
-  { name: 'Jul', scans: 450 },
-  { name: 'Aug', scans: 600 },
-];
-const LineChartComp = () => {
+// const data = [
+//   { "month": 1, "scans": 120 },
+//   { "month": 2, "scans": 200 },
+//   { "month": 3, "scans": 300 },
+//   { "month": 4, "scans": 250 },
+//   { "month": 5, "scans": 400 },
+//   { "month": 6, "scans": 500 },
+//   { "month": 7, "scans": 450 },
+//   { "month": 8, "scans": 600 }
+// ];
+
+// const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+// const formattedData = data.map(item => ({
+//   name: monthNames[item.month - 1], // Convert month number to name
+//   scans: item.scans,
+// }));
+
+const LineChartComp = ({data}) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-    <LineChart data={data}>
+      <LineChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />

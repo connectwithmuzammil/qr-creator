@@ -100,6 +100,26 @@ const QrAnalytics = () => {
   });
   console.log("getQrScanActivity", getQrScanActivity);
 
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Format API data to match the chart structure
+  const formattedData = getQrScanActivity?.data?.map((item) => ({
+    name: monthNames[item.month - 1], // Convert month number to month name
+    scans: item.scans,
+  }));
 
   return (
     <div className="qrAnalytics">
@@ -147,7 +167,10 @@ const QrAnalytics = () => {
               </div> */}
             </div>
 
-            <div className="graph-con" style={{ width: '100%', height: '400px' }}>
+            <div
+              className="graph-con"
+              style={{ width: "100%", height: "400px" }}
+            >
               <p>Scans activity</p>
               {/* <StyledEngineProvider injectFirst> */}
               {/* {dates.length > 0 && scans.length > 0 ? (
@@ -157,7 +180,7 @@ const QrAnalytics = () => {
               )} */}
               {/* </StyledEngineProvider> */}
 
-              <LineChartComp />
+              <LineChartComp data={formattedData} />
             </div>
 
             <div className="all-card-con">
