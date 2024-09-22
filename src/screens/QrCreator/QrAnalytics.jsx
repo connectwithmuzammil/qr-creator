@@ -146,7 +146,7 @@ const QrAnalytics = () => {
                 {dataOS && dataOS.length > 0 ? (
                   <BarChartAnalytics data={dataOS} />
                 ) : (
-                  <h4>Need more data to show statistics</h4>
+                  <h4 className="stats-txt">Need more data to show statistics</h4>
                 )}
               </div>
               <div className="cardd">
@@ -154,7 +154,7 @@ const QrAnalytics = () => {
                 {dataCountry && dataCountry.length > 0 ? (
                   <BarChartAnalytics data={dataCountry} />
                 ) : (
-                  <h4>Need more data to show statistics</h4>
+                  <h4 className="stats-txt">Need more data to show statistics</h4>
                 )}
               </div>
 
@@ -163,7 +163,7 @@ const QrAnalytics = () => {
                 {dataCity && dataCity.length > 0 ? (
                   <BarChartAnalytics data={dataCity} />
                 ) : (
-                  <h4>Need more data to show statistics</h4>
+                  <h4 className="stats-txt">Need more data to show statistics</h4>
                 )}
               </div>
             </div>
