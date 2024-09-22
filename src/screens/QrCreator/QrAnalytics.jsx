@@ -1,10 +1,33 @@
 import React from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-import { DatePickerInput, LineChartComp, Sidebar } from "../../components";
+import {
+  BarChartAnalytics,
+  DatePickerInput,
+  LineChartComp,
+  Sidebar,
+} from "../../components";
 import { useQuery } from "@tanstack/react-query";
 import apis from "../../services";
 
+const dataCountry = [
+  { name: "USA", scans: 500 },
+  { name: "Canada", scans: 350 },
+  { name: "UK", scans: 300 },
+  { name: "India", scans: 450 },
+];
+const dataOS = [
+  { name: "Windows", scans: 400 },
+  { name: "Mac", scans: 300 },
+  { name: "Linux", scans: 300 },
+  { name: "Android", scans: 200 },
+];
+const dataCity = [
+  { name: "New York", scans: 450 },
+  { name: "Los Angeles", scans: 300 },
+  { name: "Chicago", scans: 250 },
+  { name: "Houston", scans: 320 },
+];
 const QrAnalytics = () => {
   const {
     isLoading,
@@ -22,9 +45,9 @@ const QrAnalytics = () => {
   console.log("getQrCount", getQrCount);
 
   const {
-    isLoading : isLoadingScanCount,
-    error : errorScanCount,
-    refetch : refetchScanCount,
+    isLoading: isLoadingScanCount,
+    error: errorScanCount,
+    refetch: refetchScanCount,
     data: { data: getScanCount } = {},
   } = useQuery({
     queryKey: ["getQrCount"],
@@ -34,7 +57,7 @@ const QrAnalytics = () => {
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
-  console.log("getScanCount",getScanCount)
+  console.log("getScanCount", getScanCount);
   return (
     <div className="qrAnalytics">
       <div className="userDashboard">
@@ -91,21 +114,24 @@ const QrAnalytics = () => {
             <div className="all-card-con">
               <div className="cardd">
                 <p>Scans per operating system</p>
-                <h4 className="stats-txt">
+                {/* <h4 className="stats-txt">
                   (Need more data to show statistics)
-                </h4>
+                </h4> */}
+                <BarChartAnalytics data={dataOS} />
               </div>
               <div className="cardd">
                 <p>Scans per country</p>
-                <h4 className="stats-txt">
+                {/* <h4 className="stats-txt">
                   (Need more data to show statistics)
-                </h4>
+                </h4> */}
+                <BarChartAnalytics data={dataCountry} />
               </div>
               <div className="cardd">
                 <p>Scans per city/region</p>
-                <h4 className="stats-txt">
+                {/* <h4 className="stats-txt">
                   (Need more data to show statistics)
-                </h4>
+                </h4> */}
+                <BarChartAnalytics data={dataCity} />
               </div>
             </div>
           </div>

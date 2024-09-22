@@ -38,6 +38,9 @@ import SubscriptionPopup from "./SubscriptionPopup";
 import QrCodeScanner from "./QRCodeScanner";
 import ScanAndRedirectQr from "./ScanAndRedirectQr";
 
+//CHART
+import { BarChartAnalytics } from "./BarChartAnalytics";
+
 export {
   Header,
   Footer,
@@ -77,4 +80,5 @@ export {
   SubscriptionPopup,
   QrCodeScanner,
   ScanAndRedirectQr,
+  BarChartAnalytics,
 };
