@@ -192,7 +192,18 @@ const QrAnalytics = () => {
             <div className="all-card-con">
               <div className="cardd">
                 <p>Scans per operating system</p>
-                {dataOS && dataOS.length > 0 ? (
+                {isLoadingStats ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataOS && dataOS.length > 0 ? (
                   <BarChartAnalytics data={dataOS} />
                 ) : (
                   <h4 className="stats-txt">
@@ -200,9 +211,21 @@ const QrAnalytics = () => {
                   </h4>
                 )}
               </div>
+
               <div className="cardd">
                 <p>Scans per country</p>
-                {dataCountry && dataCountry.length > 0 ? (
+                {isLoadingStats ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataCountry && dataCountry.length > 0 ? (
                   <BarChartAnalytics data={dataCountry} />
                 ) : (
                   <h4 className="stats-txt">
@@ -213,7 +236,18 @@ const QrAnalytics = () => {
 
               <div className="cardd">
                 <p>Scans per city/region</p>
-                {dataCity && dataCity.length > 0 ? (
+                {isLoadingStats ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataCity && dataCity.length > 0 ? (
                   <BarChartAnalytics data={dataCity} />
                 ) : (
                   <h4 className="stats-txt">

@@ -25,3 +25,14 @@ export const loginSchema = yup.object().shape({
     .string()
     .required('Password is required'),
 });
+
+  // Validation schema using Yup
+ export const ChangePasswordSchema = yup.object().shape({
+    newPassword: yup.string()
+      .required("New password is required")
+      .min(8, "Password must be at least 8 characters"),
+    confirmPassword: yup.string()
+      .oneOf([yup.ref("newPassword"), null], "Passwords must match")
+      .required("Confirm password is required"),
+    otp: yup.string().required("OTP is required"),
+  });

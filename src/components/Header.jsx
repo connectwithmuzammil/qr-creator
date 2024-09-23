@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo.svg";
-import { Forgot, Login, SignUp } from "../components";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ChangePassword, Forgot, Login, SignUp } from "../components";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import apis from "../services";
@@ -15,6 +20,20 @@ const Header = () => {
   const [modalType, setModalType] = useState("login");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const [newPassword, setNewPassword] = useState(false);
+  const [token, setToken] = useState(null);
+
+  //OPEN CHANGE PASSWORD MODAL
+
+  useEffect(() => {
+    const tokenFromUrl = searchParams.get("token");
+    console.log("tokenFromUrl", tokenFromUrl);
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+      setNewPassword(true); // Open the change password modal if token is present
+    }
+  }, [searchParams]);
 
   const openModal = (type) => {
     setModalType(type);
@@ -133,7 +152,11 @@ const Header = () => {
           </div>
         )}
       </header>
-      {/* )} */}
+
+      <ChangePassword
+        newPassword={newPassword}
+        setNewPassword={setNewPassword}
+      />
     </>
   );
 };

@@ -24,9 +24,9 @@ const MyAccount = () => {
   const [ShowUpdateEmail, setShowUpdateEmail] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [updateEmail, setUpdateEmail] = useState(false);
-  const [newPassword, setNewPassword] = useState(false);
-  const [token, setToken] = useState(null);
-  const [searchParams] = useSearchParams();
+  // const [newPassword, setNewPassword] = useState(false);
+  // const [token, setToken] = useState(null);
+  // const [searchParams] = useSearchParams();
 
   //UPDATE USER API CALL
   const { mutate: mutateUpdateProfile, isPending: isloadingUpdateProfile } =
@@ -69,14 +69,14 @@ const MyAccount = () => {
   // console.log("uSERR", user);
 
   //---------------------------------- RESET PASSWORD ---------------------------------------------------------//
-  useEffect(() => {
-    const tokenFromUrl = searchParams.get("token");
-    console.log("tokenFromUrl",tokenFromUrl)
-    if (tokenFromUrl) {
-      setToken(tokenFromUrl);
-      setNewPassword(true); // Open the change password modal if token is present
-    }
-  }, [searchParams]);
+  // useEffect(() => {
+  //   const tokenFromUrl = searchParams.get("token");
+  //   console.log("tokenFromUrl",tokenFromUrl)
+  //   if (tokenFromUrl) {
+  //     setToken(tokenFromUrl);
+  //     setNewPassword(true);
+  //   }
+  // }, [searchParams]);
 
   // API CALL RESET PASS
   const { mutate: sendResetEmailMutate, isLoadingResetPass } = useMutation({
@@ -202,10 +202,10 @@ const MyAccount = () => {
         sendResetEmailMutate={sendResetEmailMutate}
         isLoading={isLoadingResetPass}
       />
-      <ChangePassword
+      {/* <ChangePassword
         newPassword={newPassword}
         setNewPassword={setNewPassword}
-      />
+      /> */}
       <UpdateEmailAndPassword
         updateEmail={updateEmail}
         setUpdateEmail={setUpdateEmail}

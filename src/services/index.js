@@ -106,12 +106,13 @@ const createBackendServer = (baseURL) => {
   const signup = (body) => api.post("signup", body);
   const login = (body) => api.post("login", body);
   const logout = (body) => api.post("logout", body);
+  const sendPasswordResetEmail = (body) => api.post(`restpassword`, body);
+  const changePassword = (body) => api.post("changepassword", body);
 
   const generateQrCode = (body) => api.post("generate", body)
   const validateQrCode = (type) => api.get(`validations/${type}`)
   const updateProfile = (body) => api.post(`update-name`, body);
   const updateEmail = (body) => api.post(`update-email`, body);
-  const sendPasswordResetEmail = (body) => api.post(`restpassword`, body);
   const scanQrCode = (body) => api.post(`qr_scan`, body);
   const QRCount = () => api.get(`qr_count`);
   const GETAllQrCode = () => api.get(`user_qr`);
@@ -141,7 +142,8 @@ const createBackendServer = (baseURL) => {
     checkout,
     getSingleQr,
     getQRStats,
-    getQRScansActivity
+    getQRScansActivity,
+    changePassword
   };
 };
 
