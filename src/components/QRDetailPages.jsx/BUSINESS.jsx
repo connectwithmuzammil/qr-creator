@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { InputComponent } from "../InputComponent";
@@ -39,6 +39,7 @@ import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
 import FacilitiesIconComp from "../FacilitiesIconComp";
 import TimeInputComponent from "../TimeInputComponent";
+import { useLocation } from "react-router-dom";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -83,8 +84,37 @@ const FacilitiesIcon = {
 };
 
 const BUSINESS = ({ qrData, setQrData }) => {
-  const [is24HourFormat, setIs24HourFormat] = useState(false);
+  //EDIT
+  const location = useLocation();
+  console.log("LOCATIONURLBusiness", location);
 
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      console.log("qrDataFromLocation",qrDataFromLocation)
+      setQrData(qrDataFromLocation);
+
+      // If there's color data in qrData, ensure it's set correctly
+      if (qrDataFromLocation?.color) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation?.color,
+        }));
+      }
+
+      // Set initial vcard_social links if present (edit mode)
+      if (qrDataFromLocation?.business_social) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          business_social: qrDataFromLocation?.business_social,
+        }));
+      }
+    }
+  }, [location.state, setQrData]);
+
+  console.log("updatedQrData",qrData)
+
+  const [is24HourFormat, setIs24HourFormat] = useState(false);
   const handleImageUpload = (mediaData, name) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
@@ -105,8 +135,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
     console.log("ICONS NAME, URL", iconName, url);
     setQrData((prevData) => ({
       ...prevData,
-      vcard_social: {
-        ...prevData.vcard_social,
+      business_social: {
+        ...prevData.business_social,
         [iconName]: url,
       },
     }));
@@ -324,6 +354,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
+              initialLinks={qrData?.business_social}
             />
           </AccordianComponent>
         </div>

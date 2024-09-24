@@ -3,7 +3,6 @@ import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import "react-toastify/dist/ReactToastify.css";
 
-
 import { Route, Routes } from "react-router-dom";
 import {
   CookiePolicy,
@@ -67,9 +66,13 @@ function App() {
         <Route
           path="/payment"
           element={
-            <Elements stripe={stripePromise}>
-              <Payment />
-            </Elements>
+            <PrivateRoute
+              element={() => (
+                <Elements stripe={stripePromise}>
+                  <Payment />
+                </Elements>
+              )}
+            />
           }
         />
 

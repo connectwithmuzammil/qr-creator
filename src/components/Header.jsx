@@ -15,7 +15,7 @@ import { setUser } from "../redux/slice/userSlice";
 
 const Header = () => {
   const { user } = useSelector((store) => store.user);
-  // console.log("user", user?.user);
+  console.log("userHeader", user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ const Header = () => {
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
         <div className="auth-con">
-          {user?.user ? (
+          {user || user?.user ? (
             <button
               onClick={() => navigate("/my-qr-codes")}
               className="my-account-btn"

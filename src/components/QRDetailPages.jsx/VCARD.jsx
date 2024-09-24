@@ -265,7 +265,7 @@ const VCARD = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData.vcard_social}
+              initialLinks={qrData?.vcard_social}
             />
           </AccordianComponent>
         </div>

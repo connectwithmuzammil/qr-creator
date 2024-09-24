@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { saveAs } from "file-saver"; // For saving files on client-side
+import { CSVLink } from "react-csv"; // CSV link for downloading file
+import dayjs from "dayjs";
+import axios from "axios";
 
 import {
   BarChartAnalytics,
@@ -121,6 +125,72 @@ const QrAnalytics = () => {
     scans: item.scans,
   }));
 
+  // EXPORT DATA CSV
+  const [dateRange, setDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [csvData, setCsvData] = useState([]);
+  const [csvFileReady, setCsvFileReady] = useState(false);
+
+  // Handler for date change
+  const handleDateChange = ({ startDate, endDate }) => {
+    setDateRange({ startDate, endDate });
+  };
+
+  // Handler for fetching data and generating CSV
+  const handleFetchData = async () => {
+    console.log("clickkkkkk");
+    const { startDate, endDate } = dateRange;
+
+    if (startDate && endDate) {
+      try {
+        const start = dayjs(startDate).format("YYYY-MM-DD");
+        const end = dayjs(endDate).format("YYYY-MM-DD");
+
+        // const response = await axios.get("/api/qr-analytics", {
+        //   params: { start, end },
+        // });
+
+        // const formattedData = response.data.map((row) => ({
+        //   qrCodeName: row.qr_code_name,
+        //   qrCodeType: row.qr_code_type,
+        //   dateTime: row.date_time,
+        //   country: row.country,
+        //   city: row.city,
+        //   os: row.os,
+        // }));
+
+        // Example data format as array of objects (each object is a row)
+        const formattedData = [
+          {
+            qrCodeName: "Example QR Code",
+            qrCodeType: "URL",
+            dateTime: "2023-09-22 10:30:00",
+            country: "USA",
+            city: "New York",
+            os: "iOS",
+          },
+          {
+            qrCodeName: "Another QR Code",
+            qrCodeType: "Business Card",
+            dateTime: "2023-09-23 12:45:00",
+            country: "Canada",
+            city: "Toronto",
+            os: "Android",
+          },
+        ];
+
+        setCsvData(formattedData);
+        setCsvFileReady(true);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    } else {
+      alert("Please select a valid date range.");
+    }
+  };
+
   return (
     <div className="qrAnalytics">
       <div className="userDashboard">
@@ -133,14 +203,25 @@ const QrAnalytics = () => {
             <div className="period-con">
               <div className="wrap">
                 <p>Period</p>
-                <StyledEngineProvider injectFirst>
+                {/* <StyledEngineProvider injectFirst>
                   <DatePickerInput />
-                </StyledEngineProvider>
+                </StyledEngineProvider> */}
+                <DatePickerInput onDateChange={handleDateChange} />
               </div>
 
-              <button className="export-data" disabled>
+              <button className="export-data" onClick={handleFetchData}>
                 Export data
               </button>
+              {csvFileReady && (
+                <CSVLink
+                  data={csvData}
+                  filename={`qr-analytics-${dayjs(dateRange.startDate).format(
+                    "YYYY-MM-DD"
+                  )}-to-${dayjs(dateRange.endDate).format("YYYY-MM-DD")}.csv`}
+                >
+                  Download CSV
+                </CSVLink>
+              )}
             </div>
 
             <div className="analytics-con">

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const SocialIconsComp = ({ title = "Social networks", onIconClick, icons, className, initialLinks = {} }) => {
+const SocialIconsComp = ({ title = "Social networks", onIconClick, icons={}, className, initialLinks = {} }) => {
+
+  console.log("initialLinks",initialLinks)
   const [activeIcons, setActiveIcons] = useState([]);
   const [iconLinks, setIconLinks] = useState({});
 

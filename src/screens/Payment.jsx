@@ -19,11 +19,11 @@ const Payment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!user?.user || !user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (!user?.user || !user) {
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]);
 
   const [cardHolderNameError, setCardHolderNameError] = useState(null);
   const [cardNumberError, setCardNumberError] = useState(null);
@@ -127,11 +127,11 @@ const Payment = () => {
     try {
       const response = await apis.checkout(paymentData);
       console.log("responsee", response);
-      console.log("checkUserData", response?.data?.data);
-      if (response.status === 200) {
+      console.log("response?.data?.user", response?.data?.user);
+      if (response?.data?.success) {
         console.log("INSIDE STATUS 200");
-        dispatch(setUser(response?.data?.data));
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        dispatch(setUser(response?.data?.user));
+        // await new Promise((resolve) => setTimeout(resolve, 300));
         toast.success(response.data.message);
         navigate("/qr-editor");
       } else {

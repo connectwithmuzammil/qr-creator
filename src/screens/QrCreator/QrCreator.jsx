@@ -163,8 +163,7 @@ const QrCreator = () => {
   return (
     <>
       <Header />
-      {/* {user?.user?.expiry === false || user?.expiry === false ? ( */}
-      {true ? (
+      {user?.user?.expiry === false || user?.expiry === false ? (
         <div className="qr-creator-main">
           <div className="page1">
             <div className="containerr">
@@ -173,7 +172,7 @@ const QrCreator = () => {
                   1. Select the QR code you want to create:
                 </h1>
                 <div className="card-con">
-                  {qrCodesList?.map((qrCode) => (
+                  {filteredQrCodes?.map((qrCode) => (
                     <div
                       key={qrCode.type}
                       className={`cardd ${
