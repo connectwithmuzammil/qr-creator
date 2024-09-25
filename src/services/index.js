@@ -122,6 +122,7 @@ const createBackendServer = (baseURL) => {
   const getSingleQr = (id) => api.get(`Get_user_qr/${id}`)
   const getQRStats = () => api.get(`qr_stats`);
   const getQRScansActivity = () => api.get(`qr_stats_30days`);
+  const exportAnalyticData = (startDate, endDate) => api.get(`export?startDate=${startDate}&endDate=${endDate}`);
 
 
   //Returning all the API
@@ -143,7 +144,8 @@ const createBackendServer = (baseURL) => {
     getSingleQr,
     getQRStats,
     getQRScansActivity,
-    changePassword
+    changePassword,
+    exportAnalyticData
   };
 };
 

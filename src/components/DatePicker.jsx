@@ -1,23 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
 
-export default function DatePickerInput({ onDateChange }) {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
+export default function DatePickerInput({ startDate, endDate, onDateChange }) {
   // Update start date
   const handleStartDateChange = (date) => {
-    setStartDate(date);
     onDateChange({ startDate: date, endDate });
   };
 
   // Update end date
   const handleEndDateChange = (date) => {
-    setEndDate(date);
     onDateChange({ startDate, endDate: date });
   };
 

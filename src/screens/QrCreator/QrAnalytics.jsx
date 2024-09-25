@@ -13,6 +13,7 @@ import {
 } from "../../components";
 import { useQuery } from "@tanstack/react-query";
 import apis from "../../services";
+import { toast } from "react-toastify";
 
 const dataCountry = [
   { name: "USA", scans: 500 },
@@ -140,7 +141,6 @@ const QrAnalytics = () => {
 
   // Handler for fetching data and generating CSV
   const handleFetchData = async () => {
-    console.log("clickkkkkk");
     const { startDate, endDate } = dateRange;
 
     if (startDate && endDate) {
@@ -148,38 +148,42 @@ const QrAnalytics = () => {
         const start = dayjs(startDate).format("YYYY-MM-DD");
         const end = dayjs(endDate).format("YYYY-MM-DD");
 
-        // const response = await axios.get("/api/qr-analytics", {
-        //   params: { start, end },
-        // });
+        const { data } = await apis.exportAnalyticData(start, end);
+        console.log(data, "response");
+        console.log(data?.data, "data?.data");
 
-        // const formattedData = response.data.map((row) => ({
-        //   qrCodeName: row.qr_code_name,
-        //   qrCodeType: row.qr_code_type,
-        //   dateTime: row.date_time,
-        //   country: row.country,
-        //   city: row.city,
-        //   os: row.os,
-        // }));
+        const formattedData = data?.data?.flatMap((qrCode) => {
+          // console.log("qrCodemnmmn", qrCode);
+
+          return qrCode?.data?.map((row) => ({
+            qrCodeName: qrCode?.qr_name,
+            qrCodeType: qrCode?.type,
+            dateTime: row?.created_at,
+            country: row?.country,
+            city: row?.city,
+            os: row?.os,
+          }));
+        });
 
         // Example data format as array of objects (each object is a row)
-        const formattedData = [
-          {
-            qrCodeName: "Example QR Code",
-            qrCodeType: "URL",
-            dateTime: "2023-09-22 10:30:00",
-            country: "USA",
-            city: "New York",
-            os: "iOS",
-          },
-          {
-            qrCodeName: "Another QR Code",
-            qrCodeType: "Business Card",
-            dateTime: "2023-09-23 12:45:00",
-            country: "Canada",
-            city: "Toronto",
-            os: "Android",
-          },
-        ];
+        // const formattedData = [
+        //   {
+        //     qrCodeName: "Example QR Code",
+        //     qrCodeType: "URL",
+        //     dateTime: "2023-09-22 10:30:00",
+        //     country: "USA",
+        //     city: "New York",
+        //     os: "iOS",
+        //   },
+        //   {
+        //     qrCodeName: "Another QR Code",
+        //     qrCodeType: "Business Card",
+        //     dateTime: "2023-09-23 12:45:00",
+        //     country: "Canada",
+        //     city: "Toronto",
+        //     os: "Android",
+        //   },
+        // ];
 
         setCsvData(formattedData);
         setCsvFileReady(true);
@@ -187,8 +191,13 @@ const QrAnalytics = () => {
         console.error("Error fetching data:", error);
       }
     } else {
-      alert("Please select a valid date range.");
+      toast.error("Please select a valid date range.");
     }
+  };
+  // Reset date range after download
+  const handleDownloadComplete = () => {
+    setDateRange({ startDate: null, endDate: null });
+    setCsvFileReady(false);
   };
 
   return (
@@ -203,21 +212,40 @@ const QrAnalytics = () => {
             <div className="period-con">
               <div className="wrap">
                 <p>Period</p>
-                {/* <StyledEngineProvider injectFirst>
-                  <DatePickerInput />
-                </StyledEngineProvider> */}
-                <DatePickerInput onDateChange={handleDateChange} />
+                <DatePickerInput
+                  startDate={dateRange.startDate}
+                  endDate={dateRange.endDate}
+                  onDateChange={handleDateChange}
+                />
               </div>
 
-              <button className="export-data" onClick={handleFetchData}>
+              <button
+                className="export-data"
+                disabled={!dateRange.startDate || !dateRange.endDate}
+                style={{
+                  backgroundColor:
+                    dateRange.startDate && dateRange.endDate
+                      ? "#e0201c"
+                      : "#e16a68",
+                  cursor:
+                    dateRange.startDate && dateRange.endDate
+                      ? "pointer"
+                      : "not-allowed",
+                }}
+                onClick={handleFetchData}
+              >
                 Export data
               </button>
+            </div>
+            <div className="download-csv-con">
               {csvFileReady && (
                 <CSVLink
                   data={csvData}
                   filename={`qr-analytics-${dayjs(dateRange.startDate).format(
                     "YYYY-MM-DD"
                   )}-to-${dayjs(dateRange.endDate).format("YYYY-MM-DD")}.csv`}
+                  className="download-csv-btn"
+                  onClick={handleDownloadComplete}
                 >
                   Download CSV
                 </CSVLink>
