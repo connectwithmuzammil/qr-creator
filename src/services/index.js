@@ -20,8 +20,6 @@ const createBackendServer = (baseURL) => {
     return config;
   });
 
-  
-
   api.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -33,6 +31,7 @@ const createBackendServer = (baseURL) => {
         error.errors = error?.response?.data?.errors;
       if (error?.response?.status === 401) {
         console.log("unauthorize");
+        localStorage.removeItem("token");
         window.location.href = "/login";
       }
 
