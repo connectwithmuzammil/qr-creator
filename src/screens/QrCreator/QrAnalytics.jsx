@@ -153,12 +153,12 @@ const QrAnalytics = () => {
         console.log(data?.data, "data?.data");
 
         const formattedData = data?.data?.flatMap((qrCode) => {
-          // console.log("qrCodemnmmn", qrCode);
+          console.log("qrCodemnmmn", qrCode);
 
           return qrCode?.data?.map((row) => ({
             qrCodeName: qrCode?.qr_name,
             qrCodeType: qrCode?.type,
-            dateTime: row?.created_at,
+            dateTime: row?.datetime,
             country: row?.country,
             city: row?.city,
             os: row?.os,

@@ -20,15 +20,20 @@ const createBackendServer = (baseURL) => {
     return config;
   });
 
+  
+
   api.interceptors.response.use(
     (response) => response,
     (error) => {
+      console.log("axioseroor", error);
       const message = error?.response?.data?.message;
+      console.log("message", message);
       error.message = message ?? error.message;
       if (error?.response?.data?.errors)
         error.errors = error?.response?.data?.errors;
       if (error?.response?.status === 401) {
-        // window.location.href = "/logout";
+        console.log("unauthorize");
+        window.location.href = "/logout";
       }
 
       return Promise.reject(error);
@@ -57,20 +62,14 @@ const createBackendServer = (baseURL) => {
   const authChangePassword = async (body) =>
     api.post("ecomuser/change-password", body);
 
-
   const removeProductFromCart = async (body) =>
     api.post("ecomuser/remove-cart", body);
 
   // const updateProfile = async (body) =>
   //   api.post("ecommerceProfile/updateProfileEcom", body);
 
-
-
   const authResendForgot = async (body) =>
     api.post("ecomuser/resend-otp-not-valid", body);
-
-
-
 
   /*==========    GET REQUESTS  JTC ==========*/
 
@@ -79,14 +78,11 @@ const createBackendServer = (baseURL) => {
   const getProductDetails = async (id, userId) =>
     await api.get(`product/product/${id}?user_id=${userId}`);
 
-
   const authRegisterReferral = ({ body, code }) =>
     api.post(`auth/register?referralCode=${code}`, body);
   const updateUser = ({ id, body }) => api.put(`user/update/${id}`, body);
 
-
   const getStoreDetails = async (id) => api.get(`store/slug/${id}?type=store`);
-
 
   const getStoreSlot = ({ id, duration, staff_Id }) =>
     api.get(`store/slots/${id}?duration=${duration}&staff_Id=${staff_Id}`);
@@ -96,9 +92,7 @@ const createBackendServer = (baseURL) => {
     `);
   const addFavorite = (body) => api.post(`user/favourite-add`, body);
 
-
   const getOrderDetails = (id) => api.get(`/getSalesApp/${id}`);
-
 
   // ---------------------------------------------------------------------------------------
 
@@ -109,8 +103,8 @@ const createBackendServer = (baseURL) => {
   const sendPasswordResetEmail = (body) => api.post(`restpassword`, body);
   const changePassword = (body) => api.post("changepassword", body);
 
-  const generateQrCode = (body) => api.post("generate", body)
-  const validateQrCode = (type) => api.get(`validations/${type}`)
+  const generateQrCode = (body) => api.post("generate", body);
+  const validateQrCode = (type) => api.get(`validations/${type}`);
   const updateProfile = (body) => api.post(`update-name`, body);
   const updateEmail = (body) => api.post(`update-email`, body);
   const scanQrCode = (body) => api.post(`qr_scan`, body);
@@ -119,11 +113,11 @@ const createBackendServer = (baseURL) => {
   const getScanCount = () => api.get(`getScanCount`);
   const deleteQrCode = (body) => api.delete(`delete_user`, { data: body });
   const checkout = (body) => api.post(`craetePayment`, body);
-  const getSingleQr = (id) => api.get(`Get_user_qr/${id}`)
+  const getSingleQr = (id) => api.get(`Get_user_qr/${id}`);
   const getQRStats = () => api.get(`qr_stats`);
   const getQRScansActivity = () => api.get(`qr_stats_30days`);
-  const exportAnalyticData = (startDate, endDate) => api.get(`export?startDate=${startDate}&endDate=${endDate}`);
-
+  const exportAnalyticData = (startDate, endDate) =>
+    api.get(`export?startDate=${startDate}&endDate=${endDate}`);
 
   //Returning all the API
   return {
@@ -145,7 +139,7 @@ const createBackendServer = (baseURL) => {
     getQRStats,
     getQRScansActivity,
     changePassword,
-    exportAnalyticData
+    exportAnalyticData,
   };
 };
 
