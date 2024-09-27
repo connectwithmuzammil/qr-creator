@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -54,6 +54,7 @@ const icons = {
 };
 
 const VCARD = ({ qrData, setQrData }) => {
+  const [imagePreview, setImagePreview] = useState(null);
   const location = useLocation();
   console.log("LOCATIONURL", location);
 
@@ -77,16 +78,20 @@ const VCARD = ({ qrData, setQrData }) => {
           vcard_social: qrDataFromLocation.vcard_social,
         }));
       }
+        // if (qrDataFromLocation.vcard_image) {
+        //   setImagePreview(qrDataFromLocation.vcard_image);
+        // }
     }
   }, [location.state, setQrData]);
 
-  const handleImageUpload = (mediaData, name) => {
+  const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
+    console.log("Received file name", file); // file
 
     setQrData((prevData) => ({
       ...prevData,
-      [name]: mediaData,
+      [name]: file,
     }));
   };
   const handleImageDelete = () => {
@@ -110,7 +115,7 @@ const VCARD = ({ qrData, setQrData }) => {
       },
     }));
   };
-  console.log("UPDATEDQRCODE", qrData);
+  console.log("UPDATEDQRCODEVCARD", qrData);
   return (
     <div className="vcard-page">
       <div className="containerr">
@@ -132,7 +137,9 @@ const VCARD = ({ qrData, setQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Add vCard information"}>
             <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
+              defaultImage={ imagePreview ||
+                "/assets/images/default-img.png"
+              }
               onImageUpload={handleImageUpload}
               onImageDelete={handleImageDelete}
               label="Profile picture"

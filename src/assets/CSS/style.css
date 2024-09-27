@@ -1600,10 +1600,15 @@ footer .bottom p {
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one .content-wrap h3 {
   color: #404040;
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Nunito Sans", sans-serif;
   margin: 0;
   font-weight: 700;
+
+  white-space: nowrap;         
+  overflow: hidden;         
+  text-overflow: ellipsis; 
+  max-width: 150px;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .two {
   display: flex;

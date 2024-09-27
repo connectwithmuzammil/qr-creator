@@ -5,10 +5,8 @@ import {
   Header,
 } from "../../components";
 import Accordion from "react-bootstrap/Accordion";
-import { QRCodeCanvas } from "qrcode.react";
-import QRCodeStyling from "qr-code-styling";
 
-// import { HexColorPicker } from "react-colorful";
+
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   CanvaFrame1,

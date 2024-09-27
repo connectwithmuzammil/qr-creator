@@ -77,7 +77,7 @@ function BottomWrapperStages({
 
       //EDIT IDDDDD
       if (generateQrPayload?.editID) {
-        formData.append("editID", generateQrPayload.editID);
+        formData.append("id", generateQrPayload.editID);
       }
 
       if (generateQrPayload?.landing_logo) {
@@ -102,12 +102,8 @@ function BottomWrapperStages({
           "links_image"
         );
       }
-      if (generateQrPayload?.vcard_image) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.vcard_image,
-          "vcard_image"
-        );
+      if (generateQrPayload?.vcard_image instanceof File) {
+        formData.append("vcard_image", generateQrPayload?.vcard_image);
       }
       if (generateQrPayload?.business_image) {
         appendBase64ToFormData(
@@ -252,7 +248,7 @@ function BottomWrapperStages({
           key !== "business_image" &&
           key !== "opening_hours_days" &&
           key !== "event_image" &&
-          key !== "pdf_file" 
+          key !== "pdf_file"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
@@ -274,7 +270,6 @@ function BottomWrapperStages({
       // if (generateQrPayload?.pdf_file instanceof File) {
       //   formData.append("pdf_file", generateQrPayload.pdf_file);
       // }
-      
 
       console.log("formData", formData);
       for (let [key, value] of formData.entries()) {

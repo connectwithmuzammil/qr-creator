@@ -112,7 +112,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
     }
   }, [location.state, setQrData]);
 
-  console.log("updatedQrData",qrData)
+  console.log("updatedQrDataBusiness",qrData)
 
   const [is24HourFormat, setIs24HourFormat] = useState(false);
   const handleImageUpload = (mediaData, name) => {
