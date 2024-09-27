@@ -310,16 +310,27 @@ const QrMainPage = () => {
     refetchAllQrCodes();
     setShowDeleteBox(null);
   };
-  const handleViewDetail = (singleViewDetail) => {
-    console.log("singleViewDetail", singleViewDetail);
-    navigate("/qr-image", { state: { singleViewDetail } });
+  const handleViewDetail = async (singleViewDetail) => {
+    try {
+      // console.log("singleViewDetail", singleViewDetail);
+      navigate("/qr-image", { state: { singleViewDetail } });
+  
+      if (singleViewDetail?.id) {
+        await apis.viewQrCode(singleViewDetail.id);
+      } else {
+        throw new Error("QR Code ID is missing");
+      }
+    } catch (error) {
+      console.error("Failed to view QR code detail:", error);
+    }
   };
+  
   const handleEdit = async (id, type) => {
     // console.log("EDIT IDDD", id);
     try {
       let res = await apis.getSingleQr(id);
       let qrData = res.data;
-      console.log("qrDataEdit",qrData)
+      console.log("qrDataEdit", qrData);
       navigate(`/qr-editor/${type}`, { state: { qrData } });
     } catch (error) {
       console.log("error", error);
@@ -346,10 +357,10 @@ const QrMainPage = () => {
               <div className="loaderr" />
             </div>
           ) : (
-            <div className="bottom">  
+            <div className="bottom">
               <div className="status-con"></div>
               {getALLQrCodes?.data.length > 0 &&
-                 [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
+                [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
 
                   return (
