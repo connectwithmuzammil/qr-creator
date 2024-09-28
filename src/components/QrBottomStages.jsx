@@ -23,6 +23,8 @@ function BottomWrapperStages({
 
   console.log("qrDataqrData", generateQrPayload);
 
+  // console.log("generateQrPayload?.business_logo",typeof(generateQrPayload?.business_logo))
+
   //QR CODE API CALL
   const { mutate: mutateQrCode, isPending: isLoading } = useMutation({
     mutationFn: apis.generateQrCode,
@@ -67,7 +69,7 @@ function BottomWrapperStages({
 
       // Create a default file name if needed, or use the field name
       const fileName = `${fieldName}.${extension}`;
-      formData.append(fieldName, blob, fileName);
+      // formData.append(fieldName, blob, fileName);
     }
   };
 
@@ -236,15 +238,38 @@ function BottomWrapperStages({
               );
             }
           );
+        } else if (key === "app_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.app_social).forEach(
+            (video_socialKey) => {
+              formData.append(
+                `app_social[${video_socialKey}]`,
+                generateQrPayload.app_social[video_socialKey]
+              );
+            }
+          );
+        } else if (key === "video_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.video_social).forEach(
+            (video_socialKey) => {
+              formData.append(
+                `video_social[${video_socialKey}]`,
+                generateQrPayload.video_social[video_socialKey]
+              );
+            }
+          );
         } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
           key !== "links_image" &&
           key !== "vcard_image" &&
+          key !== "business_logo" &&
           key !== "business_image" &&
           key !== "opening_hours_days" &&
           key !== "event_image" &&
-          key !== "pdf_file"
+          key !== "pdf_file" &&
+          key !== "app_social" &&
+          key !== "video_social"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);

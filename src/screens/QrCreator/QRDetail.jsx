@@ -53,6 +53,7 @@ const QRDetail = () => {
     app_description: "",
     app_logo: "",
     app_website: "",
+    app_social:{},
     //LANDING
     landing_action_url: "",
     landing_company: "",
@@ -78,7 +79,7 @@ const QRDetail = () => {
     links_title: "",
     links_description: "",
     all_links: [],
-    links_social: "",
+    links_social: {},
 
     //VCARD
     vcard_address: "",
@@ -133,11 +134,11 @@ const QRDetail = () => {
 
     //VIDEO
     video: null,
-    video_title: "",
+    video_name: "",
     video_description: "",
     video_button: " ",
     video_url: "",
-    video_social: "",
+    video_social: {},
 
     //EVENTS
     event_action_title: "",
@@ -249,6 +250,7 @@ const QRDetail = () => {
               app_company: qrData?.app_company,
               app_description: qrData?.app_description,
               app_website: qrData?.app_website,
+              app_social: qrData?.app_social,
               color: qrData.color,
             }
           : {}),
@@ -356,6 +358,7 @@ const QRDetail = () => {
               video_description: qrData.video_description,
               video_button: qrData.video_button,
               video_url: qrData.video_url,
+              video_name: qrData.video_name,
             }
           : {}),
         ...(type === "events"

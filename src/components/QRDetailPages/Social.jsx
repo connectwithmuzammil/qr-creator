@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -54,6 +54,7 @@ const icons = {
 };
 
 const Social = ({ qrData, setQrData }) => {
+  const [imagePreview, setImagePreview] = useState(null);
 
     //EDIT
     const location = useLocation();
@@ -74,12 +75,12 @@ const Social = ({ qrData, setQrData }) => {
         }
   
         // Set initial vcard_social links if present (edit mode)
-        if (qrDataFromLocation?.media_social) {
-          setQrData((prevQrData) => ({
-            ...prevQrData,
-            media_social: qrDataFromLocation?.media_social,
-          }));
-        }
+        // if (qrDataFromLocation?.media_social) {
+        //   setQrData((prevQrData) => ({
+        //     ...prevQrData,
+        //     media_social: qrDataFromLocation?.media_social,
+        //   }));
+        // }
       }
     }, [location.state, setQrData]);
 
@@ -158,13 +159,13 @@ const Social = ({ qrData, setQrData }) => {
               value={qrData.media_description}
             />
           </AccordianComponent>
-          {/* <AccordianComponent title={"Social Media Channels"}>
+          <AccordianComponent title={"Social Media Channels"}>
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.business_social}
+              initialLinks={qrData?.media_social}
             />
-          </AccordianComponent> */}
+          </AccordianComponent>
         </div>
         <div className="right">
           <img src="/assets/images/phone-social.png" alt="phone-social" />

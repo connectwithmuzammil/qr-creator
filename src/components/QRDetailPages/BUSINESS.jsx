@@ -112,8 +112,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
         }));
       }
 
-      if (qrDataFromLocation?.business_page?.business_logo) {
-        setImagePreview(qrDataFromLocation?.business_page?.business_logo);
+      if (qrDataFromLocation?.business_logo) {
+        setImagePreview(qrDataFromLocation?.business_logo);
       }
     }
   }, [location.state, setQrData]);
@@ -224,7 +224,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               //   qrData?.business_page?.business_company
               // }
               value={
-                qrData?.business_company ??
+                qrData?.business_company ||
                 qrData?.business_page?.business_company
               }
             />
@@ -234,7 +234,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. Fresh Bread and Pastries"}
               onChange={handleInputChange}
               value={
-                qrData?.business_title ?? qrData?.business_page?.business_title
+                qrData?.business_title || qrData?.business_page?.business_title
               }
             />
             <InputComponent
@@ -245,7 +245,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               }
               onChange={handleInputChange}
               value={
-                qrData?.business_subtitle ??
+                qrData?.business_subtitle ||
                 qrData?.business_page?.business_subtitle
               }
             />
@@ -256,7 +256,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. View our products"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_btn_text ??
+                  qrData?.business_btn_text ||
                   qrData?.business_page?.business_btn_text
                 }
               />
@@ -266,7 +266,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. https://URL here"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_url ?? qrData?.business_page?.business_url
+                  qrData?.business_url || qrData?.business_page?.business_url
                 }
               />
             </div>
@@ -287,7 +287,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. High Street"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_address ??
+                  qrData?.business_address ||
                   qrData?.business_page?.business_address
                 }
               />
@@ -297,7 +297,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_numeration ??
+                  qrData?.business_numeration ||
                   qrData?.business_page?.business_numeration
                 }
               />
@@ -307,7 +307,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 12548"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_postalcode ??
+                  qrData?.business_postalcode ||
                   qrData?.business_page?.business_postalcode
                 }
               />
@@ -328,7 +328,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_state ??
+                  qrData?.business_state ||
                   qrData?.business_page?.business_state
                 }
               />
@@ -338,7 +338,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. USA"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_country ??
+                  qrData?.business_country ||
                   qrData?.business_page?.business_country
                 }
               />
@@ -358,7 +358,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. John Smith"}
               onChange={handleInputChange}
               value={
-                qrData?.business_name ?? qrData?.business_page?.business_name
+                qrData?.business_name || qrData?.business_page?.business_name
               }
             />
             <InputComponent
@@ -367,7 +367,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. (123)-123-123-123"}
               onChange={handleInputChange}
               value={
-                qrData?.business_phone ?? qrData?.business_page?.business_phone
+                qrData?.business_phone || qrData?.business_page?.business_phone
               }
             />
             <InputComponent
@@ -376,7 +376,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. youremail@domain.com"}
               onChange={handleInputChange}
               value={
-                qrData?.business_email ?? qrData?.business_page?.business_email
+                qrData?.business_email || qrData?.business_page?.business_email
               }
             />
             <InputComponent
@@ -385,7 +385,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. https://www.artisian-bakery.com"}
               onChange={handleInputChange}
               value={
-                qrData?.business_website ??
+                qrData?.business_website ||
                 qrData?.business_page?.business_website
               }
             />
@@ -398,7 +398,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               }
               onChange={handleInputChange}
               value={
-                qrData?.business_about ?? qrData?.business_page?.business_about
+                qrData?.business_about || qrData?.business_page?.business_about
               }
             />
           </AccordianComponent>

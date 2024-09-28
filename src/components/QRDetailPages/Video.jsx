@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -26,6 +26,7 @@ import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
 import Button from "../Button";
 import VideoUpload from "../VideoUploadComp";
+import { useLocation } from "react-router-dom";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -54,6 +55,28 @@ const icons = {
   xing: <XingSocial />,
 };
 const Video = ({ qrData, setQrData }) => {
+  const [imagePreview, setImagePreview] = useState(null);
+
+  //EDIT
+  const location = useLocation();
+  console.log("LOCATIONURLSOCAPP", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      console.log("qrDataFromLocation", qrDataFromLocation);
+      setQrData(qrDataFromLocation);
+
+      // If there's color data in qrData, ensure it's set correctly
+      if (qrDataFromLocation?.color) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation?.color,
+        }));
+      }
+    }
+  }, [location.state, setQrData]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({
@@ -98,7 +121,7 @@ const Video = ({ qrData, setQrData }) => {
             />
           </AccordianComponent>
           <AccordianComponent title={"Video"}>
-            <div
+            {/* <div
               className="wrap-inp-cmp"
               style={{ alignItems: "center", display: "none" }}
             >
@@ -110,7 +133,7 @@ const Video = ({ qrData, setQrData }) => {
                 value={qrData?.video_company_name}
               />
               <Button title={"Add Video"} width={"200px"} />
-            </div>
+            </div> */}
             <p className="social-con-content">
               If you prefer, you can upload your video (up to 10 videos)
             </p>
@@ -121,10 +144,10 @@ const Video = ({ qrData, setQrData }) => {
           <AccordianComponent title={"Video Information"}>
             <InputComponent
               label={"Company name"}
-              name={"video_company_name"}
+              name={"video_name"}
               placeholder={"e.g. Furniture Store"}
               onChange={handleInputChange}
-              value={qrData?.video_company_name}
+              value={qrData?.video_name}
             />
             <InputComponent
               label={"Video title"}
@@ -162,6 +185,7 @@ const Video = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
+              initialLinks={qrData?.video_social}
             />
           </AccordianComponent>
         </div>
