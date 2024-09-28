@@ -24,11 +24,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import apis from "../../services";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
   const qrCodeRef = useRef(null);
   const [showDeleteBox, setShowDeleteBox] = useState(null);
+  const [loadingMap, setLoadingMap] = useState({});
+
   const handleDeleteBoxToggle = (id) => {
     // console.log("handleDeleteBoxToggleIDDD", id);
     setShowDeleteBox(showDeleteBox === id ? null : id);
@@ -307,6 +310,7 @@ const QrMainPage = () => {
     console.log("delete_id", id);
     const res = await apis.deleteQrCode({ id });
     console.log("ress", res);
+    toast.success("QR Delete Successfully!!");
     refetchAllQrCodes();
     setShowDeleteBox(null);
   };
@@ -314,7 +318,7 @@ const QrMainPage = () => {
     try {
       // console.log("singleViewDetail", singleViewDetail);
       navigate("/qr-image", { state: { singleViewDetail } });
-  
+
       if (singleViewDetail?.id) {
         await apis.viewQrCode(singleViewDetail.id);
       } else {
@@ -324,9 +328,10 @@ const QrMainPage = () => {
       console.error("Failed to view QR code detail:", error);
     }
   };
-  
+
   const handleEdit = async (id, type) => {
     // console.log("EDIT IDDD", id);
+    setLoadingMap((prev) => ({ ...prev, [id]: true }));
     try {
       let res = await apis.getSingleQr(id);
       let qrData = res.data;
@@ -334,6 +339,8 @@ const QrMainPage = () => {
       navigate(`/qr-editor/${type}`, { state: { qrData } });
     } catch (error) {
       console.log("error", error);
+    } finally {
+      setLoadingMap((prev) => ({ ...prev, [id]: false }));
     }
   };
   return (
@@ -362,6 +369,7 @@ const QrMainPage = () => {
               {getALLQrCodes?.data.length > 0 &&
                 [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
+                  const isLoading = loadingMap[qrCode.id];
 
                   return (
                     <div className="all-qrCode-con" key={index}>
@@ -407,10 +415,16 @@ const QrMainPage = () => {
                           <p
                             onClick={() => handleEdit(qrCode?.id, qrCode.type)}
                           >
-                            Edit
-                            <span>
-                              <MdEdit size={14} />
-                            </span>
+                            {isLoading ? (
+                              "Loading..."
+                            ) : (
+                              <>
+                                Edit
+                                <span>
+                                  <MdEdit size={14} />
+                                </span>
+                              </>
+                            )}
                           </p>
                           <p onClick={() => handleDownload(qrCode)}>
                             Download

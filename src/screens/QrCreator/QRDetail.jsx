@@ -129,7 +129,7 @@ const QRDetail = () => {
 
     business_facilities: "",
     business_social: "",
-    business_image: "",
+    business_logo: "",
 
     //VIDEO
     video: null,
@@ -341,7 +341,7 @@ const QRDetail = () => {
               business_state: qrData?.business_state,
               business_facilities: qrData?.business_facilities,
               business_social: qrData?.business_social,
-              business_image: qrData?.business_image,
+              business_logo: qrData?.business_logo,
               opening_hours_days: qrData?.opening_hours_days,
               opening_hours_format: qrData?.opening_hours_format,
             }

@@ -105,12 +105,8 @@ function BottomWrapperStages({
       if (generateQrPayload?.vcard_image instanceof File) {
         formData.append("vcard_image", generateQrPayload?.vcard_image);
       }
-      if (generateQrPayload?.business_image) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.business_image,
-          "business_image"
-        );
+      if (generateQrPayload?.business_logo instanceof File) {
+        formData.append("business_logo", generateQrPayload?.business_logo);
       }
       if (generateQrPayload?.event_image) {
         appendBase64ToFormData(
