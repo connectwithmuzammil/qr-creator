@@ -1542,6 +1542,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* align-items: flex-start; */
   gap: 12px;
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
 }
@@ -1550,6 +1551,7 @@ footer .bottom p {
   align-items: center;
   gap: 8px;
   flex: 1;
+  min-width: 250px;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .one .img-con {
   width: 80px;
