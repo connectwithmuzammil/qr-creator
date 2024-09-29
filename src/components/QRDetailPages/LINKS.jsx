@@ -27,6 +27,7 @@ import {
 import Button from "../Button";
 import { FaTrash } from "react-icons/fa";
 import { debounce } from "lodash";
+import { useLocation } from "react-router-dom";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -55,12 +56,36 @@ const icons = {
   xing: <XingSocial />,
 };
 const LINKS = ({ qrData, setQrData }) => {
+  //EDIT
+  const location = useLocation();
+  console.log("LINKSDATA", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      console.log("qrDataFromLocation", qrDataFromLocation);
+      setQrData(qrDataFromLocation);
+
+      // If there's color data in qrData, ensure it's set correctly
+      if (qrDataFromLocation?.color) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation?.color,
+        }));
+      }
+      if (qrDataFromLocation?.links) {
+        setLinks(qrDataFromLocation.links); 
+      }
+    }
+  }, [location.state, setQrData]);
+
   const [links, setLinks] = useState([]);
+
+  console.log("updatedQRdata",qrData)
 
   // Debounce function to update qrData with a delay of 300ms
   const updateQrDataDebounced = useCallback(
     debounce((updatedLinks) => {
-
       const sanitizedLinks = updatedLinks.map(({ id, ...rest }) => rest);
       setQrData((prevData) => ({ ...prevData, all_links: sanitizedLinks }));
     }, 300),
@@ -104,6 +129,7 @@ const LINKS = ({ qrData, setQrData }) => {
       const updatedLinks = prevLinks.map((link) =>
         link.id === id ? { ...link, [name]: value } : link
       );
+      console.log("updatedLinks", updatedLinks);
       // Update qrData with the updated links state
       // setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       updateQrDataDebounced(updatedLinks);
@@ -118,8 +144,10 @@ const LINKS = ({ qrData, setQrData }) => {
     };
   }, [updateQrDataDebounced]);
 
-
-  const handleImageUpload = (id, imageData) => {
+  const handleImageUpload = (imageUrl, name, file) => {
+    console.log("Image file path:", imageUrl);
+    console.log("Image file object:", file);
+    console.log("Uploader Name/ID:", name);
     // setLinks(
     //   links.map((link) =>
     //     link.id === id ? { ...link, image: imageData } : link
@@ -127,8 +155,10 @@ const LINKS = ({ qrData, setQrData }) => {
     // );
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.map((link) =>
-        link.id === id ? { ...link, image: imageData } : link
+        link.name === name ? { ...link, image: file } : link
       );
+
+      console.log("updatedLinksupdatedLinks", updatedLinks);
       // Update qrData with the updated links state
       setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
@@ -157,15 +187,16 @@ const LINKS = ({ qrData, setQrData }) => {
     }));
   };
 
-  const handleSingleImageUpload = (mediaData, name) => {
+  const handleSingleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
     setQrData((prevData) => ({
       ...prevData,
-      [name]: mediaData,
+      [name]: file,
     }));
   };
+
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
     setQrData((prevData) => ({
@@ -223,8 +254,8 @@ const LINKS = ({ qrData, setQrData }) => {
           <AccordianComponent title={"Your links"}>
             <p className="social-con-content">Add one link*</p>
 
-            <div>
-              {links.map((link, index) => (
+            <div >
+              {links?.map((link, index) => (
                 <div key={link.id} className="show-link-con">
                   <div
                     className="trash-con"
@@ -237,11 +268,12 @@ const LINKS = ({ qrData, setQrData }) => {
                   <ImageUploadComponent
                     image={"/assets/images/phone-links.png"}
                     defaultImage={"/assets/images/default-img.png"}
-                    onImageUpload={(imageUrl) =>
-                      handleImageUpload(link.id, imageUrl)
+                    onImageUpload={(imageUrl, name, file) =>
+                      handleImageUpload(imageUrl, link.id, file)
                     }
                     onImageDelete={() => handleImageDelete(link.id)}
                     label="Image"
+                    name={link.id}
                   />
 
                   <InputComponent
@@ -277,6 +309,7 @@ const LINKS = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
+              initialLinks={qrData?.links_social}
             />
           </AccordianComponent>
         </div>

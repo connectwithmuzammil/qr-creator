@@ -60,7 +60,7 @@ const QRDetail = () => {
     landing_logo: "",
     landing_title: "",
     landing_subtitle: "",
-    landing_social: "",
+    landing_social: {},
     landing_btn_text: "",
     //SOCIAL
     media_social: {},
@@ -263,8 +263,9 @@ const QRDetail = () => {
               landing_title: qrData?.landing_title,
               landing_subtitle: qrData?.landing_subtitle,
               landing_btn_text: qrData?.landing_btn_text,
+              landing_social: qrData?.landing_social,
               color: qrData.color,
-              social: qrData.social,
+              
             }
           : {}),
         ...(type === "social_media"

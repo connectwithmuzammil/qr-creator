@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -24,6 +24,7 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import SocialIconsComp from "../SocialIconComp";
 import ImageUploadComponent from "../ImageUploadComp";
+import { useLocation } from "react-router-dom";
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
   { id: "green", background: "#e8fce8", button: "#0e8b70" },
@@ -51,6 +52,27 @@ const icons = {
   xing: <XingSocial />,
 };
 const LANDING = ({ qrData, setQrData }) => {
+  //EDIT
+  const location = useLocation();
+  console.log("LANDINGDATAEDITT", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location?.state?.qrData?.data;
+      console.log("qrDataFromLocation", qrDataFromLocation);
+      setQrData(qrDataFromLocation);
+
+      // If there's color data in qrData, ensure it's set correctly
+      if (qrDataFromLocation?.color) {
+        setQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation?.color,
+        }));
+      }
+    }
+  }, [location?.state, setQrData]);
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setQrData((prevData) => ({
@@ -59,26 +81,25 @@ const LANDING = ({ qrData, setQrData }) => {
     }));
   };
 
-  const handleImageUpload = (mediaData, name) => {
+  const handleImageUpload = (mediaData, name,file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
     setQrData((prevData) => ({
       ...prevData,
-      [name]: mediaData,
+      [name]: file,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
     setQrData((prevData) => ({
       ...prevData,
-      social: {
-        ...prevData.social,
+      landing_social: {
+        ...prevData.landing_social,
         [iconName]: url,
       },
     }));
   };
-
   return (
     <div className="landing-page">
       <div className="containerr">
@@ -88,7 +109,7 @@ const LANDING = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={qrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
@@ -147,6 +168,7 @@ const LANDING = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
+              initialLinks={qrData?.landing_social}
             />
           </AccordianComponent>
         </div>

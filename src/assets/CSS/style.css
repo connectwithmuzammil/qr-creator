@@ -1613,8 +1613,8 @@ footer .bottom p {
 .qr-main-page .bottom .all-qrCode-con .result-cardd .two {
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex: 2;
+  /* gap: 24px; */
+  /* flex: 2; */
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .two p.status {
   border: 1px solid #737373;

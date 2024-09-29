@@ -83,26 +83,15 @@ function BottomWrapperStages({
       }
 
       if (generateQrPayload?.landing_logo) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.landing_logo,
-          "landing_logo"
-        );
+        formData.append("landing_logo", generateQrPayload?.landing_logo);
       }
 
       if (generateQrPayload?.gallery_image) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.gallery_image,
-          "gallery_image"
-        );
+        formData.append("gallery_image", generateQrPayload?.gallery_image);
+      
       }
       if (generateQrPayload?.links_image) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.links_image,
-          "links_image"
-        );
+        formData.append("links_image", generateQrPayload?.links_image);
       }
       if (generateQrPayload?.vcard_image instanceof File) {
         formData.append("vcard_image", generateQrPayload?.vcard_image);
@@ -248,7 +237,9 @@ function BottomWrapperStages({
               );
             }
           );
-        } else if (key === "video_social") {
+        } 
+        
+        else if (key === "video_social") {
           // Handle the social object separately
           Object.keys(generateQrPayload.video_social).forEach(
             (video_socialKey) => {
@@ -258,7 +249,20 @@ function BottomWrapperStages({
               );
             }
           );
-        } else if (
+        } 
+        else if (key === "landing_social") {
+          // Handle the social object separately
+          Object.keys(generateQrPayload.landing_social).forEach(
+            (landing_socialKey) => {
+              formData.append(
+                `landing_social[${landing_socialKey}]`,
+                generateQrPayload.landing_social[landing_socialKey]
+              );
+            }
+          );
+        } 
+        
+        else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
           key !== "links_image" &&
@@ -269,7 +273,8 @@ function BottomWrapperStages({
           key !== "event_image" &&
           key !== "pdf_file" &&
           key !== "app_social" &&
-          key !== "video_social"
+          key !== "video_social" &&
+          key !== "landing_social" 
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
@@ -278,6 +283,14 @@ function BottomWrapperStages({
 
       if (generateQrPayload?.pdf_file) {
         formData.append("pdf_file", generateQrPayload.pdf_file);
+      }
+
+      // Handle all_links from generateQrPayload
+      if (generateQrPayload?.all_links) {
+        generateQrPayload.all_links.forEach((link, index) => {
+          formData.append(`all_links[${index}][text]`, link.text);
+          formData.append(`all_links[${index}][url]`, link.url);
+        });
       }
 
       // if (generateQrPayload?.pdf_file) {

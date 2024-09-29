@@ -390,7 +390,7 @@ const QrMainPage = () => {
                           </div>
                         </div>
                         <div className="two">
-                          <p className="status">Draft</p>
+                          {/* <p className="status">Draft</p> */}
                           <div className="modifiedDate-con">
                             <div className="wrap">
                               <CreatedIconDashboard />
