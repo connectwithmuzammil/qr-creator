@@ -1616,7 +1616,7 @@ footer .bottom p {
   display: flex;
   align-items: center;
   /* gap: 24px; */
-  /* flex: 2; */
+  flex: 1;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .two p.status {
   border: 1px solid #737373;
