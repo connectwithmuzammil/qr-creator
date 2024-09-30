@@ -53,7 +53,7 @@ const QRDetail = () => {
     app_description: "",
     app_logo: "",
     app_website: "",
-    app_social:{},
+    app_social: {},
     //LANDING
     landing_action_url: "",
     landing_company: "",
@@ -180,7 +180,7 @@ const QRDetail = () => {
       frameName: "",
     },
     color: {
-      background: "",  
+      background: "",
       button: "",
     },
     social: {},
@@ -209,6 +209,26 @@ const QRDetail = () => {
         // await WifiSchema.validate(qrData);
       } else if (type === "video") {
         // await videoSchema.validate(qrData);
+      } else if (type === "image_gallery") {
+        if (!qrData?.gallery_image) {
+          toast.error("Please Upload Image");
+          return;
+        }
+      } else if (type === "vcard") {
+        if (!qrData?.vcard_image) {
+          toast.error("Please Upload Image");
+          return;
+        }
+      } else if (type === "business_page") {
+        if (!qrData?.business_logo) {
+          toast.error("Please Upload Logo");
+          return;
+        }
+      } else if (type === "events") {
+        if (!qrData?.event_image) {
+          toast.error("Please Upload Cover Image");
+          return;
+        }
       }
 
       const dataToSend = {
@@ -265,7 +285,6 @@ const QRDetail = () => {
               landing_btn_text: qrData?.landing_btn_text,
               landing_social: qrData?.landing_social,
               color: qrData.color,
-              
             }
           : {}),
         ...(type === "social_media"
@@ -282,11 +301,11 @@ const QRDetail = () => {
           ? {
               qr_name: qrData?.qr_name,
               color: qrData.color,
+              gallery_image: qrData.gallery_image,
               gallery_title: qrData.gallery_title,
               gallery_description: qrData.gallery_description,
               gallery_website: qrData.gallery_website,
               gallery_url: qrData.gallery_url,
-              gallery_image: qrData.gallery_image,
             }
           : {}),
         ...(type === "links"

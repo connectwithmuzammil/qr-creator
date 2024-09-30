@@ -88,7 +88,6 @@ function BottomWrapperStages({
 
       if (generateQrPayload?.gallery_image) {
         formData.append("gallery_image", generateQrPayload?.gallery_image);
-      
       }
       if (generateQrPayload?.links_image) {
         formData.append("links_image", generateQrPayload?.links_image);
@@ -100,11 +99,7 @@ function BottomWrapperStages({
         formData.append("business_logo", generateQrPayload?.business_logo);
       }
       if (generateQrPayload?.event_image) {
-        appendBase64ToFormData(
-          formData,
-          generateQrPayload?.event_image,
-          "event_image"
-        );
+        formData.append("event_image", generateQrPayload?.event_image);
       }
 
       // Handle opening_hours_days
@@ -237,9 +232,7 @@ function BottomWrapperStages({
               );
             }
           );
-        } 
-        
-        else if (key === "video_social") {
+        } else if (key === "video_social") {
           // Handle the social object separately
           Object.keys(generateQrPayload.video_social).forEach(
             (video_socialKey) => {
@@ -249,8 +242,7 @@ function BottomWrapperStages({
               );
             }
           );
-        } 
-        else if (key === "landing_social") {
+        } else if (key === "landing_social") {
           // Handle the social object separately
           Object.keys(generateQrPayload.landing_social).forEach(
             (landing_socialKey) => {
@@ -260,9 +252,7 @@ function BottomWrapperStages({
               );
             }
           );
-        } 
-        
-        else if (
+        } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
           key !== "links_image" &&
@@ -274,7 +264,7 @@ function BottomWrapperStages({
           key !== "pdf_file" &&
           key !== "app_social" &&
           key !== "video_social" &&
-          key !== "landing_social" 
+          key !== "landing_social"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);

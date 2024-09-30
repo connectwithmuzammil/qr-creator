@@ -94,7 +94,12 @@ const BUSINESS = ({ qrData, setQrData }) => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
-      setQrData(qrDataFromLocation);
+
+      const { business_logo, ...restQrData } = qrDataFromLocation;
+      setQrData((prevQrData) => ({
+        ...prevQrData,
+        ...restQrData,
+      }));
 
       // If there's color data in qrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
@@ -112,9 +117,9 @@ const BUSINESS = ({ qrData, setQrData }) => {
         }));
       }
 
-      if (qrDataFromLocation?.business_logo) {
-        setImagePreview(qrDataFromLocation?.business_logo);
-      }
+      // if (qrDataFromLocation?.business_logo) {
+      //   setImagePreview(qrDataFromLocation?.business_logo);
+      // }
     }
   }, [location.state, setQrData]);
 
