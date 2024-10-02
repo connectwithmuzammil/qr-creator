@@ -2078,18 +2078,21 @@ footer .bottom p {
 .qr-design .containerr .right .qr-preview {
 }
 .qr-preview svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%;
+  transform: translate(-50%, -50%); */
+  margin: 40px 0px;
   width: 100%;
   height: 300px;
 }
 .qr-preview .notselectSvg {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  margin: 40px 0px;
+  text-align: center;
   /* width: 100%; */
   height: 300px;
 }
@@ -3785,4 +3788,132 @@ p.social-con-content {
   padding: 5px 14px;
   border-radius: 0.5rem;
 
+}
+
+/* SCAN REDIRECT CSS */
+
+.table-wrapper {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 800px;
+}
+
+.content-table-scan {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.content-table-scan th,
+.content-table-scan td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.content-table-scan th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.content-table-scan tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.content-table-scan tr:hover {
+  background-color: #f1f1f1;
+}
+
+.content-table-scan td {
+  color: #333;
+}
+
+/* QR DETAIL ANALYTCIS EACH USER CSS */
+
+/* QRDETAIL */
+.qrDetailsPage{
+  padding-inline: 80px;
+}
+.qrDetailsPage .userAnalyticscon{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.qrDetailsPage .userAnalyticscon .cardd{
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(50% - 10px);
+  text-align: center;
+  text-align: center;
+  border: 1px solid #f3ecec;
+}
+.qrDetailsPage .userAnalyticscon .cardd svg{
+  font-size: 24px;
+    color: #e0201c;
+    margin-bottom: 10px;
+}
+.qrDetailsPage .userAnalyticscon .cardd h3{
+  margin: 10px 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: poppins, sans-serif;
+}
+.qrDetailsPage .userAnalyticscon .cardd p{
+  font-size: 18px;
+  color: #555;
+  font-family: poppins, sans-serif;
+  font-weight: 500;
+}
+.qrDetailsPage .all-card-con{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+.qrDetailsPage .all-card-con .cardd p{
+  color: #000;
+  font-family: Nunito Sans, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.qrDetailsPage .all-card-con .cardd{
+  background-color: #fcfcfc;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 8px 0 #5959592e;
+  height: 350px;
+  padding: 1.5rem;
+  flex: 1;
+}
+.qrDetailsPage .graph-con {
+  background-color: #fcfcfc;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 8px 0 #5959592e;
+  height: 350px;
+  padding: 1.5rem;
+  flex: 1;
+  margin-bottom: 40px;
+}
+.qrDetailsPage .graph-con p{
+  color: #000;
+  font-family: Nunito Sans, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.qrDetailsPage .stats-txt{
+  color: #000;
+  font-family: Nunito Sans, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }

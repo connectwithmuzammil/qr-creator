@@ -119,6 +119,13 @@ const createBackendServer = (baseURL) => {
     api.get(`export?startDate=${startDate}&endDate=${endDate}`);
   const viewQrCode = (id) => api.get(`increase-views/${id}`);
 
+
+  
+  //EACH USER STATS
+  const getEachUserQRStat = (id) => api.get(`admin/each_analytics/${id}`);
+  const getEachUserQRSystem = (id) => api.get(`admin/qr_stats_system_each/${id}`);
+  const getEachUserQRScanActivity = (id) => api.get(`admin/qr_stats_each/${id}`);
+
   //Returning all the API
   return {
     signup,
@@ -141,6 +148,9 @@ const createBackendServer = (baseURL) => {
     changePassword,
     exportAnalyticData,
     viewQrCode,
+    getEachUserQRStat,
+    getEachUserQRSystem,
+    getEachUserQRScanActivity
   };
 };
 

@@ -316,8 +316,24 @@ const QrMainPage = () => {
   };
   const handleViewDetail = async (singleViewDetail) => {
     try {
-      // console.log("singleViewDetail", singleViewDetail);
-      navigate("/qr-image", { state: { singleViewDetail } });
+      let userQrStats = await apis.getEachUserQRStat(singleViewDetail?.id);
+      let statsData = userQrStats?.data;
+      let userQrSystem = await apis.getEachUserQRSystem(singleViewDetail?.id);
+      let statsDataSystem = userQrSystem?.data;
+      let userQrScanActivity = await apis.getEachUserQRScanActivity(
+        singleViewDetail?.id
+      );
+      // console.log("userQrScanActivity",userQrScanActivity?.data);
+      let statsDataScanActivity = userQrScanActivity?.data;
+
+      navigate("/qr-image", {
+        state: {
+          singleViewDetail,
+          statsData,
+          statsDataSystem,
+          statsDataScanActivity,
+        },
+      });
 
       if (singleViewDetail?.id) {
         await apis.viewQrCode(singleViewDetail.id);
