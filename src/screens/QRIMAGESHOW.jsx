@@ -338,7 +338,7 @@ const QRIMAGESHOW = () => {
       <div className="userAnalyticscon">
         <div className="cardd">
           <FaQrcode />
-          <h3>Total QR</h3>
+          <h3>Total Views</h3>
           <p>{QRres?.statsData?.total_qr ? QRres?.statsData?.total_qr : "0"}</p>
         </div>
         <div className="cardd">
