@@ -1528,7 +1528,8 @@ footer .bottom p {
 
 .qr-main-page .bottom {
   background-color: #f6fafe;
-  padding: 10px;
+  padding: 12px;
+  border-radius: 6px;
 }
 .qr-main-page .bottom .all-qrCode-con {
 }

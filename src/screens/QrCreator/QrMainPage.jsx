@@ -25,6 +25,7 @@ import { MdDelete } from "react-icons/md";
 import apis from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
@@ -316,8 +317,8 @@ const QrMainPage = () => {
   };
   const handleViewDetail = async (singleViewDetail) => {
     try {
-      let userQrStats = await apis.getEachUserQRStat(singleViewDetail?.id);
-      let statsData = userQrStats?.data;
+      // let userQrStats = await apis.getEachUserQRStat(singleViewDetail?.id);
+      // let statsData = userQrStats?.data;
       let userQrSystem = await apis.getEachUserQRSystem(singleViewDetail?.id);
       let statsDataSystem = userQrSystem?.data;
       let userQrScanActivity = await apis.getEachUserQRScanActivity(
@@ -329,7 +330,7 @@ const QrMainPage = () => {
       navigate("/qr-image", {
         state: {
           singleViewDetail,
-          statsData,
+          // statsData,
           statsDataSystem,
           statsDataScanActivity,
         },
@@ -351,7 +352,7 @@ const QrMainPage = () => {
     try {
       let res = await apis.getSingleQr(id);
       let qrData = res.data;
-      console.log("qrDataEdit", qrData);
+      // console.log("qrDataEdit", qrData);
       navigate(`/qr-editor/${type}`, { state: { qrData } });
     } catch (error) {
       console.log("error", error);
@@ -359,6 +360,35 @@ const QrMainPage = () => {
       setLoadingMap((prev) => ({ ...prev, [id]: false }));
     }
   };
+
+  const SkeletonLoader = () => {
+    return (
+      <div className="qr-code-card-skeleton">
+        <div className="one-con">
+          <div className="img" />
+          <div className="text-con">
+            <div className="text1" />
+            <div className="text1" />
+          </div>
+        </div>
+        <div className="two-con">
+        <div className="text1" />
+        <div className="text1" />
+        </div>
+        <div className="three-con">
+        <div className="text1" />
+        <div className="text1" />
+        </div>
+        <div className="four-con">
+          <div className="btn"></div>
+          <div className="btn"></div>
+          <div className="btn"></div>
+          <div className="btn"></div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="qr-main-page">
       <div className="userDashboard">
@@ -375,9 +405,16 @@ const QrMainPage = () => {
             </div>
           </div>
           <SubscriptionPopup />
+
+          {/* Check if the data is still loading */}
           {isLoading ? (
-            <div className="loader-wrapper">
-              <div className="loaderr" />
+            <div className="bottom">
+              <div className="status-con">
+                {/* Render multiple skeleton cards */}
+                {[...Array(8)].map((_, index) => (
+                  <SkeletonLoader key={index} />
+                ))}
+              </div>
             </div>
           ) : (
             <div className="bottom">
@@ -389,16 +426,10 @@ const QrMainPage = () => {
 
                   return (
                     <div className="all-qrCode-con" key={index}>
-                      {/* {console.log("qrCode", qrCode)} */}
                       <div className="result-cardd">
                         <div className="one">
                           <div className="img-con" ref={qrCodeRef}>
                             {renderFrame(selectedFrame, qrCode?.style, qrCode)}
-
-                            {/* <img
-                              src="/assets/images/qr-code.png"
-                              alt="qr-code"
-                            /> */}
                           </div>
                           <div className="content-wrap">
                             <h4>{qrCode?.type}</h4>
@@ -406,7 +437,6 @@ const QrMainPage = () => {
                           </div>
                         </div>
                         <div className="two">
-                          {/* <p className="status">Draft</p> */}
                           <div className="modifiedDate-con">
                             <div className="wrap">
                               <CreatedIconDashboard />

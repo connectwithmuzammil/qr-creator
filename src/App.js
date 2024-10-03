@@ -2,6 +2,7 @@
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import "react-toastify/dist/ReactToastify.css";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { Route, Routes } from "react-router-dom";
 import {

@@ -18,6 +18,8 @@ import { LineChartComp, BarChartAnalytics } from "../components";
 import QRCodeStyling from "qr-code-styling";
 import { FaQrcode } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
+import apis from "../services";
+import Skeleton from "react-loading-skeleton";
 
 const QRIMAGESHOW = () => {
   const [dataOS, setDataOS] = useState([]);
@@ -81,7 +83,30 @@ const QRIMAGESHOW = () => {
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById("qrCode"));
-  }, []);
+  }, [qrCodeOptions]);
+
+  const [userQrStats, setUserQrStats] = useState(null);
+  const [isUserQRStatsLoading, setIsUserQRStatsLoading] = useState(true);
+  useEffect(() => {
+    const UserQRStat = async () => {
+      setIsUserQRStatsLoading(true);
+      try {
+        const fetchedUserQrStats = await apis.getEachUserQRStat(
+          QRres?.singleViewDetail?.id
+        );
+        setUserQrStats(fetchedUserQrStats);
+      } catch (error) {
+        console.error("Error fetching user QR stats:", error);
+      } finally {
+        setIsUserQRStatsLoading(false);
+      }
+    };
+    if (QRres?.singleViewDetail?.id) {
+      UserQRStat();
+    }
+  }, [QRres?.singleViewDetail?.id]);
+
+  console.log("userQrStats", userQrStats);
 
   const renderFrame = () => {
     switch (selectedFrame) {
@@ -318,17 +343,7 @@ const QRIMAGESHOW = () => {
   }));
 
   return (
-    <div
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      //   height: "100vh",
-      //   padding: "50px",
-      // }}
-      // className="qr-image-show-delete"
-      className="qrDetailsPage"
-    >
+    <div className="qrDetailsPage">
       <div className="qr-preview">
         <div className="img-con">
           {renderFrame()}
@@ -336,19 +351,26 @@ const QRIMAGESHOW = () => {
         </div>
       </div>
       <div className="userAnalyticscon">
-        <div className="cardd">
-          <FaQrcode />
-          <h3>Total Views</h3>
-          <p>{QRres?.statsData?.total_qr ? QRres?.statsData?.total_qr : "0"}</p>
-        </div>
-        <div className="cardd">
-          <AiOutlineEye />
-          <h3>Total Scan</h3>
-          <p>
-            {QRres?.statsData?.total_scan ? QRres?.statsData?.total_scan : "0"}
-          </p>
-        </div>
+      <div className="cardd">
+        <FaQrcode />
+        <h3>Total Views</h3>
+        {isUserQRStatsLoading ? (
+          <Skeleton width={100} height={20} />
+        ) : (
+          <p>{userQrStats?.data?.total_qr ? userQrStats?.data?.total_qr : "0"}</p>
+        )}
       </div>
+
+      <div className="cardd">
+        <AiOutlineEye />
+        <h3>Total Scan</h3>
+        {isUserQRStatsLoading ? (
+          <Skeleton width={100} height={20} />
+        ) : (
+          <p>{userQrStats?.data?.total_scan ? userQrStats?.data?.total_scan : "0"}</p>
+        )}
+      </div>
+    </div>
 
       <div className="graph-con" style={{ width: "100%", height: "400px" }}>
         <div className="main-filter-con">
