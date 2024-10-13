@@ -65,14 +65,14 @@ const ScanAndRedirectQr = () => {
     trackQrScan();
   }, [qrCodeId]);
 
+  console.log("outcome", outcomeContent);
   const renderTableContent = () => {
-    // Parse and display the outcome content (string with key-value pairs)
     const contentParts = outcomeContent.split(", ");
     return (
       <table className="content-table-scan">
         <thead>
           <tr>
-            <th>Key</th>
+            <th>Heading</th>
             <th>Value</th>
           </tr>
         </thead>
@@ -100,7 +100,7 @@ const ScanAndRedirectQr = () => {
       ) : error ? (
         <div>{error}</div>
       ) : outcomeContent ? (
-        <div className="table-wrapper">{renderTableContent()}</div> // Display content in table
+        <div className="table-wrapper">{renderTableContent()}</div>
       ) : (
         <div>Redirecting...</div>
       )}

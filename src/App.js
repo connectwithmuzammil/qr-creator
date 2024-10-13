@@ -2,7 +2,7 @@
 import "./assets/CSS/style.css";
 import "./assets/CSS/responsive.css";
 import "react-toastify/dist/ReactToastify.css";
-import 'react-loading-skeleton/dist/skeleton.css';
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { Route, Routes } from "react-router-dom";
 import {
@@ -46,7 +46,10 @@ function App() {
         <Route path="/*" element={<LandingPage />} />
         <Route path="/login" element={<LOGINSCREEN />} />
         {/* QR ROUTES */}
-        <Route path="/my-qr-codes" element={<QrMainPage />} />
+        <Route
+          path="/my-qr-codes"
+          element={<PrivateRoute element={QrMainPage} />}
+        />
 
         <Route path="/qr-editor" element={<QrCreator />} />
         <Route path="/qr-editor/:type" element={<QRDetail />} />

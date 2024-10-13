@@ -728,7 +728,7 @@ const QRDesign = () => {
             </div>
           </div>
           <div className="right">
-            <div className="qr-preview">
+            <div className="qr-preview design">
               <div className="img-con">
                 <img
                   src="/assets/images/phone-frame.jpeg"
