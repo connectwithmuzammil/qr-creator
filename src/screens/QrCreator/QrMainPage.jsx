@@ -25,7 +25,7 @@ import { MdDelete } from "react-icons/md";
 import apis from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import Skeleton from "react-loading-skeleton";
+import { IoLinkOutline } from "react-icons/io5";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
@@ -372,12 +372,12 @@ const QrMainPage = () => {
           </div>
         </div>
         <div className="two-con">
-        <div className="text1" />
-        <div className="text1" />
+          <div className="text1" />
+          <div className="text1" />
         </div>
         <div className="three-con">
-        <div className="text1" />
-        <div className="text1" />
+          <div className="text1" />
+          <div className="text1" />
         </div>
         <div className="four-con">
           <div className="btn"></div>
@@ -423,7 +423,7 @@ const QrMainPage = () => {
                 [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
                   const selectedFrame = qrCode?.style?.frameName;
                   const isLoading = loadingMap[qrCode.id];
-
+                  console.log("qrcodeee", qrCode);
                   return (
                     <div className="all-qrCode-con" key={index}>
                       <div className="result-cardd">
@@ -446,6 +446,25 @@ const QrMainPage = () => {
                               <ModifiedIconDashboard />
                               <h6>Modified: {qrCode?.updated_at}</h6>
                             </div>
+                            {qrCode?.type === "wifi" ? (
+                              ""
+                            ) : (
+                              <div className="wrap">
+                                <IoLinkOutline />
+                                <a
+                                  href={
+                                    qrCode.outcome.startsWith("http")
+                                      ? qrCode.outcome
+                                      : `http://${qrCode.outcome}`
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{ textDecoration: "none" }}
+                                >
+                                  <h6>{qrCode?.outcome}</h6>
+                                </a>
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="three">

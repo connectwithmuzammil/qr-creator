@@ -2,12 +2,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import apis from "../services";
+import {
+  QRPDF,
+  QRVCARD,
+  QRVIDEO,
+  QRYOUTUBE,
+} from "./QRScanRedirectUI/AllQRType";
 
 const ScanAndRedirectQr = () => {
   const { qrCodeId } = useParams();
   const [loading, setLoading] = useState(true);
-  const [outcomeContent, setOutcomeContent] = useState(null); // Store content outcome
-  const [error, setError] = useState(null); // Store error if any
+  const [outcomeContent, setOutcomeContent] = useState(null);
+  const [error, setError] = useState(null);
+  const [qrType, setQrType] = useState(null);
 
   // Function to detect the operating system
   const getOperatingSystem = () => {
@@ -22,10 +29,6 @@ const ScanAndRedirectQr = () => {
     return "Unknown OS";
   };
 
-  const isValidUrl = (outcome) => {
-    return outcome.startsWith("http://") || outcome.startsWith("https://");
-  };
-
   useEffect(() => {
     const trackQrScan = async () => {
       try {
@@ -38,17 +41,17 @@ const ScanAndRedirectQr = () => {
         console.log("DATATOSEND", dataToSend);
 
         let res = await apis.scanQrCode(dataToSend);
-        console.log("Response Scan QR Code", res);
+        console.log("Response Scan QR Code", res?.data);
 
-        if (res?.data?.outcome) {
+        if (res && res.data && res.data.outcome) {
           const outcome = res.data.outcome;
+          console.log("outcomeLog", outcome);
 
-          if (isValidUrl(outcome)) {
-            // Redirect if outcome is a valid URL
-            window.location.href = outcome;
+          if (outcome.type === "url") {
+            window.location.href = outcome.field_url;
           } else {
-            // Store content if it's not a URL
             setOutcomeContent(outcome);
+            setQrType(outcome?.type);
           }
         } else {
           console.error("Invalid response data", res);
@@ -65,30 +68,24 @@ const ScanAndRedirectQr = () => {
     trackQrScan();
   }, [qrCodeId]);
 
-  console.log("outcome", outcomeContent);
-  const renderTableContent = () => {
-    const contentParts = outcomeContent.split(", ");
-    return (
-      <table className="content-table-scan">
-        <thead>
-          <tr>
-            <th>Heading</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contentParts.map((part, index) => {
-            const [key, value] = part.split(": ");
-            return (
-              <tr key={index}>
-                <td>{key}</td>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    );
+  console.log("outcomeContent", outcomeContent);
+  useEffect(() => {
+    console.log("qrType", qrType);
+  }, [qrType]);
+
+  const renderContentByType = () => {
+    switch (qrType) {
+      case "youtube":
+        return <QRYOUTUBE qrContent={outcomeContent} />;
+      case "pdf":
+        return <QRPDF qrContent={outcomeContent} />;
+      case "video":
+        return <QRVIDEO qrContent={outcomeContent} />;
+      case "vcard":
+        return <QRVCARD qrContent={outcomeContent} />;
+      default:
+        return <div>Not Found</div>;
+    }
   };
 
   return (
@@ -100,7 +97,7 @@ const ScanAndRedirectQr = () => {
       ) : error ? (
         <div>{error}</div>
       ) : outcomeContent ? (
-        <div className="table-wrapper">{renderTableContent()}</div>
+        <div className="">{renderContentByType()}</div>
       ) : (
         <div>Redirecting...</div>
       )}

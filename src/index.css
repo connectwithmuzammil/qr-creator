@@ -156,10 +156,11 @@
 }
 
 .img {
-  flex: 0 0 80px; /* Fixed width for image */
-  height: 65px; /* Fixed height for image */
-  background-color: #e0e0e0; /* Light gray background */
-  border-radius: 4px; /* Rounded corners for image */
+  flex: 0 0 80px;
+  height: 65px; 
+  background-color: #e0e0e0; 
+  border-radius: 4px; 
+  border: 1px solid #e0201c;
 }
 
 .text-con {
