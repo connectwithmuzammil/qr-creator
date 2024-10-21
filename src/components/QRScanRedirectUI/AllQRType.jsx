@@ -2,6 +2,19 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   DribbleSocial,
   FacebookSocial,
+  FacilitiesAccommodationIcon,
+  FacilitiesBarIcon,
+  FacilitiesCafeIcon,
+  FacilitiesChildFriendlyIcon,
+  FacilitiesNearPublicTransportIcon,
+  FacilitiesParkingIcon,
+  FacilitiesPetFriendlyIcon,
+  FacilitiesRestaurantIcon,
+  FacilitiesRestroomIcon,
+  FacilitiesSeatingIcon,
+  FacilitiesTaxiIcon,
+  FacilitiesWheelChairAccessIcon,
+  FacilitiesWifiIcon,
   FlikrSocial,
   GithubSocial,
   InstagramSocial,
@@ -26,6 +39,7 @@ import { FaBuilding, FaFax } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoGlobeOutline } from "react-icons/io5";
 import { TbBriefcase2Filled } from "react-icons/tb";
+import { GoClockFill } from "react-icons/go";
 
 const icons = {
   facebook: <FacebookSocial />,
@@ -46,6 +60,21 @@ const icons = {
   vkontakte: <VkontakteSocial />,
   web: <WebSocial />,
   xing: <XingSocial />,
+};
+const FacilitiesIcon = {
+  Accommodation: <FacilitiesAccommodationIcon />,
+  Bar: <FacilitiesBarIcon />,
+  Cafe: <FacilitiesCafeIcon />,
+  ChildFriendly: <FacilitiesChildFriendlyIcon />,
+  Parking: <FacilitiesParkingIcon />,
+  PetFriendly: <FacilitiesPetFriendlyIcon />,
+  Restaurant: <FacilitiesRestaurantIcon />,
+  Restroom: <FacilitiesRestroomIcon />,
+  Seating: <FacilitiesSeatingIcon />,
+  NearPublicTransport: <FacilitiesNearPublicTransportIcon />,
+  Taxi: <FacilitiesTaxiIcon />,
+  WheelChairAccess: <FacilitiesWheelChairAccessIcon />,
+  Wifi: <FacilitiesWifiIcon />,
 };
 
 export const QRYOUTUBE = ({ qrContent }) => {
@@ -240,7 +269,6 @@ END:VCARD`;
 };
 
 export const QRVCARD = ({ qrContent }) => {
-  console.log("qrContent", qrContent);
   const handleDownloadVCard = () => {
     const vCardContent = createVCardContent({
       fullName: qrContent?.vcard_full_name || "Default Name",
@@ -269,7 +297,7 @@ export const QRVCARD = ({ qrContent }) => {
         width: "700px",
         flexDirection: "column",
         marginInline: "auto",
-        paddingTop:"40px"
+        paddingTop: "40px",
       }}
     >
       <div
@@ -602,7 +630,7 @@ export const QRVCARD = ({ qrContent }) => {
           width: "100%",
           paddingTop: "12px",
           paddingBottom: "12px",
-          textAlign:"center"
+          textAlign: "center",
         }}
       >
         {qrContent?.vcard_summary}
@@ -616,13 +644,463 @@ export const QRVCARD = ({ qrContent }) => {
           gap: "12px",
           width: "700px",
           paddingBottom: "40px",
-          paddingTop:"20px"
+          paddingTop: "20px",
         }}
       >
         {Object.entries(qrContent?.vcard_social).map(([key, url]) => {
           return (
             <a key={key} href={url} target="_blank" rel="noopener noreferrer">
               {icons[key] || null}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export const QRBUSINESS = ({ qrContent }) => {
+  return (
+    <div
+      style={{
+        background: qrContent?.color?.background,
+        paddingTop: "30px",
+        paddingBottom: "30px",
+      }}
+    >
+      <div
+        className="wrapp"
+        style={{
+          width: "700px",
+          marginInline: "auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        <h5>{qrContent?.business_company}</h5>
+        <img
+          src={qrContent?.business_logo}
+          alt="business_logo"
+          width={100}
+          height={100}
+          style={{ borderRadius: "100px" }}
+          loading="lazy"
+        />
+        <div
+          className="company-info"
+          style={{
+            backgroundColor: "#fff",
+            width: "700px",
+            padding: "16px",
+            textAlign: "center",
+          }}
+        >
+          <h6>{qrContent?.business_title}</h6>
+          <h6>{qrContent?.business_subtitle}</h6>
+        </div>
+
+        <button
+          style={{
+            background: qrContent?.color?.button,
+            width: "100%",
+            height: "40px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
+            color: "#fff",
+            marginTop: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              width: "100%",
+            }}
+            to={qrContent?.business_url}
+            target="_blank"
+          >
+            {qrContent?.business_btn_text || "BUSINESS URL"}
+          </Link>
+        </button>
+
+        <div
+          className="opening-hour"
+          style={{ background: "#fff", width: "100%", padding: "16px" }}
+        >
+          <div
+            className="top"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              marginBottom: "16px",
+            }}
+          >
+            <GoClockFill size={20} />
+            <h5
+              style={{
+                margin: "0",
+                fontSize: "16px",
+                fontWeight: "700",
+                color: "#404040",
+              }}
+            >
+              Opening hours
+            </h5>
+          </div>
+
+          {qrContent?.opening_hours_days &&
+            Object.entries(qrContent.opening_hours_days).map(
+              ([day, schedule]) =>
+                schedule.enabled === "true" && (
+                  <div
+                    key={day}
+                    style={{
+                      marginBottom: "8px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <strong>
+                      {day.charAt(0).toUpperCase() + day.slice(1)}:
+                    </strong>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {schedule.times.length > 0 ? (
+                        schedule.times.map((time, index) => (
+                          <span key={index}>
+                            {time.start} - {time.end}
+                          </span>
+                        ))
+                      ) : (
+                        <span>Closed</span>
+                      )}
+                    </div>
+                  </div>
+                )
+            )}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "start",
+            gap: "10px",
+            background: "#fff",
+            width: "100%",
+            padding: "16px",
+            flexDirection: "column",
+          }}
+          className="location-con"
+        >
+          <div
+            className="top"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+            }}
+          >
+            <FaLocationDot size={20} />
+            <h5
+              style={{
+                margin: "0",
+                fontSize: "16px",
+                fontWeight: "700",
+                color: "#404040",
+              }}
+            >
+              Location
+            </h5>
+          </div>
+
+          <div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                `${qrContent?.business_address} ${qrContent?.business_numeration}, ${qrContent?.business_country}, ${qrContent?.business_state}, ${qrContent?.business_postalcode}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                color: "#307fe2",
+              }}
+            >
+              {qrContent?.business_address}, {qrContent?.business_numeration},{" "}
+              {qrContent?.business_country}, Zip Code:{" "}
+              {qrContent?.business_postalcode}, {qrContent?.business_state}
+            </a>
+          </div>
+        </div>
+
+        <div
+          className="facilities-con"
+          style={{ background: "#fff", padding: "16px", width: "100%" }}
+        >
+          <h6>Facilities</h6>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {Object.entries(qrContent?.business_facilities).map(
+              ([key, url]) => {
+                return <div key={key}>{FacilitiesIcon[key] || null}</div>;
+              }
+            )}
+          </div>
+        </div>
+
+        <div
+          className="contact-info"
+          style={{ background: "#fff", width: "100%", padding: "16px" }}
+        >
+          <div
+            className="top"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              marginBottom: "16px",
+            }}
+          >
+            <FaBuilding size={20} />
+            <h5
+              style={{
+                margin: "0",
+                fontSize: "16px",
+                fontWeight: "700",
+                color: "#404040",
+              }}
+            >
+              Contact information
+            </h5>
+          </div>
+          <div className="bottom">
+            <div className="wrapp" style={{ marginBottom: "10px" }}>
+              <p
+                style={{
+                  color: "#8c8c8c",
+                  fontSize: "12px",
+                  margin: "0",
+                  lineHeight: "16px",
+                }}
+              >
+                Name
+              </p>
+              <h6 style={{ fontSize: "12px", margin: "0" }}>
+                {qrContent?.business_name}
+              </h6>
+            </div>
+
+            <div className="wrapp" style={{ marginBottom: "10px" }}>
+              <p
+                style={{
+                  color: "#8c8c8c",
+                  fontSize: "12px",
+                  margin: "0",
+                  lineHeight: "12px",
+                }}
+              >
+                Phone
+              </p>
+              <a
+                href={`tel:${qrContent?.business_phone}`}
+                style={{
+                  fontSize: "12px",
+                  margin: "0",
+                  textDecoration: "none",
+                }}
+              >
+                {qrContent?.business_phone}
+              </a>
+            </div>
+
+            <div className="wrapp" style={{ marginBottom: "10px" }}>
+              <p
+                style={{
+                  color: "#8c8c8c",
+                  fontSize: "12px",
+                  margin: "0",
+                  lineHeight: "8px",
+                }}
+              >
+                Email
+              </p>
+              <a
+                href={`mailto:${qrContent?.business_email}`}
+                style={{
+                  fontSize: "12px",
+                  margin: "0",
+                  textDecoration: "none",
+                }}
+              >
+                {qrContent?.business_email}
+              </a>
+            </div>
+
+            <div className="wrapp" style={{ marginBottom: "10px" }}>
+              <p
+                style={{
+                  color: "#8c8c8c",
+                  fontSize: "12px",
+                  margin: "0",
+                  lineHeight: "8px",
+                }}
+              >
+                Website
+              </p>
+              <a
+                href={qrContent?.business_website}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: "12px",
+                  margin: "0",
+                  textDecoration: "none",
+                }}
+              >
+                {qrContent?.business_website}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="about-company"
+          style={{ background: "#fff", width: "100%", padding: "16px" }}
+        >
+          <div
+            className="top"
+            style={{
+              display: "flex",
+              alignItems: "start",
+              gap: "6px",
+              flexDirection: "column",
+            }}
+          >
+            <h5
+              style={{
+                margin: "0",
+                fontSize: "16px",
+                color: "#404040",
+              }}
+            >
+              About the company
+            </h5>
+            <h6>{qrContent?.business_about || "ABOUT"}</h6>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "12px",
+            width: "700px",
+          }}
+        >
+          {Object.entries(qrContent?.business_social).map(([key, url]) => {
+            return (
+              <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+                {icons[key] || null}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const QRSOCIAL = ({ qrContent }) => {
+  console.log("qrContent", qrContent);
+  return (
+    <div
+      style={{
+        paddingTop: "30px",
+        paddingBottom: "30px",
+        width: "700px",
+        marginInline: "auto",
+        height: "100vh",
+      }}
+    >
+      <div
+        className="wrapp"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "20px",
+          background: qrContent?.color?.background,
+          padding: "16px",
+          marginBottom: "16px",
+        }}
+      >
+        <img
+          src={qrContent?.image_path}
+          alt="social"
+          style={{
+            width: "250px",
+            height: "250px",
+            objectFit: "contain",
+            borderRadius: "8px",
+          }}
+        />
+        <h5 style={{ margin: "0" }}>{qrContent?.media_headline}</h5>
+        <h6 style={{ margin: "0", fontSize: "14px" }}>
+          {qrContent?.media_description}
+        </h6>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          gap: "12px",
+          width: "700px",
+        }}
+      >
+        {Object.entries(qrContent?.media_social).map(([key, url]) => {
+          return (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                borderBottom: "1px solid #d9d9d9",
+                paddingBottom: "8px",
+                display: "flex",
+                textDecoration: "none",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              {icons[key] || null}
+              <p
+                style={{
+                  color: "#000",
+                  fontWeight: "600",
+                  margin: "0",
+                  textTransform: "capitalize",
+                }}
+              >
+                {key}
+              </p>
             </a>
           );
         })}
