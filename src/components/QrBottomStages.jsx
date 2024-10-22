@@ -32,46 +32,13 @@ function BottomWrapperStages({
       toast.error(message);
     },
     onSuccess: ({ data: generateQr, status }) => {
-      // console.log("QR code generated successfully", generateQr);
       toast.success("QR code generated successfully");
       navigate("/my-qr-codes");
-      // navigate("/pricing");
-      // navigate("/qr-image", { state: { generateQr } });
+
     },
   });
 
-  const appendBase64ToFormData = (formData, base64Data, fieldName) => {
-    if (base64Data) {
-      // Convert base64 to a Blob
-      const base64String = base64Data.split(",")[1];
-      const byteCharacters = atob(base64String);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
 
-      // Determine MIME type from base64 string
-      const mimeType = base64Data.split(";")[0].split(":")[1];
-      const blob = new Blob([byteArray], { type: mimeType });
-
-      // Derive file extension from MIME type
-      let extension = "png";
-      if (mimeType.includes("jpeg")) {
-        extension = "jpg";
-      } else if (mimeType.includes("svg")) {
-        extension = "svg";
-      } else if (mimeType.includes("gif")) {
-        extension = "gif";
-      } else if (mimeType.includes("webp")) {
-        extension = "webp";
-      }
-
-      // Create a default file name if needed, or use the field name
-      const fileName = `${fieldName}.${extension}`;
-      // formData.append(fieldName, blob, fileName);
-    }
-  };
 
   const handleNextClick = async () => {
     if (isLastStage) {
@@ -264,7 +231,8 @@ function BottomWrapperStages({
           key !== "pdf_file" &&
           key !== "app_social" &&
           key !== "video_social" &&
-          key !== "landing_social"
+          key !== "landing_social" &&
+          key !== "all_links" 
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
@@ -280,6 +248,7 @@ function BottomWrapperStages({
         generateQrPayload.all_links.forEach((link, index) => {
           formData.append(`all_links[${index}][text]`, link.text);
           formData.append(`all_links[${index}][url]`, link.url);
+          formData.append(`all_links[${index}][link_image]`, link.image);
         });
       }
 

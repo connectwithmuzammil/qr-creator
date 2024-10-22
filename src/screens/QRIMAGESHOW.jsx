@@ -32,15 +32,15 @@ const QRIMAGESHOW = () => {
 
   const qrCode = useRef(null);
 
-  const [selectedFrame, setSelectedFrame] = useState(
-    QRres?.singleViewDetail?.style?.frameName
-  );
+  const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
   console.log("selectedFrame", selectedFrame);
-  // useEffect(() => {
-  //   setSelectedFrame(QRres.generateQr?.data?.style?.frameName);
-  // }, [QRres.generateQ]);
 
-  let data = QRres?.singleViewDetail?.outcome;
+  let typeWifiData = `WIFI:S:${QRres?.singleViewDetail?.network_name};T:${QRres?.singleViewDetail?.network_security_type};P:${QRres?.singleViewDetail?.password};;`;
+
+  let data =
+    QRres?.singleViewDetail?.type === "wifi"
+      ? typeWifiData
+      : QRres?.singleViewDetail?.outcome;
   console.log("QRres?.singleViewDetail?.outcome", data);
   let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
   let CornerbgColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
@@ -351,26 +351,32 @@ const QRIMAGESHOW = () => {
         </div>
       </div>
       <div className="userAnalyticscon">
-      <div className="cardd">
-        <FaQrcode />
-        <h3>Total Views</h3>
-        {isUserQRStatsLoading ? (
-          <Skeleton width={100} height={20} />
-        ) : (
-          <p>{userQrStats?.data?.total_qr ? userQrStats?.data?.total_qr : "0"}</p>
-        )}
-      </div>
+        <div className="cardd">
+          <FaQrcode />
+          <h3>Total Views</h3>
+          {isUserQRStatsLoading ? (
+            <Skeleton width={100} height={20} />
+          ) : (
+            <p>
+              {userQrStats?.data?.total_qr ? userQrStats?.data?.total_qr : "0"}
+            </p>
+          )}
+        </div>
 
-      <div className="cardd">
-        <AiOutlineEye />
-        <h3>Total Scan</h3>
-        {isUserQRStatsLoading ? (
-          <Skeleton width={100} height={20} />
-        ) : (
-          <p>{userQrStats?.data?.total_scan ? userQrStats?.data?.total_scan : "0"}</p>
-        )}
+        <div className="cardd">
+          <AiOutlineEye />
+          <h3>Total Scan</h3>
+          {isUserQRStatsLoading ? (
+            <Skeleton width={100} height={20} />
+          ) : (
+            <p>
+              {userQrStats?.data?.total_scan
+                ? userQrStats?.data?.total_scan
+                : "0"}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
 
       <div className="graph-con" style={{ width: "100%", height: "400px" }}>
         <div className="main-filter-con">

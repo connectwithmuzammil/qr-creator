@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import apis from "../services";
 import {
+  QRAPPS,
   QRBUSINESS,
+  QRGALLERY,
+  QRLINK,
   QRPDF,
   QRSOCIAL,
   QRVCARD,
@@ -89,6 +92,12 @@ const ScanAndRedirectQr = () => {
         return <QRBUSINESS qrContent={outcomeContent} />;
       case "social_media":
         return <QRSOCIAL qrContent={outcomeContent} />;
+      case "apps":
+        return <QRAPPS qrContent={outcomeContent} />;
+      case "links":
+        return <QRLINK qrContent={outcomeContent} />;
+      case "image_gallery":
+        return <QRGALLERY qrContent={outcomeContent} />;
       default:
         return <div>Not Found</div>;
     }

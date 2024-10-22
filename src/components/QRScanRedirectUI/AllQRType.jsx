@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
+  AmazonSocial,
+  AppStoreSocial,
   DribbleSocial,
   FacebookSocial,
   FacilitiesAccommodationIcon,
@@ -17,6 +19,7 @@ import {
   FacilitiesWifiIcon,
   FlikrSocial,
   GithubSocial,
+  GooglePlaySocial,
   InstagramSocial,
   LineSocial,
   LinkedinSocial,
@@ -75,6 +78,11 @@ const FacilitiesIcon = {
   Taxi: <FacilitiesTaxiIcon />,
   WheelChairAccess: <FacilitiesWheelChairAccessIcon />,
   Wifi: <FacilitiesWifiIcon />,
+};
+const iconsApps = {
+  googlePlay: <GooglePlaySocial />,
+  appStore: <AppStoreSocial />,
+  amazon: <AmazonSocial />,
 };
 
 export const QRYOUTUBE = ({ qrContent }) => {
@@ -1025,7 +1033,6 @@ export const QRBUSINESS = ({ qrContent }) => {
 };
 
 export const QRSOCIAL = ({ qrContent }) => {
-  console.log("qrContent", qrContent);
   return (
     <div
       style={{
@@ -1105,6 +1112,265 @@ export const QRSOCIAL = ({ qrContent }) => {
           );
         })}
       </div>
+    </div>
+  );
+};
+
+export const QRAPPS = ({ qrContent }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        background: qrContent?.color?.background,
+        flexDirection: "column",
+        gap: "25px",
+      }}
+    >
+      <div
+        className="box1"
+        style={{
+          width: "700px",
+          marginInline: "auto",
+          background: qrContent?.color?.button,
+          height: "62px",
+        }}
+      >
+        <div
+          className="img-con"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "25px",
+          }}
+        >
+          <img
+            src={qrContent?.image_path}
+            alt="app img"
+            style={{
+              width: "96px",
+              height: "96px",
+              borderRadius: "12px",
+            }}
+          />
+        </div>
+      </div>
+      <div className="text" style={{ marginTop: "60px", textAlign: "center" }}>
+        <h5>{qrContent?.app_name}</h5>
+        <h6>{qrContent?.app_company}</h6>
+        <h6>{qrContent?.app_description}</h6>
+      </div>
+      <div
+        className="box"
+        style={{
+          width: "700px",
+          marginInline: "auto",
+          background: qrContent?.color?.button,
+          padding: "25px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "12px",
+            width: "700px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {Object.entries(qrContent?.app_social).map(([key, url]) => {
+            return (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{}}
+              >
+                {iconsApps[key] || null}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+      <a
+        href={qrContent?.app_website}
+        target="_blank"
+        style={{ textDecoration: "none" }}
+      >
+        {qrContent?.app_website}
+      </a>
+    </div>
+  );
+};
+export const QRLINK = ({ qrContent }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // height: "100vh",
+        minHeight: "100vh",
+        background: qrContent?.color?.background,
+        flexDirection: "column",
+        gap: "25px",
+        paddingTop: "40px",
+        paddingBottom: "30px",
+      }}
+    >
+      <img
+        src={qrContent?.image_path}
+        alt="link"
+        style={{ width: "300px", objectFit: "cover" }}
+      />
+      <div className="text" style={{ textAlign: "center" }}>
+        <h5>{qrContent?.links_title}</h5>
+        <h6>{qrContent?.links_description}</h6>
+      </div>
+
+      <div
+        className="linkbox-con"
+        style={{
+          width: "700px",
+          display: "flex",
+          gap: "12px",
+          flexDirection: "column",
+        }}
+      >
+        {qrContent?.all_links?.map((link, index) => (
+          <Link
+            className="linkbox"
+            style={{
+              background: qrContent?.color?.button,
+              width: "100%",
+              display: "flex",
+              justifyContent: "start",
+              alignItems: "center",
+              padding: "12px",
+              borderRadius: "6px",
+              color: "#fff",
+              textDecoration: "none",
+              gap: "50px",
+            }}
+            to={link?.url}
+            target="_blank"
+          >
+            <img src={link?.link_image} alt="" />
+            <h6> {link?.text}</h6>
+          </Link>
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "12px",
+          width: "700px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {Object.entries(qrContent?.links_social).map(([key, url]) => {
+          return (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{}}
+            >
+              {icons[key] || null}
+            </a>
+          );
+        })}
+      </div>
+      <a
+        href={qrContent?.app_website}
+        target="_blank"
+        style={{ textDecoration: "none" }}
+      >
+        {qrContent?.app_website}
+      </a>
+    </div>
+  );
+};
+export const QRGALLERY = ({ qrContent }) => {
+  console.log("qrContent", qrContent);
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // height: "100vh",
+        minHeight: "100vh",
+        background: qrContent?.color?.background,
+        flexDirection: "column",
+        gap: "25px",
+        paddingTop: "40px",
+        paddingBottom: "30px",
+      }}
+    >
+      <div className="text" style={{ textAlign: "center" }}>
+        <h5>{qrContent?.gallery_title}</h5>
+        <h6>{qrContent?.gallery_description}</h6>
+      </div>
+      <div
+        className="box"
+        style={{ background: "#fff", height: "400px", textAlign: "center" }}
+      >
+        <div
+          className="box-wrap"
+          style={{
+            width: "700px",
+            background: qrContent?.color?.button,
+            padding: "16px",
+            textAlign: "center",
+            height: "150px",
+          }}
+        >
+          <img
+            src={qrContent?.image_path}
+            alt="link"
+            style={{ width: "300px", objectFit: "cover", borderRadius: "6px",height:"300px" }}
+          />
+        </div>
+        <button
+          style={{
+            background: qrContent?.color?.button,
+            width: "90%",
+            height: "42px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
+            color: "#fff",
+            marginTop: "12px",
+            marginBottom: "16px",
+            marginTop:"180px"
+          }}
+        >
+          <Link
+            to={qrContent?.gallery_url}
+            target="_blank"
+            style={{ textDecoration: "none", color: "#fff" }}
+          >
+            {qrContent?.video_button || "Gallery"}
+          </Link>
+        </button>
+      </div>
+
+      <a
+        href={qrContent?.gallery_website}
+        target="_blank"
+        style={{ textDecoration: "none" }}
+      >
+        {qrContent?.gallery_website}
+      </a>
     </div>
   );
 };

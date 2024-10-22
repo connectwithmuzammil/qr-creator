@@ -418,106 +418,138 @@ const QrMainPage = () => {
             </div>
           ) : (
             <div className="bottom">
-              <div className="status-con"></div>
-              {getALLQrCodes?.data.length > 0 &&
-                [...getALLQrCodes?.data]?.reverse().map((qrCode, index) => {
-                  const selectedFrame = qrCode?.style?.frameName;
-                  const isLoading = loadingMap[qrCode.id];
-                  console.log("qrcodeee", qrCode);
-                  return (
-                    <div className="all-qrCode-con" key={index}>
-                      <div className="result-cardd">
-                        <div className="one">
-                          <div className="img-con" ref={qrCodeRef}>
-                            {renderFrame(selectedFrame, qrCode?.style, qrCode)}
-                          </div>
-                          <div className="content-wrap">
-                            <h4>{qrCode?.type}</h4>
-                            <h3>{qrCode?.qr_name}</h3>
-                          </div>
-                        </div>
-                        <div className="two">
-                          <div className="modifiedDate-con">
-                            <div className="wrap">
-                              <CreatedIconDashboard />
-                              <h6>Created: {qrCode?.created_at}</h6>
+              {getALLQrCodes?.data && getALLQrCodes?.data.length > 0 ? (
+                <>
+                  {[...getALLQrCodes.data]?.reverse().map((qrCode, index) => {
+                    const selectedFrame = qrCode?.style?.frameName;
+                    const isLoading = loadingMap[qrCode.id];
+                    console.log("qrcodeee", qrCode);
+                    return (
+                      <div className="all-qrCode-con" key={qrCode.id}>
+                        <div className="result-cardd">
+                          <div className="one">
+                            <div className="img-con" ref={qrCodeRef}>
+                              {renderFrame(
+                                selectedFrame,
+                                qrCode?.style,
+                                qrCode
+                              )}
                             </div>
-                            <div className="wrap">
-                              <ModifiedIconDashboard />
-                              <h6>Modified: {qrCode?.updated_at}</h6>
+                            <div className="content-wrap">
+                              <h4>
+                                {qrCode?.type === "social_media"
+                                  ? "Social Media"
+                                  : qrCode?.type === "image_gallery"
+                                  ? "Image Gallery"
+                                  : qrCode?.type === "business_page"
+                                  ? "Business"
+                                  : qrCode?.type}
+                              </h4>
+                              <h3>{qrCode?.qr_name}</h3>
                             </div>
-                            {qrCode?.type === "wifi" ? (
-                              ""
-                            ) : (
+                          </div>
+                          <div className="two">
+                            <div className="modifiedDate-con">
                               <div className="wrap">
-                                <IoLinkOutline />
-                                <a
-                                  href={
-                                    qrCode.outcome.startsWith("http")
-                                      ? qrCode.outcome
-                                      : `http://${qrCode.outcome}`
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  style={{ textDecoration: "none" }}
-                                >
-                                  <h6>{qrCode?.outcome}</h6>
-                                </a>
+                                <CreatedIconDashboard />
+                                <h6>Created: {qrCode?.created_at}</h6>
                               </div>
-                            )}
+                              <div className="wrap">
+                                <ModifiedIconDashboard />
+                                <h6>Modified: {qrCode?.updated_at}</h6>
+                              </div>
+                              {qrCode?.type !== "wifi" && (
+                                <div className="wrap">
+                                  <IoLinkOutline />
+                                  <a
+                                    href={
+                                      qrCode.outcome.startsWith("http")
+                                        ? qrCode.outcome
+                                        : `http://${qrCode.outcome}`
+                                    }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ textDecoration: "none" }}
+                                  >
+                                    <h6>{qrCode?.outcome}</h6>
+                                  </a>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                        <div className="three">
-                          <p>Scans</p>
-                          <h1>
-                            {qrCode?.scan_count ? qrCode?.scan_count : "0"}
-                          </h1>
-                        </div>
-                        <div className="four">
-                          <p onClick={() => handleViewDetail(qrCode)}>
-                            View details
-                          </p>
-                          <p
-                            onClick={() => handleEdit(qrCode?.id, qrCode.type)}
-                          >
-                            {isLoading ? (
-                              "Loading..."
-                            ) : (
-                              <>
-                                Edit
-                                <span>
-                                  <MdEdit size={14} />
-                                </span>
-                              </>
-                            )}
-                          </p>
-                          <p onClick={() => handleDownload(qrCode)}>
-                            Download
-                            <span>
-                              <MdDownload size={18} />
-                            </span>
-                          </p>
-                          <div className="delete-box">
-                            <p
-                              onClick={() => handleDeleteBoxToggle(qrCode?.id)}
-                            >
-                              <BsThreeDotsVertical size={18} />
+                          <div className="three">
+                            <p>Scans</p>
+                            <h1>
+                              {qrCode?.scan_count ? qrCode?.scan_count : "0"}
+                            </h1>
+                          </div>
+                          <div className="four">
+                            <p onClick={() => handleViewDetail(qrCode)}>
+                              View details
                             </p>
-                            {showDeleteBox === qrCode?.id && (
-                              <div className="box">
-                                <MdDelete
-                                  className="delete-icon"
-                                  onClick={() => handleDelete(qrCode.id)}
-                                />
-                                <h4>Delete</h4>
-                              </div>
-                            )}
+                            <p
+                              onClick={() =>
+                                handleEdit(qrCode?.id, qrCode.type)
+                              }
+                            >
+                              {isLoading ? (
+                                "Loading..."
+                              ) : (
+                                <>
+                                  Edit
+                                  <span>
+                                    <MdEdit size={14} />
+                                  </span>
+                                </>
+                              )}
+                            </p>
+                            <p onClick={() => handleDownload(qrCode)}>
+                              Download
+                              <span>
+                                <MdDownload size={18} />
+                              </span>
+                            </p>
+                            <div className="delete-box">
+                              <p
+                                onClick={() =>
+                                  handleDeleteBoxToggle(qrCode?.id)
+                                }
+                              >
+                                <BsThreeDotsVertical size={18} />
+                              </p>
+                              {showDeleteBox === qrCode?.id && (
+                                <div className="box">
+                                  <MdDelete
+                                    className="delete-icon"
+                                    onClick={() => handleDelete(qrCode.id)}
+                                  />
+                                  <h4>Delete</h4>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </>
+              ) : (
+                <div className="no-qr-found">
+                  <img
+                    src="/assets/images/noQRFound.jpg"
+                    alt="No QR Codes"
+                    className="no-qr-image"
+                  />
+                  <h2>No QR Codes Found</h2>
+                  <p>
+                    You haven’t created any QR codes yet. Start by creating your
+                    first one to track and manage your QR codes easily.
+                  </p>
+                  <button className="create-qr-btn">
+                    <Link to={"/qr-editor"}>Create QR Code</Link>
+                  </button>
+                </div>
+              )}
 
               <div className="pagination-con"></div>
             </div>
