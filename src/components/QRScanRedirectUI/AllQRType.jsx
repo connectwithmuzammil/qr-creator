@@ -1300,7 +1300,6 @@ export const QRLINK = ({ qrContent }) => {
   );
 };
 export const QRGALLERY = ({ qrContent }) => {
-  console.log("qrContent", qrContent);
   return (
     <div
       style={{
@@ -1337,7 +1336,12 @@ export const QRGALLERY = ({ qrContent }) => {
           <img
             src={qrContent?.image_path}
             alt="link"
-            style={{ width: "300px", objectFit: "cover", borderRadius: "6px",height:"300px" }}
+            style={{
+              width: "300px",
+              objectFit: "cover",
+              borderRadius: "6px",
+              height: "300px",
+            }}
           />
         </div>
         <button
@@ -1351,7 +1355,7 @@ export const QRGALLERY = ({ qrContent }) => {
             color: "#fff",
             marginTop: "12px",
             marginBottom: "16px",
-            marginTop:"180px"
+            marginTop: "180px",
           }}
         >
           <Link
@@ -1371,6 +1375,100 @@ export const QRGALLERY = ({ qrContent }) => {
       >
         {qrContent?.gallery_website}
       </a>
+    </div>
+  );
+};
+export const QRLANDING = ({ qrContent }) => {
+  console.log("qrContent", qrContent);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // height: "100vh",
+        minHeight: "100vh",
+        background: qrContent?.color?.background,
+        flexDirection: "column",
+        gap: "25px",
+        paddingTop: "40px",
+        paddingBottom: "40px",
+      }}
+    >
+      <h6>{qrContent?.landing_company}</h6>
+      <img
+        src={qrContent?.landing_logo}
+        alt=""
+        style={{
+          width: "300px",
+          objectFit: "cover",
+          height: "300px",
+          position: "relative",
+          zIndex: "10",
+        }}
+      />
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          alignItems: "center",
+        }}
+      >
+        <h6 style={{ fontWeight: "600" }}> {qrContent?.landing_title}</h6>
+        <h6> {qrContent?.landing_subtitle} </h6>
+
+        <button
+          style={{
+            background: qrContent?.color?.button,
+            width: "90%",
+            height: "42px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
+            color: "#fff",
+          }}
+        >
+          <Link
+            to={qrContent?.landing_action_url}
+            target="_blank"
+            style={{ textDecoration: "none", color: "#fff" }}
+          >
+            {qrContent?.landing_button || "landing"}
+          </Link>
+        </button>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "12px",
+            width: "700px",
+            justifyContent: "center",
+            marginTop: "12px",
+          }}
+        >
+          {Object.entries(qrContent?.landing_social).map(([key, url]) => {
+            return (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{}}
+              >
+                {icons[key] || null}
+              </a>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

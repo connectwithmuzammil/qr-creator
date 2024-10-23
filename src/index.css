@@ -143,27 +143,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9; 
-  border-radius: 10px; 
-  padding: 12px; 
-  margin-bottom: 20px; 
-  animation: pulse 1.5s infinite;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  ); 
+  background-size: 200% 100%; 
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 20px;
   height: 80px;
+  animation: shimmer 1.5s infinite;
 }
 
-.one-con {
-  display: flex; 
+
+.qr-code-card-skeleton .one-con {
+  display: flex;
 }
 
-.img {
+.qr-code-card-skeleton .img {
   flex: 0 0 80px;
-  height: 65px; 
-  background-color: #e0e0e0; 
-  border-radius: 4px; 
+  height: 65px;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  ); 
+  background-size: 200% 100%; 
+  border-radius: 4px;
   border: 1px solid #e0201c;
+  animation: shimmer 1.5s infinite; 
 }
 
-.text-con {
+.qr-code-card-skeleton .text-con {
   flex-grow: 1;
   margin-left: 15px;
   display: flex;
@@ -172,32 +186,33 @@
   justify-content: center;
 }
 
-.text1 {
-  background-color: #e0e0e0; 
-  border-radius: 5px; 
-  margin-bottom: 5px; 
+.qr-code-card-skeleton .text1 {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 5px;
   height: 10px;
-  width: 80px; 
+  width: 80px;
 }
 
-.two-con, .three-con {
-  display: flex; 
-  flex-direction: column; 
+.qr-code-card-skeleton .two-con,
+.qr-code-card-skeleton .three-con {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.two-con .text1, .three-con .text1 {
+.qr-code-card-skeleton .two-con .text1,
+.qr-code-card-skeleton .three-con .text1 {
   height: 10px;
-  width: 200px; 
-  
+  width: 200px;
 }
 
-.four-con {
-  display: flex; 
-  gap: 10px; 
+.qr-code-card-skeleton .four-con {
+  display: flex;
+  gap: 10px;
 }
 
-.btn {
+.qr-code-card-skeleton .btn {
   background-color: #e0e0e0; /* Light gray background for buttons */
   border-radius: 5px; /* Rounded corners for buttons */
   height: 35px; /* Height for buttons */
@@ -214,5 +229,14 @@
   }
   100% {
     background-color: #e0e0e0; /* Ending color */
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }

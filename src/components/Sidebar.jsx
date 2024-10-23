@@ -34,7 +34,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  // console.log("user", user?.user);
+  console.log("user", user?.user);
   // State to control the sidebar and toggle between MenuIcon and CloseIcon
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [state, setState] = React.useState({
@@ -348,6 +348,40 @@ const Sidebar = () => {
           </ListItemButton>
         </ListItem>
       </List>
+      <Divider
+        sx={{
+          opacity: "1",
+          backgroundColor: "#307fe2",
+          borderwwidth: "1px",
+          height: "1px",
+          margin: "0px 30px 0px 30px",
+        }}
+      />
+
+      <ListItemText
+        sx={{
+          color: "#fff",
+          margin: "20px 30px 30px 50px",
+        }}
+        primary={user?.user?.email}
+        className=""
+      />
+      {/* 
+        <svg
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ color: "#fff", fontSize: "30px", cursor: "pointer" }}
+        >
+          <path d="m11 17-5-5 5-5"></path>
+          <path d="m18 17-5-5 5-5"></path>
+        </svg> */}
     </Box>
   );
 

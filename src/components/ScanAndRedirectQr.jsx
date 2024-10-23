@@ -6,6 +6,7 @@ import {
   QRAPPS,
   QRBUSINESS,
   QRGALLERY,
+  QRLANDING,
   QRLINK,
   QRPDF,
   QRSOCIAL,
@@ -98,6 +99,8 @@ const ScanAndRedirectQr = () => {
         return <QRLINK qrContent={outcomeContent} />;
       case "image_gallery":
         return <QRGALLERY qrContent={outcomeContent} />;
+      case "landing":
+        return <QRLANDING qrContent={outcomeContent} />;
       default:
         return <div>Not Found</div>;
     }

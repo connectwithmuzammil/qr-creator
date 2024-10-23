@@ -51,7 +51,10 @@ function App() {
           element={<PrivateRoute element={QrMainPage} />}
         />
 
-        <Route path="/qr-editor" element={<QrCreator />} />
+        <Route
+          path="/qr-editor"
+          element={<PrivateRoute element={QrCreator} />}
+        />
         <Route path="/qr-editor/:type" element={<QRDetail />} />
         <Route path="/qr-editor/:type/design" element={<QRDesign />} />
         <Route path="/my-qr-analytics" element={<QrAnalytics />} />
