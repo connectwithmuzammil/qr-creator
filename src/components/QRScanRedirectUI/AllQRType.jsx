@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AmazonSocial,
   AppStoreSocial,
@@ -38,7 +39,14 @@ import {
 import { IoMdPersonAdd } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill, BsFillTelephonePlusFill } from "react-icons/bs";
-import { FaBuilding, FaFax } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaFax,
+  FaGoogle,
+  FaCalendarAlt,
+  FaYahoo,
+  FaCalendarPlus,
+} from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoGlobeOutline, IoPeopleCircle } from "react-icons/io5";
 import { TbBriefcase2Filled } from "react-icons/tb";
@@ -1366,7 +1374,7 @@ export const QRGALLERY = ({ qrContent }) => {
             target="_blank"
             style={{ textDecoration: "none", color: "#fff" }}
           >
-            {qrContent?.video_button || "Gallery"}
+            {qrContent?.gallery_btn_text || "Gallery"}
           </Link>
         </button>
       </div>
@@ -1477,6 +1485,42 @@ export const QRLANDING = ({ qrContent }) => {
 export const QREVENT = ({ qrContent }) => {
   console.log("qrContent", qrContent);
 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const calendarUrls = {
+    iCal: `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+      qrContent.event_title
+    )}&dates=${qrContent.event_time_start}/${
+      qrContent.event_time_end
+    }&details=${encodeURIComponent(
+      qrContent.event_description
+    )}&location=${encodeURIComponent(qrContent.event_location_address)}`,
+    Google: `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+      qrContent.event_title
+    )}&dates=${qrContent.event_time_start}/${
+      qrContent.event_time_end
+    }&details=${encodeURIComponent(
+      qrContent.event_description
+    )}&location=${encodeURIComponent(qrContent.event_location_address)}`,
+    Outlook: `https://outlook.live.com/owa/?path=/calendar/action/compose&subject=${encodeURIComponent(
+      qrContent.event_title
+    )}&startdt=${qrContent.event_time_start}&enddt=${
+      qrContent.event_time_end
+    }&body=${encodeURIComponent(
+      qrContent.event_description
+    )}&location=${encodeURIComponent(qrContent.event_location_address)}`,
+    Yahoo: `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(
+      qrContent.event_title
+    )}&st=${qrContent.event_time_start}&et=${
+      qrContent.event_time_end
+    }&desc=${encodeURIComponent(
+      qrContent.event_description
+    )}&in_loc=${encodeURIComponent(qrContent.event_location_address)}`,
+  };
   return (
     <div
       style={{
@@ -1543,7 +1587,7 @@ export const QREVENT = ({ qrContent }) => {
             }}
           >
             <LuExternalLink />
-            {qrContent?.event_button || "Event"}
+            {qrContent?.event_btn_text || "Event"}
           </Link>
         </button>
       </div>
@@ -1605,34 +1649,82 @@ export const QREVENT = ({ qrContent }) => {
           </h6>
         </div>
 
-        <button
-          style={{
-            background: qrContent?.color?.button,
-            height: "42px",
-            borderRadius: "4px",
-            outline: "none",
-            border: "none",
-            color: "#fff",
-            width: "240px",
-            marginInline: "auto",
-          }}
-        >
-          <Link
-            // to={qrContent?.event_time_action_title}
-            // target="_blank"
+        <div style={{ position: "relative" }}>
+          <button
+            onClick={toggleDropdown}
             style={{
-              textDecoration: "none",
+              background: qrContent?.color?.button,
+              height: "42px",
+              borderRadius: "8px",
+              outline: "none",
+              border: "none",
               color: "#fff",
+              width: "240px",
+              marginInline: "auto",
               display: "flex",
               alignItems: "center",
-              gap: "6px",
               justifyContent: "center",
+              gap: "8px",
+              cursor: "pointer",
             }}
           >
             <CiCalendar size={22} />
-            {qrContent?.event_time_action_title || "Event"}
-          </Link>
-        </button>
+            Add to Calendar
+          </button>
+          {isDropdownOpen && (
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "#fff",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                borderRadius: "8px",
+                overflow: "hidden",
+                zIndex: 10,
+                width: "240px",
+              }}
+            >
+              {Object.keys(calendarUrls).map((key) => (
+                <a
+                  key={key}
+                  href={calendarUrls[key]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "12px 16px",
+                    color: "#333",
+                    textDecoration: "none",
+                    fontSize: "16px",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "#f0f0f0")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
+                >
+                  {key === "Google" && (
+                    <FaGoogle style={{ marginRight: "8px" }} />
+                  )}
+                  {key === "iCal" && (
+                    <FaCalendarAlt style={{ marginRight: "8px" }} />
+                  )}
+                  {key === "Outlook" && (
+                    <FaCalendarPlus style={{ marginRight: "8px" }} />
+                  )}
+                  {key === "Yahoo" && (
+                    <FaYahoo style={{ marginRight: "8px" }} />
+                  )}
+                  {key}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div
@@ -1787,6 +1879,7 @@ export const QREVENT = ({ qrContent }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            gap: "8px",
           }}
         >
           {Object.entries(qrContent?.event_facilities).map(([key, url]) => {

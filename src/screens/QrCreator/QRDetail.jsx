@@ -73,6 +73,7 @@ const QRDetail = () => {
     gallery_description: "",
     gallery_website: "",
     gallery_url: "",
+    gallery_btn_text: "",
 
     //LINKS
     links_image: "",
@@ -110,12 +111,14 @@ const QRDetail = () => {
     business_company: "", //
     business_subtitle: "", //
     business_title: "", //
+    business_btn_text: "", //
     business_address: "", //
     business_city: "", //
     business_country: "", //
     business_numeration: "", //
     business_postalcode: "", //
     business_state: "", //
+    business_about: "", //
 
     opening_hours_days: {
       monday: { enabled: false, times: [] },
@@ -163,6 +166,7 @@ const QRDetail = () => {
     event_time_timezone: "",
     event_image: "",
     event_facilities: "",
+    event_btn_text: "",
 
     type: "",
     style: {
@@ -303,6 +307,7 @@ const QRDetail = () => {
               color: qrData.color,
               gallery_image: qrData.gallery_image,
               gallery_title: qrData.gallery_title,
+              gallery_btn_text: qrData.gallery_btn_text,
               gallery_description: qrData.gallery_description,
               gallery_website: qrData.gallery_website,
               gallery_url: qrData.gallery_url,
@@ -356,11 +361,13 @@ const QRDetail = () => {
               business_subtitle: qrData?.business_subtitle,
               business_title: qrData?.business_title,
               business_address: qrData?.business_address,
+              business_btn_text: qrData?.business_btn_text,
               business_city: qrData?.business_city,
               business_country: qrData?.business_country,
               business_numeration: qrData?.business_numeration,
               business_postalcode: qrData?.business_postalcode,
               business_state: qrData?.business_state,
+              business_about: qrData?.business_about,
               business_facilities: qrData?.business_facilities,
               business_social: qrData?.business_social,
               business_logo: qrData?.business_logo,
@@ -411,6 +418,7 @@ const QRDetail = () => {
               event_time_timezone: qrData?.event_time_timezone || "",
               event_image: qrData?.event_image || "",
               event_facilities: qrData?.event_facilities || "",
+              event_btn_text: qrData?.event_btn_text || "",
             }
           : {}),
       };
