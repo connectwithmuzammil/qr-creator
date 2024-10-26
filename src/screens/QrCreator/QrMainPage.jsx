@@ -462,16 +462,20 @@ const QrMainPage = () => {
                                 <div className="wrap">
                                   <IoLinkOutline />
                                   <a
-                                    href={
-                                      qrCode.outcome.startsWith("http")
-                                        ? qrCode.outcome
-                                        : `http://${qrCode.outcome}`
-                                    }
+                                    // href={
+                                    //   qrCode.outcome.startsWith("http")
+                                    //     ? qrCode.outcome
+                                    //     : `http://${qrCode.outcome}`
+                                    // }
+                                    href={qrCode?.outcome}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{ textDecoration: "none" }}
                                   >
-                                    <h6>{qrCode?.outcome}</h6>
+                                    <h6>
+                                      {qrCode?.outcome}
+                                      {/* https://qr-creator-black.vercel.app/ */}
+                                    </h6>
                                   </a>
                                 </div>
                               )}
