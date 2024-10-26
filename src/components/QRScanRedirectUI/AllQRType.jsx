@@ -40,9 +40,12 @@ import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill, BsFillTelephonePlusFill } from "react-icons/bs";
 import { FaBuilding, FaFax } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { IoGlobeOutline } from "react-icons/io5";
+import { IoGlobeOutline, IoPeopleCircle } from "react-icons/io5";
 import { TbBriefcase2Filled } from "react-icons/tb";
 import { GoClockFill } from "react-icons/go";
+import { LuExternalLink } from "react-icons/lu";
+import formatDate from "../../utils/FormatDate.js";
+import { CiCalendar } from "react-icons/ci";
 
 const icons = {
   facebook: <FacebookSocial />,
@@ -1379,8 +1382,6 @@ export const QRGALLERY = ({ qrContent }) => {
   );
 };
 export const QRLANDING = ({ qrContent }) => {
-  console.log("qrContent", qrContent);
-
   return (
     <div
       style={{
@@ -1466,6 +1467,330 @@ export const QRLANDING = ({ qrContent }) => {
                 {icons[key] || null}
               </a>
             );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const QREVENT = ({ qrContent }) => {
+  console.log("qrContent", qrContent);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        background: qrContent?.color?.background,
+        flexDirection: "column",
+        gap: "25px",
+        paddingTop: "40px",
+        paddingBottom: "40px",
+      }}
+    >
+      <img
+        src={qrContent?.image_path}
+        alt=""
+        style={{
+          width: "400px",
+          objectFit: "cover",
+          height: "150px",
+          position: "relative",
+          zIndex: "10",
+        }}
+      />
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          padding: "16px",
+          textAlign: "center",
+        }}
+      >
+        <h6 style={{ fontWeight: "600" }}> {qrContent?.event_title}</h6>
+        <h6 style={{ fontWeight: "400" }}> {qrContent?.event_description}</h6>
+
+        <button
+          style={{
+            background: qrContent?.color?.button,
+            height: "42px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
+            color: "#fff",
+            width: "240px",
+            marginInline: "auto",
+          }}
+        >
+          <Link
+            to={qrContent?.event_organizer_website}
+            target="_blank"
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              justifyContent: "center",
+            }}
+          >
+            <LuExternalLink />
+            {qrContent?.event_button || "Event"}
+          </Link>
+        </button>
+      </div>
+
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          padding: "16px",
+          textAlign: "center",
+        }}
+      >
+        <div
+          className="top"
+          style={{ display: "flex", alignItems: "center", gap: "6px" }}
+        >
+          <GoClockFill />
+          <h5 style={{ margin: "0", fontSize: "16px", fontWeight: "600" }}>
+            Date of the event
+          </h5>
+        </div>
+        <div
+          className="wrap"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h6 style={{ margin: "0px", color: "#8c8c8c", fontSize: "12px" }}>
+            Start
+          </h6>
+          <h6 style={{ margin: "0px", color: "#000", fontSize: "12px" }}>
+            {qrContent?.event_time_start
+              ? formatDate(qrContent.event_time_start)
+              : ""}
+          </h6>
+        </div>
+        <div
+          className="wrap"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h6 style={{ margin: "0px", color: "#8c8c8c", fontSize: "12px" }}>
+            End
+          </h6>
+          <h6 style={{ margin: "0px", color: "#000", fontSize: "12px" }}>
+            {qrContent?.event_time_end
+              ? formatDate(qrContent.event_time_end)
+              : ""}
+          </h6>
+        </div>
+
+        <button
+          style={{
+            background: qrContent?.color?.button,
+            height: "42px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
+            color: "#fff",
+            width: "240px",
+            marginInline: "auto",
+          }}
+        >
+          <Link
+            // to={qrContent?.event_time_action_title}
+            // target="_blank"
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              justifyContent: "center",
+            }}
+          >
+            <CiCalendar size={22} />
+            {qrContent?.event_time_action_title || "Event"}
+          </Link>
+        </button>
+      </div>
+
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          padding: "16px",
+        }}
+      >
+        <div
+          className="top"
+          style={{ display: "flex", alignItems: "center", gap: "6px" }}
+        >
+          <FaLocationDot />
+
+          <p
+            style={{
+              margin: "0",
+              color: "#000",
+              fontWeight: "600",
+              fontSize: "16px",
+              lineHeight: "8px",
+            }}
+          >
+            Location
+          </p>
+        </div>
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            `${qrContent?.event_location_address} ${qrContent?.event_location_numeration}, ${qrContent?.event_location_country}, ${qrContent?.event_location_state}, ${qrContent?.event_location_postal_code}`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            textDecoration: "none",
+            fontSize: "12px",
+            color: "#307fe2",
+          }}
+        >
+          {qrContent?.event_location_address},{" "}
+          {qrContent?.event_location_numeration},{" "}
+          {qrContent?.event_location_country}, Zip Code:{" "}
+          {qrContent?.event_location_postal_code},
+          {qrContent?.event_location_state}
+        </a>
+      </div>
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          padding: "16px",
+        }}
+      >
+        <div
+          className="top"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            marginBottom: "16px",
+          }}
+        >
+          <IoPeopleCircle size={24} />
+          <h5 style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
+            Organizer information
+          </h5>
+        </div>
+
+        <div className="wrap" style={{}}>
+          <p style={{ margin: "0", color: "#8c8c8c" }}>Name</p>
+          <h6 style={{ fontSize: "12px", marginBottom: "8px" }}>
+            {qrContent?.event_organizer_name}
+          </h6>
+        </div>
+
+        <div className="wrap" style={{}}>
+          <p style={{ margin: "0", color: "#8c8c8c" }}>Phone</p>
+
+          <h6 style={{ fontSize: "12px", marginBottom: "8px" }}>
+            {qrContent?.event_organizer_phone}
+          </h6>
+        </div>
+
+        <div className="wrap" style={{}}>
+          <p style={{ margin: "0", color: "#8c8c8c", lineHeight: "10px" }}>
+            email
+          </p>
+
+          <a
+            href={`mailto:${qrContent?.event_organizer_email}`}
+            style={{
+              textDecoration: "none",
+              fontSize: "12px",
+              color: "#307fe2",
+              marginBottom: "8px",
+            }}
+          >
+            {qrContent?.event_organizer_email}
+          </a>
+        </div>
+
+        <div className="wrap" style={{}}>
+          <p style={{ margin: "0", color: "#8c8c8c", lineHeight: "10px" }}>
+            Website
+          </p>
+          <a
+            href={qrContent?.event_organizer_website}
+            style={{
+              textDecoration: "none",
+              fontSize: "12px",
+              color: "#307fe2",
+              marginBottom: "8px",
+            }}
+          >
+            {qrContent?.event_organizer_website}
+          </a>
+        </div>
+        <div className="wrap" style={{}}>
+          <p style={{ margin: "0", color: "#8c8c8c" }}>About</p>
+
+          <h6 style={{ fontSize: "12px", marginBottom: "8px" }}>
+            {qrContent?.event_organizer_about}
+          </h6>
+        </div>
+      </div>
+
+      <div
+        className="box"
+        style={{
+          background: "#fff",
+          width: "700px",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          padding: "16px",
+        }}
+      >
+        <h6>Facilities</h6>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {Object.entries(qrContent?.event_facilities).map(([key, url]) => {
+            return <>{FacilitiesIcon[key] || null}</>;
           })}
         </div>
       </div>

@@ -5,6 +5,7 @@ import apis from "../services";
 import {
   QRAPPS,
   QRBUSINESS,
+  QREVENT,
   QRGALLERY,
   QRLANDING,
   QRLINK,
@@ -101,6 +102,8 @@ const ScanAndRedirectQr = () => {
         return <QRGALLERY qrContent={outcomeContent} />;
       case "landing":
         return <QRLANDING qrContent={outcomeContent} />;
+      case "events":
+        return <QREVENT qrContent={outcomeContent} />;
       default:
         return <div>Not Found</div>;
     }
