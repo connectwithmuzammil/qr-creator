@@ -363,7 +363,7 @@ const Sidebar = () => {
           color: "#fff",
           margin: "20px 30px 30px 50px",
         }}
-        primary={user?.user?.email}
+        primary={user?.user?.email || user?.email}
         className=""
       />
       {/* 
