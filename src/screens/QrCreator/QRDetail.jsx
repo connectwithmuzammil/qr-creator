@@ -17,18 +17,14 @@ import {
   EVENT,
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  UrlSchema,
-  videoSchema,
-  WifiSchema,
-  youtubeSchema,
-} from "../../Helper/QRValidation";
+import { UrlSchema, youtubeSchema } from "../../Helper/QRValidation";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetQrData, setsQrData } from "../../redux/slice/qrSlice";
 
 const QRDetail = () => {
   const { user } = useSelector((store) => store.user);
-
+  const dispatch = useDispatch();
   const { type } = useParams();
   const initialState = {
     qr_name: "",
@@ -189,8 +185,15 @@ const QRDetail = () => {
     },
     social: {},
   };
-  const [qrData, setQrData] = useState(initialState);
+  const [qrData, setQrData] = useState(
+    // JSON.parse(sessionStorage.getItem("qrData")) ||
+    initialState
+  );
   // console.log("qrDataqrData",qrData)
+  // const qrDataTest = useSelector((state) => state.qr.qrData);
+  const qrDataVar = useSelector((state) => state.qrData);
+  const [localQrData, setLocalQrData] = useState(qrDataVar);
+  console.log("localQrData", localQrData);
 
   useEffect(() => {
     setQrData((prevState) => ({
@@ -207,9 +210,12 @@ const QRDetail = () => {
     try {
       if (type === "youtube") {
         await youtubeSchema.validate(qrData);
-      } else if (type === "url") {
-        await UrlSchema.validate(qrData);
-      } else if (type === "wifi") {
+      }
+
+      // else if (type === "url") {
+      //   await UrlSchema.validate(qrData);
+      // }
+      else if (type === "wifi") {
         // await WifiSchema.validate(qrData);
       } else if (type === "video") {
         // await videoSchema.validate(qrData);
@@ -240,7 +246,7 @@ const QRDetail = () => {
         style: qrData.style,
         editID: qrData?.id,
         ...(type === "url"
-          ? { field_url: qrData.field_url, qr_name: qrData.qr_name }
+          ? { field_url: localQrData?.field_url, qr_name: localQrData?.qr_name }
           : {}),
         ...(type === "wifi"
           ? {
@@ -422,6 +428,8 @@ const QRDetail = () => {
             }
           : {}),
       };
+      // sessionStorage.setItem("qrData", JSON.stringify(qrData));
+      dispatch(setsQrData(localQrData));
       navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
     } catch (error) {
       console.log("error", error);
@@ -430,6 +438,7 @@ const QRDetail = () => {
   };
 
   const handleCancelClick = () => {
+    dispatch(resetQrData());
     navigate(`/qr-editor`);
   };
 
@@ -438,7 +447,7 @@ const QRDetail = () => {
       case "url":
         return (
           <>
-            <URL qrData={qrData} setQrData={setQrData} />
+            <URL localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </>
         );
       case "vcard":

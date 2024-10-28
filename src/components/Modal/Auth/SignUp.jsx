@@ -4,9 +4,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { signUpSchema } from "../../../Helper/ValidationSchema.js";
-
 import "../modal.css";
-import apis from "../../../services";
+
+
 const SignUp = ({
   showSignUp,
   setShowSignUp,

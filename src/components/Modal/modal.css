@@ -331,3 +331,53 @@
 .changePassword .form .btn-wrapper {
   text-align: center;
 }
+
+/********************************** ConfirmationModal    ********************************/
+
+.confirmationModal .modal-lg {
+  max-width: 450px;
+  margin-inline: auto;
+}
+.confirmationModal .modal-header {
+  border: none;
+}
+.confirmationModal .modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+.confirmationModal .modal-body h2{
+  font-size: 24px;
+  text-align: center;
+  font-family: "Poppins",sans-serif;
+  font-weight: 700;
+}
+.confirmationModal .modal-body .btn-con {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  width: 100%; 
+}
+
+.confirmationModal .modal-body .btn-con button {
+  flex: 1;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 3px;
+}
+
+.confirmationModal .modal-body .btn-con .cancel {
+  background-color: #fff;
+  color: #e0201c;
+  border: 1px solid #e0201c;
+}
+
+.confirmationModal .modal-body .btn-con .pause {
+  background-color: #00af63;
+  color: #fff;
+  border: 1px solid #00af63;
+}

@@ -3,7 +3,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup"; // Import Yup for validation
 import { ChangePasswordSchema } from "../../../Helper/ValidationSchema";
 import { useDispatch, useSelector } from "react-redux";
 import apis from "../../../services";

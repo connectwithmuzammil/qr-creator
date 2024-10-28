@@ -125,7 +125,6 @@ const UpdateEmailAndPassword = ({
               disabled={isLoading}
               className="btn-updateEmail"
             >
-              {" "}
               {isLoading ? "Saving" : "Save"}
             </button>
             {/* <Button

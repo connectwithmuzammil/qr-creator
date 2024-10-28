@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import apis from "../services";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { resetQrData } from "../redux/slice/qrSlice";
 
 function BottomWrapperStages({
   currentStage,
@@ -20,6 +22,7 @@ function BottomWrapperStages({
 
   const isLastStage = currentStage === stages.length;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   console.log("qrDataqrData", generateQrPayload);
 
@@ -34,11 +37,9 @@ function BottomWrapperStages({
     onSuccess: ({ data: generateQr, status }) => {
       toast.success("QR code generated successfully");
       navigate("/my-qr-codes");
-
+      dispatch(resetQrData());
     },
   });
-
-
 
   const handleNextClick = async () => {
     if (isLastStage) {
@@ -232,7 +233,7 @@ function BottomWrapperStages({
           key !== "app_social" &&
           key !== "video_social" &&
           key !== "landing_social" &&
-          key !== "all_links" 
+          key !== "all_links"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);
