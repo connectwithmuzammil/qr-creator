@@ -185,12 +185,8 @@ const QRDetail = () => {
     },
     social: {},
   };
-  const [qrData, setQrData] = useState(
-    // JSON.parse(sessionStorage.getItem("qrData")) ||
-    initialState
-  );
-  // console.log("qrDataqrData",qrData)
-  // const qrDataTest = useSelector((state) => state.qr.qrData);
+  const [qrData, setQrData] = useState(initialState);
+
   const qrDataVar = useSelector((state) => state.qrData);
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   console.log("localQrData", localQrData);
@@ -224,12 +220,14 @@ const QRDetail = () => {
           toast.error("Please Upload Image");
           return;
         }
-      } else if (type === "vcard") {
-        if (!qrData?.vcard_image) {
-          toast.error("Please Upload Image");
-          return;
-        }
-      } else if (type === "business_page") {
+      } 
+      // else if (type === "vcard") {
+      //   if (!qrData?.vcard_image) {
+      //     toast.error("Please Upload Image");
+      //     return;
+      //   }
+      // } 
+      else if (type === "business_page") {
         if (!qrData?.business_logo) {
           toast.error("Please Upload Logo");
           return;
@@ -332,25 +330,25 @@ const QRDetail = () => {
           : {}),
         ...(type === "vcard"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData.color,
-              vcard_address: qrData?.vcard_address || "",
-              vcard_city: qrData?.vcard_city || "",
-              vcard_company_name: qrData?.vcard_company_name || "",
-              vcard_country: qrData?.vcard_country || "",
-              vcard_email: qrData?.vcard_email || "",
-              vcard_fax: qrData?.vcard_fax || "",
-              vcard_full_name: qrData?.vcard_full_name || "",
-              vcard_landline_phone: qrData?.vcard_landline_phone || "",
-              vcard_mobile_phone: qrData?.vcard_mobile_phone || "",
-              vcard_numeration: qrData?.vcard_numeration || "",
-              vcard_profession: qrData?.vcard_profession || "",
-              vcard_state: qrData?.vcard_state || "",
-              vcard_summary: qrData?.vcard_summary || "",
-              vcard_website: qrData?.vcard_website || "",
-              vcard_zip_code: qrData?.vcard_zip_code || "",
-              vcard_social: qrData?.vcard_social || "",
-              vcard_image: qrData?.vcard_image || "",
+              qr_name: localQrData?.qr_name,
+              color: localQrData.color,
+              vcard_address: localQrData?.vcard_address || "",
+              vcard_city: localQrData?.vcard_city || "",
+              vcard_company_name: localQrData?.vcard_company_name || "",
+              vcard_country: localQrData?.vcard_country || "",
+              vcard_email: localQrData?.vcard_email || "",
+              vcard_fax: localQrData?.vcard_fax || "",
+              vcard_full_name: localQrData?.vcard_full_name || "",
+              vcard_landline_phone: localQrData?.vcard_landline_phone || "",
+              vcard_mobile_phone: localQrData?.vcard_mobile_phone || "",
+              vcard_numeration: localQrData?.vcard_numeration || "",
+              vcard_profession: localQrData?.vcard_profession || "",
+              vcard_state: localQrData?.vcard_state || "",
+              vcard_summary: localQrData?.vcard_summary || "",
+              vcard_website: localQrData?.vcard_website || "",
+              vcard_zip_code: localQrData?.vcard_zip_code || "",
+              vcard_social: localQrData?.vcard_social || "",
+              vcard_image: localQrData?.vcard_image || "",
             }
           : {}),
         ...(type === "business_page"
@@ -451,7 +449,7 @@ const QRDetail = () => {
           </>
         );
       case "vcard":
-        return <VCARD qrData={qrData} setQrData={setQrData} />;
+        return <VCARD localQrData={localQrData} setLocalQrData={setLocalQrData}/>;
       case "pdf":
         return (
           <div>

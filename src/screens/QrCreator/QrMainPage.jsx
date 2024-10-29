@@ -400,7 +400,6 @@ const QrMainPage = () => {
     setStatus(e.target.value);
   };
 
-
   const qrTypes = [
     { id: 1, name: "Url" },
     { id: 2, name: "Youtube" },
@@ -410,8 +409,8 @@ const QrMainPage = () => {
     { id: 6, name: "Vcard" },
     { id: 7, name: "Business" },
     { id: 8, name: "Social" },
-    { id: 9, name: "App" },
-    { id: 10, name: "Link" },
+    { id: 9, name: "Apps" },
+    { id: 10, name: "Links" },
     { id: 11, name: "Image Gallery" },
     { id: 12, name: "Landing" },
     { id: 13, name: "Event" },
@@ -439,7 +438,6 @@ const QrMainPage = () => {
       return () => clearTimeout(timer); // Cleanup the timer on unmount or re-render
     }
   }, [selectedTypes, refetchAllQrCodes]);
-
 
   const displayText = () => {
     // if (selectedTypes.length === 0) return "Select QR Types";
@@ -510,7 +508,13 @@ const QrMainPage = () => {
                           <label key={type.id}>
                             <input
                               type="checkbox"
-                              value={type.name}
+                              value={
+                                type.name === "Business"
+                                  ? "business_page"
+                                  : type.name === "Social"
+                                  ? "social_media"
+                                  : type.name
+                              }
                               checked={selectedTypes.includes(type.name)}
                               onChange={handleCheckboxChange}
                             />
@@ -597,12 +601,12 @@ const QrMainPage = () => {
                                   <div className="wrap">
                                     <IoLinkOutline size={22} />
                                     <a
-                                      // href={
-                                      //   qrCode.outcome.startsWith("http")
-                                      //     ? qrCode.outcome
-                                      //     : `http://${qrCode.outcome}`
-                                      // }
-                                      href={qrCode?.outcome}
+                                      href={
+                                        qrCode.outcome.startsWith("http")
+                                          ? qrCode.outcome
+                                          : `http://${qrCode.outcome}`
+                                      }
+                                      // href={qrCode?.outcome}
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       style={{ textDecoration: "none" }}

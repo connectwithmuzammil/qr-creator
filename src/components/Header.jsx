@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import apis from "../services";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slice/userSlice";
+import { resetQrData } from "../redux/slice/qrSlice";
 
 const Header = () => {
   const { user } = useSelector((store) => store.user);
@@ -23,6 +24,8 @@ const Header = () => {
   const [searchParams] = useSearchParams();
   const [newPassword, setNewPassword] = useState(false);
   const [token, setToken] = useState(null);
+  const location = useLocation();
+  console.log("locationn", location);
 
   //OPEN CHANGE PASSWORD MODAL
 
@@ -96,14 +99,28 @@ const Header = () => {
     <>
       {/* {location.pathname !== "/my-qr-codes" && ( */}
       <header>
-        <Link to="/">
+        <Link
+          to="/"
+          onClick={() => {
+            if (/^\/qr-editor\/[^/]+(\/design)?$/.test(location.pathname)) {
+              dispatch(resetQrData());
+            }
+          }}
+        >
           <img src={logo} alt="logo" />
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
         <div className="auth-con">
           {user || user?.user ? (
             <button
-              onClick={() => navigate("/my-qr-codes")}
+              onClick={() => {
+                if (/^\/qr-editor\/[^/]+(\/design)?$/.test(location.pathname)) {
+                  dispatch(resetQrData());
+                  navigate("/my-qr-codes");
+                } else {
+                  navigate("/my-qr-codes");
+                }
+              }}
               className="my-account-btn"
             >
               My Account

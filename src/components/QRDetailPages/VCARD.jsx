@@ -53,7 +53,7 @@ const icons = {
   xing: <XingSocial />,
 };
 
-const VCARD = ({ qrData, setQrData }) => {
+const VCARD = ({ localQrData, setLocalQrData }) => {
   const [imagePreview, setImagePreview] = useState(null);
   const location = useLocation();
   console.log("LOCATIONURL", location);
@@ -61,16 +61,16 @@ const VCARD = ({ qrData, setQrData }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation",qrDataFromLocation)
+      console.log("qrDataFromLocation", qrDataFromLocation);
       const { vcard_image, ...restQrData } = qrDataFromLocation;
-      setQrData((prevQrData) => ({
+      setLocalQrData((prevQrData) => ({
         ...prevQrData,
         ...restQrData,
       }));
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation.color,
         }));
@@ -78,7 +78,7 @@ const VCARD = ({ qrData, setQrData }) => {
 
       // Set initial vcard_social links if present (edit mode)
       // if (qrDataFromLocation.vcard_social) {
-      //   setQrData((prevQrData) => ({
+      //   setLocalQrData((prevQrData) => ({
       //     ...prevQrData,
       //     vcard_social: qrDataFromLocation.vcard_social,
       //   }));
@@ -87,13 +87,12 @@ const VCARD = ({ qrData, setQrData }) => {
       //   setImagePreview(qrDataFromLocation.vcard_image);
       // }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (mediaData, name, file) => {
-
     console.log("Received file name", file); // file
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
@@ -104,14 +103,14 @@ const VCARD = ({ qrData, setQrData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       vcard_social: {
         ...prevData.vcard_social,
@@ -119,7 +118,7 @@ const VCARD = ({ qrData, setQrData }) => {
       },
     }));
   };
-  // console.log("UPDATEDQRCODEVCARD", qrData);
+  // console.log("UPDATEDQRCODEVCARD", localQrData);
   return (
     <div className="vcard-page">
       <div className="containerr">
@@ -129,14 +128,14 @@ const VCARD = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Add vCard information"}>
@@ -153,14 +152,14 @@ const VCARD = ({ qrData, setQrData }) => {
                 name={"vcard_full_name"}
                 placeholder={"e.g. Johana Smith"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_full_name}
+                value={localQrData?.vcard_full_name}
               />
               <InputComponent
                 label={"Email"}
                 name={"vcard_email"}
                 placeholder={"e.g. youremail@domain.com"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_email}
+                value={localQrData?.vcard_email}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -169,21 +168,21 @@ const VCARD = ({ qrData, setQrData }) => {
                 name={"vcard_mobile_phone"}
                 placeholder={"e.g. (123)-123-123-123"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_mobile_phone}
+                value={localQrData?.vcard_mobile_phone}
               />
               <InputComponent
                 label={"Landline"}
                 name={"vcard_landline_phone"}
                 placeholder={"e.g. (123)-123-123-123"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_landline_phone}
+                value={localQrData?.vcard_landline_phone}
               />
               <InputComponent
                 label={"Fax"}
                 name={"vcard_fax"}
                 placeholder={"e.g. (123)-123-123-123"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_fax}
+                value={localQrData?.vcard_fax}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -192,21 +191,21 @@ const VCARD = ({ qrData, setQrData }) => {
                 name={"vcard_website"}
                 placeholder={"e.g. www.yourwebsite.com"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_website}
+                value={localQrData?.vcard_website}
               />
               <InputComponent
                 label={"Company name"}
                 name={"vcard_company_name"}
                 placeholder={"e.g. Workplace Yoga"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_company_name}
+                value={localQrData?.vcard_company_name}
               />
               <InputComponent
                 label={"Profession"}
                 name={"vcard_profession"}
                 placeholder={"e.g. Yoga teacher"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_profession}
+                value={localQrData?.vcard_profession}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -217,7 +216,7 @@ const VCARD = ({ qrData, setQrData }) => {
                   "e.g. I offer on-site yoga classes to promote wellness, and reduce stress and improve productivity. "
                 }
                 onChange={handleInputChange}
-                value={qrData?.vcard_summary}
+                value={localQrData?.vcard_summary}
               />
             </div>
           </AccordianComponent>
@@ -228,21 +227,21 @@ const VCARD = ({ qrData, setQrData }) => {
                 name={"vcard_address"}
                 placeholder={"e.g. High Street"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_address}
+                value={localQrData?.vcard_address}
               />
               <InputComponent
                 label={"Number"}
                 name={"vcard_numeration"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_numeration}
+                value={localQrData?.vcard_numeration}
               />
               <InputComponent
                 label={"Zip code"}
                 name={"vcard_zip_code"}
                 placeholder={"e.g. 12548"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_zip_code}
+                value={localQrData?.vcard_zip_code}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -251,21 +250,21 @@ const VCARD = ({ qrData, setQrData }) => {
                 name={"vcard_city"}
                 placeholder={"e.g. New York"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_city}
+                value={localQrData?.vcard_city}
               />
               <InputComponent
                 label={"State"}
                 name={"vcard_state"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_state}
+                value={localQrData?.vcard_state}
               />
               <InputComponent
                 label={"Country"}
                 name={"vcard_country"}
                 placeholder={"e.g. USA"}
                 onChange={handleInputChange}
-                value={qrData?.vcard_country}
+                value={localQrData?.vcard_country}
               />
             </div>
           </AccordianComponent>
@@ -274,7 +273,7 @@ const VCARD = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.vcard_social}
+              initialLinks={localQrData?.vcard_social}
             />
           </AccordianComponent>
         </div>

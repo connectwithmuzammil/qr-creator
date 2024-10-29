@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { AccordianComponent, AccordianWithInput } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import { useLocation } from "react-router-dom";
+import { resetQrData } from "../../redux/slice/qrSlice";
+import { useDispatch } from "react-redux";
 
 const URL = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
@@ -10,8 +12,11 @@ const URL = ({ localQrData, setLocalQrData }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       setLocalQrData(location.state.qrData.data);
+    } else {
+      console.log("elsee workk");
+      setLocalQrData({});
     }
-  }, [location.state]);
+  }, [location.state, setLocalQrData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

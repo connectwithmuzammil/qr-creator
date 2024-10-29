@@ -55,6 +55,11 @@ const QRDesign = () => {
   const location = useLocation();
   const { qrData } = location.state || {};
   console.log("qrDataStateValueDesignPage", qrData);
+  useEffect(() => {
+    if (!qrData) {
+      navigate("/"); 
+    }
+  }, [qrData, navigate]);
 
   //SELECT QR CODE TYPE
   const cards = [

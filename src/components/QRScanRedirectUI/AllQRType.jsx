@@ -112,20 +112,37 @@ export const QRYOUTUBE = ({ qrContent }) => {
         alignItems: "center",
         height: "100vh",
         background: "#f2cfba",
+        padding: "0 20px",
       }}
     >
-      <iframe
-        src={embedUrl}
-        frameBorder="0"
-        allowFullScreen
-        title="YouTube Video"
-        width="50%"
-        height="315"
-        style={{ borderRadius: "4px" }}
-      ></iframe>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "800px",
+          position: "relative",
+          paddingBottom: "40%", // Change to 40% for a smaller aspect ratio
+          height: 0,
+        }}
+      >
+        <iframe
+          src={embedUrl}
+          frameBorder="0"
+          allowFullScreen
+          title="YouTube Video"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            borderRadius: "4px",
+          }}
+        ></iframe>
+      </div>
     </div>
   );
 };
+
 export const QRPDF = ({ qrContent }) => {
   return (
     <div
@@ -137,14 +154,16 @@ export const QRPDF = ({ qrContent }) => {
         background: qrContent?.color?.background,
         flexDirection: "column",
         marginBottom: "6px",
+        padding: "0 20px", // Added padding for small screens
       }}
     >
-      <h6>{qrContent?.pdf_company}</h6>
+      <h6 style={{ textAlign: "center" }}>{qrContent?.pdf_company}</h6>
       <div
         className="wrapp"
         style={{
-          height: "420px",
-          width: "700px",
+          maxHeight: "80vh", // Set a max height for responsiveness
+          width: "100%",
+          maxWidth: "700px",
           background: "#fff",
           display: "flex",
           justifyContent: "center",
@@ -152,24 +171,29 @@ export const QRPDF = ({ qrContent }) => {
           flexDirection: "column",
           gap: "8px",
           marginBottom: "12px",
+          padding: "20px", // Added padding for better spacing
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)", // Optional shadow for aesthetics
+          borderRadius: "8px", // Optional rounded corners
         }}
       >
-        <h5>{qrContent?.pdf_title}</h5>
-        <h6>{qrContent?.pdf_description}</h6>
+        <h5 style={{ textAlign: "center" }}>{qrContent?.pdf_title}</h5>
+        <h6 style={{ textAlign: "center" }}>{qrContent?.pdf_description}</h6>
 
         <div
           style={{
             marginTop: "8px",
             marginBottom: "8px",
-            width: "60%",
-            height: "250px",
+            width: "100%", // Set to 100% for responsiveness
+            maxWidth: "600px", // Max width for iframe
+            height: "auto",
+            aspectRatio: "1.6 / 1", // Maintain a 16:10 aspect ratio for the iframe
           }}
         >
           <iframe
             src={qrContent?.outcome}
             width="100%"
             height="100%"
-            style={{ border: "none" }}
+            style={{ border: "none", borderRadius: "4px" }} // Added border radius for aesthetics
             title="PDF Viewer"
           />
         </div>
@@ -177,18 +201,26 @@ export const QRPDF = ({ qrContent }) => {
         <button
           style={{
             background: qrContent?.color?.button,
-            width: "230px",
+            width: "100%", // Set to 100% for responsiveness
+            maxWidth: "230px", // Max width for the button
             height: "34px",
             borderRadius: "4px",
             outline: "none",
             border: "none",
             color: "#fff",
+            cursor: "pointer", // Change cursor to pointer
+            transition: "background 0.3s", // Smooth background transition
           }}
         >
           <Link
             to={qrContent?.outcome}
             target="_blank"
-            style={{ textDecoration: "none", color: "#fff" }}
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              display: "block",
+              height: "100%",
+            }} // Ensure link covers the button
           >
             See PDF
           </Link>
@@ -198,6 +230,7 @@ export const QRPDF = ({ qrContent }) => {
         style={{
           color: qrContent?.color?.button,
           textDecoration: "none",
+          marginTop: "12px", // Added margin for spacing
         }}
         to={qrContent?.pdf_website}
         target="_blank"
@@ -207,6 +240,7 @@ export const QRPDF = ({ qrContent }) => {
     </div>
   );
 };
+
 export const QRVIDEO = ({ qrContent }) => {
   return (
     <div
@@ -217,15 +251,20 @@ export const QRVIDEO = ({ qrContent }) => {
         height: "100vh",
         background: qrContent?.color?.background,
         flexDirection: "column",
+        padding: "0 20px", // Added padding for small screens
       }}
     >
-      <h5>{qrContent?.video_name}</h5>
-      <h5>{qrContent?.video_title}</h5>
-      <h6>{qrContent?.video_description}</h6>
+      <h5 style={{ textAlign: "center" }}>{qrContent?.video_name}</h5>
+      <h5 style={{ textAlign: "center" }}>{qrContent?.video_title}</h5>
+      <h6 style={{ textAlign: "center", marginBottom: "12px" }}>
+        {qrContent?.video_description}
+      </h6>
+
       <button
         style={{
           background: qrContent?.color?.button,
-          width: "630px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "630px", // Max width for the button
           height: "34px",
           borderRadius: "4px",
           outline: "none",
@@ -233,30 +272,55 @@ export const QRVIDEO = ({ qrContent }) => {
           color: "#fff",
           marginTop: "12px",
           marginBottom: "16px",
+          cursor: "pointer", // Change cursor to pointer
         }}
       >
         <Link
           to={qrContent?.video_url}
           target="_blank"
-          style={{ textDecoration: "none", color: "#fff" }}
+          style={{
+            textDecoration: "none",
+            color: "#fff",
+            display: "block",
+            height: "100%",
+          }} // Ensure link covers the button
         >
           {qrContent?.video_button}
         </Link>
       </button>
-      <div style={{ width: "630px", height: "350px", marginBottom: "20px" }}>
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "630px",
+          height: "auto", // Set height to auto
+          aspectRatio: "16 / 9", // Maintain a 16:9 aspect ratio for the video
+          marginBottom: "20px",
+          position: "relative", // For absolute positioning of video
+        }}
+      >
         <video
           src={qrContent?.video_path}
-          style={{ width: "100%", height: "100%", borderRadius: "4px" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "4px",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
           controls
         />
       </div>
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           flexWrap: "wrap",
           gap: "12px",
-          width: "630px",
+          width: "100%",
+          maxWidth: "630px", // Max width for social icons container
         }}
       >
         {Object.entries(qrContent?.video_social).map(([key, url]) => {
@@ -312,15 +376,14 @@ export const QRVCARD = ({ qrContent }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // minHeight: "100vh",
-        width: "700px",
         flexDirection: "column",
-        marginInline: "auto",
-        paddingTop: "40px",
+        margin: "0 auto",
+        padding: "40px 20px", // Adjusted for mobile
+        maxWidth: "700px",
+        width: "100%", // Full width on small screens
       }}
     >
       <div
-        className="one"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -329,23 +392,29 @@ export const QRVCARD = ({ qrContent }) => {
           gap: "8px",
           background: qrContent?.color?.background,
           width: "100%",
-          padding: "16px 0px",
+          padding: "16px 0",
+          borderRadius: "8px", // Added rounded corners for aesthetics
         }}
       >
         <img
           src={qrContent?.vcard_image}
           alt={"vcard"}
           width={100}
-          style={{ borderRadius: "100px" }}
+          style={{ borderRadius: "50%" }} // Circle image
         />
-        <h5>{qrContent?.vcard_full_name}</h5>
-        <h6>{qrContent?.vcard_profession}</h6>
+        <h5 style={{ fontSize: "1.2em", margin: "8px 0" }}>
+          {qrContent?.vcard_full_name}
+        </h5>
+        <h6 style={{ fontSize: "1em", margin: "0" }}>
+          {qrContent?.vcard_profession}
+        </h6>
       </div>
 
       <button
         style={{
           background: qrContent?.color?.button,
-          width: "200px",
+          width: "100%", // Full width for mobile
+          maxWidth: "200px", // Max width for larger screens
           height: "40px",
           borderRadius: "4px",
           outline: "none",
@@ -370,276 +439,99 @@ export const QRVCARD = ({ qrContent }) => {
       </button>
 
       <div
-        className="two"
         style={{
           borderTop: "1px solid #bfbfbf",
           width: "100%",
           paddingTop: "12px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <MdEmail />
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Email
-            </p>
-            <a
-              href={`mailto:${qrContent?.vcard_email}`}
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_email}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <BsFillTelephoneFill />
-
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Mobile Phone
-            </p>
-            <a
-              href={`tel:${qrContent?.vcard_mobile_phone}`}
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_mobile_phone}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <BsFillTelephonePlusFill />
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Alternative phone number
-            </p>
-            <a
-              href={`tel:${qrContent?.vcard_landline_phone}`}
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_landline_phone}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <FaFax />
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Fax
-            </p>
-            <a
-              href={`tel:${qrContent?.vcard_fax}`}
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_fax}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <FaLocationDot />
-
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Location
-            </p>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                `${qrContent?.vcard_address} ${qrContent?.vcard_numeration}, ${qrContent?.vcard_country}, ${qrContent?.vcard_state}, ${qrContent?.vcard_zip_code}`
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_address}, {qrContent?.vcard_numeration},{" "}
-              {qrContent?.vcard_country}, Zip Code: {qrContent?.vcard_zip_code},{" "}
-              {qrContent?.vcard_state}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <IoGlobeOutline />
-
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "8px",
-              }}
-            >
-              Website
-            </p>
-            <a
-              href={qrContent?.vcard_website}
-              target="_blank"
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-                color: "#307fe2",
-              }}
-            >
-              {qrContent?.vcard_website}
-            </a>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <FaBuilding />
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "16px",
-              }}
-            >
-              Company Name
-            </p>
-            <div
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-              }}
-            >
-              {qrContent?.vcard_company_name}
+        {[
+          {
+            icon: <MdEmail />,
+            label: "Email",
+            value: qrContent?.vcard_email,
+            type: "mailto",
+          },
+          {
+            icon: <BsFillTelephoneFill />,
+            label: "Mobile Phone",
+            value: qrContent?.vcard_mobile_phone,
+            type: "tel",
+          },
+          {
+            icon: <BsFillTelephonePlusFill />,
+            label: "Alternative Phone Number",
+            value: qrContent?.vcard_landline_phone,
+            type: "tel",
+          },
+          {
+            icon: <FaFax />,
+            label: "Fax",
+            value: qrContent?.vcard_fax,
+            type: "tel",
+          },
+          {
+            icon: <FaLocationDot />,
+            label: "Location",
+            value: qrContent?.vcard_address,
+            type: "map",
+          },
+          {
+            icon: <IoGlobeOutline />,
+            label: "Website",
+            value: qrContent?.vcard_website,
+            type: "url",
+          },
+          {
+            icon: <FaBuilding />,
+            label: "Company Name",
+            value: qrContent?.vcard_company_name,
+          },
+          {
+            icon: <TbBriefcase2Filled />,
+            label: "Profession",
+            value: qrContent?.vcard_profession,
+          },
+        ].map(({ icon, label, value, type }, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "16px",
+            }}
+          >
+            {icon}
+            <div>
+              <p style={{ margin: "0", color: "#8c8c8c", fontSize: "12px" }}>
+                {label}
+              </p>
+              <a
+                href={
+                  type === "mailto"
+                    ? `mailto:${value}`
+                    : type === "tel"
+                    ? `tel:${value}`
+                    : type === "map"
+                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        value
+                      )}`
+                    : value
+                }
+                target={type === "url" ? "_blank" : undefined}
+                rel={type === "url" ? "noopener noreferrer" : undefined}
+                style={{
+                  textDecoration: "none",
+                  fontSize: "12px",
+                  color: "#307fe2",
+                }}
+              >
+                {value}
+              </a>
             </div>
           </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "16px",
-          }}
-        >
-          <TbBriefcase2Filled />
-
-          <div>
-            <p
-              style={{
-                margin: "0",
-                color: "#8c8c8c",
-                fontSize: "12px",
-                lineHeight: "16px",
-              }}
-            >
-              Profession
-            </p>
-            <div
-              style={{
-                textDecoration: "none",
-                fontSize: "12px",
-              }}
-            >
-              {qrContent?.vcard_profession}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div
@@ -647,8 +539,7 @@ export const QRVCARD = ({ qrContent }) => {
           borderTop: "1px solid #bfbfbf",
           borderBottom: "1px solid #bfbfbf",
           width: "100%",
-          paddingTop: "12px",
-          paddingBottom: "12px",
+          padding: "12px 0",
           textAlign: "center",
         }}
       >
@@ -661,18 +552,16 @@ export const QRVCARD = ({ qrContent }) => {
           justifyContent: "center",
           flexWrap: "wrap",
           gap: "12px",
-          width: "700px",
+          width: "100%",
           paddingBottom: "40px",
           paddingTop: "20px",
         }}
       >
-        {Object.entries(qrContent?.vcard_social).map(([key, url]) => {
-          return (
-            <a key={key} href={url} target="_blank" rel="noopener noreferrer">
-              {icons[key] || null}
-            </a>
-          );
-        })}
+        {Object.entries(qrContent?.vcard_social).map(([key, url]) => (
+          <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+            {icons[key] || null}
+          </a>
+        ))}
       </div>
     </div>
   );
@@ -683,38 +572,38 @@ export const QRBUSINESS = ({ qrContent }) => {
     <div
       style={{
         background: qrContent?.color?.background,
-        paddingTop: "30px",
-        paddingBottom: "30px",
+        padding: "30px 0",
       }}
     >
       <div
         className="wrapp"
         style={{
-          width: "700px",
-          marginInline: "auto",
+          maxWidth: "700px",
+          margin: "0 auto",
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           flexDirection: "column",
+          alignItems: "center",
           gap: "20px",
+          padding: "0 20px", // Added padding for smaller screens
         }}
       >
-        <h5>{qrContent?.business_company}</h5>
+        <h5 style={{ textAlign: "center" }}>{qrContent?.business_company}</h5>
         <img
           src={qrContent?.business_logo}
           alt="business_logo"
           width={100}
           height={100}
-          style={{ borderRadius: "100px" }}
+          style={{ borderRadius: "50%", objectFit: "cover" }} // Changed to borderRadius: "50%"
           loading="lazy"
         />
         <div
           className="company-info"
           style={{
             backgroundColor: "#fff",
-            width: "700px",
+            width: "100%", // Full width for responsiveness
             padding: "16px",
             textAlign: "center",
+            borderRadius: "8px", // Optional: rounded corners
           }}
         >
           <h6>{qrContent?.business_title}</h6>
@@ -727,18 +616,18 @@ export const QRBUSINESS = ({ qrContent }) => {
             width: "100%",
             height: "40px",
             borderRadius: "4px",
-            outline: "none",
             border: "none",
             color: "#fff",
             marginTop: "12px",
             marginBottom: "16px",
+            cursor: "pointer", // Added for better UX
           }}
         >
           <Link
             style={{
               textDecoration: "none",
               color: "#fff",
-              width: "100%",
+              display: "block", // Ensures full height clickable area
             }}
             to={qrContent?.business_url}
             target="_blank"
@@ -749,7 +638,12 @@ export const QRBUSINESS = ({ qrContent }) => {
 
         <div
           className="opening-hour"
-          style={{ background: "#fff", width: "100%", padding: "16px" }}
+          style={{
+            background: "#fff",
+            width: "100%",
+            padding: "16px",
+            borderRadius: "8px",
+          }} // Border radius for better appearance
         >
           <div
             className="top"
@@ -783,6 +677,7 @@ export const QRBUSINESS = ({ qrContent }) => {
                       marginBottom: "8px",
                       display: "flex",
                       justifyContent: "space-between",
+                      fontSize: "14px",
                     }}
                   >
                     <strong>
@@ -807,12 +702,13 @@ export const QRBUSINESS = ({ qrContent }) => {
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "start",
             gap: "10px",
             background: "#fff",
             width: "100%",
             padding: "16px",
-            flexDirection: "column",
+            borderRadius: "8px",
           }}
           className="location-con"
         >
@@ -859,7 +755,12 @@ export const QRBUSINESS = ({ qrContent }) => {
 
         <div
           className="facilities-con"
-          style={{ background: "#fff", padding: "16px", width: "100%" }}
+          style={{
+            background: "#fff",
+            padding: "16px",
+            width: "100%",
+            borderRadius: "8px",
+          }}
         >
           <h6>Facilities</h6>
 
@@ -882,7 +783,12 @@ export const QRBUSINESS = ({ qrContent }) => {
 
         <div
           className="contact-info"
-          style={{ background: "#fff", width: "100%", padding: "16px" }}
+          style={{
+            background: "#fff",
+            width: "100%",
+            padding: "16px",
+            borderRadius: "8px",
+          }}
         >
           <div
             className="top"
@@ -997,46 +903,17 @@ export const QRBUSINESS = ({ qrContent }) => {
 
         <div
           className="about-company"
-          style={{ background: "#fff", width: "100%", padding: "16px" }}
-        >
-          <div
-            className="top"
-            style={{
-              display: "flex",
-              alignItems: "start",
-              gap: "6px",
-              flexDirection: "column",
-            }}
-          >
-            <h5
-              style={{
-                margin: "0",
-                fontSize: "16px",
-                color: "#404040",
-              }}
-            >
-              About the company
-            </h5>
-            <h6>{qrContent?.business_about || "ABOUT"}</h6>
-          </div>
-        </div>
-
-        <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "12px",
-            width: "700px",
+            background: "#fff",
+            width: "100%",
+            padding: "16px",
+            borderRadius: "8px",
           }}
         >
-          {Object.entries(qrContent?.business_social).map(([key, url]) => {
-            return (
-              <a key={key} href={url} target="_blank" rel="noopener noreferrer">
-                {icons[key] || null}
-              </a>
-            );
-          })}
+          <h5>About Company</h5>
+          <p style={{ fontSize: "12px", color: "#8c8c8c" }}>
+            {qrContent?.business_description}
+          </p>
         </div>
       </div>
     </div>
@@ -1049,7 +926,9 @@ export const QRSOCIAL = ({ qrContent }) => {
       style={{
         paddingTop: "30px",
         paddingBottom: "30px",
-        width: "700px",
+        paddingInline: "16px", // Add horizontal padding for spacing on left and right
+        width: "100%", // Set to 100% for responsiveness
+        maxWidth: "700px", // Maximum width for the container
         marginInline: "auto",
         height: "100vh",
       }}
@@ -1065,20 +944,24 @@ export const QRSOCIAL = ({ qrContent }) => {
           background: qrContent?.color?.background,
           padding: "16px",
           marginBottom: "16px",
+          borderRadius: "8px", // Added border-radius for aesthetics
         }}
       >
         <img
           src={qrContent?.image_path}
           alt="social"
           style={{
-            width: "250px",
-            height: "250px",
+            width: "100%", // Set to 100% for responsiveness
+            maxWidth: "250px", // Max width for the image
+            height: "auto", // Maintain aspect ratio
             objectFit: "contain",
             borderRadius: "8px",
           }}
         />
-        <h5 style={{ margin: "0" }}>{qrContent?.media_headline}</h5>
-        <h6 style={{ margin: "0", fontSize: "14px" }}>
+        <h5 style={{ margin: "0", textAlign: "center" }}>
+          {qrContent?.media_headline}
+        </h5>
+        <h6 style={{ margin: "0", fontSize: "14px", textAlign: "center" }}>
           {qrContent?.media_description}
         </h6>
       </div>
@@ -1089,7 +972,8 @@ export const QRSOCIAL = ({ qrContent }) => {
           flexDirection: "column",
           flexWrap: "wrap",
           gap: "12px",
-          width: "700px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for social links container
         }}
       >
         {Object.entries(qrContent?.media_social).map(([key, url]) => {
@@ -1106,6 +990,7 @@ export const QRSOCIAL = ({ qrContent }) => {
                 textDecoration: "none",
                 alignItems: "center",
                 gap: "8px",
+                color: "#000", // Ensure text color is consistent
               }}
             >
               {icons[key] || null}
@@ -1138,15 +1023,18 @@ export const QRAPPS = ({ qrContent }) => {
         background: qrContent?.color?.background,
         flexDirection: "column",
         gap: "25px",
+        padding: "0 16px", // Add horizontal padding for small screens
       }}
     >
       <div
         className="box1"
         style={{
-          width: "700px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for the box
           marginInline: "auto",
           background: qrContent?.color?.button,
           height: "62px",
+          borderRadius: "8px", // Optional: for aesthetics
         }}
       >
         <div
@@ -1176,10 +1064,12 @@ export const QRAPPS = ({ qrContent }) => {
       <div
         className="box"
         style={{
-          width: "700px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for the box
           marginInline: "auto",
           background: qrContent?.color?.button,
           padding: "25px",
+          borderRadius: "8px", // Optional: for aesthetics
         }}
       >
         <div
@@ -1187,8 +1077,6 @@ export const QRAPPS = ({ qrContent }) => {
             display: "flex",
             flexWrap: "wrap",
             gap: "12px",
-            width: "700px",
-            alignItems: "center",
             justifyContent: "center",
           }}
         >
@@ -1199,7 +1087,7 @@ export const QRAPPS = ({ qrContent }) => {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{}}
+                style={{ display: "flex", alignItems: "center" }} // Added display property for alignment
               >
                 {iconsApps[key] || null}
               </a>
@@ -1210,13 +1098,14 @@ export const QRAPPS = ({ qrContent }) => {
       <a
         href={qrContent?.app_website}
         target="_blank"
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", color: "#000" }} // Added color for visibility
       >
         {qrContent?.app_website}
       </a>
     </div>
   );
 };
+
 export const QRLINK = ({ qrContent }) => {
   return (
     <div
@@ -1224,19 +1113,19 @@ export const QRLINK = ({ qrContent }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // height: "100vh",
         minHeight: "100vh",
         background: qrContent?.color?.background,
         flexDirection: "column",
         gap: "25px",
         paddingTop: "40px",
         paddingBottom: "30px",
+        padding: "0 16px", // Add horizontal padding for small screens
       }}
     >
       <img
         src={qrContent?.image_path}
         alt="link"
-        style={{ width: "300px", objectFit: "cover" }}
+        style={{ width: "100%", maxWidth: "300px", objectFit: "cover" }} // Responsive image
       />
       <div className="text" style={{ textAlign: "center" }}>
         <h5>{qrContent?.links_title}</h5>
@@ -1246,7 +1135,8 @@ export const QRLINK = ({ qrContent }) => {
       <div
         className="linkbox-con"
         style={{
-          width: "700px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for the container
           display: "flex",
           gap: "12px",
           flexDirection: "column",
@@ -1254,10 +1144,11 @@ export const QRLINK = ({ qrContent }) => {
       >
         {qrContent?.all_links?.map((link, index) => (
           <Link
+            key={index} // Ensure a unique key for each link
             className="linkbox"
             style={{
               background: qrContent?.color?.button,
-              width: "100%",
+              width: "100%", // Set to 100% for responsiveness
               display: "flex",
               justifyContent: "start",
               alignItems: "center",
@@ -1265,13 +1156,18 @@ export const QRLINK = ({ qrContent }) => {
               borderRadius: "6px",
               color: "#fff",
               textDecoration: "none",
-              gap: "50px",
+              gap: "12px", // Adjust gap for better spacing
             }}
             to={link?.url}
             target="_blank"
           >
-            <img src={link?.link_image} alt="" />
-            <h6> {link?.text}</h6>
+            <img
+              src={link?.link_image}
+              alt=""
+              style={{ width: "24px", height: "24px" }}
+            />{" "}
+            {/* Optional: Set image size */}
+            <h6 style={{ margin: "0" }}>{link?.text}</h6>
           </Link>
         ))}
       </div>
@@ -1281,7 +1177,8 @@ export const QRLINK = ({ qrContent }) => {
           display: "flex",
           flexWrap: "wrap",
           gap: "12px",
-          width: "700px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for the social links container
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -1303,13 +1200,14 @@ export const QRLINK = ({ qrContent }) => {
       <a
         href={qrContent?.app_website}
         target="_blank"
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", color: "#000" }} // Added color for visibility
       >
         {qrContent?.app_website}
       </a>
     </div>
   );
 };
+
 export const QRGALLERY = ({ qrContent }) => {
   return (
     <div
