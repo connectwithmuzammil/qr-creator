@@ -1215,13 +1215,13 @@ export const QRGALLERY = ({ qrContent }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // height: "100vh",
         minHeight: "100vh",
         background: qrContent?.color?.background,
         flexDirection: "column",
         gap: "25px",
         paddingTop: "40px",
         paddingBottom: "30px",
+        padding: "0 16px", // Horizontal padding for small screens
       }}
     >
       <div className="text" style={{ textAlign: "center" }}>
@@ -1230,33 +1230,44 @@ export const QRGALLERY = ({ qrContent }) => {
       </div>
       <div
         className="box"
-        style={{ background: "#fff", height: "400px", textAlign: "center" }}
+        style={{
+          background: "#fff",
+          textAlign: "center",
+          padding: "16px",
+          width: "100%", // Set to 100% for responsiveness
+          maxWidth: "700px", // Max width for larger screens
+          borderRadius: "8px", // Optional: add rounded corners
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: add a subtle shadow
+        }}
       >
         <div
           className="box-wrap"
           style={{
-            width: "700px",
+            width: "100%", // Responsive width
+            maxWidth: "300px", // Limit for larger screens
             background: qrContent?.color?.button,
             padding: "16px",
-            textAlign: "center",
-            height: "150px",
+            margin: "0 auto",
+            borderRadius: "6px", // Optional: add rounded corners
           }}
         >
           <img
             src={qrContent?.image_path}
-            alt="link"
+            alt="gallery"
             style={{
-              width: "300px",
+              width: "100%", // Responsive image
+              maxWidth: "300px",
               objectFit: "cover",
               borderRadius: "6px",
-              height: "300px",
+              height: "auto", // Allow for responsive height
             }}
           />
         </div>
         <button
           style={{
             background: qrContent?.color?.button,
-            width: "90%",
+            width: "90%", // Responsive width
+            maxWidth: "300px",
             height: "42px",
             borderRadius: "4px",
             outline: "none",
@@ -1264,7 +1275,6 @@ export const QRGALLERY = ({ qrContent }) => {
             color: "#fff",
             marginTop: "12px",
             marginBottom: "16px",
-            marginTop: "180px",
           }}
         >
           <Link
@@ -1280,13 +1290,14 @@ export const QRGALLERY = ({ qrContent }) => {
       <a
         href={qrContent?.gallery_website}
         target="_blank"
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", marginTop: "16px" }}
       >
         {qrContent?.gallery_website}
       </a>
     </div>
   );
 };
+
 export const QRLANDING = ({ qrContent }) => {
   return (
     <div
@@ -1294,23 +1305,24 @@ export const QRLANDING = ({ qrContent }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // height: "100vh",
         minHeight: "100vh",
         background: qrContent?.color?.background,
         flexDirection: "column",
         gap: "25px",
         paddingTop: "40px",
         paddingBottom: "40px",
+        padding: "0 16px", // Horizontal padding for smaller screens
       }}
     >
-      <h6>{qrContent?.landing_company}</h6>
+      <h6 style={{ textAlign: "center" }}>{qrContent?.landing_company}</h6>
       <img
         src={qrContent?.landing_logo}
         alt=""
         style={{
-          width: "300px",
+          width: "100%", // Responsive width
+          maxWidth: "300px",
           objectFit: "cover",
-          height: "300px",
+          height: "auto", // Responsive height
           position: "relative",
           zIndex: "10",
         }}
@@ -1319,22 +1331,26 @@ export const QRLANDING = ({ qrContent }) => {
         className="box"
         style={{
           background: "#fff",
-          width: "700px",
+          width: "100%", // Responsive width
+          maxWidth: "700px", // Limit for larger screens
           padding: "16px",
           textAlign: "center",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
           alignItems: "center",
+          borderRadius: "8px", // Optional: rounded corners for better appearance
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: subtle shadow
         }}
       >
-        <h6 style={{ fontWeight: "600" }}> {qrContent?.landing_title}</h6>
-        <h6> {qrContent?.landing_subtitle} </h6>
+        <h6 style={{ fontWeight: "600" }}>{qrContent?.landing_title}</h6>
+        <h6>{qrContent?.landing_subtitle}</h6>
 
         <button
           style={{
             background: qrContent?.color?.button,
-            width: "90%",
+            width: "90%", // Responsive width
+            maxWidth: "300px", // Limit for larger screens
             height: "42px",
             borderRadius: "4px",
             outline: "none",
@@ -1356,24 +1372,23 @@ export const QRLANDING = ({ qrContent }) => {
             display: "flex",
             flexWrap: "wrap",
             gap: "12px",
-            width: "700px",
+            width: "100%", // Responsive width
+            maxWidth: "700px", // Limit for larger screens
             justifyContent: "center",
             marginTop: "12px",
           }}
         >
-          {Object.entries(qrContent?.landing_social).map(([key, url]) => {
-            return (
-              <a
-                key={key}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{}}
-              >
-                {icons[key] || null}
-              </a>
-            );
-          })}
+          {Object.entries(qrContent?.landing_social).map(([key, url]) => (
+            <a
+              key={key}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#333" }} // Optional: icon color for visibility
+            >
+              {icons[key] || null}
+            </a>
+          ))}
         </div>
       </div>
     </div>
@@ -1425,36 +1440,34 @@ export const QREVENT = ({ qrContent }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
-        background: qrContent?.color?.background,
         flexDirection: "column",
         gap: "25px",
-        paddingTop: "40px",
-        paddingBottom: "40px",
+        padding: "40px 20px",
+        minHeight: "100vh",
+        background: qrContent?.color?.background,
       }}
     >
       <img
         src={qrContent?.image_path}
         alt=""
         style={{
-          width: "400px",
-          objectFit: "cover",
+          width: "100%",
+          maxWidth: "400px",
           height: "150px",
-          position: "relative",
-          zIndex: "10",
+          objectFit: "cover",
         }}
       />
       <div
         className="box"
         style={{
           background: "#fff",
-          width: "700px",
+          width: "100%",
+          maxWidth: "700px",
           padding: "16px",
+          textAlign: "center",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
-          padding: "16px",
-          textAlign: "center",
         }}
       >
         <h6 style={{ fontWeight: "600" }}> {qrContent?.event_title}</h6>
@@ -1465,11 +1478,11 @@ export const QREVENT = ({ qrContent }) => {
             background: qrContent?.color?.button,
             height: "42px",
             borderRadius: "4px",
-            outline: "none",
             border: "none",
             color: "#fff",
-            width: "240px",
-            marginInline: "auto",
+            width: "100%",
+            maxWidth: "240px",
+            margin: "auto",
           }}
         >
           <Link
@@ -1494,13 +1507,13 @@ export const QREVENT = ({ qrContent }) => {
         className="box"
         style={{
           background: "#fff",
-          width: "700px",
+          width: "100%",
+          maxWidth: "700px",
           padding: "16px",
+          textAlign: "center",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
-          padding: "16px",
-          textAlign: "center",
         }}
       >
         <div
@@ -1628,13 +1641,14 @@ export const QREVENT = ({ qrContent }) => {
       <div
         className="box"
         style={{
-          background: "#fff",
-          width: "700px",
+             background: "#fff",
+          width: "100%",
+          maxWidth: "700px",
           padding: "16px",
+          textAlign: "center",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
-          padding: "16px",
         }}
       >
         <div
@@ -1678,7 +1692,8 @@ export const QREVENT = ({ qrContent }) => {
         className="box"
         style={{
           background: "#fff",
-          width: "700px",
+          maxWidth: "700px",
+          width:"100%",
           padding: "16px",
           display: "flex",
           flexDirection: "column",
@@ -1763,7 +1778,8 @@ export const QREVENT = ({ qrContent }) => {
         className="box"
         style={{
           background: "#fff",
-          width: "700px",
+          maxWidth: "700px",
+          width:"100%",
           padding: "16px",
           display: "flex",
           flexDirection: "column",

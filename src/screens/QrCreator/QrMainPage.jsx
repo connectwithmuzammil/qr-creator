@@ -601,12 +601,12 @@ const QrMainPage = () => {
                                   <div className="wrap">
                                     <IoLinkOutline size={22} />
                                     <a
-                                      href={
-                                        qrCode.outcome.startsWith("http")
-                                          ? qrCode.outcome
-                                          : `http://${qrCode.outcome}`
-                                      }
-                                      // href={qrCode?.outcome}
+                                      // href={
+                                      //   qrCode.outcome.startsWith("http")
+                                      //     ? qrCode.outcome
+                                      //     : `http://${qrCode.outcome}`
+                                      // }
+                                      href={qrCode?.outcome}
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       style={{ textDecoration: "none" }}
