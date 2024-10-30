@@ -6,8 +6,8 @@ const initialState = {
   //URL
   field_url: "",
   //WIFI
-  // network_name: user?.user?.email || user?.email,
-  // network_password: user?.user?.password || user?.password,
+  network_name: "",
+  network_password: "",
   network_security_type: "",
   //YOTUBE
   youtube_url: "",

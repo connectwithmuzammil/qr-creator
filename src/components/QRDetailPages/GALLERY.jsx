@@ -11,7 +11,7 @@ const colors = [
   { id: "yellow", background: "#fff9cc", button: "#998600" },
   { id: "red", background: "#fecdd6", button: "#b00223" },
 ];
-const GALLERY = ({ qrData, setQrData }) => {
+const GALLERY = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
   console.log("editDataGallery", location);
 
@@ -20,25 +20,25 @@ const GALLERY = ({ qrData, setQrData }) => {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
       const { gallery_image, ...restQrData } = qrDataFromLocation;
-      setQrData((prevQrData) => ({
+      setLocalQrData((prevQrData) => ({
         ...prevQrData,
         ...restQrData,
       }));
-      // setQrData(qrDataFromLocation);
+      // setLocalQrData(qrDataFromLocation);
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
       }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -47,7 +47,7 @@ const GALLERY = ({ qrData, setQrData }) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
@@ -62,14 +62,14 @@ const GALLERY = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Add images"}>
@@ -89,21 +89,21 @@ const GALLERY = ({ qrData, setQrData }) => {
               name={"gallery_title"}
               placeholder={"e.g. Our wedding album"}
               onChange={handleInputChange}
-              value={qrData?.gallery_title}
+              value={localQrData?.gallery_title}
             />
             <InputComponent
               label={"Description"}
               name={"gallery_description"}
               placeholder={"e.g. Professional photos from our wedding day"}
               onChange={handleInputChange}
-              value={qrData?.gallery_description}
+              value={localQrData?.gallery_description}
             />
             <InputComponent
               label={"Website"}
               name={"gallery_website"}
               placeholder={"e.g. https://www.ourweddingwebsite.com"}
               onChange={handleInputChange}
-              value={qrData?.gallery_website}
+              value={localQrData?.gallery_website}
             />
             <div className="wrap-inp-cmp">
               <InputComponent
@@ -111,14 +111,14 @@ const GALLERY = ({ qrData, setQrData }) => {
                 name={"gallery_btn_text"}
                 placeholder={"e.g. Write your link text here..."}
                 onChange={handleInputChange}
-                value={qrData?.gallery_btn_text}
+                value={localQrData?.gallery_btn_text}
               />
               <InputComponent
                 label={"URL"}
                 name={"gallery_url"}
                 placeholder={"e.g. https://..."}
                 onChange={handleInputChange}
-                value={qrData?.gallery_url}
+                value={localQrData?.gallery_url}
               />
             </div>
           </AccordianComponent>

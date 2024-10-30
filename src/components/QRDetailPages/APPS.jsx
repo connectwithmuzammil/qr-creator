@@ -25,8 +25,7 @@ const icons = {
   amazon: <AmazonSocial />,
 };
 
-const APPS = ({ qrData, setQrData }) => {
-  const [imagePreview, setImagePreview] = useState(null);
+const APPS = ({ localQrData, setLocalQrData }) => {
 
   //EDIT
   const location = useLocation();
@@ -35,25 +34,25 @@ const APPS = ({ qrData, setQrData }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
-      setQrData(qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
       }
 
       // if (qrDataFromLocation?.app_social) {
-      //   setQrData((prevQrData) => ({
+      //   setLocalQrData((prevQrData) => ({
       //     ...prevQrData,
       //     app_social: qrDataFromLocation?.app_social,
       //   }));
       // }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (image) => {
     console.log("Image uploaded:", image);
@@ -65,14 +64,14 @@ const APPS = ({ qrData, setQrData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       app_social: {
         ...prevData.app_social,
@@ -90,14 +89,14 @@ const APPS = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"App information"}>
@@ -111,28 +110,28 @@ const APPS = ({ qrData, setQrData }) => {
               label={"App name*"}
               placeholder={"e.g. FitnessNow"}
               name={"app_name"}
-              value={qrData?.app_name}
+              value={localQrData?.app_name}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Developer/Company"}
               placeholder={"e.g. App Developer PRO"}
               name={"app_company"}
-              value={qrData?.app_company}
+              value={localQrData?.app_company}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Description"}
               placeholder={"e.g. The only fitness app you need"}
               name={"app_description"}
-              value={qrData?.app_description}
+              value={localQrData?.app_description}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Website"}
               placeholder={"e.g. https://www.fitnessnow.com"}
               name={"app_website"}
-              value={qrData?.app_website}
+              value={localQrData?.app_website}
               onChange={handleInputChange}
             />
           </AccordianComponent>
@@ -142,7 +141,7 @@ const APPS = ({ qrData, setQrData }) => {
               icons={icons}
               onIconClick={handleSocialIconChange}
               className={"app-social"}
-              initialLinks={qrData?.app_social}
+              initialLinks={localQrData?.app_social}
             />
           </AccordianComponent>
         </div>

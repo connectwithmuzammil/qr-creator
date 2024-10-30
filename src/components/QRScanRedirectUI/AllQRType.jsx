@@ -97,9 +97,10 @@ const iconsApps = {
 };
 
 export const QRYOUTUBE = ({ qrContent }) => {
+  console.log("qrcontent0",qrContent)
   // Extract the video ID from the short URL
-  const videoId = qrContent?.youtube_url.split("/").pop().split("?")[0]; // "0Yxf4hY8zjI"
-  console.log("videoId");
+  const videoId = qrContent?.youtube_url.split("v=")[1]?.split("&")[0];
+  console.log("videoId", videoId); // "0Yxf4hY8zjI"
 
   // Create the embed URL
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;

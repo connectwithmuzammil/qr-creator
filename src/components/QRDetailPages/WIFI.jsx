@@ -8,19 +8,27 @@ import {
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-const WIFI = ({ qrData, setQrData }) => {
+const WIFI = ({ localQrData, setLocalQrData }) => {
   const { user } = useSelector((store) => store.user);
   const location = useLocation();
   useEffect(() => {
     if (location.state?.qrData) {
-      setQrData(location.state.qrData.data);
+      setLocalQrData(location?.state?.qrData?.data);
+    } else {
+      // Set default values from user if localQrData is empty
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        network_name: prevData.network_name || user?.user?.email || user?.email,
+        network_password:
+          prevData.network_password || user?.user?.password || user?.password,
+      }));
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   // console.log("useruser", user);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -36,7 +44,7 @@ const WIFI = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Network information"}>
@@ -46,7 +54,9 @@ const WIFI = ({ qrData, setQrData }) => {
                 name={"network_name"}
                 placeholder={"e.g. centralcafe"}
                 onChange={handleInputChange}
-                value={qrData.network_name}
+                value={
+                  localQrData.network_name 
+                }
                 // disabled
               />
               <InputComponent
@@ -54,8 +64,10 @@ const WIFI = ({ qrData, setQrData }) => {
                 name={"network_password"}
                 placeholder={"e.g. mypassword"}
                 onChange={handleInputChange}
-                // value={qrData.network_password}
-                value={qrData?.network_password}
+                // value={localQrData.network_password}
+                value={
+                  localQrData?.network_password 
+                }
                 // disabled
               />
             </div>
@@ -63,7 +75,7 @@ const WIFI = ({ qrData, setQrData }) => {
               <InputSelectComponent
                 label="Security type*"
                 name="network_security_type"
-                value={qrData.network_security_type}
+                value={localQrData.network_security_type}
                 onChange={handleInputChange}
                 defaultOption="Select security type"
                 options={[

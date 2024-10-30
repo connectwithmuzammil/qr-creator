@@ -6,39 +6,38 @@ import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { useLocation } from "react-router-dom";
 
-const PDF = ({ qrData, setQrData }) => {
+const PDF = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
   // console.log("LOCATIONURL", location);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      setQrData(qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
 
-      // Set the file from qrData if it exists
+      // Set the file from localQrData if it exists
       // if (qrDataFromLocation.pdf_file) {
       //   setFile(qrDataFromLocation.pdf_file);
       // }
       setFile(null);
 
-
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation.color,
         }));
       }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
-  const [file, setFile] = useState(qrData.pdf_file || null);
+  const [file, setFile] = useState(localQrData.pdf_file || null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
-      setQrData((prevData) => ({
+      setLocalQrData((prevData) => ({
         ...prevData,
         pdf_file: selectedFile, // Store the selected PDF file
       }));
@@ -49,7 +48,7 @@ const PDF = ({ qrData, setQrData }) => {
 
   const handleDelete = () => {
     setFile(null);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       pdf_file: null, // Reset the PDF file in the state
     }));
@@ -74,7 +73,7 @@ const PDF = ({ qrData, setQrData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -87,24 +86,9 @@ const PDF = ({ qrData, setQrData }) => {
     { id: "red", background: "#fecdd6", button: "#b00223" },
   ];
 
-  // const [activeColor, setActiveColor] = useState(colors[0].id);
-
-  // useEffect(() => {
-  //   const color = colors.find((c) => c.id === activeColor);
-  //   if (color) {
-  //     setQrData((prevState) => ({
-  //       ...prevState,
-  //       color: {
-  //         background: color.background,
-  //         button: color.button,
-  //       },
-  //     }));
-  //   }
-  // }, [activeColor, setQrData]);
-
   console.log("file", file);
 
-  console.log("updatedQRData", qrData);
+  console.log("updatedQRData", localQrData);
   return (
     <div className="pdf-page">
       <div className="containerr">
@@ -114,7 +98,7 @@ const PDF = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Upload your PDF file"}>
@@ -136,29 +120,29 @@ const PDF = ({ qrData, setQrData }) => {
               ) : (
                 <div className="file-info">
                   {/* {typeof file === "string" ? ( */}
-                    <>
-                      {/* <p>Uploaded PDF:</p>
+                  <>
+                    {/* <p>Uploaded PDF:</p>
                       <a href={file} target="_blank" rel="noopener noreferrer">
                         View PDF
                       </a> */}
-                      {/* <iframe
+                    {/* <iframe
                         src={file}
                         width="100%"
                         height="500px"
                         title="PDF Preview"
                       ></iframe> */}
-                    </>
+                  </>
                   {/* ) : ( */}
-                    <>
-                      {file.name ? (
-                        <>
-                          <p>{file.name}</p>
-                          <p>{formatFileSize(file.size)}</p>
-                        </>
-                      ) : (
-                        <p>No file name available</p>
-                      )}
-                    </>
+                  <>
+                    {file.name ? (
+                      <>
+                        <p>{file.name}</p>
+                        <p>{formatFileSize(file.size)}</p>
+                      </>
+                    ) : (
+                      <p>No file name available</p>
+                    )}
+                  </>
                   {/* )} */}
                   <FaTrash className="delete-icon" onClick={handleDelete} />
                 </div>
@@ -168,8 +152,8 @@ const PDF = ({ qrData, setQrData }) => {
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Enter the PDF details"}>
@@ -177,28 +161,28 @@ const PDF = ({ qrData, setQrData }) => {
               label={"Company"}
               placeholder={"e.g. Pizza Palace"}
               name={"pdf_company"}
-              value={qrData.pdf_company}
+              value={localQrData.pdf_company}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"PDF name/title"}
               placeholder={"e.g. Pizza   Menu"}
               name={"pdf_title"}
-              value={qrData.pdf_title}
+              value={localQrData.pdf_title}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Description"}
               placeholder={"e.g. Over 50 topping to choose from!="}
               name={"pdf_description"}
-              value={qrData.pdf_description}
+              value={localQrData.pdf_description}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Website"}
               placeholder={"e.g. https://www.pizzapalace.com"}
               name={"pdf_website"}
-              value={qrData.pdf_website}
+              value={localQrData.pdf_website}
               onChange={handleInputChange}
             />
           </AccordianComponent>

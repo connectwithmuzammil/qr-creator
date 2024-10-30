@@ -53,40 +53,40 @@ const icons = {
   xing: <XingSocial />,
 };
 
-const Social = ({ qrData, setQrData }) => {
+const Social = ({ localQrData, setLocalQrData }) => {
   const [imagePreview, setImagePreview] = useState(null);
 
-    //EDIT
-    const location = useLocation();
-    console.log("LOCATIONURLSOCIAL", location);
-  
-    useEffect(() => {
-      if (location.state?.qrData) {
-        const qrDataFromLocation = location.state.qrData.data;
-        console.log("qrDataFromLocation", qrDataFromLocation);
-        setQrData(qrDataFromLocation);
-  
-        // If there's color data in qrData, ensure it's set correctly
-        if (qrDataFromLocation?.color) {
-          setQrData((prevQrData) => ({
-            ...prevQrData,
-            color: qrDataFromLocation?.color,
-          }));
-        }
-  
-        // Set initial vcard_social links if present (edit mode)
-        // if (qrDataFromLocation?.media_social) {
-        //   setQrData((prevQrData) => ({
-        //     ...prevQrData,
-        //     media_social: qrDataFromLocation?.media_social,
-        //   }));
-        // }
+  //EDIT
+  const location = useLocation();
+  console.log("LOCATIONURLSOCIAL", location);
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const qrDataFromLocation = location.state.qrData.data;
+      console.log("qrDataFromLocation", qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
+
+      // If there's color data in localQrData, ensure it's set correctly
+      if (qrDataFromLocation?.color) {
+        setLocalQrData((prevQrData) => ({
+          ...prevQrData,
+          color: qrDataFromLocation?.color,
+        }));
       }
-    }, [location.state, setQrData]);
+
+      // Set initial vcard_social links if present (edit mode)
+      // if (qrDataFromLocation?.media_social) {
+      //   setLocalQrData((prevQrData) => ({
+      //     ...prevQrData,
+      //     media_social: qrDataFromLocation?.media_social,
+      //   }));
+      // }
+    }
+  }, [location.state, setLocalQrData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -96,14 +96,14 @@ const Social = ({ qrData, setQrData }) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: mediaData,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       media_social: {
         ...prevData.media_social,
@@ -111,7 +111,6 @@ const Social = ({ qrData, setQrData }) => {
       },
     }));
   };
-  
 
   return (
     <div className="social-page">
@@ -122,14 +121,14 @@ const Social = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Basic information"}>
@@ -140,6 +139,7 @@ const Social = ({ qrData, setQrData }) => {
                 label="Upload Your Own Image"
                 onImageUpload={handleImageUpload}
                 name="landing_logo"
+                localQrData={localQrData}
               />
             </div>
             <InputComponent
@@ -147,7 +147,7 @@ const Social = ({ qrData, setQrData }) => {
               name={"media_headline"}
               placeholder={"e.g. Connect with us"}
               onChange={handleInputChange}
-              value={qrData.media_headline}
+              value={localQrData.media_headline}
             />
             <InputComponent
               label={"Description"}
@@ -156,14 +156,14 @@ const Social = ({ qrData, setQrData }) => {
                 "e.g. If you would like to keep up on the latest content, come by and follow us"
               }
               onChange={handleInputChange}
-              value={qrData.media_description}
+              value={localQrData.media_description}
             />
           </AccordianComponent>
           <AccordianComponent title={"Social Media Channels"}>
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.media_social}
+              initialLinks={localQrData?.media_social}
             />
           </AccordianComponent>
         </div>
@@ -176,6 +176,3 @@ const Social = ({ qrData, setQrData }) => {
 };
 
 export default Social;
-
-
-

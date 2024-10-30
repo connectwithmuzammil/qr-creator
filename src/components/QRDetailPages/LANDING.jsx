@@ -51,48 +51,48 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
-const LANDING = ({ qrData, setQrData }) => {
+const LANDING = ({ localQrData, setLocalQrData }) => {
   //EDIT
   const location = useLocation();
   console.log("LANDINGDATAEDITT", location);
+  console.log("localQrData",localQrData)
 
   useEffect(() => {
     if (location.state?.qrData) {
-      const qrDataFromLocation = location?.state?.qrData?.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
-      setQrData(qrDataFromLocation);
+      const localQrDataFromLocation = location?.state?.qrData?.data;
+      console.log("localQrDataFromLocation", localQrDataFromLocation);
+      setLocalQrData(localQrDataFromLocation);
 
-      // If there's color data in qrData, ensure it's set correctly
-      if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
-          ...prevQrData,
-          color: qrDataFromLocation?.color,
+      // If there's color data in localQrData, ensure it's set correctly
+      if (localQrDataFromLocation?.color) {
+        setLocalQrData((prevlocalQrData) => ({
+          ...prevlocalQrData,
+          color: localQrDataFromLocation?.color,
         }));
       }
     }
-  }, [location?.state, setQrData]);
-
+  }, [location?.state, setLocalQrData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleImageUpload = (mediaData, name,file) => {
+  const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       landing_social: {
         ...prevData.landing_social,
@@ -109,14 +109,14 @@ const LANDING = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData?.qr_name}
+              value={localQrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Website information"}>
@@ -126,41 +126,42 @@ const LANDING = ({ qrData, setQrData }) => {
               //   onImageDelete={handleImageDelete}
               label="Logo"
               name="landing_logo"
+              localQrData={localQrData}
             />
             <InputComponent
               label={"Company"}
               name={"landing_company"}
               placeholder={"e.g. Summer Store"}
               onChange={handleInputChange}
-              value={qrData?.landing_company}
+              value={localQrData?.landing_company}
             />
             <InputComponent
               label={"Title"}
               name={"landing_title"}
               placeholder={"e.g. Summer Collection"}
               onChange={handleInputChange}
-              value={qrData?.landing_title}
+              value={localQrData?.landing_title}
             />
             <InputComponent
               label={"Subtitle"}
               name={"landing_subtitle"}
               placeholder={"e.g. Shop for summer essentials at great prices"}
               onChange={handleInputChange}
-              value={qrData?.landing_subtitle}
+              value={localQrData?.landing_subtitle}
             />
             <InputComponent
               label={"Button text"}
               name={"landing_btn_text"}
               placeholder={"e.g. Browse the collection"}
               onChange={handleInputChange}
-              value={qrData?.landing_btn_text}
+              value={localQrData?.landing_btn_text}
             />
             <InputComponent
               label={"URL"}
               name={"landing_action_url"}
               placeholder={"e.g. https://www.yourclothesshop.com/summer"}
               onChange={handleInputChange}
-              value={qrData?.landing_action_url}
+              value={localQrData?.landing_action_url}
             />
           </AccordianComponent>
           <AccordianComponent title={"Social networks"}>
@@ -168,7 +169,7 @@ const LANDING = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.landing_social}
+              initialLinks={localQrData?.landing_social}
             />
           </AccordianComponent>
         </div>

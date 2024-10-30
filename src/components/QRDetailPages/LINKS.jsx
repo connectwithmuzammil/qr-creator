@@ -55,7 +55,7 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
-const LINKS = ({ qrData, setQrData }) => {
+const LINKS = ({ localQrData, setLocalQrData }) => {
   //EDIT
   const location = useLocation();
   console.log("LINKSDATA", location);
@@ -64,40 +64,43 @@ const LINKS = ({ qrData, setQrData }) => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
-      setQrData(qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
       }
       if (qrDataFromLocation?.links) {
-        setLinks(qrDataFromLocation.links); 
+        setLinks(qrDataFromLocation.links);
       }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const [links, setLinks] = useState([]);
 
-  console.log("updatedQRdata",qrData)
+  console.log("updatedQRdata", localQrData);
 
-  // Debounce function to update qrData with a delay of 300ms
+  // Debounce function to update localQrData with a delay of 300ms
   const updateQrDataDebounced = useCallback(
     debounce((updatedLinks) => {
       const sanitizedLinks = updatedLinks.map(({ id, ...rest }) => rest);
-      setQrData((prevData) => ({ ...prevData, all_links: sanitizedLinks }));
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        all_links: sanitizedLinks,
+      }));
     }, 300),
     []
   );
 
   useEffect(() => {
-    // Initialize links from qrData when the component mounts
-    if (qrData.all_links) {
-      setLinks(qrData.all_links);
+    // Initialize links from localQrData when the component mounts
+    if (localQrData.all_links) {
+      setLinks(localQrData.all_links);
     }
-  }, [qrData]);
+  }, [localQrData]);
 
   const handleAddLink = () => {
     const newLink = { id: Date.now(), image: "", text: "", url: "" };
@@ -105,8 +108,8 @@ const LINKS = ({ qrData, setQrData }) => {
     // setLinks([...links, { id: Date.now(), image: "", text: "", url: "" }]);
     setLinks((prevLinks) => {
       const updatedLinks = [...prevLinks, newLink];
-      // Update qrData with the new links state
-      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the new links state
+      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
@@ -115,8 +118,8 @@ const LINKS = ({ qrData, setQrData }) => {
     // setLinks(links.filter((link) => link.id !== id));
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.filter((link) => link.id !== id);
-      // Update qrData with the updated links state
-      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the updated links state
+      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
@@ -130,8 +133,8 @@ const LINKS = ({ qrData, setQrData }) => {
         link.id === id ? { ...link, [name]: value } : link
       );
       console.log("updatedLinks", updatedLinks);
-      // Update qrData with the updated links state
-      // setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the updated links state
+      // setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       updateQrDataDebounced(updatedLinks);
 
       return updatedLinks;
@@ -159,8 +162,8 @@ const LINKS = ({ qrData, setQrData }) => {
       );
 
       console.log("updatedLinksupdatedLinks", updatedLinks);
-      // Update qrData with the updated links state
-      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the updated links state
+      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
@@ -173,15 +176,15 @@ const LINKS = ({ qrData, setQrData }) => {
       const updatedLinks = prevLinks.map((link) =>
         link.id === id ? { ...link, image: "" } : link
       );
-      // Update qrData with the updated links state
-      setQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the updated links state
+      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -191,7 +194,7 @@ const LINKS = ({ qrData, setQrData }) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
@@ -199,7 +202,7 @@ const LINKS = ({ qrData, setQrData }) => {
 
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       links_social: {
         ...prevData.links_social,
@@ -216,14 +219,14 @@ const LINKS = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Information about your List of Links"}>
@@ -239,7 +242,7 @@ const LINKS = ({ qrData, setQrData }) => {
               name={"links_title"}
               placeholder={"e.g. Our sportswear collection"}
               onChange={handleInputChange}
-              value={qrData?.links_title}
+              value={localQrData?.links_title}
             />
             <InputComponent
               label={"Description"}
@@ -248,13 +251,13 @@ const LINKS = ({ qrData, setQrData }) => {
                 "e.g. Our Clothing, footwear, and accessories for athletes"
               }
               onChange={handleInputChange}
-              value={qrData?.links_description}
+              value={localQrData?.links_description}
             />
           </AccordianComponent>
           <AccordianComponent title={"Your links"}>
             <p className="social-con-content">Add one link*</p>
 
-            <div >
+            <div>
               {links?.map((link, index) => (
                 <div key={link.id} className="show-link-con">
                   <div
@@ -309,7 +312,7 @@ const LINKS = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.links_social}
+              initialLinks={localQrData?.links_social}
             />
           </AccordianComponent>
         </div>

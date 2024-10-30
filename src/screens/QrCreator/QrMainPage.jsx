@@ -407,13 +407,13 @@ const QrMainPage = () => {
     { id: 4, name: "Wifi" },
     { id: 5, name: "Video" },
     { id: 6, name: "Vcard" },
-    { id: 7, name: "Business" },
-    { id: 8, name: "Social" },
+    { id: 7, name: "business_page" },
+    { id: 8, name: "social_media" },
     { id: 9, name: "Apps" },
     { id: 10, name: "Links" },
-    { id: 11, name: "Image Gallery" },
+    { id: 11, name: "image_gallery" },
     { id: 12, name: "Landing" },
-    { id: 13, name: "Event" },
+    { id: 13, name: "Events" },
   ];
 
   const handleCheckboxChange = (event) => {
@@ -440,13 +440,25 @@ const QrMainPage = () => {
   }, [selectedTypes, refetchAllQrCodes]);
 
   const displayText = () => {
-    // if (selectedTypes.length === 0) return "Select QR Types";
-    // if (selectedTypes.length > 3) return 'Selected: ...';
-    if (selectedTypes.length > 3) {
-      return `${selectedTypes.slice(0, 2).join(", ")}...`;
+    // Map specific types to their custom labels
+    const typeLabels = {
+      business_page: "Business",
+      social_media: "Social",
+      image_gallery: "Gallery",
+    };
+
+    // Map selected types to display labels and handle more than three selections
+    const mappedSelectedTypes = selectedTypes.map(
+      (type) => typeLabels[type] || type
+    );
+
+    if (mappedSelectedTypes.length > 3) {
+      return `${mappedSelectedTypes.slice(0, 2).join(", ")}...`;
     }
-    return selectedTypes.join(", ");
+
+    return mappedSelectedTypes.join(", ") || "Select QR Types";
   };
+
   return (
     <>
       <div className="qr-main-page">
@@ -483,21 +495,6 @@ const QrMainPage = () => {
                     <FaChevronDown className="dropdown-icon" />
                   </div>
 
-                  {/* <div className="qrTypeDropdown">
-                  <div className="Select__prefix">QR Type:</div>
-                  <select
-                    name="status"
-                    id="qrStatusDropdown"
-                    value={status}
-                    onChange={handleChange}
-                  >
-                    <option value="all">All</option>
-                    <option value="active">Active</option>
-                    <option value="paused">Paused</option>
-                  </select>
-                  <FaChevronDown className="dropdown-icon" />
-                </div> */}
-
                   <div className="qrTypeDropdown">
                     <div className="Select__prefix">QR Type:</div>
                     <div className="dropdown">
@@ -508,17 +505,17 @@ const QrMainPage = () => {
                           <label key={type.id}>
                             <input
                               type="checkbox"
-                              value={
-                                type.name === "Business"
-                                  ? "business_page"
-                                  : type.name === "Social"
-                                  ? "social_media"
-                                  : type.name
-                              }
+                              value={type.name}
                               checked={selectedTypes.includes(type.name)}
                               onChange={handleCheckboxChange}
                             />
-                            {type.name}
+                            {type.name === "business_page"
+                              ? "Business"
+                              : type.name === "social_media"
+                              ? "Social"
+                              : type.name === "image_gallery"
+                              ? "Gallery"
+                              : type.name}
                           </label>
                         ))}
                       </div>
@@ -601,12 +598,12 @@ const QrMainPage = () => {
                                   <div className="wrap">
                                     <IoLinkOutline size={22} />
                                     <a
-                                      // href={
-                                      //   qrCode.outcome.startsWith("http")
-                                      //     ? qrCode.outcome
-                                      //     : `http://${qrCode.outcome}`
-                                      // }
-                                      href={qrCode?.outcome}
+                                      href={
+                                        qrCode.outcome.startsWith("http")
+                                          ? qrCode.outcome
+                                          : `http://${qrCode.outcome}`
+                                      }
+                                      // href={qrCode?.outcome}
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       style={{ textDecoration: "none" }}

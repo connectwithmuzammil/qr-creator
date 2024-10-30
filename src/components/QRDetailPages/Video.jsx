@@ -54,9 +54,7 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
-const Video = ({ qrData, setQrData }) => {
-  const [imagePreview, setImagePreview] = useState(null);
-
+const Video = ({ localQrData, setLocalQrData }) => {
   //EDIT
   const location = useLocation();
   console.log("LOCATIONURLSOCAPP", location);
@@ -65,28 +63,28 @@ const Video = ({ qrData, setQrData }) => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
-      setQrData(qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
       }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       video_social: {
         ...prevData.video_social,
@@ -96,7 +94,7 @@ const Video = ({ qrData, setQrData }) => {
   };
   const handleVideoUpload = (video) => {
     console.log("VIDEO UPLOAD", video);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       video: video,
     }));
@@ -110,14 +108,14 @@ const Video = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData?.qr_name}
+              value={localQrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Video"}>
@@ -130,7 +128,7 @@ const Video = ({ qrData, setQrData }) => {
                 name={"video_company_name"}
                 placeholder={"e.g. https://www.myweb.com/video2"}
                 onChange={handleInputChange}
-                value={qrData?.video_company_name}
+                value={localQrData?.video_company_name}
               />
               <Button title={"Add Video"} width={"200px"} />
             </div> */}
@@ -147,14 +145,14 @@ const Video = ({ qrData, setQrData }) => {
               name={"video_name"}
               placeholder={"e.g. Furniture Store"}
               onChange={handleInputChange}
-              value={qrData?.video_name}
+              value={localQrData?.video_name}
             />
             <InputComponent
               label={"Video title"}
               name={"video_title"}
               placeholder={"e.g. Assemble your flat-pack wardrobe"}
               onChange={handleInputChange}
-              value={qrData?.video_title}
+              value={localQrData?.video_title}
             />
             <InputComponent
               label={"Description"}
@@ -163,21 +161,21 @@ const Video = ({ qrData, setQrData }) => {
                 "e.g. A video guide to putting together your new furniture store wardrobe"
               }
               onChange={handleInputChange}
-              value={qrData?.video_description}
+              value={localQrData?.video_description}
             />
             <InputComponent
               label={"Button text"}
               name={"video_button"}
               placeholder={"e.g. Watch now"}
               onChange={handleInputChange}
-              value={qrData?.video_button}
+              value={localQrData?.video_button}
             />
             <InputComponent
               label={"URL"}
               name={"video_url"}
               placeholder={"e.g. https://www.myvideo..."}
               onChange={handleInputChange}
-              value={qrData?.video_url}
+              value={localQrData?.video_url}
             />
           </AccordianComponent>
           <AccordianComponent title={"Social networks"}>
@@ -185,7 +183,7 @@ const Video = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.video_social}
+              initialLinks={localQrData?.video_social}
             />
           </AccordianComponent>
         </div>

@@ -4,26 +4,26 @@ import { InputComponent } from "../InputComponent";
 import Button from "../Button";
 import { useLocation } from "react-router-dom";
 
-const YOUTUBE = ({ qrData, setQrData }) => {
+const YOUTUBE = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
   // console.log("LOCATIONURL",location);
 
   useEffect(() => {
     if (location.state?.qrData) {
-      setQrData(location.state.qrData.data);
+      setLocalQrData(location.state.qrData.data);
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   
-  console.log("updatedQrData",qrData)
+  // console.log("localQrData",localQrData)
   return (
     <div className="youtube-page">
       <div className="containerr">
@@ -33,7 +33,7 @@ const YOUTUBE = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"YouTube URL *"}>
@@ -41,7 +41,7 @@ const YOUTUBE = ({ qrData, setQrData }) => {
               <InputComponent
                 placeholder={"e.g https://www.youtube.com/watch?v=1234"}
                 onChange={handleInputChange}
-                value={qrData.youtube_url}
+                value={localQrData?.youtube_url}
                 name="youtube_url"
               />
               {/* <Button title={"Upload Video"} width={"200px"} /> */}

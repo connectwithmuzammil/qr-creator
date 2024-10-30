@@ -83,7 +83,7 @@ const FacilitiesIcon = {
   Wifi: <FacilitiesWifiIcon />,
 };
 
-const BUSINESS = ({ qrData, setQrData }) => {
+const BUSINESS = ({  localQrData, setLocalQrData }) => {
   const [imagePreview, setImagePreview] = useState(null);
 
   //EDIT
@@ -96,14 +96,14 @@ const BUSINESS = ({ qrData, setQrData }) => {
       console.log("qrDataFromLocation", qrDataFromLocation);
 
       const { business_logo, ...restQrData } = qrDataFromLocation;
-      setQrData((prevQrData) => ({
+      setLocalQrData((prevQrData) => ({
         ...prevQrData,
         ...restQrData,
       }));
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
@@ -111,7 +111,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
 
       // Set initial vcard_social links if present (edit mode)
       if (qrDataFromLocation?.business_social) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           business_social: qrDataFromLocation?.business_social,
         }));
@@ -121,30 +121,30 @@ const BUSINESS = ({ qrData, setQrData }) => {
       //   setImagePreview(qrDataFromLocation?.business_logo);
       // }
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
-  console.log("updatedQrDataBusiness", qrData);
+  console.log("updatedQrDataBusiness", localQrData);
 
   const [is24HourFormat, setIs24HourFormat] = useState(false);
   const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       business_social: {
         ...prevData.business_social,
@@ -153,7 +153,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
     }));
   };
   const handleFacilitiesIconChange = (iconName, isSelected) => {
-    setQrData((prevQrData) => ({
+    setLocalQrData((prevQrData) => ({
       ...prevQrData,
       business_facilities: {
         ...prevQrData.business_facilities,
@@ -185,7 +185,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
       };
     });
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       opening_hours_days: updatedOpeningHours,
       opening_hours_format: is24HourFormat ? "24-Hour" : "AM-PM", // Update format based on toggle
@@ -201,14 +201,14 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Business information"}>
@@ -225,12 +225,12 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. Artisan Bakery"}
               onChange={handleInputChange}
               // value={
-              //   qrData?.business_company ||
-              //   qrData?.business_page?.business_company
+              //   localQrData?.business_company ||
+              //   localQrData?.business_page?.business_company
               // }
               value={
-                qrData?.business_company ||
-                qrData?.business_page?.business_company
+                localQrData?.business_company ||
+                localQrData?.business_page?.business_company
               }
             />
             <InputComponent
@@ -239,7 +239,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. Fresh Bread and Pastries"}
               onChange={handleInputChange}
               value={
-                qrData?.business_title || qrData?.business_page?.business_title
+                localQrData?.business_title || localQrData?.business_page?.business_title
               }
             />
             <InputComponent
@@ -250,8 +250,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
               }
               onChange={handleInputChange}
               value={
-                qrData?.business_subtitle ||
-                qrData?.business_page?.business_subtitle
+                localQrData?.business_subtitle ||
+                localQrData?.business_page?.business_subtitle
               }
             />
             <div className="wrap-inp-cmp">
@@ -261,8 +261,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. View our products"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_btn_text ||
-                  qrData?.business_page?.business_btn_text
+                  localQrData?.business_btn_text ||
+                  localQrData?.business_page?.business_btn_text
                 }
               />
               <InputComponent
@@ -271,7 +271,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. https://URL here"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_url || qrData?.business_page?.business_url
+                  localQrData?.business_url || localQrData?.business_page?.business_url
                 }
               />
             </div>
@@ -292,8 +292,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. High Street"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_address ||
-                  qrData?.business_page?.business_address
+                  localQrData?.business_address ||
+                  localQrData?.business_page?.business_address
                 }
               />
               <InputComponent
@@ -302,8 +302,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_numeration ||
-                  qrData?.business_page?.business_numeration
+                  localQrData?.business_numeration ||
+                  localQrData?.business_page?.business_numeration
                 }
               />
               <InputComponent
@@ -312,8 +312,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 12548"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_postalcode ||
-                  qrData?.business_page?.business_postalcode
+                  localQrData?.business_postalcode ||
+                  localQrData?.business_page?.business_postalcode
                 }
               />
             </div>
@@ -324,7 +324,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. New York"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_city ?? qrData?.business_page?.business_city
+                  localQrData?.business_city ?? localQrData?.business_page?.business_city
                 }
               />
               <InputComponent
@@ -333,8 +333,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_state ||
-                  qrData?.business_page?.business_state
+                  localQrData?.business_state ||
+                  localQrData?.business_page?.business_state
                 }
               />
               <InputComponent
@@ -343,8 +343,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
                 placeholder={"e.g. USA"}
                 onChange={handleInputChange}
                 value={
-                  qrData?.business_country ||
-                  qrData?.business_page?.business_country
+                  localQrData?.business_country ||
+                  localQrData?.business_page?.business_country
                 }
               />
             </div>
@@ -353,7 +353,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
             <FacilitiesIconComp
               icons={FacilitiesIcon}
               onIconClick={handleFacilitiesIconChange}
-              initialSelectedIcons={qrData.business_facilities}
+              initialSelectedIcons={localQrData.business_facilities}
             />
           </AccordianComponent>
           <AccordianComponent title={"Contact information"}>
@@ -363,7 +363,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. John Smith"}
               onChange={handleInputChange}
               value={
-                qrData?.business_name || qrData?.business_page?.business_name
+                localQrData?.business_name || localQrData?.business_page?.business_name
               }
             />
             <InputComponent
@@ -372,7 +372,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. (123)-123-123-123"}
               onChange={handleInputChange}
               value={
-                qrData?.business_phone || qrData?.business_page?.business_phone
+                localQrData?.business_phone || localQrData?.business_page?.business_phone
               }
             />
             <InputComponent
@@ -381,7 +381,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. youremail@domain.com"}
               onChange={handleInputChange}
               value={
-                qrData?.business_email || qrData?.business_page?.business_email
+                localQrData?.business_email || localQrData?.business_page?.business_email
               }
             />
             <InputComponent
@@ -390,8 +390,8 @@ const BUSINESS = ({ qrData, setQrData }) => {
               placeholder={"e.g. https://www.artisian-bakery.com"}
               onChange={handleInputChange}
               value={
-                qrData?.business_website ||
-                qrData?.business_page?.business_website
+                localQrData?.business_website ||
+                localQrData?.business_page?.business_website
               }
             />
           </AccordianComponent>
@@ -403,7 +403,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
               }
               onChange={handleInputChange}
               value={
-                qrData?.business_about || qrData?.business_page?.business_about
+                localQrData?.business_about || localQrData?.business_page?.business_about
               }
             />
           </AccordianComponent>
@@ -412,7 +412,7 @@ const BUSINESS = ({ qrData, setQrData }) => {
             <SocialIconsComp
               icons={icons}
               onIconClick={handleSocialIconChange}
-              initialLinks={qrData?.business_social}
+              initialLinks={localQrData?.business_social}
             />
           </AccordianComponent>
         </div>

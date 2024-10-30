@@ -63,7 +63,7 @@ const FacilitiesIcon = {
   Wifi: <FacilitiesWifiIcon />,
 };
 
-const EVENT = ({ qrData, setQrData }) => {
+const EVENT = ({ localQrData, setLocalQrData  }) => {
 
   const location = useLocation();
   console.log("LOCATIONURL", location);
@@ -73,14 +73,14 @@ const EVENT = ({ qrData, setQrData }) => {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation",qrDataFromLocation)
       const { event_image, ...restQrData } = qrDataFromLocation;
-      setQrData((prevQrData) => ({
+      setLocalQrData((prevQrData) => ({
         ...prevQrData,
         ...restQrData,
       }));
 
-      // If there's color data in qrData, ensure it's set correctly
+      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
-        setQrData((prevQrData) => ({
+        setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation.color,
         }));
@@ -88,27 +88,27 @@ const EVENT = ({ qrData, setQrData }) => {
 
     
     }
-  }, [location.state, setQrData]);
+  }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (mediaData, name,file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
     }));
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setQrData((prevData) => ({
+    setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleFacilitiesIconChange = (iconName, isSelected) => {
-    setQrData((prevQrData) => ({
+    setLocalQrData((prevQrData) => ({
       ...prevQrData,
       event_facilities: {
         ...prevQrData.event_facilities,
@@ -125,14 +125,14 @@ const EVENT = ({ qrData, setQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={qrData.qr_name}
+              value={localQrData.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
             <CutsomColorPickerComp
               colors={colors}
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Event information"}>
@@ -148,7 +148,7 @@ const EVENT = ({ qrData, setQrData }) => {
               name={"event_title"}
               placeholder={"e.g. End of Summer Festival"}
               onChange={handleInputChange}
-              value={qrData?.event_title}
+              value={localQrData?.event_title}
             />
             <InputComponent
               label={"Description"}
@@ -157,7 +157,7 @@ const EVENT = ({ qrData, setQrData }) => {
                 "e.g. If you would like to keep up on the latest content, come by and follow us"
               }
               onChange={handleInputChange}
-              value={qrData?.event_description}
+              value={localQrData?.event_description}
             />
             <div className="wrap-inp-cmp">
               <InputComponent
@@ -165,21 +165,21 @@ const EVENT = ({ qrData, setQrData }) => {
                 name={"event_btn_text"}
                 placeholder={"e.g. Get tickets"}
                 onChange={handleInputChange}
-                value={qrData?.event_btn_text}
+                value={localQrData?.event_btn_text}
               />
               <InputComponent
                 label={"URL"}
                 name={"event_action_url"}
                 placeholder={"e.g. https://www.yourwebsite.com"}
                 onChange={handleInputChange}
-                value={qrData?.event_action_url}
+                value={localQrData?.event_action_url}
               />
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Event time & date"}>
             <EventSchedularComp
-              qrData={qrData}
-              setQrData={setQrData}
+              qrData={localQrData}
+              setQrData={setLocalQrData}
               onChangeTime={handleInputChange}
             />
           </AccordianComponent>
@@ -190,21 +190,21 @@ const EVENT = ({ qrData, setQrData }) => {
                 name={"event_location_address"}
                 placeholder={"e.g. High Street"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_address}
+                value={localQrData?.event_location_address}
               />
               <InputComponent
                 label={"Number"}
                 name={"event_location_numeration"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_numeration}
+                value={localQrData?.event_location_numeration}
               />
               <InputComponent
                 label={"Zip code"}
                 name={"event_location_postal_code"}
                 placeholder={"e.g. 12548"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_postal_code}
+                value={localQrData?.event_location_postal_code}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -213,21 +213,21 @@ const EVENT = ({ qrData, setQrData }) => {
                 name={"event_location_city"}
                 placeholder={"e.g. New York"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_city}
+                value={localQrData?.event_location_city}
               />
               <InputComponent
                 label={"State"}
                 name={"event_location_state"}
                 placeholder={"e.g. 10"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_state}
+                value={localQrData?.event_location_state}
               />
               <InputComponent
                 label={"Country"}
                 name={"event_location_country"}
                 placeholder={"e.g. USA"}
                 onChange={handleInputChange}
-                value={qrData?.event_location_country}
+                value={localQrData?.event_location_country}
               />
             </div>
           </AccordianComponent>
@@ -238,14 +238,14 @@ const EVENT = ({ qrData, setQrData }) => {
                 name={"event_organizer_name"}
                 placeholder={"e.g. Jane Doe"}
                 onChange={handleInputChange}
-                value={qrData?.event_organizer_name}
+                value={localQrData?.event_organizer_name}
               />
               <InputComponent
                 label={"Phone"}
                 name={"event_organizer_phone"}
                 placeholder={"e.g. (123)-123-123-123"}
                 onChange={handleInputChange}
-                value={qrData?.event_organizer_phone}
+                value={localQrData?.event_organizer_phone}
               />
             </div>
             <div className="wrap-inp-cmp">
@@ -254,14 +254,14 @@ const EVENT = ({ qrData, setQrData }) => {
                 name={"event_organizer_email"}
                 placeholder={"e.g. info@yourevent.com"}
                 onChange={handleInputChange}
-                value={qrData?.event_organizer_email}
+                value={localQrData?.event_organizer_email}
               />
               <InputComponent
                 label={"Website"}
                 name={"event_organizer_website"}
                 placeholder={"e.g. https://www.yourevent.com"}
                 onChange={handleInputChange}
-                value={qrData?.event_organizer_website}
+                value={localQrData?.event_organizer_website}
               />
             </div>
             <InputComponent
@@ -271,14 +271,14 @@ const EVENT = ({ qrData, setQrData }) => {
                 "e.g. We organize the biggest outdoor music events..."
               }
               onChange={handleInputChange}
-              value={qrData?.event_organizer_about}
+              value={localQrData?.event_organizer_about}
             />
           </AccordianComponent>
           <AccordianComponent title={"Facilities"}>
             <FacilitiesIconComp
               icons={FacilitiesIcon}
               onIconClick={handleFacilitiesIconChange}
-              initialSelectedIcons={qrData?.event_facilities}
+              initialSelectedIcons={localQrData?.event_facilities}
             />
           </AccordianComponent>
         </div>

@@ -68,6 +68,7 @@
 
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const ImageUploadComponent = ({
   defaultImage,
@@ -75,31 +76,24 @@ const ImageUploadComponent = ({
   onImageDelete,
   label,
   name,
+  localQrData,
 }) => {
   const [image, setImage] = useState(null);
+  console.log("imageimage", image);
+
+  console.log("nammeee", name);
+  const qrDataVar = useSelector((state) => state.qrData);
+  console.log("qrDataVarImage", qrDataVar);
+  console.log("localQrData", localQrData);
 
   // Generate a unique id for each instance of the component
   const uniqueId = `file-upload-${label.replace(/\s+/g, "-")}-${Math.random()}`;
-
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-
-  //       setImage(reader.result);
-  //       if (onImageUpload) {
-  //         onImageUpload(reader.result,name,file);
-  //       }
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file); // Generate a local URL for the file
+      console.log("imageurlll", imageUrl);
       setImage(imageUrl);
 
       if (onImageUpload) {
@@ -122,7 +116,14 @@ const ImageUploadComponent = ({
         <p>{label}</p>
         <div className="img-wrapper">
           <img
-            src={image || defaultImage}
+            src={
+              // image
+              //   ? image
+              //   : localQrData?.image_path
+              //   ? localQrData.image_path
+              //   : defaultImage
+              image || defaultImage
+            }
             alt="Uploaded"
             className="uploaded-img"
           />

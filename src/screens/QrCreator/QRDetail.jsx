@@ -26,6 +26,7 @@ const QRDetail = () => {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { type } = useParams();
+  console.log("typeeee", type);
   const initialState = {
     qr_name: "",
     id: "",
@@ -205,7 +206,7 @@ const QRDetail = () => {
   const handleNextClick = async () => {
     try {
       if (type === "youtube") {
-        await youtubeSchema.validate(qrData);
+        // await youtubeSchema.validate(qrData);
       }
 
       // else if (type === "url") {
@@ -217,115 +218,115 @@ const QRDetail = () => {
         // await videoSchema.validate(qrData);
       } else if (type === "image_gallery") {
         if (!qrData?.gallery_image) {
-          toast.error("Please Upload Image");
-          return;
+          // toast.error("Please Upload Image");
+          // return;
         }
-      } 
+      }
       // else if (type === "vcard") {
       //   if (!qrData?.vcard_image) {
       //     toast.error("Please Upload Image");
       //     return;
       //   }
-      // } 
+      // }
       else if (type === "business_page") {
         if (!qrData?.business_logo) {
-          toast.error("Please Upload Logo");
-          return;
+          // toast.error("Please Upload Logo");
+          // return;
         }
       } else if (type === "events") {
         if (!qrData?.event_image) {
-          toast.error("Please Upload Cover Image");
-          return;
+          // toast.error("Please Upload Cover Image");
+          // return;
         }
       }
 
       const dataToSend = {
-        type: qrData.type,
-        style: qrData.style,
-        editID: qrData?.id,
+        type: type,
+        style: localQrData?.style,
+        editID: localQrData?.id,
         ...(type === "url"
           ? { field_url: localQrData?.field_url, qr_name: localQrData?.qr_name }
           : {}),
         ...(type === "wifi"
           ? {
-              qr_name: qrData.qr_name,
-              network_name: qrData.network_name,
-              network_password: qrData.network_password,
-              network_security_type: qrData.network_security_type,
+              qr_name: localQrData.qr_name,
+              network_name: localQrData.network_name,
+              network_password: localQrData.network_password,
+              network_security_type: localQrData.network_security_type,
             }
           : {}),
         ...(type === "youtube"
           ? {
-              qr_name: qrData.qr_name,
-              youtube_url: qrData.youtube_url,
+              qr_name: localQrData.qr_name,
+              youtube_url: localQrData.youtube_url,
             }
           : {}),
         ...(type === "pdf"
           ? {
-              qr_name: qrData.qr_name,
-              pdf_file: qrData.pdf_file,
-              pdf_company: qrData.pdf_company,
-              pdf_title: qrData.pdf_title,
-              pdf_description: qrData.pdf_description,
-              pdf_website: qrData.pdf_website,
-              color: qrData.color,
+              qr_name: localQrData?.qr_name,
+              pdf_file: localQrData?.pdf_file,
+              pdf_company: localQrData?.pdf_company,
+              pdf_title: localQrData?.pdf_title,
+              pdf_description: localQrData?.pdf_description,
+              pdf_website: localQrData?.pdf_website,
+              color: localQrData?.color,
             }
           : {}),
         ...(type === "apps"
           ? {
-              qr_name: qrData?.qr_name,
-              app_name: qrData?.app_name,
-              app_company: qrData?.app_company,
-              app_description: qrData?.app_description,
-              app_website: qrData?.app_website,
-              app_social: qrData?.app_social,
-              color: qrData.color,
+              qr_name: localQrData?.qr_name,
+              app_name: localQrData?.app_name,
+              app_company: localQrData?.app_company,
+              app_description: localQrData?.app_description,
+              app_website: localQrData?.app_website,
+              app_social: localQrData?.app_social,
+              color: localQrData.color,
             }
           : {}),
         ...(type === "landing"
           ? {
-              qr_name: qrData?.qr_name,
-              landing_action_url: qrData?.landing_action_url,
-              landing_company: qrData?.landing_company,
-              landing_logo: qrData?.landing_logo,
-              landing_title: qrData?.landing_title,
-              landing_subtitle: qrData?.landing_subtitle,
-              landing_btn_text: qrData?.landing_btn_text,
-              landing_social: qrData?.landing_social,
-              color: qrData.color,
+              qr_name: localQrData?.qr_name,
+              landing_action_url: localQrData?.landing_action_url,
+              landing_company: localQrData?.landing_company,
+              landing_logo: localQrData?.landing_logo,
+              landing_title: localQrData?.landing_title,
+              landing_subtitle: localQrData?.landing_subtitle,
+              landing_btn_text: localQrData?.landing_btn_text,
+              landing_social: localQrData?.landing_social,
+              color: localQrData.color,
             }
           : {}),
         ...(type === "social_media"
           ? {
-              qr_name: qrData?.qr_name,
-              media_headline: qrData.media_headline,
-              color: qrData.color,
-              media_social: qrData.media_social,
-              landing_logo: qrData.landing_logo,
-              media_description: qrData.media_description,
+              qr_name: localQrData?.qr_name,
+              media_headline: localQrData.media_headline,
+              color: localQrData.color,
+              media_social: localQrData.media_social,
+              landing_logo: localQrData.landing_logo,
+              media_description: localQrData.media_description,
             }
           : {}),
         ...(type === "image_gallery"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData.color,
-              gallery_image: qrData.gallery_image,
-              gallery_title: qrData.gallery_title,
-              gallery_btn_text: qrData.gallery_btn_text,
-              gallery_description: qrData.gallery_description,
-              gallery_website: qrData.gallery_website,
-              gallery_url: qrData.gallery_url,
+              qr_name: localQrData?.qr_name,
+              color: localQrData.color,
+              gallery_image: localQrData.gallery_image,
+              gallery_title: localQrData.gallery_title,
+              gallery_btn_text: localQrData.gallery_btn_text,
+              gallery_description: localQrData.gallery_description,
+              gallery_website: localQrData.gallery_website,
+              gallery_url: localQrData.gallery_url,
             }
           : {}),
         ...(type === "links"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData.color,
-              links_image: qrData.links_image,
-              links_title: qrData.links_title,
-              links_description: qrData.links_description,
-              all_links: qrData.all_links,
-              links_social: qrData.links_social,
+              qr_name: localQrData?.qr_name,
+              color: localQrData.color,
+              links_image: localQrData.links_image,
+              links_title: localQrData.links_title,
+              links_description: localQrData.links_description,
+              all_links: localQrData.all_links,
+              links_social: localQrData.links_social,
             }
           : {}),
         ...(type === "vcard"
@@ -353,76 +354,78 @@ const QRDetail = () => {
           : {}),
         ...(type === "business_page"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData?.color,
-              business_email: qrData?.business_email,
-              business_name: qrData?.business_name,
-              business_phone: qrData?.business_phone,
-              business_website: qrData?.business_website,
-              business_action_title: qrData?.business_action_title,
-              business_url: qrData?.business_url,
-              business_company: qrData?.business_company,
-              business_subtitle: qrData?.business_subtitle,
-              business_title: qrData?.business_title,
-              business_address: qrData?.business_address,
-              business_btn_text: qrData?.business_btn_text,
-              business_city: qrData?.business_city,
-              business_country: qrData?.business_country,
-              business_numeration: qrData?.business_numeration,
-              business_postalcode: qrData?.business_postalcode,
-              business_state: qrData?.business_state,
-              business_about: qrData?.business_about,
-              business_facilities: qrData?.business_facilities,
-              business_social: qrData?.business_social,
-              business_logo: qrData?.business_logo,
-              opening_hours_days: qrData?.opening_hours_days,
-              opening_hours_format: qrData?.opening_hours_format,
+              qr_name: localQrData?.qr_name,
+              color: localQrData?.color,
+              business_email: localQrData?.business_email,
+              business_name: localQrData?.business_name,
+              business_phone: localQrData?.business_phone,
+              business_website: localQrData?.business_website,
+              business_action_title: localQrData?.business_action_title,
+              business_url: localQrData?.business_url,
+              business_company: localQrData?.business_company,
+              business_subtitle: localQrData?.business_subtitle,
+              business_title: localQrData?.business_title,
+              business_address: localQrData?.business_address,
+              business_btn_text: localQrData?.business_btn_text,
+              business_city: localQrData?.business_city,
+              business_country: localQrData?.business_country,
+              business_numeration: localQrData?.business_numeration,
+              business_postalcode: localQrData?.business_postalcode,
+              business_state: localQrData?.business_state,
+              business_about: localQrData?.business_about,
+              business_facilities: localQrData?.business_facilities,
+              business_social: localQrData?.business_social,
+              business_logo: localQrData?.business_logo,
+              opening_hours_days: localQrData?.opening_hours_days,
+              opening_hours_format: localQrData?.opening_hours_format,
             }
           : {}),
         ...(type === "video"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData.color,
-              video_social: qrData.video_social,
-              video: qrData.video,
-              video_title: qrData.video_title,
-              video_description: qrData.video_description,
-              video_button: qrData.video_button,
-              video_url: qrData.video_url,
-              video_name: qrData.video_name,
+              qr_name: localQrData?.qr_name,
+              color: localQrData.color,
+              video_social: localQrData.video_social,
+              video: localQrData.video,
+              video_title: localQrData.video_title,
+              video_description: localQrData.video_description,
+              video_button: localQrData.video_button,
+              video_url: localQrData.video_url,
+              video_name: localQrData.video_name,
             }
           : {}),
         ...(type === "events"
           ? {
-              qr_name: qrData?.qr_name,
-              color: qrData.color,
-              event_action_title: qrData?.event_action_title || "",
-              event_action_url: qrData?.event_action_url || "",
-              event_description: qrData?.event_description || "",
-              event_title: qrData?.event_title || "",
-              event_location_address: qrData?.event_location_address || "",
-              event_location_city: qrData?.event_location_city || "",
-              event_location_country: qrData?.event_location_country || "",
+              qr_name: localQrData?.qr_name,
+              color: localQrData.color,
+              event_action_title: localQrData?.event_action_title || "",
+              event_action_url: localQrData?.event_action_url || "",
+              event_description: localQrData?.event_description || "",
+              event_title: localQrData?.event_title || "",
+              event_location_address: localQrData?.event_location_address || "",
+              event_location_city: localQrData?.event_location_city || "",
+              event_location_country: localQrData?.event_location_country || "",
               event_location_numeration:
-                qrData?.event_location_numeration || "",
+                localQrData?.event_location_numeration || "",
               event_location_postal_code:
-                qrData?.event_location_postal_code || "",
-              event_location_state: qrData?.event_location_state || "",
-              event_organizer_about: qrData?.event_organizer_about || "",
-              event_organizer_email: qrData?.event_organizer_email || "",
-              event_organizer_name: qrData?.event_organizer_name || "",
-              event_organizer_phone: qrData?.event_organizer_phone || "",
-              event_organizer_website: qrData?.event_organizer_website || "",
-              event_time_action_title: qrData?.event_time_action_title || "",
-              event_time_all_day: qrData?.event_time_all_day || true,
+                localQrData?.event_location_postal_code || "",
+              event_location_state: localQrData?.event_location_state || "",
+              event_organizer_about: localQrData?.event_organizer_about || "",
+              event_organizer_email: localQrData?.event_organizer_email || "",
+              event_organizer_name: localQrData?.event_organizer_name || "",
+              event_organizer_phone: localQrData?.event_organizer_phone || "",
+              event_organizer_website:
+                localQrData?.event_organizer_website || "",
+              event_time_action_title:
+                localQrData?.event_time_action_title || "",
+              event_time_all_day: localQrData?.event_time_all_day || true,
               event_time_start:
-                qrData?.event_time_start || "2024-09-28T19:00:00.000Z",
+                localQrData?.event_time_start || "2024-09-28T19:00:00.000Z",
               event_time_end:
-                qrData?.event_time_end || "2024-09-29T19:00:00.000Z",
-              event_time_timezone: qrData?.event_time_timezone || "",
-              event_image: qrData?.event_image || "",
-              event_facilities: qrData?.event_facilities || "",
-              event_btn_text: qrData?.event_btn_text || "",
+                localQrData?.event_time_end || "2024-09-29T19:00:00.000Z",
+              event_time_timezone: localQrData?.event_time_timezone || "",
+              event_image: localQrData?.event_image || "",
+              event_facilities: localQrData?.event_facilities || "",
+              event_btn_text: localQrData?.event_btn_text || "",
             }
           : {}),
       };
@@ -449,71 +452,82 @@ const QRDetail = () => {
           </>
         );
       case "vcard":
-        return <VCARD localQrData={localQrData} setLocalQrData={setLocalQrData}/>;
+        return (
+          <VCARD localQrData={localQrData} setLocalQrData={setLocalQrData} />
+        );
       case "pdf":
         return (
           <div>
-            <PDF qrData={qrData} setQrData={setQrData} />
+            <PDF localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "wifi":
         return (
           <div>
-            <WIFI qrData={qrData} setQrData={setQrData} />
+            <WIFI localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "youtube":
         return (
           <div>
-            <YOUTUBE qrData={qrData} setQrData={setQrData} />
+            <YOUTUBE
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+            />
           </div>
         );
       case "apps":
         return (
           <div>
-            <APPS qrData={qrData} setQrData={setQrData} />
+            <APPS localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "image_gallery":
         return (
           <div>
-            <GALLERY qrData={qrData} setQrData={setQrData} />
+            <GALLERY
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+            />
           </div>
         );
       case "links":
         return (
           <div>
-            <LINKS qrData={qrData} setQrData={setQrData} />
+            <LINKS localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "landing":
         return (
           <div>
-            <LANDING qrData={qrData} setQrData={setQrData} />
+            <LANDING localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "social_media":
         return (
           <div>
-            <Social qrData={qrData} setQrData={setQrData} />
+            <Social localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "video":
         return (
           <div>
-            <Video qrData={qrData} setQrData={setQrData} />
+            <Video localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       case "business_page":
         return (
           <div>
-            <BUSINESS qrData={qrData} setQrData={setQrData} />
+            <BUSINESS
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+            />
           </div>
         );
       case "events":
         return (
           <div>
-            <EVENT qrData={qrData} setQrData={setQrData} />
+            <EVENT localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
       default:
