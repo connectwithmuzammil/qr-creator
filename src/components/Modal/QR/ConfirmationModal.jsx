@@ -1,10 +1,14 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { DeleteSVG } from "../../SVGIcon";
+import { DeleteSVG, ActivePausedSVG } from "../../SVGIcon";
 
 const ConfirmationModal = ({
   showConfirmationModal,
   setShowConfirmationModal,
+  onConfirm, // function to handle confirmation action
+  title,
+  svgType,
+  confirmButtonText,
 }) => {
   return (
     <Modal
@@ -13,16 +17,18 @@ const ConfirmationModal = ({
       centered
       size="lg"
       className="confirmationModal"
-      // backdrop="static"
-      // keyboard={false}
     >
       <Modal.Header closeButton />
       <Modal.Body>
-        <DeleteSVG />
-        <h2>Are you sure you want to pause this QR code?</h2>
+        {svgType === "delete" ? <DeleteSVG /> : <ActivePausedSVG />}
+        <h2>{title}</h2>
         <div className="btn-con">
-          <button className="cancel">Cancel</button>
-          <button className="pause">Yes, Paused</button>
+          <button className="cancel" onClick={() => setShowConfirmationModal(false)}>
+            Cancel
+          </button>
+          <button className="pause" onClick={onConfirm}>
+            {confirmButtonText}
+          </button>
         </div>
       </Modal.Body>
     </Modal>

@@ -189,6 +189,7 @@ const QRDetail = () => {
   const [qrData, setQrData] = useState(initialState);
 
   const qrDataVar = useSelector((state) => state.qrData);
+  console.log("qrDataVarr",qrDataVar)
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   console.log("localQrData", localQrData);
 
@@ -234,16 +235,17 @@ const QRDetail = () => {
           // return;
         }
       } else if (type === "events") {
-        if (!qrData?.event_image) {
-          // toast.error("Please Upload Cover Image");
-          // return;
-        }
+        // if (!qrData?.event_image) {
+        // toast.error("Please Upload Cover Image");
+        // return;
+        // }
       }
 
       const dataToSend = {
         type: type,
         style: localQrData?.style,
         editID: localQrData?.id,
+        qrDesignLogo: localQrData?.qrDesignLogo,
         ...(type === "url"
           ? { field_url: localQrData?.field_url, qr_name: localQrData?.qr_name }
           : {}),
@@ -500,7 +502,10 @@ const QRDetail = () => {
       case "landing":
         return (
           <div>
-            <LANDING localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <LANDING
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+            />
           </div>
         );
       case "social_media":

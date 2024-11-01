@@ -6,7 +6,6 @@ import {
 } from "../../components";
 import Accordion from "react-bootstrap/Accordion";
 
-
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   CanvaFrame1,
@@ -48,16 +47,21 @@ import {
   QRDesignDetailIcon,
 } from "../../components/SVGIcon";
 import apis from "../../services";
+import { AccordianComponent } from "../../components/AccordianComponent";
+import { useSelector } from "react-redux";
 
 const QRDesign = () => {
   const { type } = useParams();
+  // const qrDataVar = useSelector((state) => state.qrData);
   const navigate = useNavigate();
   const location = useLocation();
   const { qrData } = location.state || {};
+  const [qrLogoFile, setQrLogoFile] = useState(null);
+
   console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
     if (!qrData) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [qrData, navigate]);
 
@@ -92,7 +96,7 @@ const QRDesign = () => {
 
   //FRAME TOGGLE STATE
   const [selectedFrame, setSelectedFrame] = useState(
-    qrData?.style?.frameName || "notSelctedFrame"
+    qrData?.style?.frameName || "notSelectedFrame"
   ); //"notSelctedFrame"
   //FRAME FIELD STATE
   const [frameColor, setFrameColor] = useState(
@@ -116,6 +120,10 @@ const QRDesign = () => {
     setSelectedDotStyle(styleId);
   };
 
+  //LOGO
+  const [qrLogo, setQrLogo] = useState(qrData?.qrDesignLogo || null);
+  console.log("qrData?.qrDesignLogo",qrData?.qrDesignLogo)
+
   //DOT STYLE STATE
   const [selectedCornerStyle, setSelectedCornerStyle] = useState(
     qrData?.style?.cornerStyle || "rounded"
@@ -124,7 +132,7 @@ const QRDesign = () => {
     setSelectedCornerStyle(styleId);
   };
 
-  // SET QR DATA TO QR CODE STYLING
+  // SET QR DATA TO QR CODE STYLING ON EDIT
   useEffect(() => {
     if (qrData && qrData.style) {
       qrData.style.dotsColor = dotColor;
@@ -157,29 +165,33 @@ const QRDesign = () => {
   console.log("finalQrData", qrData);
   console.log("selectedFrame", selectedFrame);
 
-  const scanQrCode = async (body) => {
-    try {
-      const response = await apis.post("qr_scan", body);
-      console.log("RESPONSE SCAN QR CODE", response);
-      return response.data;
-    } catch (error) {
-      console.error("Error scanning QR code:", error);
-      throw error;
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    console.log("fileee", file);
+    if (file) {
+      setQrLogoFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setQrLogo(reader.result); // Save data URI to state
+      };
+      reader.readAsDataURL(file); // Convert file to data URI
     }
   };
-  const handleQrCodeScan = async (data) => {
-    try {
-      const result = await scanQrCode({ id: data });
-      console.log("QR Code scan result:", result);
-    } catch (error) {
-      console.error("Failed to scan QR Code:", error);
-    }
+  // if (qrData) {
+  //   qrData.qrDesignLogo = qrLogoFile;
+  //   console.log("qrData with uploaded logo file:", qrData);
+  // }
+  const handleImageDelete = () => {
+    setQrLogo(null);
   };
+
+  console.log("qrLogo", qrLogo);
+  console.log("qrLogoFile", qrLogoFile);
 
   //Render Frame CANVAS
   const renderFrame = () => {
     switch (selectedFrame) {
-      case "notSelctedFrame":
+      case "notSelectedFrame":
         return (
           <NotSelectedFrameCanvas
             CornerbgColor={CornerbgColor}
@@ -188,6 +200,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame1":
@@ -203,7 +216,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            onScan={handleQrCodeScan}
+            qrLogo={qrLogo}
           />
         );
       case "frame2":
@@ -219,6 +232,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame3":
@@ -234,6 +248,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame4":
@@ -249,6 +264,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame5":
@@ -264,6 +280,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame6":
@@ -279,6 +296,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame7":
@@ -294,6 +312,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame8":
@@ -309,6 +328,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame9":
@@ -324,6 +344,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame10":
@@ -339,6 +360,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       case "frame11":
@@ -354,6 +376,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
+            qrLogo={qrLogo}
           />
         );
       // ... Add cases for other frames
@@ -403,9 +426,9 @@ const QRDesign = () => {
                       <div className="qr-frames-con">
                         <div
                           className={`img-con ${
-                            selectedFrame === "notSelctedFrame" ? "active" : ""
+                            selectedFrame === "notSelectedFrame" ? "active" : ""
                           }`}
-                          onClick={() => setSelectedFrame("notSelctedFrame")}
+                          onClick={() => setSelectedFrame("notSelectedFrame")}
                         >
                           <NotSelected />
                         </div>
@@ -730,6 +753,58 @@ const QRDesign = () => {
                   </Accordion.Item>
                 </Accordion>
               </div>
+              <AccordianComponent title={"Add a Logo"}>
+                {/* <ImageUploadComponent
+                  defaultImage={"/assets/images/default-img.png"}
+                  onImageUpload={handleImageUpload}
+                  //   onImageDelete={handleImageDelete}
+                  label="Logo"
+                  name="qrDesignLogo"
+                /> */}
+                {/* <input
+                  type="file"
+                  placeholder="img upload"
+                  onChange={(e) => handleImageUpload(e)}
+                /> */}
+
+                <div className="img-upload-comp">
+                  <div className="wrap">
+                    <p>Logo</p>
+                    <div className="img-wrapper">
+                      <img
+                        src={
+                          // ? image
+                          // : onEditImagePreview
+                          // ? onEditImagePreview
+                          // : defaultImage
+                          qrLogo || "/assets/images/default-img.png"
+                        }
+                        alt="Uploaded"
+                        className="uploaded-img"
+                      />
+                      <div className="icon-overlay">
+                        <label
+                          //  htmlFor={uniqueId}
+                          className="upload-icon"
+                        >
+                          <h3>+</h3>
+                          <input
+                            type="file"
+                            // id={uniqueId} // Use the unique id here
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  {qrLogo && (
+                    <button className="delete-icon" onClick={handleImageDelete}>
+                      Delete
+                    </button>
+                  )}
+                </div>
+              </AccordianComponent>
             </div>
           </div>
           <div className="right">

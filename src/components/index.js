@@ -16,6 +16,9 @@ import EditContactInfo from "./Modal/Account/EditContactInfo";
 import UpdateEmail from "./Modal/Account/UpdateEmail";
 import ResetPassword from "./Modal/Auth/ResetPassword";
 import ChangePassword from "./Modal/Auth/ChangePassword";
+import ConfirmationModal from "./Modal/QR/ConfirmationModal";
+import OpenQrScanModal from "./Modal/QR/OpenQRScanModal";
+
 import URL from "./QRDetailPages/URL";
 import ColorPickerComponent from "./ColorPicker";
 import QRMobileFrame from "./QRMobileFrame";
@@ -81,4 +84,6 @@ export {
   QrCodeScanner,
   ScanAndRedirectQr,
   BarChartAnalytics,
+  ConfirmationModal,
+  OpenQrScanModal,
 };

@@ -4,24 +4,6 @@ import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import {
   FacilitiesAccommodationIcon,
-  DribbleSocial,
-  FacebookSocial,
-  FlikrSocial,
-  GithubSocial,
-  InstagramSocial,
-  LineSocial,
-  LinkedinSocial,
-  RedditSocial,
-  SkypeSocial,
-  SnapchatSocial,
-  TiktokSocial,
-  TripadvisorSocial,
-  TumblrSocial,
-  TwitterSocial,
-  VimeoSocial,
-  VkontakteSocial,
-  WebSocial,
-  XingSocial,
   FacilitiesBarIcon,
   FacilitiesCafeIcon,
   FacilitiesChildFriendlyIcon,
@@ -63,15 +45,15 @@ const FacilitiesIcon = {
   Wifi: <FacilitiesWifiIcon />,
 };
 
-const EVENT = ({ localQrData, setLocalQrData  }) => {
-
+const EVENT = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
   console.log("LOCATIONURL", location);
+  console.log("localQrData",localQrData)
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation",qrDataFromLocation)
+      console.log("qrDataFromLocation", qrDataFromLocation);
       const { event_image, ...restQrData } = qrDataFromLocation;
       setLocalQrData((prevQrData) => ({
         ...prevQrData,
@@ -85,13 +67,10 @@ const EVENT = ({ localQrData, setLocalQrData  }) => {
           color: qrDataFromLocation.color,
         }));
       }
-
-    
     }
   }, [location.state, setLocalQrData]);
 
-  const handleImageUpload = (mediaData, name,file) => {
-    console.log("Received media data", mediaData); // media data base64
+  const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media name", name); // media name
 
     setLocalQrData((prevData) => ({
@@ -142,6 +121,7 @@ const EVENT = ({ localQrData, setLocalQrData  }) => {
               //   onImageDelete={handleImageDelete}
               label="Cover"
               name="event_image"
+              onEditImagePreview={location?.state?.qrData?.data?.event_image}
             />
             <InputComponent
               label={"Title"}
@@ -181,6 +161,7 @@ const EVENT = ({ localQrData, setLocalQrData  }) => {
               qrData={localQrData}
               setQrData={setLocalQrData}
               onChangeTime={handleInputChange}
+              isEdit={!!location.state?.qrData}
             />
           </AccordianComponent>
           <AccordianComponent title={"Location"}>

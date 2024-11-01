@@ -1449,13 +1449,14 @@ export const QREVENT = ({ qrContent }) => {
       }}
     >
       <img
-        src={qrContent?.image_path}
-        alt=""
+        src={qrContent?.event_image}
+        alt="event"
         style={{
-          width: "100%",
-          maxWidth: "400px",
+          // width: "100%",
+          // maxWidth: "400px",
           height: "150px",
-          objectFit: "cover",
+          // borderRadius:"100%",
+          // objectFit: "cover",
         }}
       />
       <div

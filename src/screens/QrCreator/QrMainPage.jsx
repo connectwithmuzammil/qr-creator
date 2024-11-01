@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Sidebar, SubscriptionPopup } from "../../components";
+import {
+  ConfirmationModal,
+  Sidebar,
+  SubscriptionPopup,
+  OpenQrScanModal,
+} from "../../components";
 import {
   CanvaFrame1,
   CanvaFrame10,
@@ -27,21 +32,83 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { IoLinkOutline } from "react-icons/io5";
 import { FaChevronDown } from "react-icons/fa";
-import ConfirmationModal from "../../components/Modal/QR/ConfirmationModal";
+import axios from "axios";
+import { IoIosPause } from "react-icons/io";
+import { RxResume } from "react-icons/rx";
+import { GrResume } from "react-icons/gr";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
   const qrCodeRef = useRef(null);
   const [showDeleteBox, setShowDeleteBox] = useState(null);
+  const [statuses, setStatuses] = useState({});
   const [loadingMap, setLoadingMap] = useState({});
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [modalContent, setModalContent] = useState({});
+  const [showPreviewScanModal, setShowPreviewScanModal] = useState(false);
+  const [PreviewScanImageData, setPreviewScanImageData] = useState({});
 
   const handleDeleteBoxToggle = (id) => {
     // console.log("handleDeleteBoxToggleIDDD", id);
     setShowDeleteBox(showDeleteBox === id ? null : id);
   };
 
+  const openConfirmationModal = (id, actionType) => {
+    let content = {};
+    if (actionType === "delete") {
+      content = {
+        title: "Are you sure you want to delete your QR code?",
+        svgType: "delete",
+        confirmButtonText: "Yes, Delete",
+        onConfirm: () => handleDelete(id),
+      };
+    } else if (actionType === "pause") {
+      content = {
+        title: "Are you sure you want to pause this QR code?",
+        svgType: "activePaused",
+        confirmButtonText: "Yes, Pause",
+        onConfirm: () => handleStatusChange(id, 2),
+      };
+    } else if (actionType === "activate") {
+      content = {
+        title: "Are you sure you want to activate this QR code?",
+        svgType: "activePaused",
+        confirmButtonText: "Yes, Activate",
+        onConfirm: () => handleStatusChange(id, 1),
+      };
+    }
+    setModalContent(content);
+    setShowConfirmationModal(true);
+  };
+
+  // Handle status change for active/paused
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      const response = await axios.post(
+        "https://qrgenarator.envobyte.dev/api/change_status",
+        {
+          qrCodeId: id,
+          status: newStatus,
+        }
+      );
+      if (response.status === 200) {
+        setStatuses((prevStatuses) => ({
+          ...prevStatuses,
+          [id]: newStatus,
+        }));
+        alert(
+          `QR Code status changed to ${newStatus === 1 ? "Active" : "Paused"}`
+        );
+      } else {
+        alert("Failed to change QR Code status.");
+      }
+      setShowConfirmationModal(false);
+    } catch (error) {
+      console.error("Error changing status:", error);
+      setShowConfirmationModal(false);
+    }
+  };
   const {
     isLoading,
     refetch: refetchAllQrCodes,
@@ -314,6 +381,7 @@ const QrMainPage = () => {
 
   const handleDelete = async (id) => {
     console.log("delete_id", id);
+    setShowConfirmationModal(false);
     const res = await apis.deleteQrCode({ id });
     console.log("ress", res);
     toast.success("QR Delete Successfully!!");
@@ -332,7 +400,7 @@ const QrMainPage = () => {
       // console.log("userQrScanActivity",userQrScanActivity?.data);
       let statsDataScanActivity = userQrScanActivity?.data;
 
-      navigate("/qr-image", {
+      navigate("/my-qr-codes-details", {
         state: {
           singleViewDetail,
           // statsData,
@@ -558,12 +626,21 @@ const QrMainPage = () => {
                     {[...getALLQrCodes.data]?.reverse().map((qrCode, index) => {
                       const selectedFrame = qrCode?.style?.frameName;
                       const isLoading = loadingMap[qrCode.id];
+                      const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
+                      const isPaused = 2;
                       console.log("qrcodeee", qrCode);
                       return (
                         <div className="all-qrCode-con" key={qrCode.id}>
                           <div className="result-cardd">
                             <div className="one">
-                              <div className="img-con" ref={qrCodeRef}>
+                              <div
+                                className="img-con"
+                                ref={qrCodeRef}
+                                onClick={() => {
+                                  // setShowPreviewScanModal(true);
+                                  setPreviewScanImageData(qrCode);
+                                }}
+                              >
                                 {renderFrame(
                                   selectedFrame,
                                   qrCode?.style,
@@ -659,11 +736,49 @@ const QrMainPage = () => {
                                 </p>
                                 {showDeleteBox === qrCode?.id && (
                                   <div className="box">
-                                    <MdDelete
-                                      className="delete-icon"
-                                      onClick={() => handleDelete(qrCode.id)}
-                                    />
-                                    <h4>Delete</h4>
+                                    <div
+                                      className="delete-wrap"
+                                      onClick={() =>
+                                        openConfirmationModal(
+                                          qrCode.id,
+                                          "delete"
+                                        )
+                                      }
+                                    >
+                                      <MdDelete
+                                        className="delete-icon"
+                                        // onClick={() => handleDelete(qrCode.id)}
+                                      />
+                                      <h4>Delete</h4>
+                                    </div>
+
+                                    <h4
+                                      // onClick={() =>
+                                      //   handleStatusChange(
+                                      //     qrCode.id,
+                                      //     isPaused ? 1 : 2
+                                      //   )
+                                      // }
+                                      onClick={() =>
+                                        openConfirmationModal(
+                                          qrCode.id,
+                                          // isPaused ? "activate" : "pause"
+                                          isPaused ? "pause" : "activate"
+                                        )
+                                      }
+                                    >
+                                      {isPaused ? (
+                                        <div className="delete-wrap">
+                                          <IoIosPause size={20} />
+                                          Paused
+                                        </div>
+                                      ) : (
+                                        <>
+                                          <RxResume size={20} />
+                                          Active
+                                        </>
+                                      )}
+                                    </h4>
                                   </div>
                                 )}
                               </div>
@@ -700,6 +815,14 @@ const QrMainPage = () => {
       <ConfirmationModal
         showConfirmationModal={showConfirmationModal}
         setShowConfirmationModal={setShowConfirmationModal}
+        title={modalContent.title}
+        svgType={modalContent.svgType}
+        confirmButtonText={modalContent.confirmButtonText}
+        onConfirm={modalContent.onConfirm}
+      />
+      <OpenQrScanModal
+        setShowPreviewScanModal={setShowPreviewScanModal}
+        showPreviewScanModal={showPreviewScanModal}
       />
     </>
   );

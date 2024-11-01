@@ -1559,6 +1559,7 @@ footer .bottom p {
   object-fit: contain;
   border: 1px solid #e0201c;
   border-radius: 4px;
+  cursor: pointer;
 }
 .qr-main-page
   .bottom
@@ -1730,6 +1731,13 @@ footer .bottom p {
   z-index: 2;
   display: flex;
   align-items: center;
+  flex-direction: column;
+}
+.qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box .delete-wrap{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
 }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .four .delete-box .box h4 {
   font-size: 12px;
@@ -2126,6 +2134,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   gap: 30px;
+  margin-bottom: 80px;
 }
 .qr-design .containerr .left {
   flex: 2;
@@ -2135,6 +2144,10 @@ footer .bottom p {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 20px;
+  height: 400px;
+  margin-top: 100px;
 
   /* width: 100%;
     object-fit: contain;
@@ -2380,7 +2393,7 @@ footer .bottom p {
 
 .qr-design .three {
   margin-bottom: 16px;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
 }
 .qr-design .three .accordion {
   background-color: #fcfcfc;

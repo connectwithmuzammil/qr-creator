@@ -69,6 +69,9 @@ function BottomWrapperStages({
       if (generateQrPayload?.event_image) {
         formData.append("event_image", generateQrPayload?.event_image);
       }
+      if (generateQrPayload?.qrDesignLogo) {
+        formData.append("qrDesignLogo", generateQrPayload?.qrDesignLogo);
+      }
 
       // Handle opening_hours_days
       if (generateQrPayload?.opening_hours_days) {
@@ -233,7 +236,8 @@ function BottomWrapperStages({
           key !== "app_social" &&
           key !== "video_social" &&
           key !== "landing_social" &&
-          key !== "all_links"
+          key !== "all_links" &&
+          key !== "qrDesignLogo"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
           formData.append(key, generateQrPayload[key]);

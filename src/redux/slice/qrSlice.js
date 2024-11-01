@@ -158,6 +158,7 @@ const initialState = {
     button: "",
   },
   social: {},
+  qrDesignLogo: "",
 };
 const qrSlice = createSlice({
   name: "qrData",

@@ -66,7 +66,7 @@
 
 // export default ImageUploadComponent;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
@@ -77,14 +77,24 @@ const ImageUploadComponent = ({
   label,
   name,
   localQrData,
+  onEditImagePreview,
 }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState( null);
   console.log("imageimage", image);
+  console.log("onEditImagePreview", onEditImagePreview);
 
   console.log("nammeee", name);
   const qrDataVar = useSelector((state) => state.qrData);
   console.log("qrDataVarImage", qrDataVar);
   console.log("localQrData", localQrData);
+
+  // useEffect(() => {
+  //   // Update image state if onEditImagePreview changes (when in edit mode)
+  //   if (onEditImagePreview) {
+  //     setImage(onEditImagePreview);
+  //   }
+  // }, [onEditImagePreview]);
+  console.log("chekkImage",image)
 
   // Generate a unique id for each instance of the component
   const uniqueId = `file-upload-${label.replace(/\s+/g, "-")}-${Math.random()}`;
@@ -117,11 +127,10 @@ const ImageUploadComponent = ({
         <div className="img-wrapper">
           <img
             src={
-              // image
-              //   ? image
-              //   : localQrData?.image_path
-              //   ? localQrData.image_path
-              //   : defaultImage
+              // ? image
+              // : onEditImagePreview
+              // ? onEditImagePreview
+              // : defaultImage
               image || defaultImage
             }
             alt="Uploaded"

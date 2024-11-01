@@ -69,7 +69,7 @@ function App() {
         <Route path="/pricing" element={<PrivateRoute element={Pricing} />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
-        <Route path="/qr-image" element={<QRIMAGESHOW />} />
+        <Route path="/my-qr-codes-details" element={<QRIMAGESHOW />} />
         <Route
           path="/payment"
           element={

@@ -1,12 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import QRCodeStyling from "qr-code-styling";
 
-//DEFAULT QR CODE OPTIONS
-const qrCodeOptions = {
-  width: 300,
-  height: 300,
-  data: "https://example.com",
-};
 
 export const StarIcon = ({ className }) => {
   return (
@@ -1797,7 +1791,7 @@ export const QRDesignCorner6 = (props) => (
 );
 
 //CANVAS RENDER FRAME IMG1
-export const NotSelectedFrameCanvas = ({
+export const  NotSelectedFrameCanvas = ({
   dotColor,
   selectedDotStyle,
   cornerBorderColor,
@@ -1805,29 +1799,37 @@ export const NotSelectedFrameCanvas = ({
   CornerbgColor,
   cornerDotColor,
   data,
+  qrLogo,
   ...props
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  console.log("data null case",data)
+  console.log("data null case", data);
+  console.log("qrLogoLog",qrLogo)
 
   const qrCodeOptions = {
     width: 215,
     height: 215,
-    data: data ?  data: "www.example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
     },
     cornersSquareOptions: {
       color: cornerBorderColor,
-      type: selectedCornerStyle, // This will dynamically change
+      type: selectedCornerStyle, 
     },
     cornersDotOptions: {
       color: cornerDotColor,
     },
     backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
+      color: CornerbgColor, 
+    },
+    image: qrLogo, 
+    imageOptions: {
+      crossOrigin: "anonymous", 
+      margin: 5, 
+      hideBackgroundDots: true, 
     },
   };
   useEffect(() => {
@@ -1839,18 +1841,19 @@ export const NotSelectedFrameCanvas = ({
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
+        type: selectedDotStyle, 
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
+        type: selectedCornerStyle, 
       },
       backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
+        color: CornerbgColor, 
       },
       cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
+        color: cornerDotColor, 
       },
+      image: qrLogo, 
     });
   }, [
     selectedDotStyle,
@@ -1859,14 +1862,31 @@ export const NotSelectedFrameCanvas = ({
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
+    qrLogo
   ]);
 
   return (
     <div className="notselectSvg">
-      <div  id={qrCodeId.current}  style={{ width: "100%", height: "100%" }} />
+      <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }} />
+      {/* {qrLogo && (
+        <img
+          src={qrLogo}
+          alt="Center Logo"
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "50px",
+            height: "50px", 
+            objectFit: "contain",
+          }}
+        />
+      )} */}
     </div>
   );
 };
+
 export const CanvaFrame1 = ({
   frameColor,
   frameBorderColor,
@@ -1878,61 +1898,63 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
+  qrLogo,
   data,
   ...props
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  console.log("daaata QR CODE",data)
+  console.log("qrLogoDebug",qrLogo)
 
   const qrCodeOptions = {
     width: 200,
     height: 200,
-    data: data ?  data: "www.example.com",
+    data: data || "www.example.com",
+    image: qrLogo,
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
     },
     cornersSquareOptions: {
       color: cornerBorderColor,
-      type: selectedCornerStyle, // This will dynamically change
+      type: selectedCornerStyle,
     },
     cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
+      color: cornerDotColor,
     },
     backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
+      color: CornerbgColor,
+    },
+    // image: qrLogo,
+    imageOptions: {
+      crossOrigin: qrLogo && qrLogo.startsWith("http") ? "anonymous" : undefined,
+      margin: 5,
+      hideBackgroundDots: true,
+      width: 30,
+      height: 30,
     },
   };
+
+  // Initialize QR code on mount
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-  }, []);
+  }, []); // Empty dependency array ensures this runs once
 
+  // Update QR code options when props change
   useEffect(() => {
-    qrCode.current.update({
-      dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle, // Update dot style on change
-      },
-      cornersSquareOptions: {
-        color: cornerBorderColor,
-        type: selectedCornerStyle, // Update corner style on change
-      },
-      backgroundOptions: {
-        color: CornerbgColor, // Background color of the QR code
-      },
-      cornersDotOptions: {
-        color: cornerDotColor, // Customize if needed
-      },
-    });
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions);
+    }
   }, [
+    data,
+    dotColor,
     selectedDotStyle,
     cornerBorderColor,
-    dotColor,
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
+    // qrLogo
   ]);
 
   return (
@@ -1948,7 +1970,7 @@ export const CanvaFrame1 = ({
         fillRule="evenodd"
         clipRule="evenodd"
         d="M0 6C0 2.68629 2.68629 0 6 0H66C69.3137 0 72 2.68629 72 6V90C72 93.3137 69.3137 96 66 96H6C2.68629 96 0 93.3137 0 90V6ZM36.0001 93.6C38.9824 93.6 41.4001 91.1823 41.4001 88.2C41.4001 85.2177 38.9824 82.8 36.0001 82.8C33.0177 82.8 30.6001 85.2177 30.6001 88.2C30.6001 91.1823 33.0177 93.6 36.0001 93.6ZM35.9997 92.1C38.1536 92.1 39.8997 90.3539 39.8997 88.2C39.8997 86.0461 38.1536 84.3 35.9997 84.3C33.8458 84.3 32.0997 86.0461 32.0997 88.2C32.0997 90.3539 33.8458 92.1 35.9997 92.1ZM67.1998 18H4.7998V80.4H67.1998V18Z"
-        fill={frameColor ? frameColor : "#404040"}
+        fill={frameColor || "#404040"}
       />
       <foreignObject width="100%" height="18px">
         <svg
@@ -1958,12 +1980,11 @@ export const CanvaFrame1 = ({
             height: "100%",
             maxWidth: "100%",
           }}
-          {...props}
         >
           <text
             x="50%"
             y={10}
-            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            fill={frameTextColor || "#FFFFFF"}
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Nunito Sans"
@@ -1972,7 +1993,7 @@ export const CanvaFrame1 = ({
               fontSize: 9,
             }}
           >
-            {frameText ? frameText : "SCAN ME!"}
+            {frameText || "SCAN ME!"}
           </text>
         </svg>
       </foreignObject>
@@ -1990,7 +2011,7 @@ export const CanvaFrame1 = ({
             alignItems: "center",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }} />
         </div>
       </foreignObject>
     </svg>
@@ -2012,11 +2033,11 @@ export const CanvaFrame2 = ({
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  
+
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: data ?  data: "www.example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2035,7 +2056,7 @@ export const CanvaFrame2 = ({
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-    }, []);
+  }, []);
 
   useEffect(() => {
     qrCode.current.update({
@@ -2091,7 +2112,10 @@ export const CanvaFrame2 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={72}>
@@ -2143,7 +2167,7 @@ export const CanvaFrame3 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: data ?  data: "www.example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2162,7 +2186,7 @@ export const CanvaFrame3 = ({
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-    }, []);
+  }, []);
 
   useEffect(() => {
     qrCode.current.update({
@@ -2220,7 +2244,10 @@ export const CanvaFrame3 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={72}>
@@ -2272,7 +2299,7 @@ export const CanvaFrame4 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: data ?  data: "www.example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2290,7 +2317,7 @@ export const CanvaFrame4 = ({
   };
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
-   qrCode.current.append(document.getElementById(qrCodeId.current));
+    qrCode.current.append(document.getElementById(qrCodeId.current));
   }, []);
 
   useEffect(() => {
@@ -2346,7 +2373,10 @@ export const CanvaFrame4 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={72}>
@@ -2398,7 +2428,7 @@ export const CanvaFrame5 = ({
   const qrCodeOptions = {
     width: 300,
     height: 300,
-    data: data ?  data: "www.example.com",
+    data: data ? data : "www.example.com",
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -2416,7 +2446,7 @@ export const CanvaFrame5 = ({
   };
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
-   qrCode.current.append(document.getElementById(qrCodeId.current));
+    qrCode.current.append(document.getElementById(qrCodeId.current));
   }, []);
 
   useEffect(() => {
@@ -2499,7 +2529,10 @@ export const CanvaFrame5 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
     </svg>
@@ -2599,7 +2632,10 @@ export const CanvaFrame6 = ({
           }}
           bis_skin_checked={1}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={72}>
@@ -2670,7 +2706,7 @@ export const CanvaFrame7 = ({
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-    }, []);
+  }, []);
 
   useEffect(() => {
     qrCode.current.update({
@@ -2743,7 +2779,10 @@ export const CanvaFrame7 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={72}>
@@ -2814,7 +2853,7 @@ export const CanvaFrame8 = ({
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-    }, []);
+  }, []);
 
   useEffect(() => {
     qrCode.current.update({
@@ -2874,7 +2913,10 @@ export const CanvaFrame8 = ({
             paddingTop: 1,
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={90} style={{}}>
@@ -2990,7 +3032,7 @@ export const CanvaFrame9 = ({
       <rect x={8} y={20} width={64} height={64} fill="url(#pattern0)" />
       <path
         d="M21 10.25C21 7.62665 23.1266 5.5 25.75 5.5H54.25C56.8734 5.5 59 7.62665 59 10.25C59 12.8734 56.8734 15 54.25 15H25.75C23.1266 15 21 12.8734 21 10.25Z"
-        fill={ "#404040"}
+        fill={"#404040"}
       />
       <path
         fillRule="evenodd"
@@ -3011,7 +3053,10 @@ export const CanvaFrame9 = ({
             padding: "1px 1px 1px 0px",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={90}>
@@ -3088,17 +3133,17 @@ export const CanvaFrame10 = ({
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
-        type: selectedDotStyle, 
+        type: selectedDotStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
-        type: selectedCornerStyle, 
+        type: selectedCornerStyle,
       },
       backgroundOptions: {
         color: CornerbgColor,
       },
       cornersDotOptions: {
-        color: cornerDotColor, 
+        color: cornerDotColor,
       },
     });
   }, [
@@ -3154,7 +3199,10 @@ export const CanvaFrame10 = ({
             backgroundColor: "white",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" y={80}>
@@ -3224,7 +3272,7 @@ export const CanvaFrame11 = ({
   };
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
-   qrCode.current.append(document.getElementById(qrCodeId.current));
+    qrCode.current.append(document.getElementById(qrCodeId.current));
   }, []);
 
   useEffect(() => {
@@ -3281,7 +3329,10 @@ export const CanvaFrame11 = ({
             paddingTop: 2,
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }}></div>
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          ></div>
         </div>
       </foreignObject>
       <foreignObject width="100%" height="18px" x={-3} y={80}>
