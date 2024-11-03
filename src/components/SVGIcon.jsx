@@ -1824,7 +1824,7 @@ export const NotSelectedFrameCanvas = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    image: qrLogo,
+    // image: qrLogo,
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 5,
@@ -1852,7 +1852,7 @@ export const NotSelectedFrameCanvas = ({
       cornersDotOptions: {
         color: cornerDotColor,
       },
-      image: qrLogo,
+      // image: qrLogo,
     });
   }, [
     selectedDotStyle,
@@ -1861,7 +1861,7 @@ export const NotSelectedFrameCanvas = ({
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
-    qrLogo,
+    // qrLogo,
   ]);
 
   return (
@@ -1922,7 +1922,7 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    image: qrLogo ? qrLogo : testLogo, 
+    // image: qrLogo ? qrLogo : testLogo, 
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 20
@@ -1948,7 +1948,7 @@ export const CanvaFrame1 = ({
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
-    qrLogo,
+    // qrLogo,
   ]);
 
   return (
