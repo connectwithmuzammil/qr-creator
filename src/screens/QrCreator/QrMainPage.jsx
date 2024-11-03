@@ -646,7 +646,7 @@ const QrMainPage = () => {
                                   qrCode?.style,
                                   qrCode
                                 )} */}
-                                <img src="/assets/image/qrDelete.png" alt="qrDelete" />
+                                <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"250px",height:"250px"}}/>
                               </div>
                               <div className="content-wrap">
                                 <h4>

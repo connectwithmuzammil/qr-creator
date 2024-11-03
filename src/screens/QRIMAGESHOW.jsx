@@ -349,7 +349,7 @@ const QRIMAGESHOW = () => {
       <div className="qr-preview">
         <div className="img-con">
           {/* {renderFrame()} */}
-          <img src="/assets/images/qrDelete.png" alt="qrdelete" />
+          <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"100px",height:"100px"}}/>
           <div className="frame-overlay" style={{ position: "static" }}></div>
         </div>
       </div>
