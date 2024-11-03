@@ -347,9 +347,20 @@ const QRIMAGESHOW = () => {
   return (
     <div className="qrDetailsPage">
       <div className="qr-preview">
-        <div className="img-con">
+        <div
+          className="img-con"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {/* {renderFrame()} */}
-          <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"100px",height:"100px"}}/>
+          <img
+            src="/assets/images/qrDelete.png"
+            alt="qrdelete"
+            style={{ width: "250px", height: "250px" }}
+          />
           <div className="frame-overlay" style={{ position: "static" }}></div>
         </div>
       </div>
