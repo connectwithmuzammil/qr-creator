@@ -1923,7 +1923,7 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-  // image: testLogo || undefined,
+  image: testLogo || undefined,
     // image: qrLogo ? qrLogo : testLogo, 
   //   imageOptions: {
   //     crossOrigin: "anonymous",
