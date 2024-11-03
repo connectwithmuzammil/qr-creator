@@ -4,7 +4,7 @@ const createBackendServer = (baseURL) => {
   // console.log("BASEURL", baseURL);
   const api = axios.create({
     baseURL: `${baseURL}`,
-    withCredentials: true,
+    withCredentials: false,
     headers: {
       Accept: "application/json",
     },
