@@ -1825,7 +1825,7 @@ export const NotSelectedFrameCanvas = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    // image: testLogo || undefined,
+    image: testLogo || undefined,
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 5,

@@ -78,6 +78,8 @@ const QRIMAGESHOW = () => {
       color: cornerBorderColor,
       type: selectedCornerStyle, // Update corner style on change
     },
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
   };
 
   useEffect(() => {
