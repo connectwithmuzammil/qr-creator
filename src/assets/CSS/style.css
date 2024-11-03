@@ -1915,6 +1915,9 @@ footer .bottom p {
   flex: 1;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 .qr-editor-detail .url .containerr .right img {
   width: 100%;
@@ -4145,3 +4148,46 @@ p.social-con-content {
 
 
 
+.qr-preview__header__buttons-toggle{
+  background: #f2f2f2;
+    display: flex;
+    padding: 7px 8px;
+    border-radius: 6.25rem;
+}
+.button-toggle.button--secondary {
+  color: #fcfcfc;
+  display: flex;
+  justify-content: center;
+  border: none;
+  outline: none;
+  font: inherit;
+  padding: 4px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-family: "Nunito Sans", sans-serif;
+
+}
+.button-toggle .button__text {
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+.button-toggle.button--deactivated.button--secondary {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  border: none;
+  outline: none;
+  font: inherit;
+  padding: 4px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.qr-preview__header__buttons-toggle .button--active {
+  background-color: #e0201c;
+}
+
+.qr-preview__header__buttons-toggle .button--inactive {
+  background-color: transparent; 
+  color: #bfbfbf !important;
+}

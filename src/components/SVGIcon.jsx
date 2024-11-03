@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import QRCodeStyling from "qr-code-styling";
 
-
 export const StarIcon = ({ className }) => {
   return (
     <svg
@@ -1791,7 +1790,7 @@ export const QRDesignCorner6 = (props) => (
 );
 
 //CANVAS RENDER FRAME IMG1
-export const  NotSelectedFrameCanvas = ({
+export const NotSelectedFrameCanvas = ({
   dotColor,
   selectedDotStyle,
   cornerBorderColor,
@@ -1805,7 +1804,7 @@ export const  NotSelectedFrameCanvas = ({
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
   console.log("data null case", data);
-  console.log("qrLogoLog",qrLogo)
+  console.log("qrLogoLog", qrLogo);
 
   const qrCodeOptions = {
     width: 215,
@@ -1817,19 +1816,19 @@ export const  NotSelectedFrameCanvas = ({
     },
     cornersSquareOptions: {
       color: cornerBorderColor,
-      type: selectedCornerStyle, 
+      type: selectedCornerStyle,
     },
     cornersDotOptions: {
       color: cornerDotColor,
     },
     backgroundOptions: {
-      color: CornerbgColor, 
+      color: CornerbgColor,
     },
-    image: qrLogo, 
+    image: qrLogo,
     imageOptions: {
-      crossOrigin: "anonymous", 
-      margin: 5, 
-      hideBackgroundDots: true, 
+      crossOrigin: "anonymous",
+      margin: 5,
+      hideBackgroundDots: true,
     },
   };
   useEffect(() => {
@@ -1841,19 +1840,19 @@ export const  NotSelectedFrameCanvas = ({
     qrCode.current.update({
       dotsOptions: {
         color: dotColor,
-        type: selectedDotStyle, 
+        type: selectedDotStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
-        type: selectedCornerStyle, 
+        type: selectedCornerStyle,
       },
       backgroundOptions: {
-        color: CornerbgColor, 
+        color: CornerbgColor,
       },
       cornersDotOptions: {
-        color: cornerDotColor, 
+        color: cornerDotColor,
       },
-      image: qrLogo, 
+      image: qrLogo,
     });
   }, [
     selectedDotStyle,
@@ -1862,7 +1861,7 @@ export const  NotSelectedFrameCanvas = ({
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
-    qrLogo
+    qrLogo,
   ]);
 
   return (
@@ -1886,7 +1885,6 @@ export const  NotSelectedFrameCanvas = ({
     </div>
   );
 };
-
 export const CanvaFrame1 = ({
   frameColor,
   frameBorderColor,
@@ -1898,19 +1896,18 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
-  qrLogo,
+  qrLogo,  // Assuming qrLogo is passed as a prop from API response
   data,
   ...props
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  console.log("qrLogoDebug",qrLogo)
-
+  const testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
+  
   const qrCodeOptions = {
     width: 200,
     height: 200,
     data: data || "www.example.com",
-    image: qrLogo,
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -1925,23 +1922,20 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    // image: qrLogo,
+    image: qrLogo ? qrLogo : testLogo, 
     imageOptions: {
-      crossOrigin: qrLogo && qrLogo.startsWith("http") ? "anonymous" : undefined,
-      margin: 5,
-      hideBackgroundDots: true,
-      width: 30,
-      height: 30,
-    },
+      crossOrigin: "anonymous",
+      margin: 20
+  }
   };
 
   // Initialize QR code on mount
   useEffect(() => {
     qrCode.current = new QRCodeStyling(qrCodeOptions);
     qrCode.current.append(document.getElementById(qrCodeId.current));
-  }, []); // Empty dependency array ensures this runs once
+  }, []);
 
-  // Update QR code options when props change
+  // Update QR code options when props change, with a delay for qrLogo update
   useEffect(() => {
     if (qrCode.current) {
       qrCode.current.update(qrCodeOptions);
@@ -1954,7 +1948,7 @@ export const CanvaFrame1 = ({
     selectedCornerStyle,
     CornerbgColor,
     cornerDotColor,
-    // qrLogo
+    qrLogo,
   ]);
 
   return (
@@ -2011,12 +2005,17 @@ export const CanvaFrame1 = ({
             alignItems: "center",
           }}
         >
-          <div id={qrCodeId.current} style={{ width: "100%", height: "100%" }} />
+          <div
+            id={qrCodeId.current}
+            style={{ width: "100%", height: "100%" }}
+          />
         </div>
       </foreignObject>
     </svg>
   );
 };
+
+
 export const CanvaFrame2 = ({
   frameColor,
   frameBorderColor,

@@ -56,7 +56,7 @@ const QRDesign = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { qrData } = location.state || {};
-  const [qrLogoFile, setQrLogoFile] = useState(null);
+  const [qrLogoFile, setQrLogoFile] = useState(qrData?.qrDesignLogo || null);
 
   console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
@@ -122,7 +122,7 @@ const QRDesign = () => {
 
   //LOGO
   const [qrLogo, setQrLogo] = useState(qrData?.qrDesignLogo || null);
-  console.log("qrData?.qrDesignLogo",qrData?.qrDesignLogo)
+  console.log("qrData?.qrDesignLogo", qrData?.qrDesignLogo);
 
   //DOT STYLE STATE
   const [selectedCornerStyle, setSelectedCornerStyle] = useState(
@@ -177,10 +177,10 @@ const QRDesign = () => {
       reader.readAsDataURL(file); // Convert file to data URI
     }
   };
-  // if (qrData) {
-  //   qrData.qrDesignLogo = qrLogoFile;
-  //   console.log("qrData with uploaded logo file:", qrData);
-  // }
+  if (qrData) {
+    qrData.qrDesignLogo = qrLogoFile;
+    console.log("qrData with uploaded logo file:", qrData);
+  }
   const handleImageDelete = () => {
     setQrLogo(null);
   };
@@ -754,31 +754,12 @@ const QRDesign = () => {
                 </Accordion>
               </div>
               <AccordianComponent title={"Add a Logo"}>
-                {/* <ImageUploadComponent
-                  defaultImage={"/assets/images/default-img.png"}
-                  onImageUpload={handleImageUpload}
-                  //   onImageDelete={handleImageDelete}
-                  label="Logo"
-                  name="qrDesignLogo"
-                /> */}
-                {/* <input
-                  type="file"
-                  placeholder="img upload"
-                  onChange={(e) => handleImageUpload(e)}
-                /> */}
-
                 <div className="img-upload-comp">
                   <div className="wrap">
                     <p>Logo</p>
                     <div className="img-wrapper">
                       <img
-                        src={
-                          // ? image
-                          // : onEditImagePreview
-                          // ? onEditImagePreview
-                          // : defaultImage
-                          qrLogo || "/assets/images/default-img.png"
-                        }
+                        src={qrLogo || "/assets/images/default-img.png"}
                         alt="Uploaded"
                         className="uploaded-img"
                       />
