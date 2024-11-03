@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import URL from "../../assets/images/url.svg";
 import vcard from "../../assets/images/icon-qr-vcard.svg";
 import business from "../../assets/images/icon-qr-business.svg";
@@ -18,9 +18,15 @@ import {
   SubscriptionPopup,
 } from "../../components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetQrData } from "../../redux/slice/qrSlice";
 
 const QrCreator = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetQrData());
+  }, [dispatch]);
   const { user } = useSelector((store) => store.user);
   console.log("userrSTAGING", user);
   const subPlan = user?.user?.subscription_plan || user?.subscription_plan;

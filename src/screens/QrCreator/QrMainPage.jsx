@@ -641,12 +641,12 @@ const QrMainPage = () => {
                                   setPreviewScanImageData(qrCode);
                                 }}
                               >
-                                {/* {renderFrame(
+                                {renderFrame(
                                   selectedFrame,
                                   qrCode?.style,
                                   qrCode
-                                )} */}
-                                <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"80px",height:"80px"}}/>
+                                )}
+                                {/* <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"80px",height:"80px"}}/> */}
                               </div>
                               <div className="content-wrap">
                                 <h4>

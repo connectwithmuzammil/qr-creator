@@ -355,12 +355,12 @@ const QRIMAGESHOW = () => {
             alignItems: "center",
           }}
         >
-          {/* {renderFrame()} */}
-          <img
+          {renderFrame()}
+          {/* <img
             src="/assets/images/qrDelete.png"
             alt="qrdelete"
             style={{ width: "250px", height: "250px" }}
-          />
+          /> */}
           <div className="frame-overlay" style={{ position: "static" }}></div>
         </div>
       </div>
