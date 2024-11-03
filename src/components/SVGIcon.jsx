@@ -1805,6 +1805,7 @@ export const NotSelectedFrameCanvas = ({
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
   console.log("data null case", data);
   console.log("qrLogoLog", qrLogo);
+  const testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
 
   const qrCodeOptions = {
     width: 215,
@@ -1824,7 +1825,7 @@ export const NotSelectedFrameCanvas = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    // image: qrLogo,
+    image: testLogo,
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 5,
@@ -1922,6 +1923,7 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
+    image : testLogo,
     // image: qrLogo ? qrLogo : testLogo, 
     imageOptions: {
       crossOrigin: "anonymous",
