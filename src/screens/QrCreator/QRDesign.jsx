@@ -200,7 +200,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame1":
@@ -216,7 +216,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame2":
@@ -232,7 +232,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame3":
@@ -248,7 +248,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame4":

@@ -1798,13 +1798,13 @@ export const NotSelectedFrameCanvas = ({
   CornerbgColor,
   cornerDotColor,
   data,
-  qrLogo,
+  // qrLogo,
   ...props
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
   console.log("data null case", data);
-  console.log("qrLogoLog", qrLogo);
+  // console.log("qrLogoLog", qrLogo);
   const testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
 
   const qrCodeOptions = {
@@ -1825,7 +1825,7 @@ export const NotSelectedFrameCanvas = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    image: testLogo,
+    image: testLogo || undefined,
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 5,
@@ -1897,7 +1897,7 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
-  qrLogo,  // Assuming qrLogo is passed as a prop from API response
+  // qrLogo,  
   data,
   ...props
 }) => {
@@ -1923,12 +1923,12 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-    image : testLogo,
+  image: testLogo || undefined,
     // image: qrLogo ? qrLogo : testLogo, 
-    imageOptions: {
-      crossOrigin: "anonymous",
-      margin: 20
-  }
+  //   imageOptions: {
+  //     crossOrigin: "anonymous",
+  //     margin: 20
+  // }
   };
 
   // Initialize QR code on mount
