@@ -3,6 +3,8 @@ import { AccordianComponent, AccordianWithInput } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewLanding, QRPreviewURL } from "./QRPreviewAll";
 
 const URL = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
@@ -53,48 +55,24 @@ const URL = ({ localQrData, setLocalQrData }) => {
               />
             </AccordianComponent>
           </div>
-          <div className="right">
-            {/* <div className="qr-preview__header__buttons-toggle">
-              <button
-                aria-label="Preview Page"
-                data-testid="button"
-                data-qa="qr-editor-preview-button"
-                className={`button button-toggle button--secondary button--square ${
-                  selectedOption === "Preview Page"
-                    ? "button--active"
-                    : "button--inactive"
-                }`}
-                type="button"
-                onClick={() => handleToggle("Preview Page")}
-              >
-                <span data-testid="button-label" className="button__text">
-                  Preview Page
-                </span>
-              </button>
-              <button
-                aria-label="QR Code"
-                data-testid="button"
-                data-qa="qr-editor-qr-preview-button"
-                className={`button button-toggle button--secondary button--square ${
-                  selectedOption === "QR Code"
-                    ? "button--active"
-                    : "button--inactive"
-                }`}
-                type="button"
-                onClick={() => handleToggle("QR Code")}
-              >
-                <span data-testid="button-label" class="button__text">
-                  QR Code
-                </span>
-              </button>
-            </div> */}
-            <ToggleButton
-              selectedOption={selectedOption}
-              onToggle={handleToggle}
-            />
 
-            <img src="/assets/images/phone-url.png" alt="" />
+          <div className="right">
+          <ToggleButton
+            selectedOption={selectedOption}
+            onToggle={handleToggle}
+          />
+          <div className="qr-preview__layout__image">
+            <div className="Preview-layout Preview-layout--vcard">
+              <TopPreviewHeader className="topHeaderSvg" urlLink = {localQrData?.field_url}/>
+              <QRPreviewURL localQrData={localQrData} />
+            </div>
+
+            <PreviewFrame className="preview-frame" />
           </div>
+          {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
+        </div>
+
+          {/* <img src="/assets/images/phone-url.png" alt="" /> */}
         </div>
       </div>
     </>

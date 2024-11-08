@@ -5,8 +5,15 @@ import { InputComponent } from "../InputComponent";
 import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import {  PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewLanding, QRPreviewPdf } from "./QRPreviewAll";
 
 const PDF = ({ localQrData, setLocalQrData }) => {
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
   const location = useLocation();
   // console.log("LOCATIONURL", location);
 
@@ -16,10 +23,10 @@ const PDF = ({ localQrData, setLocalQrData }) => {
       setLocalQrData(qrDataFromLocation);
 
       // Set the file from localQrData if it exists
-      // if (qrDataFromLocation.pdf_file) {
-      //   setFile(qrDataFromLocation.pdf_file);
-      // }
-      setFile(null);
+      if (qrDataFromLocation.pdf_file) {
+        setFile(qrDataFromLocation.pdf_file);
+      }
+      // setFile(null);
 
       // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
@@ -54,19 +61,6 @@ const PDF = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  // const formatFileSize = (size) => {
-  //   const units = ["B", "KB", "MB", "GB"];
-  //   let unitIndex = 0;
-  //   let fileSize = size;
-
-  //   while (fileSize >= 1024 && unitIndex < units.length - 1) {
-  //     fileSize /= 1024;
-  //     unitIndex++;
-  //   }
-
-  //   return `${fileSize.toFixed(2)} ${units[unitIndex]}`;
-  // };
-  // Function to format file size (in MB)
   const formatFileSize = (size) => {
     return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   };
@@ -119,31 +113,31 @@ const PDF = ({ localQrData, setLocalQrData }) => {
                 </>
               ) : (
                 <div className="file-info">
-                  {/* {typeof file === "string" ? ( */}
-                  <>
-                    {/* <p>Uploaded PDF:</p>
+                  {typeof file === "string" ? (
+                    <>
+                      <p>{file}</p>
                       <a href={file} target="_blank" rel="noopener noreferrer">
                         View PDF
-                      </a> */}
-                    {/* <iframe
+                      </a>
+                      {/* <iframe
                         src={file}
                         width="100%"
                         height="500px"
                         title="PDF Preview"
                       ></iframe> */}
-                  </>
-                  {/* ) : ( */}
-                  <>
-                    {file.name ? (
-                      <>
-                        <p>{file.name}</p>
-                        <p>{formatFileSize(file.size)}</p>
-                      </>
-                    ) : (
-                      <p>No file name available</p>
-                    )}
-                  </>
-                  {/* )} */}
+                    </>
+                  ) : (
+                    <>
+                      {file.name ? (
+                        <>
+                          <p>{file.name}</p>
+                          <p>{formatFileSize(file.size)}</p>
+                        </>
+                      ) : (
+                        <p>No file name available</p>
+                      )}
+                    </>
+                  )}
                   <FaTrash className="delete-icon" onClick={handleDelete} />
                 </div>
               )}
@@ -175,20 +169,31 @@ const PDF = ({ localQrData, setLocalQrData }) => {
               label={"Description"}
               placeholder={"e.g. Over 50 topping to choose from!="}
               name={"pdf_description"}
-              value={localQrData.pdf_description}
+              value={localQrData?.pdf_description}
               onChange={handleInputChange}
             />
             <InputComponent
               label={"Website"}
               placeholder={"e.g. https://www.pizzapalace.com"}
               name={"pdf_website"}
-              value={localQrData.pdf_website}
+              value={localQrData?.pdf_website}
               onChange={handleInputChange}
             />
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-pdf.png" alt="" />
+        <ToggleButton
+            selectedOption={selectedOption}
+            onToggle={handleToggle}
+          />
+          <div className="qr-preview__layout__image">
+            <div className="Preview-layout Preview-layout--vcard">
+              <TopPreviewHeader className="topHeaderSvg"  />
+            <QRPreviewPdf localQrData={localQrData}/>
+            </div>
+            <PreviewFrame className="preview-frame" />
+          </div>
+          {/* <img src="/assets/images/phone-pdf.png" alt="" /> */}
         </div>
       </div>
     </div>

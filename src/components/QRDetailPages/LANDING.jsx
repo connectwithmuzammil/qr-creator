@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -25,6 +25,11 @@ import {
 import SocialIconsComp from "../SocialIconComp";
 import ImageUploadComponent from "../ImageUploadComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewLanding } from "./QRPreviewAll";
+import { resetField, resetQrData } from "../../redux/slice/qrSlice";
+import { useDispatch } from "react-redux";
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
   { id: "green", background: "#e8fce8", button: "#0e8b70" },
@@ -52,10 +57,16 @@ const icons = {
   xing: <XingSocial />,
 };
 const LANDING = ({ localQrData, setLocalQrData }) => {
+  const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
+
   //EDIT
   const location = useLocation();
   console.log("LANDINGDATAEDITT", location);
-  console.log("localQrData",localQrData)
+  console.log("localQrData", localQrData);
 
   useEffect(() => {
     if (location.state?.qrData) {
@@ -90,6 +101,14 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
       [name]: file,
     }));
   };
+  const handleImageDelete = (fieldName) => {
+    dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "", 
+    }));
+    console.log(`Deleted image for field: ${fieldName}`);
+  };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => ({
@@ -123,10 +142,12 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
               onImageUpload={handleImageUpload}
-              //   onImageDelete={handleImageDelete}
+              onImageDelete={handleImageDelete}
               label="Logo"
               name="landing_logo"
               localQrData={localQrData}
+              onEditImagePreview={location?.state?.qrData?.data?.landing_logo}
+
             />
             <InputComponent
               label={"Company"}
@@ -174,7 +195,19 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-website.png" alt="phone-website" />
+          <ToggleButton
+            selectedOption={selectedOption}
+            onToggle={handleToggle}
+          />
+          <div className="qr-preview__layout__image">
+            <div className="Preview-layout Preview-layout--vcard">
+              <TopPreviewHeader className="topHeaderSvg" />
+              <QRPreviewLanding localQrData={localQrData} />
+            </div>
+
+            <PreviewFrame className="preview-frame" />
+          </div>
+          {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
         </div>
       </div>
     </div>

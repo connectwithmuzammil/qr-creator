@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-const SocialIconsComp = ({ title = "Social networks", onIconClick, icons={}, className, initialLinks = {} }) => {
-
-  console.log("initialLinks",initialLinks)
+const SocialIconsComp = ({ title = "Social networks", onIconClick, icons = {}, className, initialLinks = {} }) => {
   const [activeIcons, setActiveIcons] = useState([]);
   const [iconLinks, setIconLinks] = useState({});
 
   // Sync iconLinks and activeIcons with initialLinks when initialLinks change
   useEffect(() => {
-    setIconLinks(initialLinks); // Update the iconLinks when initialLinks changes
-    setActiveIcons(Object.keys(initialLinks)); // Activate the icons based on the initial links
+    setIconLinks(initialLinks);
+    setActiveIcons(Object.keys(initialLinks));
   }, [initialLinks]);
 
   const handleIconClick = (iconName) => {
     if (activeIcons.includes(iconName)) {
-      setActiveIcons(activeIcons.filter((icon) => icon !== iconName));
-      setIconLinks((prevLinks) => {
-        const newLinks = { ...prevLinks };
-        delete newLinks[iconName];
-        return newLinks;
-      });
+      // Remove the icon if it's already active
+      setActiveIcons((prev) => prev.filter((icon) => icon !== iconName));
     } else {
-      setActiveIcons([...activeIcons, iconName]);
+      // Add the icon only if it's not already in activeIcons
+      if (!activeIcons.includes(iconName)) {
+        setActiveIcons((prev) => [...prev, iconName]);
+        setIconLinks((prevLinks) => ({
+          ...prevLinks,
+          [iconName]: prevLinks[iconName] || "", // Ensure a link exists if newly activated
+        }));
+      }
     }
-    if (onIconClick) onIconClick(iconName, iconLinks[iconName] || "");
   };
 
   const handleLinkChange = (iconName, link) => {
@@ -35,7 +35,7 @@ const SocialIconsComp = ({ title = "Social networks", onIconClick, icons={}, cla
   };
 
   const handleRemoveIcon = (iconName) => {
-    setActiveIcons(activeIcons.filter((icon) => icon !== iconName));
+    setActiveIcons((prev) => prev.filter((icon) => icon !== iconName));
     setIconLinks((prevLinks) => {
       const newLinks = { ...prevLinks };
       delete newLinks[iconName];
@@ -45,6 +45,7 @@ const SocialIconsComp = ({ title = "Social networks", onIconClick, icons={}, cla
 
   return (
     <>
+      {/* Render active icons with their input fields */}
       {activeIcons.map((iconName) => (
         <div className="input-box-wrapper-social" key={iconName}>
           <div className="wrap">
@@ -72,9 +73,6 @@ const SocialIconsComp = ({ title = "Social networks", onIconClick, icons={}, cla
               className={`icon ${icon} ${activeIcons.includes(icon) ? "active" : ""}`}
               onClick={() => handleIconClick(icon)}
             >
-              <span className="tooltip">
-                {icon.charAt(0).toUpperCase() + icon.slice(1)}
-              </span>
               {icons[icon]}
             </li>
           ))}

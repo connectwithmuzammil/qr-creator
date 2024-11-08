@@ -154,8 +154,8 @@ const initialState = {
     frameName: "",
   },
   color: {
-    background: "",
-    button: "",
+    background: "#d1e5fa",
+    button: "#1466b8",
   },
   social: {},
   qrDesignLogo: "",
@@ -169,9 +169,20 @@ const qrSlice = createSlice({
       return { ...state, ...action.payload };
     },
     resetQrData: () => initialState,
+
+    resetField: (state, action) => {
+      const { field } = action.payload;
+      if (field in state) {
+        return {
+          ...state, 
+          [field]: "", 
+        };
+      }
+      return state; 
+    },
   },
 });
 
-export const { setsQrData, resetQrData } = qrSlice.actions;
+export const { setsQrData, resetQrData, resetField } = qrSlice.actions;
 
 export default qrSlice.reducer;

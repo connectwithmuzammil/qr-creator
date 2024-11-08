@@ -200,7 +200,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={qrLogo}
           />
         );
       case "frame1":

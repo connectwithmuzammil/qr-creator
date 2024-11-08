@@ -1364,7 +1364,7 @@ export const QRLANDING = ({ qrContent }) => {
             target="_blank"
             style={{ textDecoration: "none", color: "#fff" }}
           >
-            {qrContent?.landing_button || "landing"}
+            {qrContent?.landing_btn_text || "landing"}
           </Link>
         </button>
 

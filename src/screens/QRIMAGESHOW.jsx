@@ -112,7 +112,7 @@ const QRIMAGESHOW = () => {
 
   const renderFrame = () => {
     switch (selectedFrame) {
-      case "notSelctedFrame":
+      case "notSelectedFrame":
         console.log("INSIDE notSelctedFrame CASE");
         return (
           <NotSelectedFrameCanvas
