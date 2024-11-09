@@ -40,6 +40,9 @@ import SocialIconsComp from "../SocialIconComp";
 import FacilitiesIconComp from "../FacilitiesIconComp";
 import TimeInputComponent from "../TimeInputComponent";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewBusiness } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -83,8 +86,25 @@ const FacilitiesIcon = {
   Wifi: <FacilitiesWifiIcon />,
 };
 
-const BUSINESS = ({  localQrData, setLocalQrData }) => {
-  const [imagePreview, setImagePreview] = useState(null);
+const BUSINESS = ({ localQrData, setLocalQrData }) => {
+  const hasBusinessData =
+    localQrData &&
+    (localQrData.business_email ||
+      localQrData.business_name ||
+      localQrData.business_phone ||
+      localQrData.business_website ||
+      localQrData.business_company ||
+      localQrData.business_address ||
+      localQrData.business_city ||
+      localQrData.business_country ||
+      localQrData.business_numeration ||
+      localQrData.business_postalcode ||
+      localQrData.business_state);
+
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
 
   //EDIT
   const location = useLocation();
@@ -94,12 +114,13 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
+      setLocalQrData(qrDataFromLocation);
 
-      const { business_logo, ...restQrData } = qrDataFromLocation;
-      setLocalQrData((prevQrData) => ({
-        ...prevQrData,
-        ...restQrData,
-      }));
+      // const { business_logo, ...restQrData } = qrDataFromLocation;
+      // setLocalQrData((prevQrData) => ({
+      //   ...prevQrData,
+      //   ...restQrData,
+      // }));
 
       // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
@@ -110,12 +131,12 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
       }
 
       // Set initial vcard_social links if present (edit mode)
-      if (qrDataFromLocation?.business_social) {
-        setLocalQrData((prevQrData) => ({
-          ...prevQrData,
-          business_social: qrDataFromLocation?.business_social,
-        }));
-      }
+      // if (qrDataFromLocation?.business_social) {
+      //   setLocalQrData((prevQrData) => ({
+      //     ...prevQrData,
+      //     business_social: qrDataFromLocation?.business_social,
+      //   }));
+      // }
 
       // if (qrDataFromLocation?.business_logo) {
       //   setImagePreview(qrDataFromLocation?.business_logo);
@@ -133,6 +154,14 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
     setLocalQrData((prevData) => ({
       ...prevData,
       [name]: file,
+    }));
+  };
+  const handleImageDelete = (fieldName) => {
+    console.log("Image deleted");
+    // dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
     }));
   };
   const handleInputChange = (e) => {
@@ -201,7 +230,7 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               placeholder="e.g My QR code"
               onChange={handleInputChange}
               name="qr_name"
-              value={localQrData.qr_name}
+              value={localQrData?.qr_name}
             />
           </AccordianComponent>
           <AccordianComponent title={"Choose your design"}>
@@ -213,11 +242,12 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Business information"}>
             <ImageUploadComponent
-              defaultImage={imagePreview || "/assets/images/default-img.png"}
+              defaultImage={"/assets/images/default-img.png"}
               onImageUpload={handleImageUpload}
-              //   onImageDelete={handleImageDelete}
+              onImageDelete={handleImageDelete}
               label="Logo"
               name="business_logo"
+              onEditImagePreview={location?.state?.qrData?.data?.business_logo}
             />
             <InputComponent
               label={"Company name"}
@@ -239,7 +269,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               placeholder={"e.g. Fresh Bread and Pastries"}
               onChange={handleInputChange}
               value={
-                localQrData?.business_title || localQrData?.business_page?.business_title
+                localQrData?.business_title ||
+                localQrData?.business_page?.business_title
               }
             />
             <InputComponent
@@ -271,7 +302,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
                 placeholder={"e.g. https://URL here"}
                 onChange={handleInputChange}
                 value={
-                  localQrData?.business_url || localQrData?.business_page?.business_url
+                  localQrData?.business_url ||
+                  localQrData?.business_page?.business_url
                 }
               />
             </div>
@@ -324,7 +356,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
                 placeholder={"e.g. New York"}
                 onChange={handleInputChange}
                 value={
-                  localQrData?.business_city ?? localQrData?.business_page?.business_city
+                  localQrData?.business_city ??
+                  localQrData?.business_page?.business_city
                 }
               />
               <InputComponent
@@ -363,7 +396,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               placeholder={"e.g. John Smith"}
               onChange={handleInputChange}
               value={
-                localQrData?.business_name || localQrData?.business_page?.business_name
+                localQrData?.business_name ||
+                localQrData?.business_page?.business_name
               }
             />
             <InputComponent
@@ -372,7 +406,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               placeholder={"e.g. (123)-123-123-123"}
               onChange={handleInputChange}
               value={
-                localQrData?.business_phone || localQrData?.business_page?.business_phone
+                localQrData?.business_phone ||
+                localQrData?.business_page?.business_phone
               }
             />
             <InputComponent
@@ -381,7 +416,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               placeholder={"e.g. youremail@domain.com"}
               onChange={handleInputChange}
               value={
-                localQrData?.business_email || localQrData?.business_page?.business_email
+                localQrData?.business_email ||
+                localQrData?.business_page?.business_email
               }
             />
             <InputComponent
@@ -403,7 +439,8 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
               }
               onChange={handleInputChange}
               value={
-                localQrData?.business_about || localQrData?.business_page?.business_about
+                localQrData?.business_about ||
+                localQrData?.business_page?.business_about
               }
             />
           </AccordianComponent>
@@ -416,8 +453,25 @@ const BUSINESS = ({  localQrData, setLocalQrData }) => {
             />
           </AccordianComponent>
         </div>
+
         <div className="right">
-          <img src="/assets/images/phone-business.png" alt="phone-business" />
+          {hasBusinessData ? (
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewBusiness localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div>
+            </>
+          ) : (
+            <img src="/assets/images/phone-business.png" alt="phone-business" />
+          )}
         </div>
       </div>
     </div>

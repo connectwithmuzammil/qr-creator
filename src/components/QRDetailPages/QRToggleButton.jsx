@@ -23,6 +23,7 @@ const ToggleButton = ({ selectedOption, onToggle }) => {
         className={`button button-toggle button--secondary button--square ${selectedOption === 'QR Code' ? 'button--active' : 'button--inactive'}`}
         type="button"
         onClick={() => onToggle("QR Code")}
+        style={{display:"none"}}
       >
         <span data-testid="button-label" className="button__text">
           QR Code

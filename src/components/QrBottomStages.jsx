@@ -60,6 +60,12 @@ function BottomWrapperStages({
       if (generateQrPayload?.links_image) {
         formData.append("links_image", generateQrPayload?.links_image);
       }
+      if (generateQrPayload?.social_logo) {
+        formData.append("social_logo", generateQrPayload?.social_logo);
+      }
+      if (generateQrPayload?.app_logo) {
+        formData.append("app_logo", generateQrPayload?.app_logo);
+      }
       if (generateQrPayload?.vcard_image instanceof File) {
         formData.append("vcard_image", generateQrPayload?.vcard_image);
       }
@@ -237,6 +243,8 @@ function BottomWrapperStages({
           key !== "video_social" &&
           key !== "landing_social" &&
           key !== "all_links" &&
+          key !== "social_logo" &&
+          key !== "app_logo" &&
           key !== "qrDesignLogo"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob

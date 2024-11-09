@@ -97,7 +97,7 @@ const iconsApps = {
 };
 
 export const QRYOUTUBE = ({ qrContent }) => {
-  console.log("qrcontent0",qrContent)
+  console.log("qrcontent0", qrContent);
   // Extract the video ID from the short URL
   const videoId = qrContent?.youtube_url.split("v=")[1]?.split("&")[0];
   console.log("videoId", videoId); // "0Yxf4hY8zjI"
@@ -913,8 +913,51 @@ export const QRBUSINESS = ({ qrContent }) => {
         >
           <h5>About Company</h5>
           <p style={{ fontSize: "12px", color: "#8c8c8c" }}>
-            {qrContent?.business_description}
+            {qrContent?.business_about || qrContent?.business_description}
           </p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            gap: "12px",
+            width: "100%",
+            maxWidth: "700px",
+          }}
+        >
+          {Object.entries(qrContent?.business_social).map(([key, url]) => {
+            return (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  borderBottom: "1px solid #d9d9d9",
+                  paddingBottom: "8px",
+                  display: "flex",
+                  textDecoration: "none",
+                  alignItems: "center",
+                  gap: "8px",
+                  color: "#000",
+                }}
+              >
+                {icons[key] || null}
+                <p
+                  style={{
+                    color: "#000",
+                    fontWeight: "600",
+                    margin: "0",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {key}
+                </p>
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1643,7 +1686,7 @@ export const QREVENT = ({ qrContent }) => {
       <div
         className="box"
         style={{
-             background: "#fff",
+          background: "#fff",
           width: "100%",
           maxWidth: "700px",
           padding: "16px",
@@ -1695,7 +1738,7 @@ export const QREVENT = ({ qrContent }) => {
         style={{
           background: "#fff",
           maxWidth: "700px",
-          width:"100%",
+          width: "100%",
           padding: "16px",
           display: "flex",
           flexDirection: "column",
@@ -1781,7 +1824,7 @@ export const QREVENT = ({ qrContent }) => {
         style={{
           background: "#fff",
           maxWidth: "700px",
-          width:"100%",
+          width: "100%",
           padding: "16px",
           display: "flex",
           flexDirection: "column",

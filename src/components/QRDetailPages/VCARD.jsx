@@ -25,6 +25,11 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import ImageUploadComponent from "../ImageUploadComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewPdf, QRPreviewVCard } from "./QRPreviewAll";
+import { resetField } from "../../redux/slice/qrSlice";
+import { useDispatch } from "react-redux";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -54,7 +59,11 @@ const icons = {
 };
 
 const VCARD = ({ localQrData, setLocalQrData }) => {
-  const [imagePreview, setImagePreview] = useState(null);
+  const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
   const location = useLocation();
   console.log("LOCATIONURL", location);
 
@@ -62,11 +71,12 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
-      const { vcard_image, ...restQrData } = qrDataFromLocation;
-      setLocalQrData((prevQrData) => ({
-        ...prevQrData,
-        ...restQrData,
-      }));
+      setLocalQrData(qrDataFromLocation);
+      // const { vcard_image, ...restQrData } = qrDataFromLocation;
+      // setLocalQrData((prevQrData) => ({
+      //   ...prevQrData,
+      //   ...restQrData,
+      // }));
 
       // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
@@ -97,8 +107,13 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
       [name]: file,
     }));
   };
-  const handleImageDelete = () => {
+  const handleImageDelete = (fieldName) => {
     console.log("Image deleted");
+    dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "", 
+    }));
   };
 
   const handleInputChange = (e) => {
@@ -140,11 +155,12 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
           <AccordianComponent title={"Add vCard information"}>
             <ImageUploadComponent
-              defaultImage={imagePreview || "/assets/images/default-img.png"}
+              defaultImage={"/assets/images/default-img.png"}
               onImageUpload={handleImageUpload}
               onImageDelete={handleImageDelete}
               label="Profile picture"
               name="vcard_image"
+              onEditImagePreview={location?.state?.qrData?.data?.vcard_image}
             />
             <div className="wrap-inp-cmp">
               <InputComponent
@@ -277,8 +293,38 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
             />
           </AccordianComponent>
         </div>
+
         <div className="right">
-          <img src="/assets/images/phone-vcard.png" alt="phone-vcard" />
+          {localQrData?.vcard_full_name ||
+          localQrData?.vcard_email ||
+          localQrData?.vcard_address ||
+          localQrData?.vcard_city ||
+          localQrData?.vcard_company_name ||
+          localQrData?.vcard_country ||
+          localQrData?.vcard_mobile_phone ||
+          localQrData?.vcard_landline_phone ||
+          localQrData?.vcard_profession ||
+          localQrData?.vcard_state ||
+          localQrData?.vcard_zip_code ||
+          localQrData?.vcard_summary ||
+          localQrData?.vcard_website ||
+          localQrData?.vcard_social ? (
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewVCard localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div>
+            </>
+          ) : (
+            <img src="/assets/images/phone-vcard.png" alt="phone-vcard" />
+          )}
         </div>
       </div>
     </div>

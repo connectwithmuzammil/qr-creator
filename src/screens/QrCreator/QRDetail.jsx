@@ -27,180 +27,180 @@ const QRDetail = () => {
   const dispatch = useDispatch();
   const { type } = useParams();
   console.log("typeeee", type);
-  const initialState = {
-    qr_name: "",
-    id: "",
-    //URL
-    field_url: "",
-    //WIFI
-    network_name: user?.user?.email || user?.email,
-    network_password: user?.user?.password || user?.password,
-    network_security_type: "",
-    //YOTUBE
-    youtube_url: "",
-    //PDF
-    pdf_file: "",
-    pdf_company: "",
-    pdf_title: "",
-    pdf_description: "",
-    pdf_website: "",
-    //APPS
-    app_name: "",
-    app_company: "",
-    app_description: "",
-    app_logo: "",
-    app_website: "",
-    app_social: {},
-    //LANDING
-    landing_action_url: "",
-    landing_company: "",
-    landing_logo: "",
-    landing_title: "",
-    landing_subtitle: "",
-    landing_social: {},
-    landing_btn_text: "",
-    //SOCIAL
-    media_social: {},
-    media_headline: "",
-    media_description: "",
+  // const initialState = {
+  //   qr_name: "",
+  //   id: "",
+  //   //URL
+  //   field_url: "",
+  //   //WIFI
+  //   network_name: user?.user?.email || user?.email,
+  //   network_password: user?.user?.password || user?.password,
+  //   network_security_type: "",
+  //   //YOTUBE
+  //   youtube_url: "",
+  //   //PDF
+  //   pdf_file: "",
+  //   pdf_company: "",
+  //   pdf_title: "",
+  //   pdf_description: "",
+  //   pdf_website: "",
+  //   //APPS
+  //   app_name: "",
+  //   app_company: "",
+  //   app_description: "",
+  //   app_logo: "",
+  //   app_website: "",
+  //   app_social: {},
+  //   //LANDING
+  //   landing_action_url: "",
+  //   landing_company: "",
+  //   landing_logo: "",
+  //   landing_title: "",
+  //   landing_subtitle: "",
+  //   landing_social: {},
+  //   landing_btn_text: "",
+  //   //SOCIAL
+  //   media_social: {},
+  //   media_headline: "",
+  //   media_description: "",
 
-    //image_gallery
-    gallery_image: "",
-    gallery_title: "",
-    gallery_description: "",
-    gallery_website: "",
-    gallery_url: "",
-    gallery_btn_text: "",
+  //   //image_gallery
+  //   gallery_image: "",
+  //   gallery_title: "",
+  //   gallery_description: "",
+  //   gallery_website: "",
+  //   gallery_url: "",
+  //   gallery_btn_text: "",
 
-    //LINKS
-    links_image: "",
-    links_title: "",
-    links_description: "",
-    all_links: [],
-    links_social: {},
+  //   //LINKS
+  //   links_image: "",
+  //   links_title: "",
+  //   links_description: "",
+  //   all_links: [],
+  //   links_social: {},
 
-    //VCARD
-    vcard_address: "",
-    vcard_city: "",
-    vcard_company_name: "",
-    vcard_country: "",
-    vcard_email: "",
-    vcard_fax: "",
-    vcard_full_name: "",
-    vcard_landline_phone: "",
-    vcard_mobile_phone: "",
-    vcard_numeration: "",
-    vcard_profession: "",
-    vcard_state: "",
-    vcard_summary: "",
-    vcard_website: "",
-    vcard_zip_code: "",
-    vcard_social: "",
-    vcard_image: "",
+  //   //VCARD
+  //   vcard_address: "",
+  //   vcard_city: "",
+  //   vcard_company_name: "",
+  //   vcard_country: "",
+  //   vcard_email: "",
+  //   vcard_fax: "",
+  //   vcard_full_name: "",
+  //   vcard_landline_phone: "",
+  //   vcard_mobile_phone: "",
+  //   vcard_numeration: "",
+  //   vcard_profession: "",
+  //   vcard_state: "",
+  //   vcard_summary: "",
+  //   vcard_website: "",
+  //   vcard_zip_code: "",
+  //   vcard_social: "",
+  //   vcard_image: "",
 
-    //BUSINESS
-    business_email: "", //
-    business_name: "", //
-    business_phone: "", //
-    business_website: "", //
-    business_action_title: "",
-    business_url: "", //
-    business_company: "", //
-    business_subtitle: "", //
-    business_title: "", //
-    business_btn_text: "", //
-    business_address: "", //
-    business_city: "", //
-    business_country: "", //
-    business_numeration: "", //
-    business_postalcode: "", //
-    business_state: "", //
-    business_about: "", //
+  //   //BUSINESS
+  //   business_email: "", //
+  //   business_name: "", //
+  //   business_phone: "", //
+  //   business_website: "", //
+  //   business_action_title: "",
+  //   business_url: "", //
+  //   business_company: "", //
+  //   business_subtitle: "", //
+  //   business_title: "", //
+  //   business_btn_text: "", //
+  //   business_address: "", //
+  //   business_city: "", //
+  //   business_country: "", //
+  //   business_numeration: "", //
+  //   business_postalcode: "", //
+  //   business_state: "", //
+  //   business_about: "", //
 
-    opening_hours_days: {
-      monday: { enabled: false, times: [] },
-      tuesday: { enabled: false, times: [] },
-      wednesday: { enabled: false, times: [] },
-      thursday: { enabled: false, times: [] },
-      friday: { enabled: false, times: [] },
-      saturday: { enabled: false, times: [] },
-      sunday: { enabled: false, times: [] },
-    },
-    opening_hours_format: "AM-PM",
+  //   opening_hours_days: {
+  //     monday: { enabled: false, times: [] },
+  //     tuesday: { enabled: false, times: [] },
+  //     wednesday: { enabled: false, times: [] },
+  //     thursday: { enabled: false, times: [] },
+  //     friday: { enabled: false, times: [] },
+  //     saturday: { enabled: false, times: [] },
+  //     sunday: { enabled: false, times: [] },
+  //   },
+  //   opening_hours_format: "AM-PM",
 
-    business_facilities: "",
-    business_social: "",
-    business_logo: "",
+  //   business_facilities: "",
+  //   business_social: "",
+  //   business_logo: "",
 
-    //VIDEO
-    video: null,
-    video_name: "",
-    video_description: "",
-    video_button: " ",
-    video_url: "",
-    video_social: {},
+  //   //VIDEO
+  //   video: null,
+  //   video_name: "",
+  //   video_description: "",
+  //   video_button: "",
+  //   video_url: "",
+  //   video_social: {},
 
-    //EVENTS
-    event_action_title: "",
-    event_action_url: "", //
-    event_description: "", //
-    event_title: "", //
-    event_location_address: "", //
-    event_location_city: "", //
-    event_location_country: "", //
-    event_location_numeration: "", //
-    event_location_postal_code: "", //
-    event_location_state: "", //
-    event_organizer_about: "", //
-    event_organizer_email: "", //
-    event_organizer_name: "", //
-    event_organizer_phone: "", //
-    event_organizer_website: "", //
-    event_time_action_title: "",
-    event_time_all_day: true,
-    event_time_end: "2024-09-29T19:00:00.000Z",
-    event_time_start: "2024-09-28T19:00:00.000Z",
-    event_time_timezone: "",
-    event_image: "",
-    event_facilities: "",
-    event_btn_text: "",
+  //   //EVENTS
+  //   event_action_title: "",
+  //   event_action_url: "", //
+  //   event_description: "", //
+  //   event_title: "", //
+  //   event_location_address: "", //
+  //   event_location_city: "", //
+  //   event_location_country: "", //
+  //   event_location_numeration: "", //
+  //   event_location_postal_code: "", //
+  //   event_location_state: "", //
+  //   event_organizer_about: "", //
+  //   event_organizer_email: "", //
+  //   event_organizer_name: "", //
+  //   event_organizer_phone: "", //
+  //   event_organizer_website: "", //
+  //   event_time_action_title: "",
+  //   event_time_all_day: true,
+  //   event_time_end: "2024-09-29T19:00:00.000Z",
+  //   event_time_start: "2024-09-28T19:00:00.000Z",
+  //   event_time_timezone: "",
+  //   event_image: "",
+  //   event_facilities: "",
+  //   event_btn_text: "",
 
-    type: "",
-    style: {
-      dotsStyle: "", //square
-      dotsColor: "#000000",
-      cornerStyle: "",
-      cornerBackgroundColor: "#ffffff",
-      cornerBorderColor: "",
-      cornerDotColor: "",
-      backgroundColor: "",
-      frameStyle: "",
-      frameColor: "", //#404040
-      frameText: "",
-      frameTextColor: "",
-      frameName: "",
-    },
-    color: {
-      background: "",
-      button: "",
-    },
-    social: {},
-  };
-  const [qrData, setQrData] = useState(initialState);
+  //   type: "",
+  //   style: {
+  //     dotsStyle: "", //square
+  //     dotsColor: "#000000",
+  //     cornerStyle: "",
+  //     cornerBackgroundColor: "#ffffff",
+  //     cornerBorderColor: "",
+  //     cornerDotColor: "",
+  //     backgroundColor: "",
+  //     frameStyle: "",
+  //     frameColor: "", //#404040
+  //     frameText: "",
+  //     frameTextColor: "",
+  //     frameName: "",
+  //   },
+  //   color: {
+  //     background: "",
+  //     button: "",
+  //   },
+  //   social: {},
+  // };
+  // const [qrData, setQrData] = useState(initialState);
 
   const qrDataVar = useSelector((state) => state.qrData);
   console.log("qrDataVarr",qrDataVar)
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   console.log("localQrData", localQrData);
 
-  useEffect(() => {
-    setQrData((prevState) => ({
-      ...prevState,
-      type: type,
-    }));
-  }, [type]);
+  // useEffect(() => {
+  //   setQrData((prevState) => ({
+  //     ...prevState,
+  //     type: type,
+  //   }));
+  // }, [type]);
 
-  console.log("qrData", qrData);
+  // console.log("qrData", qrData);
 
   const navigate = useNavigate();
 
@@ -218,10 +218,10 @@ const QRDetail = () => {
       } else if (type === "video") {
         // await videoSchema.validate(qrData);
       } else if (type === "image_gallery") {
-        if (!qrData?.gallery_image) {
+        // if (!qrData?.gallery_image) {
           // toast.error("Please Upload Image");
           // return;
-        }
+        // }
       }
       // else if (type === "vcard") {
       //   if (!qrData?.vcard_image) {
@@ -230,10 +230,10 @@ const QRDetail = () => {
       //   }
       // }
       else if (type === "business_page") {
-        if (!qrData?.business_logo) {
+        // if (!qrData?.business_logo) {
           // toast.error("Please Upload Logo");
           // return;
-        }
+        // }
       } else if (type === "events") {
         // if (!qrData?.event_image) {
         // toast.error("Please Upload Cover Image");
@@ -387,10 +387,10 @@ const QRDetail = () => {
               qr_name: localQrData?.qr_name,
               color: localQrData.color,
               video_social: localQrData.video_social,
-              video: localQrData.video,
+              video: localQrData?.video_path,
               video_title: localQrData.video_title,
               video_description: localQrData.video_description,
-              video_button: localQrData.video_button,
+              video_button: localQrData?.video_button,
               video_url: localQrData.video_url,
               video_name: localQrData.video_name,
             }

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { clearField } from "../redux/slice/qrSlice";
+import { useDispatch } from "react-redux";
 
-const VideoUpload = ({ onVideoUpload }) => {
+const VideoUpload = ({ onVideoUpload, setLocalQrData, localQrData }) => {
   const [video, setVideo] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
@@ -50,6 +53,12 @@ const VideoUpload = ({ onVideoUpload }) => {
     URL.revokeObjectURL(videoUrl); // Revoke URL for the uploaded video
     setVideoUrl(null);
     document.getElementById("video-upload").value = ""; // Clear input value
+
+    // setLocalQrData((prevData) => ({
+    //   ...prevData,
+    //   video_path: null,
+    // }));
+
   };
 
   return (

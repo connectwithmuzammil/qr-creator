@@ -28,6 +28,9 @@ import Button from "../Button";
 import { FaTrash } from "react-icons/fa";
 import { debounce } from "lodash";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewLinks } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -56,6 +59,11 @@ const icons = {
   xing: <XingSocial />,
 };
 const LINKS = ({ localQrData, setLocalQrData }) => {
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
+
   //EDIT
   const location = useLocation();
   console.log("LINKSDATA", location);
@@ -102,86 +110,67 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
     }
   }, [localQrData]);
 
+  // Add new link
   const handleAddLink = () => {
     const newLink = { id: Date.now(), image: "", text: "", url: "" };
-
-    // setLinks([...links, { id: Date.now(), image: "", text: "", url: "" }]);
     setLinks((prevLinks) => {
       const updatedLinks = [...prevLinks, newLink];
-      // Update localQrData with the new links state
       setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
 
+  // Remove a link
   const handleRemoveLink = (id) => {
-    // setLinks(links.filter((link) => link.id !== id));
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.filter((link) => link.id !== id);
-      // Update localQrData with the updated links state
       setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
 
+  // Handle changes to link inputs (text, url)
   const handleLinkInputChange = (id, name, value) => {
-    // setLinks(
-    //   links.map((link) => (link.id === id ? { ...link, [name]: value } : link))
-    // );
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.map((link) =>
         link.id === id ? { ...link, [name]: value } : link
       );
-      console.log("updatedLinks", updatedLinks);
-      // Update localQrData with the updated links state
-      // setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
-      updateQrDataDebounced(updatedLinks);
 
+      // Debounced update to the QR data
+      updateQrDataDebounced(updatedLinks);
       return updatedLinks;
     });
   };
-  // Clean up debounce on unmount
-  useEffect(() => {
-    return () => {
-      updateQrDataDebounced.cancel();
-    };
-  }, [updateQrDataDebounced]);
 
-  const handleImageUpload = (imageUrl, name, file) => {
-    console.log("Image file path:", imageUrl);
-    console.log("Image file object:", file);
-    console.log("Uploader Name/ID:", name);
-    // setLinks(
-    //   links.map((link) =>
-    //     link.id === id ? { ...link, image: imageData } : link
-    //   )
-    // );
+  // Handle image upload
+  const handleImageUpload = (imageUrl, id, file) => {
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.map((link) =>
-        link.name === name ? { ...link, image: file } : link
+        link.id === id ? { ...link, image: file } : link
       );
 
-      console.log("updatedLinksupdatedLinks", updatedLinks);
-      // Update localQrData with the updated links state
-      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
+      // Update localQrData with the updated image for the specific link
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        all_links: updatedLinks,
+      }));
+
       return updatedLinks;
     });
   };
 
+  // Handle image deletion
   const handleImageDelete = (id) => {
-    // setLinks(
-    //   links.map((link) => (link.id === id ? { ...link, image: "" } : link))
-    // );
     setLinks((prevLinks) => {
       const updatedLinks = prevLinks.map((link) =>
         link.id === id ? { ...link, image: "" } : link
       );
-      // Update localQrData with the updated links state
       setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
       return updatedLinks;
     });
   };
 
+  // ----------------------------------------------
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLocalQrData((prevData) => ({
@@ -199,6 +188,14 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
       [name]: file,
     }));
   };
+  const handleSingleImageDelete = (fieldName) => {
+    // dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
+    }));
+    console.log(`Deleted image for field: ${fieldName}`);
+  };
 
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
@@ -210,6 +207,13 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
       },
     }));
   };
+
+  // Clean up debounce on unmount
+  useEffect(() => {
+    return () => {
+      updateQrDataDebounced.cancel();
+    };
+  }, [updateQrDataDebounced]);
   return (
     <div className="link-page">
       <div className="containerr">
@@ -233,7 +237,7 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
               onImageUpload={handleSingleImageUpload}
-              //   onImageDelete={handleImageDelete}
+              onImageDelete={handleSingleImageDelete}
               label="Logo"
               name="links_image"
             />
@@ -269,8 +273,8 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   </div>
 
                   <ImageUploadComponent
-                    image={"/assets/images/phone-links.png"}
-                    defaultImage={"/assets/images/default-img.png"}
+                    image={link.image || "/assets/images/phone-links.png"} // Ensure each link has its own image
+                    defaultImage="/assets/images/default-img.png"
                     onImageUpload={(imageUrl, name, file) =>
                       handleImageUpload(imageUrl, link.id, file)
                     }
@@ -280,9 +284,9 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   />
 
                   <InputComponent
-                    label={"Link text*"}
-                    name={"text"}
-                    placeholder={"e.g. Write your link text here"}
+                    label="Link text*"
+                    name="text"
+                    placeholder="e.g. Write your link text here"
                     onChange={(e) =>
                       handleLinkInputChange(link.id, "text", e.target.value)
                     }
@@ -290,9 +294,9 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   />
 
                   <InputComponent
-                    label={"URL*"}
-                    name={"url"}
-                    placeholder={"e.g. https://..."}
+                    label="URL*"
+                    name="url"
+                    placeholder="e.g. https://..."
                     onChange={(e) =>
                       handleLinkInputChange(link.id, "url", e.target.value)
                     }
@@ -300,11 +304,8 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   />
                 </div>
               ))}
-              <Button
-                width={"100%"}
-                title={"Add Link"}
-                onClick={handleAddLink}
-              />
+
+              <Button width="100%" title="Add Link" onClick={handleAddLink} />
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Your social networks"}>
@@ -317,7 +318,21 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-links.png" alt="phone-links" />
+          <>
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader className="topHeaderSvg" />
+                <QRPreviewLinks localQrData={localQrData} />
+              </div>
+              <PreviewFrame className="preview-frame" />
+            </div>
+          </>
+
+          {/* <img src="/assets/images/phone-links.png" alt="phone-links" /> */}
         </div>
       </div>
     </div>

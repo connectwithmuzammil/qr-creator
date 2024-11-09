@@ -11,6 +11,9 @@ import {
 import SocialIconsComp from "../SocialIconComp";
 import ImageUploadComponent from "../ImageUploadComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewApps } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -26,7 +29,10 @@ const icons = {
 };
 
 const APPS = ({ localQrData, setLocalQrData }) => {
-
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
   //EDIT
   const location = useLocation();
   console.log("LOCATIONURLSOCAPP", location);
@@ -54,12 +60,22 @@ const APPS = ({ localQrData, setLocalQrData }) => {
     }
   }, [location.state, setLocalQrData]);
 
-  const handleImageUpload = (image) => {
-    console.log("Image uploaded:", image);
+  const handleImageUpload = (mediaData, name) => {
+    console.log("Received media data", mediaData); // media data base64
+    console.log("Received media name", name); // media name
+
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [name]: mediaData,
+    }));
   };
 
-  const handleImageDelete = () => {
+  const handleImageDelete = (fieldName) => {
     console.log("Image deleted");
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
+    }));
   };
 
   const handleInputChange = (e) => {
@@ -102,9 +118,13 @@ const APPS = ({ localQrData, setLocalQrData }) => {
           <AccordianComponent title={"App information"}>
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
+              //   onImageDelete={handleImageDelete}
+              label="Logo"
               onImageUpload={handleImageUpload}
               onImageDelete={handleImageDelete}
-              label="Logo"
+              name="app_logo"
+              localQrData={localQrData}
+              onEditImagePreview={location?.state?.qrData?.data?.app_logo}
             />
             <InputComponent
               label={"App name*"}
@@ -146,7 +166,27 @@ const APPS = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-apps.png" alt="phone-apps" />
+          {localQrData?.app_name ||
+          localQrData?.app_company ||
+          localQrData?.app_description ||
+          localQrData?.app_website ||
+          localQrData?.app_logo ? (
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewApps localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div>
+            </>
+          ) : (
+            <img src="/assets/images/phone-apps.png" alt="phone-apps" />
+          )}
         </div>
       </div>
     </div>

@@ -25,6 +25,9 @@ import {
 import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewSocial } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -54,7 +57,10 @@ const icons = {
 };
 
 const Social = ({ localQrData, setLocalQrData }) => {
-  const [imagePreview, setImagePreview] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
 
   //EDIT
   const location = useLocation();
@@ -101,6 +107,14 @@ const Social = ({ localQrData, setLocalQrData }) => {
       [name]: mediaData,
     }));
   };
+  const handleImageDelete = (fieldName) => {
+    console.log("Image deleted");
+    // dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
+    }));
+  };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => ({
@@ -138,8 +152,10 @@ const Social = ({ localQrData, setLocalQrData }) => {
                 //   onImageDelete={handleImageDelete}
                 label="Upload Your Own Image"
                 onImageUpload={handleImageUpload}
-                name="landing_logo"
+                onImageDelete={handleImageDelete}
+                name="social_logo"
                 localQrData={localQrData}
+                onEditImagePreview={location?.state?.qrData?.data?.social_logo}
               />
             </div>
             <InputComponent
@@ -168,7 +184,25 @@ const Social = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-social.png" alt="phone-social" />
+          {localQrData.media_headline ||
+          localQrData.media_description ||
+          localQrData?.social_logo ? (
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewSocial localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div>
+            </>
+          ) : (
+            <img src="/assets/images/phone-social.png" alt="phone-social" />
+          )}
         </div>
       </div>
     </div>

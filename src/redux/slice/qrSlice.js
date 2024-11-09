@@ -36,6 +36,7 @@ const initialState = {
   media_social: {},
   media_headline: "",
   media_description: "",
+  social_logo: "",
 
   //image_gallery
   gallery_image: "",
@@ -106,10 +107,10 @@ const initialState = {
   business_logo: "",
 
   //VIDEO
-  video: null,
+  video_path: null,
   video_name: "",
   video_description: "",
-  video_button: " ",
+  video_button: "",
   video_url: "",
   video_social: {},
 
@@ -174,15 +175,23 @@ const qrSlice = createSlice({
       const { field } = action.payload;
       if (field in state) {
         return {
-          ...state, 
-          [field]: "", 
+          ...state,
+          [field]: "",
         };
       }
-      return state; 
+      return state;
+    },
+
+
+    clearField: (state, action) => {
+      const fieldName = action.payload;
+      if (fieldName in state) {
+        state[fieldName] = null; 
+      }
     },
   },
 });
 
-export const { setsQrData, resetQrData, resetField } = qrSlice.actions;
+export const { setsQrData, resetQrData, resetField,clearField } = qrSlice.actions;
 
 export default qrSlice.reducer;
