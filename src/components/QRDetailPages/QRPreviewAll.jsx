@@ -1288,8 +1288,6 @@ export const QRPreviewLinks = ({ localQrData }) => {
 };
 
 export const QRPreviewGallery = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
-
   const images = Array.isArray(localQrData?.gallery_image)
     ? localQrData.gallery_image.map((image) =>
         image instanceof File ? URL.createObjectURL(image) : image
@@ -1381,6 +1379,53 @@ export const QRPreviewGallery = ({ localQrData }) => {
           {localQrData?.gallery_website}
         </a>
       </div>
+    </div>
+  );
+};
+
+export const QRPreviewYoutube = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  const videoId = localQrData?.youtube_url.split("v=")[1]?.split("&")[0];
+  console.log("videoId", videoId); // "0Yxf4hY8zjI"
+
+  // Create the embed URL
+  const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+  return (
+    <div
+      className="layout-content showBrowser "
+      style={{
+        backgroundColor: localQrData?.color?.background,
+        left: "0",
+      }}
+    >
+      {localQrData?.youtube_url && (
+        <div
+          style={{
+            width: "95%",
+            // maxWidth: "800px",
+            position: "relative",
+            paddingBottom: "50%",
+            height: "200px",
+            marginTop: "80px",
+            marginInline: "auto",
+          }}
+        >
+          <iframe
+            src={embedUrl}
+            frameBorder="0"
+            allowFullScreen
+            title="YouTube Video"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              borderRadius: "4px",
+            }}
+          ></iframe>
+        </div>
+      )}
     </div>
   );
 };

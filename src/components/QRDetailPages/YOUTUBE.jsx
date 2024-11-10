@@ -3,8 +3,15 @@ import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import Button from "../Button";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewYoutube } from "./QRPreviewAll";
 
 const YOUTUBE = ({ localQrData, setLocalQrData }) => {
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
   const location = useLocation();
   // console.log("LOCATIONURL",location);
 
@@ -13,7 +20,7 @@ const YOUTUBE = ({ localQrData, setLocalQrData }) => {
       setLocalQrData(location.state.qrData.data);
     }
   }, [location.state, setLocalQrData]);
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -22,7 +29,7 @@ const YOUTUBE = ({ localQrData, setLocalQrData }) => {
       [name]: value,
     }));
   };
-  
+
   // console.log("localQrData",localQrData)
   return (
     <div className="youtube-page">
@@ -49,7 +56,23 @@ const YOUTUBE = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-youtube.png" alt="" />
+          {localQrData?.youtube_url ? (
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewYoutube localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div>
+            </>
+          ) : (
+            <img src="/assets/images/phone-youtube.png" alt="" />
+          )}
         </div>
       </div>
     </div>
