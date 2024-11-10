@@ -166,27 +166,30 @@ const APPS = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          {localQrData?.app_name ||
-          localQrData?.app_company ||
-          localQrData?.app_description ||
-          localQrData?.app_website ||
-          localQrData?.app_logo ? (
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewApps localQrData={localQrData} />
+          {
+            // localQrData?.app_name ||
+            // localQrData?.app_company ||
+            // localQrData?.app_description ||
+            // localQrData?.app_website ||
+            // localQrData?.app_logo
+            true ? (
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewApps localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          ) : (
-            <img src="/assets/images/phone-apps.png" alt="phone-apps" />
-          )}
+              </>
+            ) : (
+              <img src="/assets/images/phone-apps.png" alt="phone-apps" />
+            )
+          }
         </div>
       </div>
     </div>

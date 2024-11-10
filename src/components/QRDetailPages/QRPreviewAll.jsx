@@ -36,6 +36,19 @@ import {
   WebSocial,
   XingSocial,
 } from "../../Helper/SocialSvgIcons";
+import { Swiper, SwiperSlide } from "swiper/react";
+// import SwiperCore "swiper";
+import { Navigation, Pagination } from "swiper/modules";
+import { EffectCards } from "swiper/modules";
+
+// Import Swiper modules
+// SwiperCore.use([Navigation, Pagination]);
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 import { IoMdPersonAdd } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill, BsFillTelephonePlusFill } from "react-icons/bs";
@@ -1191,8 +1204,6 @@ export const QRPreviewVideo = ({ localQrData }) => {
 };
 
 export const QRPreviewLinks = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
-
   return (
     <div
       className="layout-content showBrowser "
@@ -1272,6 +1283,104 @@ export const QRPreviewLinks = ({ localQrData }) => {
       </div>
 
       <SocialMediaLinks socialLinks={localQrData?.links_social} icons={icons} />
+    </div>
+  );
+};
+
+export const QRPreviewGallery = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+
+  const images = Array.isArray(localQrData?.gallery_image)
+    ? localQrData.gallery_image.map((image) =>
+        image instanceof File ? URL.createObjectURL(image) : image
+      )
+    : [];
+
+  return (
+    <div
+      className="layout-content showBrowser "
+      style={{
+        backgroundColor: localQrData?.color?.background,
+        left: "0px",
+        paddingTop: "30px",
+      }}
+    >
+      <p
+        style={{
+          fontWeight: "600",
+          wordBreak: "break-all",
+          marginTop: "16px",
+        }}
+      >
+        {localQrData?.gallery_title}
+      </p>
+      <h6
+        style={{
+          fontWeight: "400",
+          wordBreak: "break-all",
+          marginTop: "16px",
+        }}
+      >
+        {localQrData?.gallery_description}
+      </h6>
+
+      {images.length > 0 && (
+        <div
+          style={{
+            backgroundColor: localQrData?.color?.button,
+            height: "200px",
+            marginBottom: "16px",
+          }}
+        >
+          <Swiper
+            effect={"cards"}
+            grabCursor={true}
+            modules={[EffectCards]}
+            className="mySwiper"
+          >
+            {images.map((imgUrl, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={imgUrl}
+                  alt={`Gallery Image ${index + 1}`}
+                  style={{
+                    width: "80%",
+                    borderRadius: "8px",
+                    height: "160px",
+
+                    marginTop: "10px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
+      {/* ) : (
+        <p>No images to display</p>
+      )} */}
+      <CustomButton
+        text={localQrData?.gallery_btn_text}
+        url={localQrData?.gallery_url}
+        backgroundColor={localQrData?.color?.button}
+      />
+      <div style={{ paddingTop: "16px", paddingBottom: "50px" }}>
+        <a
+          style={{
+            fontWeight: "500",
+            wordBreak: "break-all",
+            textDecoration: "none",
+            cursor: "pointer",
+            color: "#000",
+          }}
+          href={localQrData?.gallery_website}
+          target="_blank"
+        >
+          {localQrData?.gallery_website}
+        </a>
+      </div>
     </div>
   );
 };

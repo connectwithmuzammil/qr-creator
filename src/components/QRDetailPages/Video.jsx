@@ -118,7 +118,7 @@ const Video = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  console.log("oneditcheckLocal",  localQrData?.video_path);
+  console.log("oneditcheckLocal", localQrData?.video_path);
 
   return (
     <div className="video-page">
@@ -157,9 +157,7 @@ const Video = ({ localQrData, setLocalQrData }) => {
               If you prefer, you can upload your video (up to 10 videos)
             </p>
             <div className="wrapper-img-upload-dashed">
-              {
-              localQrData?.video_path  ?
-               (
+              {localQrData?.video_path ? (
                 localQrData?.video_path instanceof File ? (
                   <div className="video-url-display">
                     <div
@@ -307,29 +305,31 @@ const Video = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          {localQrData?.video_name ||
-          localQrData?.video_title ||
-          localQrData?.video_description ||
-          localQrData?.video_button ||
-          localQrData?.video_url ||
-          localQrData?.video_path 
-           ? (
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewVideo localQrData={localQrData} />
+          {
+            // localQrData?.video_name ||
+            // localQrData?.video_title ||
+            // localQrData?.video_description ||
+            // localQrData?.video_button ||
+            // localQrData?.video_url ||
+            // localQrData?.video_path
+            true ? (
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewVideo localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          ) : (
-            <img src="/assets/images/phone-video.png" alt="phone-video" />
-          )}
+              </>
+            ) : (
+              <img src="/assets/images/phone-video.png" alt="phone-video" />
+            )
+          }
         </div>
       </div>
     </div>

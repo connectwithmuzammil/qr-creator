@@ -318,19 +318,21 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <>
-            <ToggleButton
-              selectedOption={selectedOption}
-              onToggle={handleToggle}
-            />
-            <div className="qr-preview__layout__image">
-              <div className="Preview-layout Preview-layout--vcard">
-                <TopPreviewHeader className="topHeaderSvg" />
-                <QRPreviewLinks localQrData={localQrData} />
+          {
+            <>
+              <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewLinks localQrData={localQrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
               </div>
-              <PreviewFrame className="preview-frame" />
-            </div>
-          </>
+            </>
+          }
 
           {/* <img src="/assets/images/phone-links.png" alt="phone-links" /> */}
         </div>

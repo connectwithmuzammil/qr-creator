@@ -455,23 +455,29 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
         </div>
 
         <div className="right">
-          {hasBusinessData ? (
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewBusiness localQrData={localQrData} />
+          {
+            // hasBusinessData
+            true ? (
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewBusiness localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          ) : (
-            <img src="/assets/images/phone-business.png" alt="phone-business" />
-          )}
+              </>
+            ) : (
+              <img
+                src="/assets/images/phone-business.png"
+                alt="phone-business"
+              />
+            )
+          }
         </div>
       </div>
     </div>

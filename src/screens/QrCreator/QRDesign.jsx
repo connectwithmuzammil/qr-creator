@@ -32,6 +32,7 @@ import {
   Frame9,
   NotSelected,
   NotSelectedFrameCanvas,
+  PreviewFrame,
   QRDesignCenter1,
   QRDesignCenter2,
   QRDesignCenter3,
@@ -45,12 +46,20 @@ import {
   QRDesignCorner5,
   QRDesignCorner6,
   QRDesignDetailIcon,
+  TopPreviewHeader,
 } from "../../components/SVGIcon";
 import apis from "../../services";
 import { AccordianComponent } from "../../components/AccordianComponent";
 import { useSelector } from "react-redux";
+import ToggleButton from "../../components/QRDetailPages/QRToggleButton";
+import { QRPreviewVCard } from "../../components/QRDetailPages/QRPreviewAll";
 
 const QRDesign = () => {
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
+
   const { type } = useParams();
   // const qrDataVar = useSelector((state) => state.qrData);
   const navigate = useNavigate();
@@ -799,6 +808,21 @@ const QRDesign = () => {
                 {renderFrame()}
               </div>
             </div>
+
+            {/* <ToggleButton
+                selectedOption={selectedOption}
+                onToggle={handleToggle}
+              />
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader className="topHeaderSvg" />
+                  <QRPreviewVCard localQrData={qrData} />
+                </div>
+                <PreviewFrame className="preview-frame" />
+              </div> */}
+     
+
+
           </div>
         </div>
       </div>

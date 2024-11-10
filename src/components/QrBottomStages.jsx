@@ -54,9 +54,15 @@ function BottomWrapperStages({
         formData.append("landing_logo", generateQrPayload?.landing_logo);
       }
 
-      if (generateQrPayload?.gallery_image) {
-        formData.append("gallery_image", generateQrPayload?.gallery_image);
+      // if (generateQrPayload?.gallery_image) {
+      //   formData.append("gallery_image", generateQrPayload?.gallery_image);
+      // }
+      if (generateQrPayload?.gallery_image && Array.isArray(generateQrPayload.gallery_image)) {
+        generateQrPayload.gallery_image.forEach((file, index) => {
+          formData.append(`gallery_image_${index}`, file); // Optional: include an index to identify each file
+        });
       }
+      
       if (generateQrPayload?.links_image) {
         formData.append("links_image", generateQrPayload?.links_image);
       }

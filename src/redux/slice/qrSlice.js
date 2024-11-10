@@ -39,12 +39,13 @@ const initialState = {
   social_logo: "",
 
   //image_gallery
-  gallery_image: "",
+  // gallery_image: "",
   gallery_title: "",
   gallery_description: "",
   gallery_website: "",
   gallery_url: "",
   gallery_btn_text: "",
+  gallery_image: [],
 
   //LINKS
   links_image: "",

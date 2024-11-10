@@ -184,25 +184,28 @@ const Social = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          {localQrData.media_headline ||
-          localQrData.media_description ||
-          localQrData?.social_logo ? (
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewSocial localQrData={localQrData} />
+          {
+            // localQrData.media_headline ||
+            // localQrData.media_description ||
+            // localQrData?.social_logo
+            true ? (
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewSocial localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          ) : (
-            <img src="/assets/images/phone-social.png" alt="phone-social" />
-          )}
+              </>
+            ) : (
+              <img src="/assets/images/phone-social.png" alt="phone-social" />
+            )
+          }
         </div>
       </div>
     </div>

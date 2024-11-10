@@ -112,7 +112,7 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
     dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
-      [fieldName]: "", 
+      [fieldName]: "",
     }));
   };
 
@@ -295,36 +295,39 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
         </div>
 
         <div className="right">
-          {localQrData?.vcard_full_name ||
-          localQrData?.vcard_email ||
-          localQrData?.vcard_address ||
-          localQrData?.vcard_city ||
-          localQrData?.vcard_company_name ||
-          localQrData?.vcard_country ||
-          localQrData?.vcard_mobile_phone ||
-          localQrData?.vcard_landline_phone ||
-          localQrData?.vcard_profession ||
-          localQrData?.vcard_state ||
-          localQrData?.vcard_zip_code ||
-          localQrData?.vcard_summary ||
-          localQrData?.vcard_website ||
-          localQrData?.vcard_social ? (
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewVCard localQrData={localQrData} />
+          {
+            // localQrData?.vcard_full_name ||
+            // localQrData?.vcard_email ||
+            // localQrData?.vcard_address ||
+            // localQrData?.vcard_city ||
+            // localQrData?.vcard_company_name ||
+            // localQrData?.vcard_country ||
+            // localQrData?.vcard_mobile_phone ||
+            // localQrData?.vcard_landline_phone ||
+            // localQrData?.vcard_profession ||
+            // localQrData?.vcard_state ||
+            // localQrData?.vcard_zip_code ||
+            // localQrData?.vcard_summary ||
+            // localQrData?.vcard_website ||
+            // localQrData?.vcard_social
+            true ? (
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewVCard localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          ) : (
-            <img src="/assets/images/phone-vcard.png" alt="phone-vcard" />
-          )}
+              </>
+            ) : (
+              <img src="/assets/images/phone-vcard.png" alt="phone-vcard" />
+            )
+          }
         </div>
       </div>
     </div>
