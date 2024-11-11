@@ -155,7 +155,7 @@ const Social = ({ localQrData, setLocalQrData }) => {
                 onImageDelete={handleImageDelete}
                 name="social_logo"
                 localQrData={localQrData}
-                onEditImagePreview={location?.state?.qrData?.data?.social_logo}
+                onEditImagePreview={localQrData?.social_logo}
               />
             </div>
             <InputComponent

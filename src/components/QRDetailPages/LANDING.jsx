@@ -102,7 +102,7 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
     }));
   };
   const handleImageDelete = (fieldName) => {
-    dispatch(resetField({ field: fieldName }));
+    // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
       [fieldName]: "", 
@@ -111,14 +111,26 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
-    setLocalQrData((prevData) => ({
-      ...prevData,
-      landing_social: {
-        ...prevData.landing_social,
-        [iconName]: url,
-      },
-    }));
+    setLocalQrData((prevData) => {
+      const updatedLandingSocial = { ...prevData.landing_social };
+      
+      if (url === null) {
+        // Remove the icon from the state
+        delete updatedLandingSocial[iconName];
+      } else {
+        // Add or update the icon link
+        updatedLandingSocial[iconName] = url;
+      }
+  
+      return {
+        ...prevData,
+        landing_social: updatedLandingSocial,
+      };
+    });
   };
+  
+
+  console.log("localqrdatalanding_social",localQrData?.landing_social)
   return (
     <div className="landing-page">
       <div className="containerr">
@@ -146,7 +158,7 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
               label="Logo"
               name="landing_logo"
               localQrData={localQrData}
-              onEditImagePreview={location?.state?.qrData?.data?.landing_logo}
+              onEditImagePreview={localQrData?.landing_logo}
 
             />
             <InputComponent
@@ -191,6 +203,7 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
               icons={icons}
               onIconClick={handleSocialIconChange}
               initialLinks={localQrData?.landing_social}
+              isEditing={!!location.state?.qrData}
             />
           </AccordianComponent>
         </div>

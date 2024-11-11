@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AmazonSocial,
@@ -52,11 +52,20 @@ import "swiper/css/scrollbar";
 import { IoMdPersonAdd } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill, BsFillTelephonePlusFill } from "react-icons/bs";
-import { FaBuilding, FaFax } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaCalendarAlt,
+  FaCalendarPlus,
+  FaFax,
+  FaGoogle,
+  FaYahoo,
+} from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { IoGlobeOutline } from "react-icons/io5";
+import { IoGlobeOutline, IoPeopleCircle } from "react-icons/io5";
 import { TbBriefcase2Filled } from "react-icons/tb";
 import { GoClockFill } from "react-icons/go";
+import formatDate from "../../utils/FormatDate";
+import { CiCalendar } from "react-icons/ci";
 
 const icons = {
   facebook: <FacebookSocial />,
@@ -136,6 +145,8 @@ const CustomButton = ({ text, url, backgroundColor, icon, onClick }) => {
 const SocialMediaLinks = ({ socialLinks, icons }) => {
   if (!socialLinks) return null;
 
+  console.log("socialLinks", socialLinks);
+
   return (
     <div
       style={{
@@ -149,17 +160,54 @@ const SocialMediaLinks = ({ socialLinks, icons }) => {
         paddingBottom: "12px",
       }}
     >
-      {Object.entries(socialLinks).map(([key, url]) => (
-        <a
-          key={key}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "#333" }}
-        >
-          {icons[key] || null}
-        </a>
-      ))}
+      {Object.entries(socialLinks)
+        .filter(([key, url]) => url) // Only include links where the URL is truthy
+        .map(([key, url]) => (
+          <a
+            key={key}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#333" }}
+          >
+            {icons[key] || null} {/* Render the icon if available */}
+          </a>
+        ))}
+    </div>
+  );
+};
+
+const FacilitiesIconComp = ({ socialLinks, icons }) => {
+  if (!socialLinks) return null; // If socialLinks is falsy, return null.
+
+  // console.log("socialLinks", socialLinks);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "12px",
+        width: "100%",
+        maxWidth: "700px",
+        justifyContent: "center",
+        paddingTop: "12px",
+        paddingBottom: "12px",
+      }}
+    >
+      {Object.entries(socialLinks)
+        .filter(([key, value]) => value === true) // Only include true values
+        .map(([key, url]) => (
+          <a
+            key={key}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#333" }}
+          >
+            {icons[key] || null} {/* Render the icon if available */}
+          </a>
+        ))}
     </div>
   );
 };
@@ -167,9 +215,10 @@ const SocialMediaLinks = ({ socialLinks, icons }) => {
 const DynamicImage = ({ data, imageKey, altText, style }) => {
   // Function to determine the image URL based on the input
   const getImageUrl = (source, key) => {
+    console.log("source chekkk", source);
     if (!source || !key) return null;
     const image = source[key];
-    return source?.id
+    return typeof source?.key === "string"
       ? image
       : image instanceof File
       ? URL.createObjectURL(image)
@@ -180,7 +229,10 @@ const DynamicImage = ({ data, imageKey, altText, style }) => {
 
   return (
     imageUrl && (
-      <div className="websiteLogo">
+      <div
+        className="websiteLogo"
+        style={{ width: "218px", marginInline: "auto" }}
+      >
         <img src={imageUrl} alt={altText} style={style} />
       </div>
     )
@@ -811,7 +863,6 @@ export const QRPreviewBusiness = ({ localQrData }) => {
                     color: "#8c8c8c",
                     fontSize: "12px",
                     margin: "0",
-                    lineHeight: "16px",
                   }}
                 >
                   Name
@@ -1024,19 +1075,26 @@ export const QRPreviewApps = ({ localQrData }) => {
         minHeight: "100%",
       }}
     >
-      <div
-        style={{ backgroundColor: localQrData?.color?.button, height: "60px" }}
-      />
+      {localQrData?.app_logo && (
+        <div
+          style={{
+            backgroundColor: localQrData?.color?.button,
+            height: "60px",
+          }}
+        />
+      )}
       <DynamicImage
         data={localQrData}
         imageKey="app_logo"
         altText="App Logo"
         style={{
-          maxWidth: "300px",
+          // maxWidth: "300px",
+          with:"100%",
           height: "120px",
           objectFit: "contain",
           marginTop: "-50px",
           marginBottom: "16px",
+          borderRadius:"6px"
         }}
       />
       <p style={{ fontWeight: "500", wordBreak: "break-all" }}>
@@ -1299,8 +1357,9 @@ export const QRPreviewGallery = ({ localQrData }) => {
       className="layout-content showBrowser "
       style={{
         backgroundColor: localQrData?.color?.background,
-        left: "0px",
+        left: "3px",
         paddingTop: "30px",
+        overflowX:"hidden"
       }}
     >
       <p
@@ -1384,7 +1443,6 @@ export const QRPreviewGallery = ({ localQrData }) => {
 };
 
 export const QRPreviewYoutube = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
   const videoId = localQrData?.youtube_url.split("v=")[1]?.split("&")[0];
   console.log("videoId", videoId); // "0Yxf4hY8zjI"
 
@@ -1424,6 +1482,447 @@ export const QRPreviewYoutube = ({ localQrData }) => {
               borderRadius: "4px",
             }}
           ></iframe>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const QRPreviewEvent = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const calendarUrls = {
+    iCal: `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+      localQrData?.event_title
+    )}&dates=${localQrData?.event_time_start}/${
+      localQrData?.event_time_end
+    }&details=${encodeURIComponent(
+      localQrData?.event_description
+    )}&location=${encodeURIComponent(localQrData?.event_location_address)}`,
+    Google: `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+      localQrData?.event_title
+    )}&dates=${localQrData?.event_time_start}/${
+      localQrData?.event_time_end
+    }&details=${encodeURIComponent(
+      localQrData?.event_description
+    )}&location=${encodeURIComponent(localQrData?.event_location_address)}`,
+    Outlook: `https://outlook.live.com/owa/?path=/calendar/action/compose&subject=${encodeURIComponent(
+      localQrData?.event_title
+    )}&startdt=${localQrData?.event_time_start}&enddt=${
+      localQrData?.event_time_end
+    }&body=${encodeURIComponent(
+      localQrData?.event_description
+    )}&location=${encodeURIComponent(localQrData?.event_location_address)}`,
+    Yahoo: `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(
+      localQrData?.event_title
+    )}&st=${localQrData?.event_time_start}&et=${
+      localQrData?.event_time_end
+    }&desc=${encodeURIComponent(
+      localQrData?.event_description
+    )}&in_loc=${encodeURIComponent(localQrData?.event_location_address)}`,
+  };
+
+  return (
+    <div
+      className="layout-content showBrowser "
+      style={{
+        backgroundColor: localQrData?.color?.background,
+        left: "3px",
+        overflowX: "hidden",
+      }}
+    >
+      <DynamicImage
+        data={localQrData}
+        imageKey="event_image"
+        altText="Event Logo"
+        style={{
+          width: "100%",
+          objectFit: "cover",
+          height: "130px",
+          borderRadius: "6px",
+          objectPosition: "center",
+        }}
+      />
+      {(localQrData?.event_title || localQrData?.event_description) && (
+        <div
+          className="whiteBox"
+          style={{
+            background: "#fff",
+            paddingBottom: "22px",
+            marginTop: "-16px",
+            paddingTop: "22px",
+          }}
+        >
+          <p
+            style={{
+              fontWeight: "700",
+              wordBreak: "break-all",
+            }}
+          >
+            {localQrData?.event_title}
+          </p>
+          <h6
+            style={{
+              fontWeight: "400",
+              wordBreak: "break-all",
+              marginTop: "16px",
+            }}
+          >
+            {localQrData?.event_description}
+          </h6>
+          <CustomButton
+            text={localQrData?.event_btn_text}
+            url={localQrData?.event_action_url}
+            backgroundColor={localQrData?.color?.button}
+          />
+        </div>
+      )}
+
+      {localQrData?.event_time_start && (
+        <div
+          className="box"
+          style={{
+            background: "#fff",
+            width: "100%",
+            maxWidth: "700px",
+            padding: "16px",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginTop: "16px",
+          }}
+        >
+          <div
+            className="top"
+            style={{ display: "flex", alignItems: "center", gap: "6px" }}
+          >
+            <GoClockFill />
+            <h5 style={{ margin: "0", fontSize: "16px", fontWeight: "600" }}>
+              Date of the event
+            </h5>
+          </div>
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h6 style={{ margin: "0px", color: "#8c8c8c", fontSize: "12px" }}>
+              Start
+            </h6>
+            <h6 style={{ margin: "0px", color: "#000", fontSize: "12px" }}>
+              {localQrData?.event_time_start
+                ? formatDate(localQrData?.event_time_start)
+                : ""}
+            </h6>
+          </div>
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h6 style={{ margin: "0px", color: "#8c8c8c", fontSize: "12px" }}>
+              End
+            </h6>
+            <h6 style={{ margin: "0px", color: "#000", fontSize: "12px" }}>
+              {localQrData?.event_time_end
+                ? formatDate(localQrData?.event_time_end)
+                : ""}
+            </h6>
+          </div>
+
+          {localQrData?.event_time_action_title && (
+            <div style={{ position: "relative", display: "flex" }}>
+              <button
+                onClick={toggleDropdown}
+                style={{
+                  background: localQrData?.color?.button,
+                  height: "38px",
+                  borderRadius: "8px",
+                  outline: "none",
+                  border: "none",
+                  color: "#fff",
+                  width: "240px",
+                  marginInline: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                <CiCalendar size={22} />
+                {/* Add to Calendar */}
+                {localQrData?.event_time_action_title}
+              </button>
+              {isDropdownOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "#fff",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                    borderRadius: "8px",
+                    overflow: "hidden",
+                    zIndex: 10,
+                    width: "200px",
+                  }}
+                >
+                  {Object.keys(calendarUrls).map((key) => (
+                    <a
+                      key={key}
+                      href={calendarUrls[key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "6px 14px",
+                        color: "#333",
+                        textDecoration: "none",
+                        fontSize: "16px",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = "#f0f0f0")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = "transparent")
+                      }
+                    >
+                      {key === "Google" && (
+                        <FaGoogle style={{ marginRight: "8px" }} />
+                      )}
+                      {key === "iCal" && (
+                        <FaCalendarAlt style={{ marginRight: "8px" }} />
+                      )}
+                      {key === "Outlook" && (
+                        <FaCalendarPlus style={{ marginRight: "8px" }} />
+                      )}
+                      {key === "Yahoo" && (
+                        <FaYahoo style={{ marginRight: "8px" }} />
+                      )}
+                      {key}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {(localQrData?.event_location_address ||
+        localQrData?.event_location_numeration ||
+        localQrData?.event_location_country ||
+        localQrData?.event_location_postal_code ||
+        localQrData?.event_location_state) && (
+        <div
+          className="box"
+          style={{
+            background: "#fff",
+            width: "100%",
+            maxWidth: "700px",
+            padding: "8px",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginTop: "16px",
+            wordBreak: "break-all",
+            alignItems: "start",
+          }}
+        >
+          <div
+            className="top"
+            style={{ display: "flex", alignItems: "center", gap: "6px" }}
+          >
+            <FaLocationDot />
+
+            <p
+              style={{
+                margin: "0",
+                color: "#000",
+                fontWeight: "600",
+                fontSize: "16px",
+                lineHeight: "8px",
+              }}
+            >
+              Location
+            </p>
+          </div>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              `${localQrData?.event_location_address} ${localQrData?.event_location_numeration}, ${localQrData?.event_location_country}, ${localQrData?.event_location_state}, ${localQrData?.event_location_postal_code}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: "none",
+              fontSize: "12px",
+              color: "#307fe2",
+            }}
+          >
+            {localQrData?.event_location_address},{" "}
+            {localQrData?.event_location_numeration},{" "}
+            {localQrData?.event_location_country}, Zip Code:{" "}
+            {localQrData?.event_location_postal_code},
+            {localQrData?.event_location_state}
+          </a>
+        </div>
+      )}
+
+      {(localQrData?.event_organizer_name ||
+        localQrData?.event_organizer_phone ||
+        localQrData?.event_organizer_email ||
+        localQrData?.event_organizer_aboutx) && (
+        <div
+          className="box"
+          style={{
+            background: "#fff",
+            maxWidth: "700px",
+            width: "100%",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            gap: "2px",
+            padding: "8px",
+            marginTop: "16px",
+          }}
+        >
+          <div
+            className="top"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              paddingBottom: "8px",
+            }}
+          >
+            <IoPeopleCircle size={24} />
+            <h5 style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
+              Organizer information
+            </h5>
+          </div>
+
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "4px",
+            }}
+          >
+            <p style={{ margin: "0", color: "#8c8c8c", margin: "0px" }}>Name</p>
+            <h6 style={{ fontSize: "12px" }}>
+              {localQrData?.event_organizer_name}
+            </h6>
+          </div>
+
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "4px",
+            }}
+          >
+            <p style={{ margin: "0", color: "#8c8c8c" }}>Phone</p>
+
+            <h6 style={{ fontSize: "12px", margin: "0px" }}>
+              {localQrData?.event_organizer_phone}
+            </h6>
+          </div>
+
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "4px",
+            }}
+          >
+            <p style={{ margin: "0", color: "#8c8c8c" }}>email</p>
+
+            <a
+              href={`mailto:${localQrData?.event_organizer_email}`}
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                color: "#307fe2",
+                marginBottom: "8px",
+              }}
+            >
+              {localQrData?.event_organizer_email}
+            </a>
+          </div>
+
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "4px",
+            }}
+          >
+            <p style={{ margin: "0", color: "#8c8c8c" }}>Website</p>
+            <a
+              href={localQrData?.event_organizer_website}
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                color: "#307fe2",
+                marginBottom: "8px",
+              }}
+            >
+              {localQrData?.event_organizer_website}
+            </a>
+          </div>
+          <div
+            className="wrap"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "4px",
+            }}
+          >
+            <p style={{ margin: "0", color: "#8c8c8c" }}>About</p>
+
+            <h6 style={{ fontSize: "12px", marginBottom: "8px" }}>
+              {localQrData?.event_organizer_about}
+            </h6>
+          </div>
+        </div>
+      )}
+
+      {localQrData?.event_facilities && (
+        <div
+          className="box-facilities"
+          style={{ background: "#fff", padding: "8px", marginTop: "16px" }}
+        >
+          <FacilitiesIconComp
+            socialLinks={localQrData?.event_facilities}
+            icons={FacilitiesIcon}
+          />
         </div>
       )}
     </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
 const ImageUploadComponent = ({
   defaultImage,
@@ -12,6 +11,7 @@ const ImageUploadComponent = ({
   onEditImagePreview,
 }) => {
   const [image, setImage] = useState(null);
+  console.log("localQrDataImagetesttt", localQrData);
 
   // Generate a unique id for each instance of the component
   const uniqueId = `file-upload-${label.replace(/\s+/g, "-")}-${Math.random()}`;
@@ -26,7 +26,6 @@ const ImageUploadComponent = ({
 
       event.target.value = null;
       if (onImageUpload) {
-        // Pass the name (identifier), imageUrl, and file object to the parent handler
         onImageUpload(imageUrl, name, file);
       }
     }
@@ -35,7 +34,6 @@ const ImageUploadComponent = ({
   const handleImageDelete = () => {
     setImage(null);
     if (onImageDelete) {
-      // onImageDelete();
       onImageDelete(name);
     }
   };
@@ -61,7 +59,7 @@ const ImageUploadComponent = ({
               <h3>+</h3>
               <input
                 type="file"
-                id={uniqueId} // Use the unique id here
+                id={uniqueId} 
                 accept="image/*"
                 onChange={handleImageUpload}
               />
@@ -86,5 +84,3 @@ ImageUploadComponent.propTypes = {
 };
 
 export default ImageUploadComponent;
-
-

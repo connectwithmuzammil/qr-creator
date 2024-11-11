@@ -109,7 +109,7 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
   };
   const handleImageDelete = (fieldName) => {
     console.log("Image deleted");
-    dispatch(resetField({ field: fieldName }));
+    // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
       [fieldName]: "",
@@ -160,7 +160,7 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
               onImageDelete={handleImageDelete}
               label="Profile picture"
               name="vcard_image"
-              onEditImagePreview={location?.state?.qrData?.data?.vcard_image}
+              onEditImagePreview={localQrData?.vcard_image}
             />
             <div className="wrap-inp-cmp">
               <InputComponent

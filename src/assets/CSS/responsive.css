@@ -1,3 +1,28 @@
+@media screen and (max-width: 1150px) {
+}
+@media screen and (max-width: 991px) {
+  .landingpage .sec-one {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-three {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-four {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-five {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-six {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-seven {
+    padding: 60px 40px;
+  }
+  .landingpage .sec-eight {
+    padding: 60px 40px;
+  }
+}
 @media screen and (max-width: 768px) {
   .userDashboard .content-page {
     margin-left: 0;
@@ -20,4 +45,6 @@
   .css-73x0r9 {
     margin-left: 0px !important;
   }
+}
+@media screen and (max-width: 500px) {
 }

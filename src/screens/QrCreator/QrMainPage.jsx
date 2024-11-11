@@ -34,7 +34,7 @@ import { IoLinkOutline } from "react-icons/io5";
 import { FaChevronDown } from "react-icons/fa";
 import axios from "axios";
 import { IoIosPause } from "react-icons/io";
-import { RxResume } from "react-icons/rx";
+import { RxCross2, RxResume } from "react-icons/rx";
 import { GrResume } from "react-icons/gr";
 
 const QrMainPage = () => {
@@ -182,7 +182,7 @@ const QrMainPage = () => {
   const renderFrame = (selectedFrame, qrCodeData, data) => {
     // console.log("qrCodeData", qrCodeData);
     console.log("dataQrCodeee", data);
-    console.log("selectedFramet",selectedFrame)
+    console.log("selectedFramet", selectedFrame);
     switch (selectedFrame) {
       case "notSelectedFrame":
         console.log("INSIDE notSelctedFrame CASE");
@@ -195,7 +195,6 @@ const QrMainPage = () => {
             selectedCornerStyle={qrCodeData?.selectedCornerStyle}
             selectedDotStyle={qrCodeData?.selectedDotStyle}
             data={data?.image_path}
-            
           />
         );
       case "frame1":
@@ -591,6 +590,10 @@ const QrMainPage = () => {
                       </div>
                     </div>
                   </div>
+                  <p className="cleanFilter">
+                    <RxCross2 size={22} />
+                    Clean Filter
+                  </p>
                 </div>
                 <div className="right">
                   <div className="sortByDropdown">
@@ -627,7 +630,7 @@ const QrMainPage = () => {
                   <>
                     {[...getALLQrCodes.data]?.reverse().map((qrCode, index) => {
                       const selectedFrame = qrCode?.style?.frameName;
-                      console.log("selectedFrametyy",selectedFrame)
+                      console.log("selectedFrametyy", selectedFrame);
                       const isLoading = loadingMap[qrCode.id];
                       const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
                       const isPaused = 2;

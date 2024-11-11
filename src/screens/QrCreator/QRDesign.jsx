@@ -65,7 +65,9 @@ const QRDesign = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { qrData } = location.state || {};
-  const [qrLogoFile, setQrLogoFile] = useState(qrData?.qrDesignLogo || null);
+  // const [qrLogoFile, setQrLogoFile] = useState(qrData?.qrDesignLogo || null);
+  const [QRLogo, setQRLogo] = useState(qrData?.qrDesignLogo || null);
+  console.log("QRLogotetstt", QRLogo);
 
   console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
@@ -130,8 +132,8 @@ const QRDesign = () => {
   };
 
   //LOGO
-  const [qrLogo, setQrLogo] = useState(qrData?.qrDesignLogo || null);
-  console.log("qrData?.qrDesignLogo", qrData?.qrDesignLogo);
+  // const [qrLogo, setQrLogo] = useState(qrData?.qrDesignLogo || null);
+  // console.log("qrData?.qrDesignLogo", qrData?.qrDesignLogo);
 
   //DOT STYLE STATE
   const [selectedCornerStyle, setSelectedCornerStyle] = useState(
@@ -178,24 +180,24 @@ const QRDesign = () => {
     const file = event.target.files[0];
     console.log("fileee", file);
     if (file) {
-      setQrLogoFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setQrLogo(reader.result); // Save data URI to state
-      };
-      reader.readAsDataURL(file); // Convert file to data URI
+      setQRLogo(file);
+      event.target.value = null;
     }
   };
+  const getLogoSrc = () => {
+    if (QRLogo instanceof File) {
+      return URL.createObjectURL(QRLogo);
+    }
+    return QRLogo || "/assets/images/default-img.png";
+  };
   if (qrData) {
-    qrData.qrDesignLogo = qrLogoFile;
+    qrData.qrDesignLogo = QRLogo;
     console.log("qrData with uploaded logo file:", qrData);
   }
   const handleImageDelete = () => {
-    setQrLogo(null);
+    setQRLogo(null);
   };
 
-  console.log("qrLogo", qrLogo);
-  console.log("qrLogoFile", qrLogoFile);
 
   //Render Frame CANVAS
   const renderFrame = () => {
@@ -209,7 +211,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame1":
@@ -225,7 +227,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame2":
@@ -273,7 +275,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame5":
@@ -289,7 +291,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame6":
@@ -305,7 +307,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame7":
@@ -321,7 +323,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame8":
@@ -337,7 +339,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame9":
@@ -353,7 +355,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame10":
@@ -369,7 +371,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       case "frame11":
@@ -385,7 +387,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            qrLogo={qrLogo}
+            // qrLogo={qrLogo}
           />
         );
       // ... Add cases for other frames
@@ -768,7 +770,8 @@ const QRDesign = () => {
                     <p>Logo</p>
                     <div className="img-wrapper">
                       <img
-                        src={qrLogo || "/assets/images/default-img.png"}
+                        // src={QRLogo || "/assets/images/default-img.png"}
+                        src={getLogoSrc()}
                         alt="Uploaded"
                         className="uploaded-img"
                       />
@@ -788,7 +791,7 @@ const QRDesign = () => {
                       </div>
                     </div>
                   </div>
-                  {qrLogo && (
+                  {QRLogo && (
                     <button className="delete-icon" onClick={handleImageDelete}>
                       Delete
                     </button>
@@ -820,9 +823,6 @@ const QRDesign = () => {
                 </div>
                 <PreviewFrame className="preview-frame" />
               </div> */}
-     
-
-
           </div>
         </div>
       </div>

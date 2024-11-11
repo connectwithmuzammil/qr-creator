@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -21,6 +21,11 @@ import ImageUploadComponent from "../ImageUploadComp";
 import FacilitiesIconComp from "../FacilitiesIconComp";
 import EventSchedularComp from "../EventSchedularComp";
 import { useLocation } from "react-router-dom";
+import ToggleButton from "./QRToggleButton";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { QRPreviewEvent } from "./QRPreviewAll";
+import { deleteField } from "../../redux/slice/qrSlice";
+import { useDispatch } from "react-redux";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -46,19 +51,27 @@ const FacilitiesIcon = {
 };
 
 const EVENT = ({ localQrData, setLocalQrData }) => {
+  const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
+
   const location = useLocation();
   console.log("LOCATIONURL", location);
-  console.log("localQrData",localQrData)
+  console.log("localQrData", localQrData);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
-      const { event_image, ...restQrData } = qrDataFromLocation;
-      setLocalQrData((prevQrData) => ({
-        ...prevQrData,
-        ...restQrData,
-      }));
+      setLocalQrData(qrDataFromLocation);
+
+      // const { event_image, ...restQrData } = qrDataFromLocation;
+      // setLocalQrData((prevQrData) => ({
+      //   ...prevQrData,
+      //   ...restQrData,
+      // }));
 
       // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation.color) {
@@ -78,6 +91,16 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
       [name]: file,
     }));
   };
+  const handleImageDelete = (fieldName) => {
+    // dispatch(resetField({ field: fieldName }));
+    dispatch(deleteField(fieldName));
+
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
+    }));
+    console.log(`Deleted image for field: ${fieldName}`);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLocalQrData((prevData) => ({
@@ -95,6 +118,8 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
       },
     }));
   };
+
+  console.log("localQrData?.event_facilities", localQrData?.event_facilities);
   return (
     <div className="event-page">
       <div className="containerr">
@@ -118,10 +143,12 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
               onImageUpload={handleImageUpload}
-              //   onImageDelete={handleImageDelete}
+              onImageDelete={handleImageDelete}
               label="Cover"
               name="event_image"
-              onEditImagePreview={location?.state?.qrData?.data?.event_image}
+              // onEditImagePreview={location?.state?.qrData?.data?.event_image}
+              onEditImagePreview={localQrData?.event_image}
+              localQrData={localQrData}
             />
             <InputComponent
               label={"Title"}
@@ -264,7 +291,21 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
           </AccordianComponent>
         </div>
         <div className="right">
-          <img src="/assets/images/phone-event.png" alt="phone-event" />
+          <>
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader className="topHeaderSvg" />
+                <QRPreviewEvent localQrData={localQrData} />
+              </div>
+              <PreviewFrame className="preview-frame" />
+            </div>
+          </>
+
+          {/* <img src="/assets/images/phone-event.png" alt="phone-event" /> */}
         </div>
       </div>
     </div>

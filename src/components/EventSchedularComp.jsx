@@ -78,7 +78,7 @@ const EventSchedularComp = ({ qrData, setQrData, onChangeTime, isEdit }) => {
             <label>Start</label>
             <input
               type="date"
-              value={qrData.event_time_start.split("T")[0]} // Split to remove time part
+              value={qrData.event_time_start.split("T")[0]} 
               onChange={handleStartDateChange}
             />
           </div>

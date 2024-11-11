@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
-const TimeInputComponent = ({ onTimeDataChange, is24HourFormat, setIs24HourFormat }) => {
+const TimeInputComponent = ({ onTimeDataChange, is24HourFormat, setIs24HourFormat,openingHours }) => {
   const [timeData, setTimeData] = useState({
     Monday: [{ from: "", to: "", enabled: false }],
     Tuesday: [{ from: "", to: "", enabled: false }],
@@ -11,6 +11,11 @@ const TimeInputComponent = ({ onTimeDataChange, is24HourFormat, setIs24HourForma
     Saturday: [{ from: "", to: "", enabled: false }],
     Sunday: [{ from: "", to: "", enabled: false }],
   });
+  console.log("openingHours",openingHours);
+
+  
+
+  
 
   useEffect(() => {
     onTimeDataChange(timeData);
@@ -138,3 +143,4 @@ const TimeInputComponent = ({ onTimeDataChange, is24HourFormat, setIs24HourForma
 };
 
 export default TimeInputComponent;
+

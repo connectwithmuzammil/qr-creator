@@ -57,11 +57,17 @@ function BottomWrapperStages({
       // if (generateQrPayload?.gallery_image) {
       //   formData.append("gallery_image", generateQrPayload?.gallery_image);
       // }
+      // if (generateQrPayload?.gallery_image && Array.isArray(generateQrPayload.gallery_image)) {
+      //   generateQrPayload.gallery_image.forEach((file, index) => {
+      //     formData.append(`gallery_image_${index}`, file); 
+      //   });
+      // }
       if (generateQrPayload?.gallery_image && Array.isArray(generateQrPayload.gallery_image)) {
-        generateQrPayload.gallery_image.forEach((file, index) => {
-          formData.append(`gallery_image_${index}`, file); // Optional: include an index to identify each file
+        generateQrPayload.gallery_image.forEach((file) => {
+          formData.append('gallery_image[]', file); 
         });
       }
+      
       
       if (generateQrPayload?.links_image) {
         formData.append("links_image", generateQrPayload?.links_image);

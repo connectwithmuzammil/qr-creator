@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import QRCodeStyling from "qr-code-styling";
 
 export const StarIcon = ({ className }) => {
@@ -1868,6 +1868,7 @@ export const NotSelectedFrameCanvas = ({
     </div>
   );
 };
+
 export const CanvaFrame1 = ({
   frameColor,
   frameBorderColor,
@@ -1879,18 +1880,31 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
-  // qrLogo,  
+  qrLogo,  
   data,
   ...props
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  const testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
   
+
+  const [imageLogo, setImageLogo] = useState(null);
+
+console.log("imageLogoSvg",imageLogo)
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    } else if (typeof qrLogo === 'string') {
+      setImageLogo(qrLogo); 
+    }
+  }, [qrLogo]); 
+
   const qrCodeOptions = {
     width: 200,
     height: 200,
     data: data || "www.example.com",
+    image: imageLogo,  
     dotsOptions: {
       color: dotColor,
       type: selectedDotStyle,
@@ -1905,35 +1919,23 @@ export const CanvaFrame1 = ({
     backgroundOptions: {
       color: CornerbgColor,
     },
-  // image: testLogo || undefined,
-    // image: qrLogo ? qrLogo : testLogo, 
-  //   imageOptions: {
-  //     crossOrigin: "anonymous",
-  //     margin: 20
-  // }
+    imageOptions: {
+      crossOrigin: "anonymous",
+      margin: 0, 
+    },
   };
 
-  // Initialize QR code on mount
+  // Initialize QR code on mount and update when qrCodeOptions change
   useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById(qrCodeId.current));
-  }, []);
+    console.log('qrCodeOptions updated:', qrCodeOptions);
 
-  // Update QR code options when props change, with a delay for qrLogo update
-  useEffect(() => {
     if (qrCode.current) {
-      qrCode.current.update(qrCodeOptions);
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
     }
-  }, [
-    data,
-    dotColor,
-    selectedDotStyle,
-    cornerBorderColor,
-    selectedCornerStyle,
-    CornerbgColor,
-    cornerDotColor,
-    // qrLogo,
-  ]);
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -1998,6 +2000,7 @@ export const CanvaFrame1 = ({
     </svg>
   );
 };
+
 
 
 export const CanvaFrame2 = ({

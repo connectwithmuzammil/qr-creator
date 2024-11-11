@@ -58,6 +58,7 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
+
 const LINKS = ({ localQrData, setLocalQrData }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
@@ -273,7 +274,7 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   </div>
 
                   <ImageUploadComponent
-                    image={link.image || "/assets/images/phone-links.png"} // Ensure each link has its own image
+                    image={link.image || "/assets/images/phone-links.png"}
                     defaultImage="/assets/images/default-img.png"
                     onImageUpload={(imageUrl, name, file) =>
                       handleImageUpload(imageUrl, link.id, file)

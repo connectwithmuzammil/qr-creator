@@ -1733,6 +1733,8 @@ export const QREVENT = ({ qrContent }) => {
           {qrContent?.event_location_state}
         </a>
       </div>
+
+      
       <div
         className="box"
         style={{

@@ -133,8 +133,8 @@ const initialState = {
   event_organizer_website: "", //
   event_time_action_title: "",
   event_time_all_day: true,
-  event_time_end: "2024-09-29T19:00:00.000Z",
-  event_time_start: "2024-09-28T19:00:00.000Z",
+  event_time_end: "",
+  event_time_start: "",
   event_time_timezone: "",
   event_image: "",
   event_facilities: "",
@@ -173,26 +173,33 @@ const qrSlice = createSlice({
     resetQrData: () => initialState,
 
     resetField: (state, action) => {
-      const { field } = action.payload;
-      if (field in state) {
-        return {
-          ...state,
-          [field]: "",
-        };
-      }
-      return state;
+      // const { field } = action.payload;
+      // if (field in state) {
+      //   return {
+      //     ...state,
+      //     [field]: "",
+      //   };
+      // }
+      // return state;
     },
-
 
     clearField: (state, action) => {
       const fieldName = action.payload;
       if (fieldName in state) {
-        state[fieldName] = null; 
+        state[fieldName] = null;
+      }
+    },
+    deleteField: (state, action) => {
+      const field = action.payload;
+      console.log("field logggg", field);
+      if (state.hasOwnProperty(field)) {
+        state[field] = ""; 
       }
     },
   },
 });
 
-export const { setsQrData, resetQrData, resetField,clearField } = qrSlice.actions;
+export const { setsQrData, resetQrData, resetField, clearField, deleteField } =
+  qrSlice.actions;
 
 export default qrSlice.reducer;

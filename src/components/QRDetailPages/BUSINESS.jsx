@@ -116,31 +116,12 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
       console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
-      // const { business_logo, ...restQrData } = qrDataFromLocation;
-      // setLocalQrData((prevQrData) => ({
-      //   ...prevQrData,
-      //   ...restQrData,
-      // }));
-
-      // If there's color data in localQrData, ensure it's set correctly
       if (qrDataFromLocation?.color) {
         setLocalQrData((prevQrData) => ({
           ...prevQrData,
           color: qrDataFromLocation?.color,
         }));
       }
-
-      // Set initial vcard_social links if present (edit mode)
-      // if (qrDataFromLocation?.business_social) {
-      //   setLocalQrData((prevQrData) => ({
-      //     ...prevQrData,
-      //     business_social: qrDataFromLocation?.business_social,
-      //   }));
-      // }
-
-      // if (qrDataFromLocation?.business_logo) {
-      //   setImagePreview(qrDataFromLocation?.business_logo);
-      // }
     }
   }, [location.state, setLocalQrData]);
 
@@ -247,7 +228,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
               onImageDelete={handleImageDelete}
               label="Logo"
               name="business_logo"
-              onEditImagePreview={location?.state?.qrData?.data?.business_logo}
+              onEditImagePreview={localQrData?.business_logo}
             />
             <InputComponent
               label={"Company name"}
@@ -313,6 +294,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
               onTimeDataChange={handleTimeDataChange}
               is24HourFormat={is24HourFormat}
               setIs24HourFormat={setIs24HourFormat}
+              openingHours = {localQrData?.opening_hours_days}
             />
           </AccordianComponent>
 

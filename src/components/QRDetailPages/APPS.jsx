@@ -124,7 +124,7 @@ const APPS = ({ localQrData, setLocalQrData }) => {
               onImageDelete={handleImageDelete}
               name="app_logo"
               localQrData={localQrData}
-              onEditImagePreview={location?.state?.qrData?.data?.app_logo}
+              onEditImagePreview={localQrData?.app_logo}
             />
             <InputComponent
               label={"App name*"}
