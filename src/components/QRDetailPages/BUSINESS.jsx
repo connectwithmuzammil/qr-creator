@@ -44,6 +44,23 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewBusiness } from "./QRPreviewAll";
 
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import {
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Box,
+  IconButton,
+  Paper,
+} from "@mui/material";
+import { MobileTimePicker, DesktopTimePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
   { id: "green", background: "#e8fce8", button: "#0e8b70" },
@@ -85,6 +102,15 @@ const FacilitiesIcon = {
   WheelChairAccess: <FacilitiesWheelChairAccessIcon />,
   Wifi: <FacilitiesWifiIcon />,
 };
+const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 const BUSINESS = ({ localQrData, setLocalQrData }) => {
   const hasBusinessData =
@@ -116,6 +142,17 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
       console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
+      if (qrDataFromLocation?.opening_hours_format) {
+        setTimeFormat(qrDataFromLocation?.opening_hours_format);
+      }
+
+      const daysData = qrDataFromLocation.opening_hours_days;
+      const updatedDays = Object.keys(selectedDays).reduce((acc, day) => {
+        acc[day] = daysData[day]?.enabled || false; // Preserve enabled state for each day
+        return acc;
+      }, {});
+      setSelectedDays(updatedDays);
+
       if (qrDataFromLocation?.color) {
         setLocalQrData((prevQrData) => ({
           ...prevQrData,
@@ -127,7 +164,97 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
 
   console.log("updatedQrDataBusiness", localQrData);
 
-  const [is24HourFormat, setIs24HourFormat] = useState(false);
+  //CODE FOR TIME INPUT COMP START
+  const [timeFormat, setTimeFormat] = useState(
+    localQrData.opening_hours_format
+  );
+  const [selectedDays, setSelectedDays] = useState({
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false,
+  });
+
+  // Handle Day Change
+  const handleDayChange = (day, checked) => {
+    // Create a shallow copy of selectedDays
+    const updatedDays = { ...selectedDays, [day]: checked };
+    setSelectedDays(updatedDays); // Update selectedDays state
+
+    // Create a deep copy of localQrData to avoid mutating the original state
+    const updatedData = {
+      ...localQrData,
+      opening_hours_days: {
+        ...localQrData.opening_hours_days, // Copy the whole opening_hours_days object
+        [day]: {
+          ...localQrData.opening_hours_days[day], // Copy the day object itself
+          enabled: checked, // Now you can safely modify the 'enabled' property
+          times: checked ? localQrData.opening_hours_days[day].times || [] : [], // Reset times if unchecked
+        },
+      },
+    };
+
+    setLocalQrData(updatedData); // Update the state with the new localQrData
+  };
+
+  // Handle Time Change
+  const handleTimeChange = (day, index, timeType, timeValue) => {
+    const updatedData = { ...localQrData };
+    // const formattedTime = dayjs(timeValue).format(
+    //   timeFormat === "24-hour" ? "HH:mm" : "hh:mm A"
+    // );
+
+    const formattedTime =
+      timeFormat === "24-hour"
+        ? dayjs(timeValue).format("HH:mm") // 24-hour format
+        : dayjs(timeValue).format("hh:mm A");
+
+    updatedData.opening_hours_days[day].times[index][timeType] = formattedTime;
+    setLocalQrData(updatedData);
+  };
+
+  // Handle Add Time Slot
+  const handleAddTimeSlot = (day) => {
+    // Create a new time slot object (with null start and end times)
+    const newTimeSlot = { start: null, end: null };
+
+    // Make a copy of the opening_hours_days and update the times array immutably
+    const updatedData = {
+      ...localQrData,
+      opening_hours_days: {
+        ...localQrData.opening_hours_days,
+        [day]: {
+          ...localQrData.opening_hours_days[day],
+          times: [...localQrData.opening_hours_days[day].times, newTimeSlot], // Add the new time slot immutably
+        },
+      },
+    };
+
+    // Update the state with the new data
+    setLocalQrData(updatedData);
+  };
+
+  // Handle Delete Time Slot
+  const handleDeleteTimeSlot = (day, index) => {
+    const updatedData = { ...localQrData };
+    updatedData.opening_hours_days[day].times.splice(index, 1); // Remove the time slot at the given index
+    setLocalQrData(updatedData);
+  };
+
+  const handleTimeFormatChange = (event) => {
+    setTimeFormat(event.target.value);
+    setLocalQrData({
+      ...localQrData,
+      opening_hours_format: event.target.value,
+    });
+  };
+
+  //CODE FOR TIME INPUT COMP END
+
+  // const [is24HourFormat, setIs24HourFormat] = useState(false);
   const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
@@ -172,35 +299,35 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  const handleTimeDataChange = (timeData) => {
-    const days = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ];
-    const updatedOpeningHours = {};
+  // const handleTimeDataChange = (timeData) => {
+  //   const days = [
+  //     "Monday",
+  //     "Tuesday",
+  //     "Wednesday",
+  //     "Thursday",
+  //     "Friday",
+  //     "Saturday",
+  //     "Sunday",
+  //   ];
+  //   const updatedOpeningHours = {};
 
-    days.forEach((day) => {
-      const dayData = timeData[day][0];
-      updatedOpeningHours[day.toLowerCase()] = {
-        enabled: dayData.enabled,
-        times: timeData[day].map((slot) => ({
-          start: slot.from,
-          end: slot.to,
-        })),
-      };
-    });
+  //   days.forEach((day) => {
+  //     const dayData = timeData[day][0];
+  //     updatedOpeningHours[day.toLowerCase()] = {
+  //       enabled: dayData.enabled,
+  //       times: timeData[day].map((slot) => ({
+  //         start: slot.from,
+  //         end: slot.to,
+  //       })),
+  //     };
+  //   });
 
-    setLocalQrData((prevData) => ({
-      ...prevData,
-      opening_hours_days: updatedOpeningHours,
-      opening_hours_format: is24HourFormat ? "24-Hour" : "AM-PM", // Update format based on toggle
-    }));
-  };
+  //   setLocalQrData((prevData) => ({
+  //     ...prevData,
+  //     opening_hours_days: updatedOpeningHours,
+  //     opening_hours_format: is24HourFormat ? "24-Hour" : "AM-PM", // Update format based on toggle
+  //   }));
+  // };
 
   return (
     <div className="business-page">
@@ -290,12 +417,239 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
             </div>
           </AccordianComponent>
           <AccordianComponent title={"Opening hours"}>
-            <TimeInputComponent
+            {/* <TimeInputComponent
               onTimeDataChange={handleTimeDataChange}
               is24HourFormat={is24HourFormat}
               setIs24HourFormat={setIs24HourFormat}
               openingHours = {localQrData?.opening_hours_days}
-            />
+            /> */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Box sx={{ padding: 3, maxWidth: 800, margin: "auto" }}>
+                {/* Time Format Selection */}
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  marginBottom={2}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={timeFormat === "AM-PM"}
+                        onChange={handleTimeFormatChange}
+                        value="AM-PM"
+                      />
+                    }
+                    label="AM/PM"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={timeFormat === "24-hour"}
+                        onChange={handleTimeFormatChange}
+                        value="24-hour"
+                      />
+                    }
+                    label="24-hour"
+                  />
+                </Box>
+
+                {/* Days of the Week */}
+                {Object.keys(selectedDays).map((day) => (
+                  <Paper
+                    key={day}
+                    sx={{
+                      padding: 2,
+                      marginBottom: 2,
+                      borderRadius: 2,
+                      boxShadow: 3,
+                      backgroundColor: "#f9f9f9",
+                    }}
+                  >
+                    <Grid container spacing={2} alignItems="center">
+                      {/* Day and Checkbox */}
+                      <Grid item xs={12} sm={3}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={selectedDays[day]}
+                              onChange={(e) =>
+                                handleDayChange(day, e.target.checked)
+                              }
+                              name={day}
+                            />
+                          }
+                          label={day.charAt(0).toUpperCase() + day.slice(1)}
+                          sx={{ fontWeight: "bold" }}
+                        />
+                      </Grid>
+
+                      {/* Time Slots */}
+                      <Grid item xs={12} sm={9}>
+                        <Box display="flex" flexDirection="column">
+                          {localQrData.opening_hours_days[day]?.times?.map(
+                            (timeSlot, index) => (
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="space-between"
+                                key={index}
+                                sx={{
+                                  marginBottom: 1,
+                                  border: "1px solid #ddd",
+                                  borderRadius: 2,
+                                  padding: 2,
+                                  backgroundColor: "#fff",
+                                }}
+                              >
+                                {/* Start Time Picker */}
+                                {timeFormat === "24-hour" ? (
+                                  <DesktopTimePicker
+                                    label="Start Time"
+                                    value={
+                                      timeSlot.start
+                                        ? dayjs(timeSlot.start, "HH:mm")
+                                        : dayjs()
+                                    }
+                                    onChange={(newValue) =>
+                                      handleTimeChange(
+                                        day,
+                                        index,
+                                        "start",
+                                        newValue
+                                      )
+                                    }
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        variant="outlined"
+                                        fullWidth
+                                      />
+                                    )}
+                                    disabled={!selectedDays[day]}
+                                    sx={{ marginRight: 2 }} // Add space between start and end time
+                                  />
+                                ) : (
+                                  <MobileTimePicker
+                                    label="Start Time"
+                                    value={
+                                      timeSlot.start
+                                        ? dayjs(timeSlot.start, "hh:mm A")
+                                        : dayjs()
+                                    }
+                                    onChange={(newValue) =>
+                                      handleTimeChange(
+                                        day,
+                                        index,
+                                        "start",
+                                        newValue
+                                      )
+                                    }
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        variant="outlined"
+                                        fullWidth
+                                      />
+                                    )}
+                                    disabled={!selectedDays[day]}
+                                    sx={{ marginRight: 2 }} // Add space between start and end time
+                                  />
+                                )}
+
+                                {/* End Time Picker */}
+                                {timeFormat === "24-hour" ? (
+                                  <DesktopTimePicker
+                                    label="End Time"
+                                    value={
+                                      timeSlot.end
+                                        ? dayjs(timeSlot.end, "HH:mm")
+                                        : dayjs()
+                                    }
+                                    onChange={(newValue) =>
+                                      handleTimeChange(
+                                        day,
+                                        index,
+                                        "end",
+                                        newValue
+                                      )
+                                    }
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        variant="outlined"
+                                        fullWidth
+                                      />
+                                    )}
+                                    disabled={!selectedDays[day]}
+                                  />
+                                ) : (
+                                  <MobileTimePicker
+                                    label="End Time"
+                                    value={
+                                      timeSlot.end
+                                        ? dayjs(timeSlot.end, "hh:mm A")
+                                        : dayjs()
+                                    }
+                                    onChange={(newValue) =>
+                                      handleTimeChange(
+                                        day,
+                                        index,
+                                        "end",
+                                        newValue
+                                      )
+                                    }
+                                    renderInput={(params) => (
+                                      <TextField
+                                        {...params}
+                                        variant="outlined"
+                                        fullWidth
+                                      />
+                                    )}
+                                    disabled={!selectedDays[day]}
+                                  />
+                                )}
+
+                                {/* Delete Icon */}
+                                <IconButton
+                                  onClick={() =>
+                                    handleDeleteTimeSlot(day, index)
+                                  }
+                                  sx={{
+                                    color: "#f44336", // Red color for delete icon
+                                    "&:hover": {
+                                      backgroundColor: "#ffebee", // Light red background on hover
+                                    },
+                                  }}
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Box>
+                            )
+                          )}
+
+                          {/* Add new time slot */}
+                          <Box display="flex" justifyContent="flex-start">
+                            <IconButton
+                              onClick={() => handleAddTimeSlot(day)}
+                              disabled={!selectedDays[day]}
+                              sx={{
+                                backgroundColor: "#007bff",
+                                color: "#fff",
+                                "&:hover": {
+                                  backgroundColor: "#0056b3",
+                                },
+                              }}
+                            >
+                              <AddIcon />
+                            </IconButton>
+                          </Box>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                ))}
+              </Box>
+            </LocalizationProvider>
           </AccordianComponent>
 
           <AccordianComponent title={"Location"}>

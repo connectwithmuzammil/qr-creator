@@ -615,7 +615,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
   return (
     <div
       className="layout-content showBrowser "
-      style={{ backgroundColor: localQrData?.color?.background }}
+      style={{ backgroundColor: localQrData?.color?.background,left:"2px" }}
     >
       <div className="website-companyName">
         <p style={{ fontWeight: "700", wordBreak: "break-all" }}>
@@ -665,8 +665,8 @@ export const QRPreviewBusiness = ({ localQrData }) => {
             className="opening-hour"
             style={{
               background: "#fff",
-              width: "100%",
-              padding: "16px",
+              width: "97%",
+              padding: "8px",
               borderRadius: "8px",
               marginTop: "16px",
               marginBottom: "16px",
@@ -703,7 +703,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
                       marginBottom: "8px",
                       display: "flex",
                       justifyContent: "space-between",
-                      fontSize: "14px",
+                      fontSize: "13px",
                     }}
                   >
                     <strong>

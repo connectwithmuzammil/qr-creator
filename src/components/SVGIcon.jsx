@@ -1910,20 +1910,25 @@ export const CanvaFrame1 = ({
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
+
+  console.log("qrLogooo",qrLogo)
   
 
   const [imageLogo, setImageLogo] = useState(null);
 
-console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
     if (qrLogo instanceof File) {
       const logoUrl = URL.createObjectURL(qrLogo);
       setImageLogo(logoUrl);
     } 
-    else if (typeof qrLogo === 'string') {
-      setImageLogo(qrLogo); 
+    else{
+      setImageLogo(qrLogo)
     }
+ 
   }, [qrLogo]); 
+
+console.log("imageLogoSvg",imageLogo)
+
 
   const qrCodeOptions = {
     width: 200,
@@ -1947,7 +1952,7 @@ console.log("imageLogoSvg",imageLogo)
     imageOptions: {
       crossOrigin: "anonymous",
       margin: 0, 
-      borderRadius:"6px"
+      // borderRadius:"6px"
     },
   };
 
@@ -1961,7 +1966,7 @@ console.log("imageLogoSvg",imageLogo)
       qrCode.current = new QRCodeStyling(qrCodeOptions);
       qrCode.current.append(document.getElementById(qrCodeId.current));
     }
-  }, [qrCodeOptions]); // Ensure QR code updates on option change
+  }, [qrCodeOptions,imageLogo]); // Ensure QR code updates on option change
 
   return (
     <svg

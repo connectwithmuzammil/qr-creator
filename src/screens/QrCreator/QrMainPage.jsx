@@ -195,6 +195,7 @@ const QrMainPage = () => {
             selectedCornerStyle={qrCodeData?.selectedCornerStyle}
             selectedDotStyle={qrCodeData?.selectedDotStyle}
             data={data?.image_path}
+            // qrLogo={data?.qrDesignLogo}
           />
         );
       case "frame1":
@@ -212,6 +213,8 @@ const QrMainPage = () => {
             selectedCornerStyle={qrCodeData?.selectedCornerStyle}
             selectedDotStyle={qrCodeData?.selectedDotStyle}
             data={data?.image_path}
+            // qrLogo={data?.qrDesignLogo}
+
           />
         );
       case "frame2":
