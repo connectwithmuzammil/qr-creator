@@ -98,13 +98,13 @@ const Social = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  const handleImageUpload = (mediaData, name) => {
+  const handleImageUpload = (mediaData, name,file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
     setLocalQrData((prevData) => ({
       ...prevData,
-      [name]: mediaData,
+      [name]: file,
     }));
   };
   const handleImageDelete = (fieldName) => {
@@ -180,6 +180,7 @@ const Social = ({ localQrData, setLocalQrData }) => {
               icons={icons}
               onIconClick={handleSocialIconChange}
               initialLinks={localQrData?.media_social}
+              isEditing={!!location.state?.qrData}
             />
           </AccordianComponent>
         </div>

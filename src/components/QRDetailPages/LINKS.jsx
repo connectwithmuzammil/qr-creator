@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -26,11 +26,11 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import Button from "../Button";
 import { FaTrash } from "react-icons/fa";
-import { debounce } from "lodash";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLinks } from "./QRPreviewAll";
+import { toast } from "react-toastify";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -82,95 +82,68 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
           color: qrDataFromLocation?.color,
         }));
       }
-      if (qrDataFromLocation?.links) {
-        setLinks(qrDataFromLocation.links);
+      if (qrDataFromLocation?.all_links) {
+        setLinkData(qrDataFromLocation.all_links);
       }
     }
   }, [location.state, setLocalQrData]);
 
-  const [links, setLinks] = useState([]);
 
-  console.log("updatedQRdata", localQrData);
+  const [linkData, setLinkData] = useState({ image: "", text: "", url: "" });
+  const [QRLogo, setQRLogo] = useState(null); 
 
-  // Debounce function to update localQrData with a delay of 300ms
-  const updateQrDataDebounced = useCallback(
-    debounce((updatedLinks) => {
-      const sanitizedLinks = updatedLinks.map(({ id, ...rest }) => rest);
-      setLocalQrData((prevData) => ({
-        ...prevData,
-        all_links: sanitizedLinks,
-      }));
-    }, 300),
-    []
-  );
+  // Function to handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLinkData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
-  useEffect(() => {
-    // Initialize links from localQrData when the component mounts
-    if (localQrData.all_links) {
-      setLinks(localQrData.all_links);
+  // Custom function to handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // const imageUrl = URL.createObjectURL(file);
+      setQRLogo(file);
+      setLinkData((prevData) => ({ ...prevData, image: file }));
+      event.target.value = null;
     }
-  }, [localQrData]);
+  };
 
-  // Add new link
+  // Function to handle image delete
+  const handleImageDelete = () => {
+    setQRLogo(null);
+    setLinkData((prevData) => ({ ...prevData, image: "" }));
+  };
+
+  // Function to add the link to the array and store it in local storage/redux
   const handleAddLink = () => {
-    const newLink = { id: Date.now(), image: "", text: "", url: "" };
-    setLinks((prevLinks) => {
-      const updatedLinks = [...prevLinks, newLink];
-      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
-      return updatedLinks;
-    });
+    console.log("Link data before adding:", linkData);
+    if (linkData.image && linkData.text && linkData.url) {
+      const updatedLinks = [...localQrData.all_links, linkData];
+      setLocalQrData({ ...localQrData, all_links: updatedLinks });
+      setLinkData({ image: "", text: "", url: "" }); // Reset input fields
+      setQRLogo(null); // Reset image preview
+    } else {
+      toast.error("Please fill in all fields.");
+    }
   };
 
-  // Remove a link
-  const handleRemoveLink = (id) => {
-    setLinks((prevLinks) => {
-      const updatedLinks = prevLinks.filter((link) => link.id !== id);
-      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
-      return updatedLinks;
-    });
+  // Function to delete a link from the array
+  const handleDeleteLink = (index) => {
+    const updatedLinks = localQrData.all_links.filter((_, i) => i !== index);
+    setLocalQrData({ ...localQrData, all_links: updatedLinks });
   };
 
-  // Handle changes to link inputs (text, url)
-  const handleLinkInputChange = (id, name, value) => {
-    setLinks((prevLinks) => {
-      const updatedLinks = prevLinks.map((link) =>
-        link.id === id ? { ...link, [name]: value } : link
-      );
-
-      // Debounced update to the QR data
-      updateQrDataDebounced(updatedLinks);
-      return updatedLinks;
-    });
+  // Helper function to get image source
+  // const getLogoSrc = () => (QRLogo ? QRLogo : "/assets/images/default-img.png");
+  const getLogoSrc = () => {
+    if (QRLogo instanceof File) {
+      return URL.createObjectURL(QRLogo);
+    }
+    return QRLogo || "/assets/images/default-img.png";
   };
 
-  // Handle image upload
-  const handleImageUpload = (imageUrl, id, file) => {
-    setLinks((prevLinks) => {
-      const updatedLinks = prevLinks.map((link) =>
-        link.id === id ? { ...link, image: file } : link
-      );
-
-      // Update localQrData with the updated image for the specific link
-      setLocalQrData((prevData) => ({
-        ...prevData,
-        all_links: updatedLinks,
-      }));
-
-      return updatedLinks;
-    });
-  };
-
-  // Handle image deletion
-  const handleImageDelete = (id) => {
-    setLinks((prevLinks) => {
-      const updatedLinks = prevLinks.map((link) =>
-        link.id === id ? { ...link, image: "" } : link
-      );
-      setLocalQrData((prevData) => ({ ...prevData, all_links: updatedLinks }));
-      return updatedLinks;
-    });
-  };
-
+  console.log("linkdatata", linkData);
   // ----------------------------------------------
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -209,12 +182,7 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  // Clean up debounce on unmount
-  useEffect(() => {
-    return () => {
-      updateQrDataDebounced.cancel();
-    };
-  }, [updateQrDataDebounced]);
+
   return (
     <div className="link-page">
       <div className="containerr">
@@ -262,52 +230,88 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
           <AccordianComponent title={"Your links"}>
             <p className="social-con-content">Add one link*</p>
 
-            <div>
-              {links?.map((link, index) => (
-                <div key={link.id} className="show-link-con">
-                  <div
-                    className="trash-con"
-                    onClick={() => handleRemoveLink(link.id)}
-                  >
-                    <p>Link {index + 1}</p>
-                    <FaTrash />
+            <div className="links-container">
+              <div className="img-upload-comp">
+                <div className="wrap">
+                  <div className="img-wrapper">
+                    <img
+                      src={getLogoSrc()}
+                      alt="Uploaded"
+                      className="uploaded-img"
+                    />
+                    <div className="icon-overlay">
+                      <label className="upload-icon">
+                        <h3>+</h3>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                        />
+                      </label>
+                    </div>
                   </div>
-
-                  <ImageUploadComponent
-                    image={link.image || "/assets/images/phone-links.png"}
-                    defaultImage="/assets/images/default-img.png"
-                    onImageUpload={(imageUrl, name, file) =>
-                      handleImageUpload(imageUrl, link.id, file)
-                    }
-                    onImageDelete={() => handleImageDelete(link.id)}
-                    label="Image"
-                    name={link.id}
-                  />
-
-                  <InputComponent
-                    label="Link text*"
-                    name="text"
-                    placeholder="e.g. Write your link text here"
-                    onChange={(e) =>
-                      handleLinkInputChange(link.id, "text", e.target.value)
-                    }
-                    value={link.text}
-                  />
-
-                  <InputComponent
-                    label="URL*"
-                    name="url"
-                    placeholder="e.g. https://..."
-                    onChange={(e) =>
-                      handleLinkInputChange(link.id, "url", e.target.value)
-                    }
-                    value={link.url}
-                  />
                 </div>
-              ))}
+                {QRLogo && (
+                  <button className="delete-icon" onClick={handleImageDelete}>
+                    Delete
+                  </button>
+                )}
+              </div>
 
-              <Button width="100%" title="Add Link" onClick={handleAddLink} />
+              <InputComponent
+                label="Text"
+                placeholder="Enter text"
+                name="text"
+                value={linkData.text}
+                onChange={handleChange}
+              />
+              <InputComponent
+                label="URL"
+                placeholder="Enter URL"
+                name="url"
+                value={linkData.url}
+                onChange={handleChange}
+              />
+              <Button
+                title={"Add Link"}
+                width={"100%"}
+                onClick={handleAddLink}
+              />
+
+              {localQrData.all_links.length > 0 && (
+                <>
+                  <h4>All Links</h4>
+                  <ul>
+                    {localQrData.all_links.map((link, index) => {
+                      console.log("linkk",link)
+                      const imageUrl =
+                        link.image instanceof File
+                          ? URL.createObjectURL(link.image)
+                          : link.image;
+
+                      return (
+                        <li key={index}>
+                          <img src={imageUrl} alt={link.text} width="50" />
+                          <span>{link.text}</span> -{" "}
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {link.url}
+                          </a>
+                          <button onClick={() => handleDeleteLink(index)}>
+                            Delete
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              )}
             </div>
+
+    
           </AccordianComponent>
           <AccordianComponent title={"Your social networks"}>
             <p className="social-con-content">Add Link to...</p>
@@ -315,6 +319,7 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
               icons={icons}
               onIconClick={handleSocialIconChange}
               initialLinks={localQrData?.links_social}
+              isEditing={!!location.state?.qrData}
             />
           </AccordianComponent>
         </div>

@@ -162,6 +162,7 @@ const APPS = ({ localQrData, setLocalQrData }) => {
               onIconClick={handleSocialIconChange}
               className={"app-social"}
               initialLinks={localQrData?.app_social}
+              isEditing={!!location.state?.qrData}
             />
           </AccordianComponent>
         </div>

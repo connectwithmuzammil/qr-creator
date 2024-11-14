@@ -301,6 +301,7 @@ const Video = ({ localQrData, setLocalQrData }) => {
               icons={icons}
               onIconClick={handleSocialIconChange}
               initialLinks={localQrData?.video_social}
+              isEditing={!!location.state?.qrData}
             />
           </AccordianComponent>
         </div>

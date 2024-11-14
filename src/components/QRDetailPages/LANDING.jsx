@@ -100,12 +100,13 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [name]: file,
     }));
+    
   };
   const handleImageDelete = (fieldName) => {
     // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
-      [fieldName]: "", 
+      [fieldName]: "",
     }));
     console.log(`Deleted image for field: ${fieldName}`);
   };
@@ -113,7 +114,7 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
     console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => {
       const updatedLandingSocial = { ...prevData.landing_social };
-      
+
       if (url === null) {
         // Remove the icon from the state
         delete updatedLandingSocial[iconName];
@@ -121,16 +122,15 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
         // Add or update the icon link
         updatedLandingSocial[iconName] = url;
       }
-  
+
       return {
         ...prevData,
         landing_social: updatedLandingSocial,
       };
     });
   };
-  
 
-  console.log("localqrdatalanding_social",localQrData?.landing_social)
+  console.log("localqrdatalanding_social", localQrData?.landing_social);
   return (
     <div className="landing-page">
       <div className="containerr">
@@ -159,7 +159,6 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
               name="landing_logo"
               localQrData={localQrData}
               onEditImagePreview={localQrData?.landing_logo}
-
             />
             <InputComponent
               label={"Company"}

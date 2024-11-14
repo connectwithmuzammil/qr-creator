@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const ImageUploadMultipleComponent = ({
@@ -10,7 +10,19 @@ const ImageUploadMultipleComponent = ({
   localQrData,
   onEditImagePreview,
 }) => {
+  // const [images, setImages] = useState(localQrData?.gallery_image);
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    if (localQrData?.gallery_image) {
+      setImages(localQrData?.gallery_image);
+      // setImages(
+      //   Array.isArray(localQrData.gallery_image)
+      //     ? localQrData.gallery_image
+      //     : [localQrData.gallery_image]
+      // );
+    }
+  }, [localQrData]);
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
@@ -58,10 +70,18 @@ const ImageUploadMultipleComponent = ({
             images.map((img, index) => (
               <div key={index} className="img-item">
                 <img
-                  src={img.url}
+                  // src={img.url || img}
+                  src={
+                    img.url
+                      ? img.url
+                      : img instanceof File
+                      ? URL.createObjectURL(img)
+                      : img
+                  }
                   alt={`Uploaded ${index}`}
                   className="uploaded-img"
                 />
+                {console.log("img", img)}
                 <button
                   className="delete-btn"
                   onClick={() => handleImageDelete(index)}

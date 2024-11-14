@@ -252,7 +252,7 @@ export const QRPreviewLanding = ({ localQrData }) => {
       style={{ backgroundColor: localQrData?.color?.background }}
     >
       <div className="website-companyName">
-        <p style={{ fontWeight: "700", wordBreak: "break-all", margin: "0" }}>
+        <p style={{ fontWeight: "700", wordBreak: "break-all",  }}>
           {localQrData?.landing_company}
         </p>
       </div>
@@ -270,7 +270,7 @@ export const QRPreviewLanding = ({ localQrData }) => {
           data={localQrData}
           imageKey="landing_logo"
           altText="Company Logo"
-          style={{ width: "40px", height: "40px", objectFit: "contain" }}
+          style={{ width: "100%", height: "120px", objectFit: "contain",borderRadius:"12px" }}
         />
         <div
           className="con-white"
@@ -611,6 +611,7 @@ export const QRPreviewVCard = ({ localQrData }) => {
 };
 
 export const QRPreviewBusiness = ({ localQrData }) => {
+  console.log("LocalDataBusiness",localQrData)
   return (
     <div
       className="layout-content showBrowser "
@@ -1089,12 +1090,12 @@ export const QRPreviewApps = ({ localQrData }) => {
         altText="App Logo"
         style={{
           // maxWidth: "300px",
-          with:"100%",
+          with: "100%",
           height: "120px",
           objectFit: "contain",
           marginTop: "-50px",
           marginBottom: "16px",
-          borderRadius:"6px"
+          borderRadius: "12px",
         }}
       />
       <p style={{ fontWeight: "500", wordBreak: "break-all" }}>
@@ -1262,6 +1263,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
 };
 
 export const QRPreviewLinks = ({ localQrData }) => {
+  console.log("localQrDataLink", localQrData);
   return (
     <div
       className="layout-content showBrowser "
@@ -1306,38 +1308,44 @@ export const QRPreviewLinks = ({ localQrData }) => {
           flexDirection: "column",
         }}
       >
-        {localQrData?.all_links?.map((link, index) => (
-          <Link
-            key={index}
-            className="linkbox"
-            style={{
-              background: localQrData?.color?.button,
-              width: "100%",
-              display: "flex",
-              justifyContent: "start",
-              alignItems: "center",
-              padding: "12px",
-              borderRadius: "6px",
-              color: "#fff",
-              textDecoration: "none",
-              gap: "12px",
-            }}
-            to={link?.url}
-            target="_blank"
-          >
-            {link?.image && (
-              <img
-                src={link?.link_image}
-                // src={URL.createObjectURL(link?.image)}
-                alt=""
-                style={{ width: "24px", height: "24px" }}
-              />
-            )}
-            {console.log("link?.link_image", link)}
-            {/* Optional: Set image size */}
-            <h6 style={{ margin: "0" }}>{link?.text}</h6>
-          </Link>
-        ))}
+        {localQrData?.all_links?.map((link, index) => {
+            const imageUrl =
+            link.image instanceof File
+              ? URL.createObjectURL(link.image)
+              : link.image;
+          return (
+            <Link
+              key={index}
+              className="linkbox"
+              style={{
+                background: localQrData?.color?.button,
+                width: "100%",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+                padding: "12px",
+                borderRadius: "6px",
+                color: "#fff",
+                textDecoration: "none",
+                gap: "12px",
+              }}
+              to={link?.url}
+              target="_blank"
+            >
+              {link?.image && (
+                <img
+                  src={imageUrl}
+
+                  alt={link.text}
+                  style={{ width: "28px", height: "28px",borderRadius:"6px" }}
+                />
+              )}
+              {console.log("link?.link_image", link)}
+              {/* Optional: Set image size */}
+              <h6 style={{ margin: "0" }}>{link?.text}</h6>
+            </Link>
+          );
+        })}
       </div>
 
       <SocialMediaLinks socialLinks={localQrData?.links_social} icons={icons} />
@@ -1359,7 +1367,7 @@ export const QRPreviewGallery = ({ localQrData }) => {
         backgroundColor: localQrData?.color?.background,
         left: "3px",
         paddingTop: "30px",
-        overflowX:"hidden"
+        overflowX: "hidden",
       }}
     >
       <p

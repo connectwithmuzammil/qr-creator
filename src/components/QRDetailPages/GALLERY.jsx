@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { InputComponent } from "../InputComponent";
 import { AccordianComponent } from "../AccordianComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -8,6 +8,8 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewGallery } from "./QRPreviewAll";
 import ImageUploadMultipleComponent from "../ImageUploadMultipleComponent";
+import { useDispatch } from "react-redux";
+import { deleteField } from "../../redux/slice/qrSlice";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -16,6 +18,7 @@ const colors = [
   { id: "red", background: "#fecdd6", button: "#b00223" },
 ];
 const GALLERY = ({ localQrData, setLocalQrData }) => {
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -46,6 +49,7 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
     }
   }, [location.state, setLocalQrData]);
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLocalQrData((prevData) => ({
@@ -53,6 +57,8 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
       [name]: value,
     }));
   };
+  const hasExecutedRef = useRef(false);
+  console.log("hashhh",hasExecutedRef)
   const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
@@ -61,6 +67,18 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
     //   ...prevData,
     //   [name]: file,
     // }));
+
+
+
+    if (localQrData?.id && !hasExecutedRef.current) {
+      dispatch(deleteField(name));
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        gallery_image: [], 
+      }));
+  
+      hasExecutedRef.current = true;
+    }
 
     setLocalQrData((prevData) => {
       // Check if `gallery_image` already exists and is an array
@@ -73,7 +91,8 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
       };
     });
   };
-  const handleImageDelete = (fieldName,imageIndex) => {
+
+  const handleImageDelete = (fieldName, imageIndex) => {
     console.log("All images deleted");
     setLocalQrData((prevData) => ({
       ...prevData,

@@ -2978,7 +2978,9 @@ p.social-con-content {
   width: 100%;
   /* padding-top: 40px; */
   font-family: "Poppins", sans-serif;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-around;
+
   /* gap: 8px; */
 }
 
@@ -3307,6 +3309,79 @@ p.social-con-content {
   padding: 5px;
   cursor: pointer;
 }
+
+.links-container h4 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+  margin-top: 12px;
+}
+
+
+.links-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links-container li {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.links-container li:hover {
+  background-color: #f0f0f0;
+}
+
+.links-container img {
+  border-radius: 8px;
+  margin-right: 1rem;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.links-container span {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 1rem;
+  color: #555;
+}
+
+.links-container a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: auto;
+  transition: color 0.2s ease-in-out;
+}
+
+.links-container a:hover {
+  color: #0056b3;
+}
+
+.links-container button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.links-container button:hover {
+  background-color: #c0392b;
+}
+
 
 /* LANDING PAGE */
 .landing-page {

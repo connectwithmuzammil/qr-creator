@@ -304,7 +304,7 @@ const QRDetail = () => {
               media_headline: localQrData.media_headline,
               color: localQrData.color,
               media_social: localQrData.media_social,
-              landing_logo: localQrData.landing_logo,
+              social_logo: localQrData.social_logo,
               media_description: localQrData.media_description,
             }
           : {}),

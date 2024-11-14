@@ -243,7 +243,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame3":
@@ -259,7 +259,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame4":
@@ -275,7 +275,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame5":
@@ -291,7 +291,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame6":
@@ -307,7 +307,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame7":
@@ -323,7 +323,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame8":
@@ -339,7 +339,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame9":
@@ -355,7 +355,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame10":
@@ -371,7 +371,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       case "frame11":
@@ -387,7 +387,7 @@ const QRDesign = () => {
             cornerDotColor={cornerDotColor}
             selectedCornerStyle={selectedCornerStyle}
             selectedDotStyle={selectedDotStyle}
-            // qrLogo={qrLogo}
+            qrLogo={QRLogo}
           />
         );
       // ... Add cases for other frames
@@ -791,11 +791,11 @@ const QRDesign = () => {
                       </div>
                     </div>
                   </div>
-                  {QRLogo && (
+                  {/* {QRLogo && (
                     <button className="delete-icon" onClick={handleImageDelete}>
                       Delete
                     </button>
-                  )}
+                  )} */}
                 </div>
               </AccordianComponent>
             </div>
