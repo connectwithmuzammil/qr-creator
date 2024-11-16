@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import QRCodeStyling from "qr-code-styling";
 
 export const StarIcon = ({ className }) => {
@@ -1930,31 +1930,32 @@ export const CanvaFrame1 = ({
 console.log("imageLogoSvg",imageLogo)
 
 
-  const qrCodeOptions = {
-    width: 200,
-    height: 200,
-    data: data || "www.example.com",
-    image: imageLogo,  
-    dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
-    },
-    cornersSquareOptions: {
-      color: cornerBorderColor,
-      type: selectedCornerStyle,
-    },
-    cornersDotOptions: {
-      color: cornerDotColor,
-    },
-    backgroundOptions: {
-      color: CornerbgColor,
-    },
-    imageOptions: {
-      crossOrigin: "anonymous",
-      margin: 0, 
-      // borderRadius:"6px"
-    },
-  };
+ // Memoize qrCodeOptions to avoid re-creation on every render
+ const qrCodeOptions = useMemo(() => ({
+  width: 200,
+  height: 200,
+  data: data || "www.example.com",
+  image: imageLogo,
+  dotsOptions: {
+    color: dotColor,
+    type: selectedDotStyle,
+  },
+  cornersSquareOptions: {
+    color: cornerBorderColor,
+    type: selectedCornerStyle,
+  },
+  cornersDotOptions: {
+    color: cornerDotColor,
+  },
+  backgroundOptions: {
+    color: CornerbgColor,
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 0,
+  },
+}), [data, imageLogo, dotColor, selectedDotStyle, cornerBorderColor, selectedCornerStyle, cornerDotColor, CornerbgColor]);
+
 
   // Initialize QR code on mount and update when qrCodeOptions change
   useEffect(() => {
@@ -2060,9 +2061,9 @@ export const CanvaFrame2 = ({
         const logoUrl = URL.createObjectURL(qrLogo);
         setImageLogo(logoUrl);
       } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
+      else if (typeof qrLogo === 'string') {
+        setImageLogo(qrLogo); 
+      }
     }, [qrLogo]); 
   
     const qrCodeOptions = {

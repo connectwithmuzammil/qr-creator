@@ -35,6 +35,7 @@ import Social from "./QRDetailPages/Social";
 import Video from "./QRDetailPages/Video";
 import BUSINESS from "./QRDetailPages/BUSINESS";
 import EVENT from "./QRDetailPages/EVENT";
+import ELabels from "./QRDetailPages/E-Label";
 
 import PrivateRoute from "./PrivateRoutes";
 import SubscriptionPopup from "./SubscriptionPopup";
@@ -86,4 +87,5 @@ export {
   BarChartAnalytics,
   ConfirmationModal,
   OpenQrScanModal,
+  ELabels,
 };

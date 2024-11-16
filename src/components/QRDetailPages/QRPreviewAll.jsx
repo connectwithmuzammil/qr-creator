@@ -252,7 +252,7 @@ export const QRPreviewLanding = ({ localQrData }) => {
       style={{ backgroundColor: localQrData?.color?.background }}
     >
       <div className="website-companyName">
-        <p style={{ fontWeight: "700", wordBreak: "break-all",  }}>
+        <p style={{ fontWeight: "700", wordBreak: "break-all" }}>
           {localQrData?.landing_company}
         </p>
       </div>
@@ -270,7 +270,12 @@ export const QRPreviewLanding = ({ localQrData }) => {
           data={localQrData}
           imageKey="landing_logo"
           altText="Company Logo"
-          style={{ width: "100%", height: "120px", objectFit: "contain",borderRadius:"12px" }}
+          style={{
+            width: "100%",
+            height: "120px",
+            objectFit: "contain",
+            borderRadius: "12px",
+          }}
         />
         <div
           className="con-white"
@@ -611,11 +616,11 @@ export const QRPreviewVCard = ({ localQrData }) => {
 };
 
 export const QRPreviewBusiness = ({ localQrData }) => {
-  console.log("LocalDataBusiness",localQrData)
+  console.log("LocalDataBusiness", localQrData);
   return (
     <div
       className="layout-content showBrowser "
-      style={{ backgroundColor: localQrData?.color?.background,left:"2px" }}
+      style={{ backgroundColor: localQrData?.color?.background, left: "2px" }}
     >
       <div className="website-companyName">
         <p style={{ fontWeight: "700", wordBreak: "break-all" }}>
@@ -1160,7 +1165,113 @@ export const QRPreviewApps = ({ localQrData }) => {
   );
 };
 
+// export const QRPreviewVideo = ({ localQrData }) => {
+//   const videoUrl =
+//     localQrData?.video_path instanceof File
+//       ? URL.createObjectURL(localQrData.video_path)
+//       : typeof localQrData?.video_path === "string" &&
+//         localQrData?.video_path.trim() !== ""
+//       ? localQrData.video_path
+//       : null;
+
+//   return (
+//     <div
+//       className="layout-content showBrowser "
+//       style={{
+//         backgroundColor: localQrData?.color?.background,
+//         minHeight: "100%",
+//         left: "0px",
+//       }}
+//     >
+//       <h4
+//         style={{
+//           fontWeight: "700",
+//           wordBreak: "break-all",
+//           marginBottom: "8px",
+//           fontSize: "16px",
+//         }}
+//       >
+//         {localQrData?.video_name}
+//       </h4>
+//       <h5
+//         style={{
+//           fontWeight: "500",
+//           wordBreak: "break-all",
+//           marginBottom: "8px",
+//           fontSize: "14px",
+//         }}
+//       >
+//         {localQrData?.video_title}
+//       </h5>
+//       <h6
+//         style={{
+//           fontWeight: "400",
+//           wordBreak: "break-all",
+//           marginBottom: "16px",
+//           fontSize: "13px",
+//         }}
+//       >
+//         {localQrData?.video_description}
+//       </h6>
+
+//       <CustomButton
+//         text={localQrData?.video_button}
+//         url={localQrData?.video_url}
+//         backgroundColor={localQrData?.color?.button}
+//       />
+//       {localQrData?.video_path && (
+//         <div
+//           style={{
+//             width: "90%",
+//             maxWidth: "300px",
+//             height: "auto",
+//             aspectRatio: "16 / 9",
+//             marginInline: "auto",
+//             marginBottom: "20px",
+//             position: "relative",
+//             background: "#f2f2f2",
+//             marginTop: "16px",
+//           }}
+//         >
+//           <video
+//             src={videoUrl || localQrData?.video_path}
+//             style={{
+//               width: "100%",
+//               height: "100%",
+//               borderRadius: "4px",
+//               position: "absolute",
+//               top: 0,
+//               left: 0,
+//               padding: "10px",
+//             }}
+//             controls
+//           />
+//         </div>
+//       )}
+
+//       <div
+//         style={{
+//           background: "#fff",
+//           borderRadius: "8px",
+//           marginTop: "16px",
+//         }}
+//       >
+//         <SocialMediaLinks
+//           socialLinks={localQrData?.video_social}
+//           icons={icons}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
 export const QRPreviewVideo = ({ localQrData }) => {
+  // Check if specific fields are empty to decide how to display the video
+  const hasDetails =
+    localQrData?.company_name ||
+    localQrData?.video_title ||
+    localQrData?.video_social;
+
   const videoUrl =
     localQrData?.video_path instanceof File
       ? URL.createObjectURL(localQrData.video_path)
@@ -1168,67 +1279,32 @@ export const QRPreviewVideo = ({ localQrData }) => {
         localQrData?.video_path.trim() !== ""
       ? localQrData.video_path
       : null;
+
   return (
     <div
-      className="layout-content showBrowser "
+      className="layout-content showBrowser"
       style={{
         backgroundColor: localQrData?.color?.background,
         minHeight: "100%",
         left: "0px",
+        paddingBottom: "20px",
       }}
     >
-      <h4
-        style={{
-          fontWeight: "700",
-          wordBreak: "break-all",
-          marginBottom: "8px",
-          fontSize: "16px",
-        }}
-      >
-        {localQrData?.video_name}
-      </h4>
-      <h5
-        style={{
-          fontWeight: "500",
-          wordBreak: "break-all",
-          marginBottom: "8px",
-          fontSize: "14px",
-        }}
-      >
-        {localQrData?.video_title}
-      </h5>
-      <h6
-        style={{
-          fontWeight: "400",
-          wordBreak: "break-all",
-          marginBottom: "16px",
-          fontSize: "13px",
-        }}
-      >
-        {localQrData?.video_description}
-      </h6>
-
-      <CustomButton
-        text={localQrData?.video_button}
-        url={localQrData?.video_url}
-        backgroundColor={localQrData?.color?.button}
-      />
-      {localQrData?.video_path && (
+      {/* Always show video and handle full screen or limited height based on details */}
+      {videoUrl && (
         <div
           style={{
-            width: "90%",
-            maxWidth: "300px",
-            height: "auto",
+            width: "100%",
+            height: hasDetails ? "300px" : "100%",
             aspectRatio: "16 / 9",
             marginInline: "auto",
-            marginBottom: "20px",
             position: "relative",
-            background: "#f2f2f2",
-            marginTop: "16px",
+            background: "#000",
+            marginBottom: hasDetails ? "20px" : "0",
           }}
         >
           <video
-            src={videoUrl || localQrData?.video_path}
+            src={videoUrl}
             style={{
               width: "100%",
               height: "100%",
@@ -1236,28 +1312,66 @@ export const QRPreviewVideo = ({ localQrData }) => {
               position: "absolute",
               top: 0,
               left: 0,
-              padding: "10px",
             }}
             controls
           />
         </div>
       )}
 
-      {localQrData?.video_social &&
-        Object.keys(localQrData?.video_social).length > 0 && (
-          <div
+      {hasDetails && (
+        <>
+          <h4
             style={{
-              background: "#fff",
-              borderRadius: "8px",
-              marginTop: "16px",
+              fontWeight: "700",
+              wordBreak: "break-all",
+              marginBottom: "8px",
+              fontSize: "16px",
             }}
           >
-            <SocialMediaLinks
-              socialLinks={localQrData?.video_social}
-              icons={icons}
-            />
-          </div>
-        )}
+            {localQrData?.company_name}
+          </h4>
+          <h5
+            style={{
+              fontWeight: "500",
+              wordBreak: "break-all",
+              marginBottom: "8px",
+              fontSize: "14px",
+            }}
+          >
+            {localQrData?.video_title}
+          </h5>
+          <h6
+            style={{
+              fontWeight: "400",
+              wordBreak: "break-all",
+              marginBottom: "16px",
+              fontSize: "13px",
+            }}
+          >
+            {localQrData?.video_description}
+          </h6>
+
+          <CustomButton
+            text={localQrData?.video_button}
+            url={localQrData?.video_url}
+            backgroundColor={localQrData?.color?.button}
+          />
+          {localQrData?.video_social && Object.keys(localQrData.video_social).length > 0 && (
+            <div
+              style={{
+                background: "#fff",
+                borderRadius: "8px",
+                // marginTop: "16px",
+              }}
+            >
+              <SocialMediaLinks
+                socialLinks={localQrData?.video_social}
+                icons={icons}
+              />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
@@ -1275,7 +1389,7 @@ export const QRPreviewLinks = ({ localQrData }) => {
     >
       <DynamicImage
         data={localQrData}
-        imageKey="links_image"
+        imageKey="linkslogo"
         altText="Link Logo"
         style={{ width: "100%", height: "120px", objectFit: "cover" }}
       />
@@ -1309,7 +1423,7 @@ export const QRPreviewLinks = ({ localQrData }) => {
         }}
       >
         {localQrData?.all_links?.map((link, index) => {
-            const imageUrl =
+          const imageUrl =
             link.image instanceof File
               ? URL.createObjectURL(link.image)
               : link.image;
@@ -1335,9 +1449,8 @@ export const QRPreviewLinks = ({ localQrData }) => {
               {link?.image && (
                 <img
                   src={imageUrl}
-
                   alt={link.text}
-                  style={{ width: "28px", height: "28px",borderRadius:"6px" }}
+                  style={{ width: "28px", height: "28px", borderRadius: "6px" }}
                 />
               )}
               {console.log("link?.link_image", link)}

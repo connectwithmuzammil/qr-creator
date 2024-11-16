@@ -23,14 +23,15 @@ import { resetQrData } from "../../redux/slice/qrSlice";
 
 const QrCreator = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(resetQrData());
   }, [dispatch]);
   const { user } = useSelector((store) => store.user);
-  console.log("userrSTAGING", user);
+  // console.log("userrSTAGING", user);
   const subPlan = user?.user?.subscription_plan || user?.subscription_plan;
-  console.log("subPlan", subPlan);
+  // console.log("subPlan", subPlan);
   const [selectedCard, setSelectedCard] = useState(null);
   const qrCodesList = [
     {
@@ -124,8 +125,14 @@ const QrCreator = () => {
       imgSrc: event,
       rightImage: "/assets/images/phone-event.png",
     },
+    {
+      type: "e-labels",
+      title: "E-labels",
+      description: "Create QR codes for product details.",
+      imgSrc: event,
+      rightImage: "/assets/images/phone-event.png",
+    },
   ];
-  const navigate = useNavigate();
   const handleCardClick = (type) => {
     setSelectedCard(type);
     // navigate(`/qr-editor/${type}`);
@@ -158,6 +165,7 @@ const QrCreator = () => {
       "youtube",
       "landing",
       "events",
+      "e-labels"
     ],
   };
   // Filter the QR codes based on the user's subscription plan
@@ -227,35 +235,7 @@ const QrCreator = () => {
             onCancelClick={handleCancelClick}
             showNextButton={Boolean(selectedCard)}
           />
-          {/* <div className="bottom-wrapper">
-          <button className="cancel">Cancel</button>
-          <div className="stages-con">
-            <div className="select-qr">
-              <div className="wrap">
-                <h5 className="active">1</h5>
-                <p className="active">Select QR code</p>
-              </div>
-              <MdChevronRight />
-            </div>
-            <div className="select-qr">
-              <div className="wrap">
-                <h5>2</h5>
-                <p>Add content</p>
-              </div>
-              <MdChevronRight />
-            </div>
-            <div className="select-qr">
-              <div className="wrap">
-                <h5>3</h5>
-                <p>Customize design</p>
-              </div>
-            </div>
-          </div>
-          <div className="btn-next">
-            <button className="next">Next</button>
-            <MdChevronRight />
-          </div>
-        </div> */}
+        
         </div>
       ) : (
         <div style={{paddingInline:"80px"}}>

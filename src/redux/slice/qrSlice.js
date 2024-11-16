@@ -48,7 +48,7 @@ const initialState = {
   gallery_image: [],
 
   //LINKS
-  links_image: "",
+  linkslogo: "",
   links_title: "",
   links_description: "",
   all_links: [],

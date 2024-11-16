@@ -65,6 +65,7 @@ const Video = ({ localQrData, setLocalQrData }) => {
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
+
   //EDIT
   const location = useLocation();
   console.log("LOCATIONURLSOCAPP", location);

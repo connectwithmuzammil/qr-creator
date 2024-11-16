@@ -208,7 +208,9 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
               onImageUpload={handleSingleImageUpload}
               onImageDelete={handleSingleImageDelete}
               label="Logo"
-              name="links_image"
+              name="linkslogo"
+              localQrData={localQrData}
+              onEditImagePreview={localQrData?.linkslogo}
             />
             <InputComponent
               label={"Title"}

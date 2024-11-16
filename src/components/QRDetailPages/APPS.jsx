@@ -118,7 +118,6 @@ const APPS = ({ localQrData, setLocalQrData }) => {
           <AccordianComponent title={"App information"}>
             <ImageUploadComponent
               defaultImage={"/assets/images/default-img.png"}
-              //   onImageDelete={handleImageDelete}
               label="Logo"
               onImageUpload={handleImageUpload}
               onImageDelete={handleImageDelete}

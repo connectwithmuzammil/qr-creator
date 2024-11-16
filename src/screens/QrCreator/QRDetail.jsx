@@ -15,6 +15,7 @@ import {
   YOUTUBE,
   BUSINESS,
   EVENT,
+  ELabels,
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { UrlSchema, youtubeSchema } from "../../Helper/QRValidation";
@@ -189,7 +190,7 @@ const QRDetail = () => {
   // const [qrData, setQrData] = useState(initialState);
 
   const qrDataVar = useSelector((state) => state.qrData);
-  console.log("qrDataVarr",qrDataVar)
+  console.log("qrDataVarr", qrDataVar);
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   console.log("localQrData", localQrData);
 
@@ -219,8 +220,8 @@ const QRDetail = () => {
         // await videoSchema.validate(qrData);
       } else if (type === "image_gallery") {
         // if (!qrData?.gallery_image) {
-          // toast.error("Please Upload Image");
-          // return;
+        // toast.error("Please Upload Image");
+        // return;
         // }
       }
       // else if (type === "vcard") {
@@ -231,8 +232,8 @@ const QRDetail = () => {
       // }
       else if (type === "business_page") {
         // if (!qrData?.business_logo) {
-          // toast.error("Please Upload Logo");
-          // return;
+        // toast.error("Please Upload Logo");
+        // return;
         // }
       } else if (type === "events") {
         // if (!qrData?.event_image) {
@@ -324,7 +325,7 @@ const QRDetail = () => {
           ? {
               qr_name: localQrData?.qr_name,
               color: localQrData.color,
-              links_image: localQrData.links_image,
+              linkslogo: localQrData.linkslogo,
               links_title: localQrData.links_title,
               links_description: localQrData.links_description,
               all_links: localQrData.all_links,
@@ -533,6 +534,15 @@ const QRDetail = () => {
         return (
           <div>
             <EVENT localQrData={localQrData} setLocalQrData={setLocalQrData} />
+          </div>
+        );
+      case "e-labels":
+        return (
+          <div>
+            <ELabels
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+            />
           </div>
         );
       default:

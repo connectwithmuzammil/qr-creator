@@ -69,8 +69,8 @@ function BottomWrapperStages({
       }
       
       
-      if (generateQrPayload?.links_image) {
-        formData.append("links_image", generateQrPayload?.links_image);
+      if (generateQrPayload?.linkslogo) {
+        formData.append("linkslogo", generateQrPayload?.linkslogo);
       }
       if (generateQrPayload?.social_logo) {
         formData.append("social_logo", generateQrPayload?.social_logo);
@@ -244,7 +244,7 @@ function BottomWrapperStages({
         } else if (
           key !== "landing_logo" &&
           key !== "gallery_image" &&
-          key !== "links_image" &&
+          key !== "linkslogo" &&
           key !== "vcard_image" &&
           key !== "business_logo" &&
           key !== "business_image" &&
@@ -273,7 +273,7 @@ function BottomWrapperStages({
         generateQrPayload.all_links.forEach((link, index) => {
           formData.append(`all_links[${index}][text]`, link.text);
           formData.append(`all_links[${index}][url]`, link.url);
-          formData.append(`all_links[${index}][link_image]`, link.image);
+          formData.append(`all_links[${index}][image]`, link.image);
         });
       }
 

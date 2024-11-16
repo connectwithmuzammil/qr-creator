@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo.svg";
+import { FaExpandArrowsAlt, FaCompressArrowsAlt } from "react-icons/fa";
+
 import { ChangePassword, Forgot, Login, SignUp } from "../components";
 import {
   Link,
@@ -19,6 +21,8 @@ const Header = () => {
   console.log("userHeader", user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -95,6 +99,19 @@ const Header = () => {
     },
   });
 
+  //Toggle Full Screen
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullScreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullScreen(false);
+      }
+    }
+  };
+
   return (
     <>
       {/* {location.pathname !== "/my-qr-codes" && ( */}
@@ -110,7 +127,18 @@ const Header = () => {
           <img src={logo} alt="logo" />
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
+
         <div className="auth-con">
+          {(location.pathname === "/qr-editor/video" ||
+            location.pathname === "/qr-editor/image_gallery") && (
+            <div onClick={toggleFullScreen} aria-label="Toggle Full Screen">
+              {isFullScreen ? (
+                <FaCompressArrowsAlt size={22} style={{ cursor: "pointer" }} />
+              ) : (
+                <FaExpandArrowsAlt size={22} style={{ cursor: "pointer" }} />
+              )}
+            </div>
+          )}
           {user || user?.user ? (
             <button
               onClick={() => {
