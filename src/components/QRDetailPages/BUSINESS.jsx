@@ -57,7 +57,6 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimeClock } from "@mui/x-date-pickers/TimeClock";
-import { Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { Add as AddIcon } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";

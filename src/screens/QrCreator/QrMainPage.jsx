@@ -35,7 +35,6 @@ import { FaChevronDown } from "react-icons/fa";
 import axios from "axios";
 import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
-import { GrResume } from "react-icons/gr";
 
 const QrMainPage = () => {
   const navigate = useNavigate();
