@@ -1268,9 +1268,10 @@ export const QRPreviewApps = ({ localQrData }) => {
 export const QRPreviewVideo = ({ localQrData }) => {
   // Check if specific fields are empty to decide how to display the video
   const hasDetails =
-    localQrData?.company_name ||
+    localQrData?.video_name ||
     localQrData?.video_title ||
-    localQrData?.video_social;
+    (localQrData?.video_social &&
+      Object.keys(localQrData.video_social).length > 0);
 
   const videoUrl =
     localQrData?.video_path instanceof File
@@ -1285,9 +1286,11 @@ export const QRPreviewVideo = ({ localQrData }) => {
       className="layout-content showBrowser"
       style={{
         backgroundColor: localQrData?.color?.background,
+        // minHeight: hasDetails ?  "100%" : "97%",
         minHeight: "100%",
         left: "0px",
         paddingBottom: "20px",
+        paddingTop: hasDetails ? "3.875rem" : "20px",
       }}
     >
       {/* Always show video and handle full screen or limited height based on details */}
@@ -1295,7 +1298,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
         <div
           style={{
             width: "100%",
-            height: hasDetails ? "300px" : "100%",
+            height: hasDetails ? "250px" : "100%",
             aspectRatio: "16 / 9",
             marginInline: "auto",
             position: "relative",
@@ -1328,7 +1331,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
               fontSize: "16px",
             }}
           >
-            {localQrData?.company_name}
+            {localQrData?.video_name}
           </h4>
           <h5
             style={{
@@ -1356,20 +1359,21 @@ export const QRPreviewVideo = ({ localQrData }) => {
             url={localQrData?.video_url}
             backgroundColor={localQrData?.color?.button}
           />
-          {localQrData?.video_social && Object.keys(localQrData.video_social).length > 0 && (
-            <div
-              style={{
-                background: "#fff",
-                borderRadius: "8px",
-                // marginTop: "16px",
-              }}
-            >
-              <SocialMediaLinks
-                socialLinks={localQrData?.video_social}
-                icons={icons}
-              />
-            </div>
-          )}
+          {localQrData?.video_social &&
+            Object.keys(localQrData.video_social).length > 0 && (
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: "8px",
+                  // marginTop: "16px",
+                }}
+              >
+                <SocialMediaLinks
+                  socialLinks={localQrData?.video_social}
+                  icons={icons}
+                />
+              </div>
+            )}
         </>
       )}
     </div>

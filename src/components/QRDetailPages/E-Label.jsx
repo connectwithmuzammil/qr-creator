@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputComponent } from "../InputComponent";
+import { InputCheckboxComponent, InputComponent } from "../InputComponent";
 import ImageUploadComponent from "../ImageUploadComp";
 import { AccordianComponent } from "../AccordianComponent";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
@@ -549,6 +549,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onChange={handleInputChange}
                 />
                 <InputComponent
+                  label="Direction"
+                  placeholder="Enter Direction"
+                  value={localQrData?.direction}
+                  name="description"
+                  onChange={handleInputChange}
+                />
+                <InputComponent
                   label="Brand"
                   placeholder="Enter Brand"
                   value={localQrData?.brand}
@@ -569,20 +576,22 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   name="price"
                   onChange={handleInputChange}
                 />
-                <ImageUploadComponent
-                  defaultImage="/assets/images/default-img.png"
-                  label="Product Image"
-                  onImageUpload={(imageUrl, name, file) => {
-                    setLocalQrData((prev) => ({
-                      ...prev,
-                      [name]: imageUrl,
-                    }));
-                  }}
-                  name="productImage"
-                  localQrData={localQrData}
+
+                <InputComponent
+                  label="Warning"
+                  placeholder="Enter Warning"
+                  value={localQrData?.warning}
+                  name="warning"
+                  onChange={handleInputChange}
                 />
               </AccordianComponent>
             )}
+
+            <AccordianComponent title={"Add Review"}>
+              {/* <input type="checkbox" name="" id="" placeholder="Add Ratings" /> */}
+              <InputCheckboxComponent label={"Add Ratings"}/>
+            
+            </AccordianComponent>
           </div>
           <div className="right">
             <ToggleButton

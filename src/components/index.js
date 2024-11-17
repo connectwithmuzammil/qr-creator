@@ -44,8 +44,10 @@ import ScanAndRedirectQr from "./ScanAndRedirectQr";
 
 //CHART
 import { BarChartAnalytics } from "./BarChartAnalytics";
+import ReviewFormBuilder from "./ReactFormBuilder";
 
 export {
+  ReviewFormBuilder,
   Header,
   Footer,
   Button,

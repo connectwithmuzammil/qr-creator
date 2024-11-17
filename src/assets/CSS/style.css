@@ -3320,7 +3320,6 @@ p.social-con-content {
   margin-top: 12px;
 }
 
-
 .links-container ul {
   list-style-type: none;
   padding: 0;
@@ -3382,7 +3381,6 @@ p.social-con-content {
 .links-container button:hover {
   background-color: #c0392b;
 }
-
 
 /* LANDING PAGE */
 .landing-page {
@@ -4465,16 +4463,125 @@ p.social-con-content {
 }
 
 .product-selection-buttons button.selected {
-  background-color: #e0201c; 
+  background-color: #e0201c;
   color: white;
-  border-color: #e0201c; 
-  box-shadow: 0 4px 8px rgba(224, 32, 28, 0.3); 
+  border-color: #e0201c;
+  box-shadow: 0 4px 8px rgba(224, 32, 28, 0.3);
 }
 
 .product-selection-buttons button:hover {
-  background-color: #f8d7da; 
+  background-color: #f8d7da;
   color: #e0201c;
   box-shadow: 0 4px 8px rgba(224, 32, 28, 0.15);
-  border-color: #e0201c; 
+  border-color: #e0201c;
 }
 
+/* ADD REVIEW CSS START */
+/* General styles for the form builder */
+.form-builder-container {
+  padding: 20px;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: #f4f4f4;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.toggle-option {
+  margin-bottom: 15px;
+}
+
+.checkbox-label {
+  font-size: 16px;
+}
+
+.add-question-btn,
+.add-option-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.add-question-btn:hover,
+.add-option-btn:hover {
+  background-color: #45a049;
+}
+
+.question-section {
+  margin-top: 20px;
+}
+
+.question-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.radio-input {
+  margin-right: 10px;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.preview-title {
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.checkbox-input {
+  margin-left: 10px;
+}
+
+.radio-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ADD REVIEW CSS END */

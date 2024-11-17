@@ -552,7 +552,7 @@ const QrMainPage = () => {
             <div className="qrFilterCon">
               <div className="containerr">
                 <div className="left">
-                  <div className="statusDropdown">
+                  <div className="statusDropdown" style={{display:"none"}}>
                     <div className="Select__prefix">QR Status:</div>
                     <select
                       name="status"
@@ -671,7 +671,7 @@ const QrMainPage = () => {
                               </div>
                             </div>
                             <div className="two">
-                              <p className="status">Active</p>
+                              <p className="status" style={{display:"none"}}>Active</p>
                               <div className="modifiedDate-con">
                                 <div className="wrap">
                                   <CreatedIconDashboard />

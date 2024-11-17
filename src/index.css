@@ -143,20 +143,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  ); 
-  background-size: 200% 100%; 
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 20px;
   height: 80px;
   animation: shimmer 1.5s infinite;
 }
-
 
 .qr-code-card-skeleton .one-con {
   display: flex;
@@ -165,16 +159,11 @@
 .qr-code-card-skeleton .img {
   flex: 0 0 80px;
   height: 65px;
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  ); 
-  background-size: 200% 100%; 
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
   border-radius: 4px;
   border: 1px solid #e0201c;
-  animation: shimmer 1.5s infinite; 
+  animation: shimmer 1.5s infinite;
 }
 
 .qr-code-card-skeleton .text-con {
@@ -241,7 +230,6 @@
   }
 }
 
-
 .swiper {
   width: 240px;
   height: 320px;
@@ -264,3 +252,7 @@
   background: #18212b;
   max-width: calc(100% - 48px) ;
 } */
+
+.css-eegpc0-MuiTimeClock-root {
+width: auto !important;
+}

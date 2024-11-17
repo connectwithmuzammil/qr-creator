@@ -28,6 +28,7 @@ import {
 import {
   ContactUs,
   PrivateRoute,
+  ReviewFormBuilder,
   ScanAndRedirectQr,
   ScrollToTop,
 } from "./components";
@@ -69,6 +70,7 @@ function App() {
         <Route path="/pricing" element={<PrivateRoute element={Pricing} />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/formtest" element={<ReviewFormBuilder />} />
         <Route path="/my-qr-codes-details" element={<QRIMAGESHOW />} />
         <Route
           path="/payment"
