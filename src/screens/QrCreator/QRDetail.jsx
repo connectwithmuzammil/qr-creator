@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import {
   APPS,
   BottomWrapperStages,
@@ -18,16 +18,14 @@ import {
   ELabels,
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import { UrlSchema, youtubeSchema } from "../../Helper/QRValidation";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { resetQrData, setsQrData } from "../../redux/slice/qrSlice";
 
 const QRDetail = () => {
-  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { type } = useParams();
-  console.log("typeeee", type);
+  // console.log("typeeee", type);
   // const initialState = {
   //   qr_name: "",
   //   id: "",
@@ -431,6 +429,20 @@ const QRDetail = () => {
               event_btn_text: localQrData?.event_btn_text || "",
             }
           : {}),
+
+        ...(type === "elabels"
+          ? {
+              product_name: localQrData?.product_name,
+              sku: localQrData?.sku,
+              product_image: localQrData?.product_image,
+              description: localQrData?.description,
+              alcohol_percentage: localQrData?.alcohol_percentage,
+              ipa: localQrData?.ipa,
+              brewed: localQrData?.brewed,
+              website: localQrData?.website,
+              beer: localQrData?.beer,
+            }
+          : {}),
       };
       // sessionStorage.setItem("qrData", JSON.stringify(qrData));
       dispatch(setsQrData(localQrData));
@@ -536,7 +548,7 @@ const QRDetail = () => {
             <EVENT localQrData={localQrData} setLocalQrData={setLocalQrData} />
           </div>
         );
-      case "e-labels":
+      case "elabels":
         return (
           <div>
             <ELabels

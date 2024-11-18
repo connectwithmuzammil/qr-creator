@@ -24,7 +24,7 @@ function BottomWrapperStages({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("qrDataqrData", generateQrPayload);
+  // console.log("qrDataqrData", generateQrPayload);
 
   // console.log("generateQrPayload?.business_logo",typeof(generateQrPayload?.business_logo))
 
@@ -35,8 +35,8 @@ function BottomWrapperStages({
       toast.error(message);
     },
     onSuccess: ({ data: generateQr, status }) => {
-      toast.success("QR code generated successfully");
       navigate("/my-qr-codes");
+      toast.success("QR code generated successfully");
       dispatch(resetQrData());
     },
   });
@@ -289,10 +289,12 @@ function BottomWrapperStages({
       //   formData.append("pdf_file", generateQrPayload.pdf_file);
       // }
 
-      console.log("formData", formData);
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: test`, value);
-      }
+      // console.log("formData", formData);
+      // for (let [key, value] of formData.entries()) {
+        // console.log(`${key}: test`, value);
+      // }
+
+      // console.log("formdatalogoo",formData)
 
       mutateQrCode(formData);
 

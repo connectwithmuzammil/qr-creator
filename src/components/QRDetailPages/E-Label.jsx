@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputCheckboxComponent, InputComponent } from "../InputComponent";
 import ImageUploadComponent from "../ImageUploadComp";
 import { AccordianComponent } from "../AccordianComponent";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewURL } from "./QRPreviewAll";
 import ToggleButton from "./QRToggleButton";
+import { useLocation } from "react-router-dom";
+import ReviewFormBuilder from "../ReactFormBuilder";
 
 const ELabels = ({ localQrData, setLocalQrData }) => {
+  const location = useLocation();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [showCustomQuestion, setShowCustomQuestion] = useState(false);
+
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
@@ -16,7 +21,19 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
 
   const handleProductSelection = (product) => {
     setSelectedProduct(product);
+
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      wine: product === "Wine/Spirits",
+      beer: product === "Beer",
+      cigars: product === "Cigars",
+      coffee: product === "Coffee",
+      food: product === "Food",
+      product: product === "Product",
+    }));
   };
+
+  console.log("checklocalqrdata", localQrData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +42,35 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    if (location.state?.qrData) {
+      const localQrDataFromLocation = location?.state?.qrData?.data;
+      console.log("localQrDataFromLocation", localQrDataFromLocation);
+      setLocalQrData(localQrDataFromLocation);
+    }
+  }, [location.state?.qrData]);
+
+  // Use a separate effect to set selectedProduct based on localQrData changes
+  useEffect(() => {
+    if (localQrData) {
+      const productMap = {
+        "Wine/Spirits": localQrData.wine,
+        Beer: localQrData.beer,
+        Cigars: localQrData.cigars,
+        Coffee: localQrData.coffee,
+        Food: localQrData.food,
+        Product: localQrData.product,
+      };
+
+      for (const [product, isSelected] of Object.entries(productMap)) {
+        if (isSelected) {
+          setSelectedProduct(product);
+          break; // Exit once we find the selected product
+        }
+      }
+    }
+  }, [localQrData]);
 
   return (
     <div className="app-page">
@@ -123,7 +169,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   label="Product Name"
                   placeholder="Enter Product Name"
                   value={localQrData?.productName}
-                  name="productName"
+                  name="product_name"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -139,10 +185,10 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="beerImage"
+                  name="product_image"
                   localQrData={localQrData}
                 />
                 <InputComponent
@@ -156,7 +202,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   label="Alcohol %"
                   placeholder="Enter Alcohol Percentage"
                   value={localQrData?.alcoholPercentage}
-                  name="alcoholPercentage"
+                  name="alcohol_percentage"
+                  type="number"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -172,10 +219,10 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="nutritionImage"
+                  name="product_image"
                   localQrData={localQrData}
                 />
                 <InputComponent
@@ -588,9 +635,21 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
             )}
 
             <AccordianComponent title={"Add Review"}>
-              {/* <input type="checkbox" name="" id="" placeholder="Add Ratings" /> */}
-              <InputCheckboxComponent label={"Add Ratings"}/>
-            
+              <div className="d-flex">
+                <InputCheckboxComponent label={"Add Ratings"} />
+                <InputCheckboxComponent
+                  label={"Add Questions"}
+                  onChange={() => setShowCustomQuestion(!showCustomQuestion)}
+                  checked={showCustomQuestion}
+                />
+              </div>
+
+              {showCustomQuestion && (
+                <ReviewFormBuilder
+                  setShowCustomQuestion={setShowCustomQuestion}
+                  showCustomQuestion={showCustomQuestion}
+                />
+              )}
             </AccordianComponent>
           </div>
           <div className="right">

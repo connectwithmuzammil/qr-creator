@@ -45,14 +45,14 @@ const ScanAndRedirectQr = () => {
           os: os,
         };
 
-        console.log("DATATOSEND", dataToSend);
+        // console.log("DATATOSEND", dataToSend);
 
         let res = await apis.scanQrCode(dataToSend);
-        console.log("Response Scan QR Code", res?.data);
+        // console.log("Response Scan QR Code", res?.data);
 
         if (res && res.data && res.data.outcome) {
           const outcome = res.data.outcome;
-          console.log("outcomeLog", outcome);
+          // console.log("outcomeLog", outcome);
 
           if (outcome.type === "url") {
             window.location.href = outcome.field_url;

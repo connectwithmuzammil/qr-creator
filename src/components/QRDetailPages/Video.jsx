@@ -22,9 +22,7 @@ import {
   WebSocial,
   XingSocial,
 } from "../../Helper/SocialSvgIcons";
-import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
-import Button from "../Button";
 import VideoUpload from "../VideoUploadComp";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
@@ -68,7 +66,7 @@ const Video = ({ localQrData, setLocalQrData }) => {
 
   //EDIT
   const location = useLocation();
-  console.log("LOCATIONURLSOCAPP", location);
+  // console.log("LOCATIONURLSOCAPP", location);
 
   useEffect(() => {
     if (location.state?.qrData) {

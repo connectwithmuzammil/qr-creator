@@ -37,6 +37,8 @@ import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
 
 const QrMainPage = () => {
+// const ConfirmationModal = React.lazy(()=> import('../../components'))
+
   const navigate = useNavigate();
   const qrCodeRef = useRef(null);
   const [showDeleteBox, setShowDeleteBox] = useState(null);
@@ -50,7 +52,7 @@ const QrMainPage = () => {
 
   const handleDeleteBoxToggle = (id) => {
     // console.log("handleDeleteBoxToggleIDDD", id);
-    setShowDeleteBox(showDeleteBox === id ? null : id);
+    setShowDeleteBox((prevId) => (prevId === id ? null : id));
   };
 
   const openConfirmationModal = (id, actionType) => {
@@ -121,7 +123,7 @@ const QrMainPage = () => {
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
-  console.log("getALLQrCodes", getALLQrCodes);
+  // console.log("getALLQrCodes", getALLQrCodes);
 
   // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
   // console.log("selectedFrame",selectedFrame)
@@ -160,7 +162,6 @@ const QrMainPage = () => {
     // }
 
     if (qrCode?.image_path) {
-      console.log("INSIDE IF CONDITION");
       const link = document.createElement("a");
       link.href = qrCode.image_path; // Set the href to the image path
       link.download = `${qrCode?.qr_name || "qr-code"}.png`; // Set the download name
@@ -180,11 +181,11 @@ const QrMainPage = () => {
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
     // console.log("qrCodeData", qrCodeData);
-    console.log("dataQrCodeee", data);
-    console.log("selectedFramet", selectedFrame);
+    // console.log("dataQrCodeee", data);
+    // console.log("selectedFramet", selectedFrame);
     switch (selectedFrame) {
       case "notSelectedFrame":
-        console.log("INSIDE notSelctedFrame CASE");
+        // console.log("INSIDE notSelctedFrame CASE");
         return (
           <NotSelectedFrameCanvas
             CornerbgColor={qrCodeData?.CornerbgColor}
@@ -198,7 +199,6 @@ const QrMainPage = () => {
           />
         );
       case "frame1":
-        console.log("INSIDE CASE 1");
         return (
           <CanvaFrame1
             frameColor={qrCodeData?.frameColor}
@@ -213,7 +213,6 @@ const QrMainPage = () => {
             selectedDotStyle={qrCodeData?.selectedDotStyle}
             data={data?.image_path}
             // qrLogo={data?.qrDesignLogo}
-
           />
         );
       case "frame2":
@@ -383,10 +382,10 @@ const QrMainPage = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log("delete_id", id);
+    // console.log("delete_id", id);
     setShowConfirmationModal(false);
     const res = await apis.deleteQrCode({ id });
-    console.log("ress", res);
+    // console.log("ress", res);
     toast.success("QR Delete Successfully!!");
     refetchAllQrCodes();
     setShowDeleteBox(null);
@@ -551,7 +550,7 @@ const QrMainPage = () => {
             <div className="qrFilterCon">
               <div className="containerr">
                 <div className="left">
-                  <div className="statusDropdown" style={{display:"none"}}>
+                  <div className="statusDropdown" style={{ display: "none" }}>
                     <div className="Select__prefix">QR Status:</div>
                     <select
                       name="status"
@@ -592,10 +591,10 @@ const QrMainPage = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="cleanFilter">
+                  <div className="cleanFilter">
                     <RxCross2 size={22} />
-                    Clean Filter
-                  </p>
+                    <h6>Clean Filter</h6>
+                  </div>
                 </div>
                 <div className="right">
                   <div className="sortByDropdown">
@@ -632,11 +631,11 @@ const QrMainPage = () => {
                   <>
                     {[...getALLQrCodes.data]?.reverse().map((qrCode, index) => {
                       const selectedFrame = qrCode?.style?.frameName;
-                      console.log("selectedFrametyy", selectedFrame);
+                      // console.log("selectedFrametyy", selectedFrame);
                       const isLoading = loadingMap[qrCode.id];
-                      const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
+                      // const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
                       const isPaused = 2;
-                      console.log("qrcodeee", qrCode);
+                      // console.log("qrcodeee", qrCode);
                       return (
                         <div className="all-qrCode-con" key={qrCode.id}>
                           <div className="result-cardd">
@@ -670,7 +669,9 @@ const QrMainPage = () => {
                               </div>
                             </div>
                             <div className="two">
-                              <p className="status" style={{display:"none"}}>Active</p>
+                              <p className="status" style={{ display: "none" }}>
+                                Active
+                              </p>
                               <div className="modifiedDate-con">
                                 <div className="wrap">
                                   <CreatedIconDashboard />
@@ -756,25 +757,18 @@ const QrMainPage = () => {
                                     >
                                       <MdDelete
                                         className="delete-icon"
-                                        // onClick={() => handleDelete(qrCode.id)}
                                       />
                                       <h4>Delete</h4>
                                     </div>
 
                                     <h4
-                                      // onClick={() =>
-                                      //   handleStatusChange(
-                                      //     qrCode.id,
-                                      //     isPaused ? 1 : 2
-                                      //   )
-                                      // }
                                       onClick={() =>
                                         openConfirmationModal(
                                           qrCode.id,
-                                          // isPaused ? "activate" : "pause"
                                           isPaused ? "pause" : "activate"
                                         )
                                       }
+                                      style={{display:"none"}}
                                     >
                                       {isPaused ? (
                                         <div className="delete-wrap">

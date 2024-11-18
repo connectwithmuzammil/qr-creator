@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const SubscriptionPopup = () => {
   const { user } = useSelector((store) => store.user);
-  console.log("USERSUBSCRIPTIONSTAGING", user);
-  console.log("userSubscriptionPopup", user.expiry);
+  // console.log("USERSUBSCRIPTIONSTAGING", user);
+  // console.log("userSubscriptionPopup", user.expiry);
   const navigate = useNavigate();
   return (
     (user?.user?.expiry === true || user?.expiry === true) && (

@@ -15,10 +15,9 @@ const UpdateEmailAndPassword = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const { user } = useSelector((store) => store.user);
-  console.log("userrUpdateEmailPage", user);
+  // console.log("userrUpdateEmailPage", user);
   const currentEmail = user?.email || user?.user?.email;
   const currentPass = user?.password || user?.user?.password;
-  console.log("currentPass",currentPass)
 
   // Formik setup with validation schema
   const formik = useFormik({

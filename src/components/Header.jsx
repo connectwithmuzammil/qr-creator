@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo.svg";
-import { FaExpandArrowsAlt, FaCompressArrowsAlt } from "react-icons/fa";
+import {
+  FaExpandArrowsAlt,
+  FaCompressArrowsAlt,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
+
 
 import { ChangePassword, Forgot, Login, SignUp } from "../components";
 import {
@@ -18,7 +24,7 @@ import { resetQrData } from "../redux/slice/qrSlice";
 
 const Header = () => {
   const { user } = useSelector((store) => store.user);
-  console.log("userHeader", user);
+  // console.log("userHeader", user);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -28,14 +34,16 @@ const Header = () => {
   const [searchParams] = useSearchParams();
   const [newPassword, setNewPassword] = useState(false);
   const [token, setToken] = useState(null);
+  const [isActive, setIsActive] = useState(false);
+
   const location = useLocation();
-  console.log("locationn", location);
+  // console.log("locationn", location);
 
   //OPEN CHANGE PASSWORD MODAL
 
   useEffect(() => {
     const tokenFromUrl = searchParams.get("token");
-    console.log("tokenFromUrl", tokenFromUrl);
+    // console.log("tokenFromUrl", tokenFromUrl);
     if (tokenFromUrl) {
       setToken(tokenFromUrl);
       setNewPassword(true); // Open the change password modal if token is present
@@ -112,9 +120,10 @@ const Header = () => {
     }
   };
 
+  //HUMBURGER MOBILE
+
   return (
     <>
-      {/* {location.pathname !== "/my-qr-codes" && ( */}
       <header>
         <Link
           to="/"
@@ -128,7 +137,7 @@ const Header = () => {
         </Link>
         {/* {location.pathname !== "/qr-editor" && ( */}
 
-        <div className="auth-con">
+        <div className="auth-con desktop">
           {(location.pathname === "/qr-editor/video" ||
             location.pathname === "/qr-editor/image_gallery") && (
             <div onClick={toggleFullScreen} aria-label="Toggle Full Screen">
@@ -164,7 +173,71 @@ const Header = () => {
             </>
           )}
         </div>
-        {/* )} */}
+
+        {/* Hamburger icon */}
+        <div className="hamburger-mobile">
+          <div className="hamburger" onClick={() => setIsActive(!isActive)}>
+            <FaBars size={30} color="#e0201c" />
+          </div>
+        </div>
+
+        <div
+          className={`mobile-nav ${isActive ? "active" : ""}`}
+          id="mobile-hambargur"
+        >
+          <div className="one">
+            <div className="one-left">
+              <a href="/">
+                <img src={logo} alt="logo" />
+              </a>
+            </div>
+            <div
+              className={`one-right ${isActive ? "active" : ""}`}
+              onClick={() => setIsActive(!isActive)}
+            >
+              <FaTimes size={30} color="#e0201c" />
+            </div>
+          </div>
+
+          <div className="two" id="after-login-mobile">
+          <div className="auth-con">
+          {(location.pathname === "/qr-editor/video" ||
+            location.pathname === "/qr-editor/image_gallery") && (
+            <div onClick={toggleFullScreen} aria-label="Toggle Full Screen">
+              {isFullScreen ? (
+                <FaCompressArrowsAlt size={22} style={{ cursor: "pointer" }} />
+              ) : (
+                <FaExpandArrowsAlt size={22} style={{ cursor: "pointer" }} />
+              )}
+            </div>
+          )}
+          {user || user?.user ? (
+            <button
+              onClick={() => {
+                if (/^\/qr-editor\/[^/]+(\/design)?$/.test(location.pathname)) {
+                  dispatch(resetQrData());
+                  navigate("/my-qr-codes");
+                } else {
+                  navigate("/my-qr-codes");
+                }
+              }}
+              className="my-account-btn"
+            >
+              My Account
+            </button>
+          ) : (
+            <>
+              <button onClick={() => openModal("login")} className="login">
+                Login
+              </button>
+              <button onClick={() => openModal("signup")} className="signup">
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
+          </div>
+        </div>
 
         {showModal && (
           <div className="modal">

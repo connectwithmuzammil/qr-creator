@@ -1803,7 +1803,7 @@ export const NotSelectedFrameCanvas = ({
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
-  console.log("data null case", data);
+  // console.log("data null case", data);
   const [imageLogo, setImageLogo] = useState(null);
 
   useEffect(() => {
@@ -1911,7 +1911,7 @@ export const CanvaFrame1 = ({
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
 
-  console.log("qrLogooo",qrLogo)
+  // console.log("qrLogooo",qrLogo)
   
 
   const [imageLogo, setImageLogo] = useState(null);
@@ -1927,7 +1927,7 @@ export const CanvaFrame1 = ({
  
   }, [qrLogo]); 
 
-console.log("imageLogoSvg",imageLogo)
+// console.log("imageLogoSvg",imageLogo)
 
 
  // Memoize qrCodeOptions to avoid re-creation on every render
@@ -1959,7 +1959,7 @@ console.log("imageLogoSvg",imageLogo)
 
   // Initialize QR code on mount and update when qrCodeOptions change
   useEffect(() => {
-    console.log('qrCodeOptions updated:', qrCodeOptions);
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
 
     if (qrCode.current) {
       qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2055,7 +2055,7 @@ export const CanvaFrame2 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2094,7 +2094,7 @@ export const CanvaFrame2 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2238,7 +2238,7 @@ export const CanvaFrame3 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2277,7 +2277,7 @@ export const CanvaFrame3 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2373,7 +2373,7 @@ export const CanvaFrame4 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2412,7 +2412,7 @@ export const CanvaFrame4 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2506,7 +2506,7 @@ export const CanvaFrame5 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2545,7 +2545,7 @@ export const CanvaFrame5 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2639,7 +2639,7 @@ export const CanvaFrame6 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2678,7 +2678,7 @@ export const CanvaFrame6 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2772,7 +2772,7 @@ export const CanvaFrame7 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2811,7 +2811,7 @@ export const CanvaFrame7 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -2923,7 +2923,7 @@ export const CanvaFrame8 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -2962,7 +2962,7 @@ export const CanvaFrame8 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -3061,7 +3061,7 @@ export const CanvaFrame9 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -3100,7 +3100,7 @@ export const CanvaFrame9 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -3205,7 +3205,7 @@ export const CanvaFrame10 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -3244,7 +3244,7 @@ export const CanvaFrame10 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options
@@ -3355,7 +3355,7 @@ export const CanvaFrame11 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  console.log("imageLogoSvg",imageLogo)
+  // console.log("imageLogoSvg",imageLogo)
     useEffect(() => {
       if (qrLogo instanceof File) {
         const logoUrl = URL.createObjectURL(qrLogo);
@@ -3394,7 +3394,7 @@ export const CanvaFrame11 = ({
   
     // Initialize QR code on mount and update when qrCodeOptions change
     useEffect(() => {
-      console.log('qrCodeOptions updated:', qrCodeOptions);
+      // console.log('qrCodeOptions updated:', qrCodeOptions);
   
       if (qrCode.current) {
         qrCode.current.update(qrCodeOptions); // Update QR code with new options

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FaTrash } from "react-icons/fa"; // Import the delete icon
-import { AccordianComponent } from "./AccordianComponent";
+import { FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
-const ReviewFormBuilder = ({ isOwner }) => {
+const ReviewFormBuilder = ({ showCustomQuestion, setShowCustomQuestion }) => {
   const { control, handleSubmit, reset } = useForm();
   const [questions, setQuestions] = useState([]);
-  const [showRating, setShowRating] = useState(false);
-  const [showCustomQuestion, setShowCustomQuestion] = useState(false);
 
   const addQuestion = () => {
     if (questions.length === 0 || questions[questions.length - 1].text !== "") {
@@ -16,7 +14,7 @@ const ReviewFormBuilder = ({ isOwner }) => {
         { text: "", type: "text", options: [] },
       ]);
     } else {
-      alert("Please fill in the current question before adding a new one.");
+      toast.error("Please fill in the current question before adding a new one.");
     }
   };
 
@@ -61,103 +59,76 @@ const ReviewFormBuilder = ({ isOwner }) => {
 
   return (
     <div className="form-builder-container">
-      <h2 className="title">ADD REVIEW</h2>
+      {/* <h2 className="title">ADD REVIEW</h2> */}
 
-      <AccordianComponent title={"Add Review"}>
-        <div className="toggle-option">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={showRating}
-              onChange={() => setShowRating(!showRating)}
-            />
-            Add Rating
-          </label>
-        </div>
-
-        <div className="toggle-option">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={showCustomQuestion}
-              onChange={() => setShowCustomQuestion(!showCustomQuestion)}
-            />
-            Add Custom Questions
-          </label>
-        </div>
-
-        {showCustomQuestion && (
-          <div className="question-section">
-            <button className="add-question-btn" onClick={addQuestion}>
-              Add Question
-            </button>
-            {questions.map((question, index) => (
-              <div key={index} className="question-card">
-                <input
-                  type="text"
-                  placeholder={`Question ${index + 1}`}
-                  value={question.text}
-                  onChange={(e) =>
-                    handleQuestionChange(index, "text", e.target.value)
-                  }
-                  className="input-field"
-                />
-                <select
-                  value={question.type}
-                  onChange={(e) =>
-                    handleQuestionChange(index, "type", e.target.value)
-                  }
-                  className="input-field"
-                >
-                  <option value="text">Text</option>
-                  <option value="radio">Radio</option>
-                  <option value="dropdown">Dropdown</option>
-                  <option value="checkbox">Checkbox</option>
-                  <option value="number">Number</option>
-                  <option value="email">Email</option>
-                  <option value="tel">Telephone</option>
-                  <option value="password">Password</option>
-                  <option value="date">Date</option>
-                  <option value="range">Range</option>
-                  <option value="file">File</option>
-                </select>
-                {(question.type === "radio" ||
-                  question.type === "dropdown") && (
-                  <div>
-                    <button
-                      className="add-option-btn"
-                      onClick={() => addOption(index)}
-                    >
-                      Add Option
-                    </button>
-                    {question.options.map((option, optIndex) => (
-                      <input
-                        key={optIndex}
-                        type="text"
-                        placeholder={`Option ${optIndex + 1}`}
-                        value={option}
-                        onChange={(e) =>
-                          handleOptionChange(index, optIndex, e.target.value)
-                        }
-                        className="input-field"
-                      />
-                    ))}
-                  </div>
-                )}
-
-                {true && (
-                  <div
-                    onClick={() => handleDeleteQuestion(index)}
-                    className="delete-question-btn"
+      {showCustomQuestion && (
+        <div className="question-section">
+          <button className="add-question-btn" onClick={addQuestion}>
+            Add Question
+          </button>
+          {questions.map((question, index) => (
+            <div key={index} className="question-card">
+              <input
+                type="text"
+                placeholder={`Question ${index + 1}`}
+                value={question.text}
+                onChange={(e) =>
+                  handleQuestionChange(index, "text", e.target.value)
+                }
+                className="input-field"
+              />
+              <select
+                value={question.type}
+                onChange={(e) =>
+                  handleQuestionChange(index, "type", e.target.value)
+                }
+                className="input-field"
+              >
+                <option value="text">Text</option>
+                <option value="radio">Radio</option>
+                <option value="dropdown">Dropdown</option>
+                <option value="checkbox">Checkbox</option>
+                <option value="number">Number</option>
+                <option value="email">Email</option>
+                <option value="tel">Telephone</option>
+                <option value="password">Password</option>
+                <option value="date">Date</option>
+                <option value="range">Range</option>
+                <option value="file">File</option>
+              </select>
+              {(question.type === "radio" || question.type === "dropdown") && (
+                <div>
+                  <button
+                    className="add-option-btn"
+                    onClick={() => addOption(index)}
                   >
-                    <FaTrash color="#e0201c" size={22}/> {/* Delete icon */}
-                  </div>
-                )}
+                    Add Option
+                  </button>
+                  {question.options.map((option, optIndex) => (
+                    <input
+                      key={optIndex}
+                      type="text"
+                      placeholder={`Option ${optIndex + 1}`}
+                      value={option}
+                      onChange={(e) =>
+                        handleOptionChange(index, optIndex, e.target.value)
+                      }
+                      className="input-field"
+                    />
+                  ))}
+                </div>
+              )}
+
+              <div
+                onClick={() => handleDeleteQuestion(index)}
+                className="delete-question-btn"
+              >
+                <FaTrash color="#e0201c" size={22} /> {/* Delete icon */}
               </div>
-            ))}
-          </div>
-        )}
-      </AccordianComponent>
+            </div>
+          ))}
+        </div>
+      )}
 
       <h3 className="preview-title">Preview:</h3>
       <form onSubmit={handleSubmit(onSubmit)} className="form-preview">
@@ -308,7 +279,7 @@ const ReviewFormBuilder = ({ isOwner }) => {
             )}
           </div>
         ))}
-        <button type="submit" className="submit-btn">
+        <button type="submit" className="submit-btn d-none">
           Submit
         </button>
       </form>

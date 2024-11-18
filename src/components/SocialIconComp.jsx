@@ -53,8 +53,8 @@ const SocialIconsComp = ({
     });
   };
 
-  console.log("activeIcons", activeIcons);
-  console.log("iconLinks", iconLinks);
+  // console.log("activeIcons", activeIcons);
+  // console.log("iconLinks", iconLinks);
 
   return (
     <>

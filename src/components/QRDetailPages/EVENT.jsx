@@ -58,8 +58,8 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
   };
 
   const location = useLocation();
-  console.log("LOCATIONURL", location);
-  console.log("localQrData", localQrData);
+  // console.log("LOCATIONURL", location);
+  // console.log("localQrData", localQrData);
 
   useEffect(() => {
     if (location.state?.qrData) {

@@ -126,7 +126,7 @@ const QrCreator = () => {
       rightImage: "/assets/images/phone-event.png",
     },
     {
-      type: "e-labels",
+      type: "elabels",
       title: "E-labels",
       description: "Create QR codes for product details.",
       imgSrc: event,
@@ -165,14 +165,14 @@ const QrCreator = () => {
       "youtube",
       "landing",
       "events",
-      "e-labels"
+      "elabels"
     ],
   };
   // Filter the QR codes based on the user's subscription plan
   const filteredQrCodes = qrCodesList.filter((qrCode) =>
     allowedQrCodes[subPlan]?.includes(qrCode.type)
   );
-  console.log("filteredQrCodes",filteredQrCodes)
+  // console.log("filteredQrCodes",filteredQrCodes)
 
   return (
     <>

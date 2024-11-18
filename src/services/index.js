@@ -25,12 +25,12 @@ const createBackendServer = (baseURL) => {
     (error) => {
       console.log("axioseroor", error);
       const message = error?.response?.data?.message;
-      console.log("message", message);
+      // console.log("message", message);
       error.message = message ?? error.message;
       if (error?.response?.data?.errors)
         error.errors = error?.response?.data?.errors;
       if (error?.response?.status === 401) {
-        console.log("unauthorize");
+        // console.log("unauthorize");
         localStorage.removeItem("token");
         window.location.href = "/login";
       }

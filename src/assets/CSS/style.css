@@ -71,6 +71,12 @@ header .my-account-btn {
   padding: 10px;
   cursor: pointer;
 }
+header .hamburger-mobile {
+  display: none;
+}
+header .mobile-nav {
+  display: none;
+}
 /*********************************** FOOTER CSS *********************************************/
 footer {
 }
@@ -169,6 +175,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  flex-wrap: wrap;
   /* align-items: center; */
 }
 .landingpage .sec-one .containerr .left {
@@ -221,6 +228,7 @@ footer .bottom p {
   justify-content: center;
   align-items: center;
   gap: 30px;
+  flex-wrap: wrap;
 }
 .landingpage .sec-two .content .p1 {
   font-size: 14px;
@@ -273,6 +281,7 @@ footer .bottom p {
   max-width: 1001px;
   margin-inline: auto;
   margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 .landingpage .sec-three .steps-con .steps {
   display: flex;
@@ -567,7 +576,8 @@ footer .bottom p {
 .tabs-con.faq .btn-tabs-con {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 .tabs-con.faq .btn-tabs-con p {
@@ -1543,6 +1553,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   /* align-items: flex-start; */
   gap: 12px;
   box-shadow: 0 5px 8px 0 rgba(89, 89, 89, 0.18);
@@ -1764,6 +1775,7 @@ footer .bottom p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .qr-main-page .qrFilterCon .containerr .left {
@@ -1795,7 +1807,9 @@ footer .bottom p {
     color: #f35b58;
   }
 }
-
+.qr-main-page .qrFilterCon .cleanFilter h6{
+  margin: 0;
+}
 .qr-main-page .qrFilterCon .containerr .sortByDropdown {
   width: 220px;
   position: relative;
@@ -4477,111 +4491,251 @@ p.social-con-content {
 }
 
 /* ADD REVIEW CSS START */
-/* General styles for the form builder */
+/* General Styles */
 .form-builder-container {
+  font-family: 'Nunito Sans', sans-serif;
   padding: 20px;
-  font-family: "Nunito Sans", sans-serif;
-  background-color: #f4f4f4;
   max-width: 800px;
   margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
-}
-
-.title {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.toggle-option {
-  margin-bottom: 15px;
-}
-
-.checkbox-label {
-  font-size: 16px;
-}
-
-.add-question-btn,
-.add-option-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.add-question-btn:hover,
-.add-option-btn:hover {
-  background-color: #45a049;
-}
-
-.question-section {
   margin-top: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
 }
 
-.question-card {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.title, .preview-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .input-field {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.radio-input {
-  margin-right: 10px;
-}
-
-.submit-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 6px;
   font-size: 16px;
-  width: 100%;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #e0201c;
+  outline: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Add Question Button */
+.add-question-btn {
+  background-color: #e0201c;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
-  background-color: #0056b3;
+.add-question-btn:hover {
+  background-color: #c01817;
+}
+
+/* Question Card Styles */
+.question-card {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-card .input-field {
+  margin-top: 10px;
+}
+
+/* Select and Option Styles */
+select.input-field {
+  cursor: pointer;
+}
+
+.add-option-btn {
+  background-color: #e0201c;
+  color: white;
+  font-size: 14px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-option-btn:hover {
+  background-color: #c01817;
+}
+
+input[type="text"].input-field {
+  margin-bottom: 10px;
+}
+
+.radio-label,
+.checkbox-input {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.checkbox-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* Delete Question Button */
+.delete-question-btn {
+  color: #e0201c;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.delete-question-btn:hover {
+  color: #c01817;
+}
+
+/* Preview Form Section */
+.form-preview {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .preview-title {
   font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
   color: #333;
-  margin-top: 20px;
-  margin-bottom: 10px;
 }
 
 .question-text {
-  font-size: 16px;
+  font-weight: bold;
   margin-bottom: 10px;
-}
-
-.checkbox-input {
-  margin-left: 10px;
+  color: #333;
 }
 
 .radio-label {
-  display: block;
+  display: inline-block;
+  margin-right: 10px;
   margin-bottom: 10px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: #e0201c;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #c01817;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .form-builder-container {
+    padding: 15px;
+  }
+
+  .input-field,
+  .add-question-btn,
+  .add-option-btn,
+  .submit-btn {
+    width: 100%;
+  }
+
+  .question-card {
+    flex-direction: column;
+  }
+}
+
+
+
+/* CUSTOM CHECKBOX STYLE */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  padding-left: 35px; 
+  padding-right: 10px;
+  user-select: none;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.checkbox-label input {
+  position: absolute;
+  left: -9999px; 
+}
+
+.checkbox-label input:checked + .checkbox-custom {
+  background-color: #e0201c; 
+  border-color: #e0201c;
+}
+
+.checkbox-custom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.checkbox-custom::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 10px;
+  height: 15px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.checkbox-label input:checked + .checkbox-custom::after {
+  opacity: 1;
 }
 
 /* ADD REVIEW CSS END */

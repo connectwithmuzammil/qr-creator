@@ -140,6 +140,24 @@ const initialState = {
   event_facilities: "",
   event_btn_text: "",
 
+  //ELABELS
+  //BEER
+  wine: false,
+  beer: false,
+  cigars: false,
+  coffee: false,
+  food: false,
+  product: false,
+
+  product_name: "",
+  sku: "",
+  product_image: "",
+  description: "",
+  alcohol_percentage: "",
+  ipa: "",
+  brewed: "",
+  website: "",
+
   type: "",
   style: {
     dotsStyle: "", //square
@@ -191,9 +209,9 @@ const qrSlice = createSlice({
     },
     deleteField: (state, action) => {
       const field = action.payload;
-      console.log("field logggg", field);
+      // console.log("field logggg", field);
       if (state.hasOwnProperty(field)) {
-        state[field] = ""; 
+        state[field] = "";
       }
     },
   },

@@ -1,8 +1,14 @@
 @media screen and (max-width: 1150px) {
 }
 @media screen and (max-width: 991px) {
+  header {
+    padding: 12px 40px;
+  }
   .landingpage .sec-one {
     padding: 60px 40px;
+  }
+  .landingpage .sec-two {
+    padding: 1.5rem 40px;
   }
   .landingpage .sec-three {
     padding: 60px 40px;
@@ -21,6 +27,25 @@
   }
   .landingpage .sec-eight {
     padding: 60px 40px;
+  }
+  footer .top {
+    padding: 40px;
+    gap: 20px;
+  }
+  footer .bottom {
+    padding: 20px 40px;
+  }
+  .landingpage .sec-one .containerr {
+    flex-direction: column;
+  }
+  .landingpage .sec-four .containerr {
+    flex-direction: column;
+  }
+  .landingpage .sec-four .containerr .right {
+    padding-left: 0px;
+  }
+  .landingpage .preview-container {
+    flex-direction: column;
   }
 }
 @media screen and (max-width: 768px) {
@@ -45,6 +70,201 @@
   .css-73x0r9 {
     margin-left: 0px !important;
   }
+
+  header {
+    padding: 12px 25px;
+  }
+  .landingpage .sec-one {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-three {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-four {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-five {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-six {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-seven {
+    padding: 30px 25px;
+  }
+  .landingpage .sec-eight {
+    padding: 30px 25px;
+  }
+  footer .top {
+    padding: 25px;
+    gap: 20px;
+  }
+  footer .bottom {
+    padding: 20px 25px;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  footer .bottom p {
+    text-align: center;
+  }
+  .landingpage .sec-two {
+    padding: 1.5rem 25px;
+  }
+
+  .landingpage .sec-six .containerr {
+    flex-direction: column;
+  }
+  .landingpage .sec-six .containerr .right {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: start;
+  }
+  .landingpage .sec-six .containerr .right .one {
+    width: 100%;
+  }
+  .landingpage .sec-six .containerr .right .two {
+    width: 100%;
+  }
+  .landingpage .sec-six .containerr .right .cardd {
+    max-width: none;
+  }
+  .landingpage .sec-six .containerr .right .two .cardd {
+    margin-top: 0px;
+  }
+  .landingpage .preview-container .right .wrap {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .landingpage .sec-three .steps-con {
+    gap: 20px;
+  }
+  .landingpage .sec-three .steps-con .steps {
+    gap: 12px;
+  }
+  .faq .bottom {
+    padding: 40px 25px;
+  }
+  footer .top {
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+  }
+  footer .top .right {
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 20px;
+  }
+  footer .top .left img {
+    width: 55%;
+  }
+  footer .top .right .one h1 {
+    margin-bottom: 12px;
+  }
+  .landingpage .preview-container .right .wrap .right .content {
+    padding: 12px;
+  }
+  footer .top .right .one .wrap {
+    text-align: start;
+  }
+  header .auth-con.desktop {
+    display: none;
+  }
+
+  /* HEADER CSS START */
+  header .hamburger-mobile {
+    display: block;
+  }
+  header .mobile-nav.active {
+    transform: translate(0);
+  }
+  header .mobile-nav {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    transform: translate(100%);
+    transition: transform 0.5s linear;
+    padding: 20px;
+  }
+  header .mobile-nav .one {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .mobile-nav .two {
+    margin-top: 36px;
+    height: calc(100vh - 93.64px);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+  header .auth-con {
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+  }
+  header .auth-con button.login {
+    font-family: "Nunito Sans", sans-serif;
+    border: 1px solid #e0201c;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    min-width: 11.75rem;
+    color: #e0201c;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+  }
+  header .auth-con button.signup {
+    width: 100%;
+  }
+  header .my-account-btn {
+    width: 100%;
+  }
+  /* HEADER CSS END */
+  .qr-main-page .top {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .qr-main-page .qrFilterCon .containerr {
+    flex-direction: column-reverse;
+    align-items: start;
+    gap: 20px;
+  }
+  .qr-main-page .qrFilterCon .containerr .right {
+    width: 100%;
+  }
+  .qr-main-page .qrFilterCon .containerr .sortByDropdown {
+    width: 100%;
+  }
+  .qr-main-page .qrFilterCon .cleanFilter h6 {
+    display: none;
+  }
+  .qr-main-page .qrFilterCon .containerr .left{
+    width: 100%;
+  }
+  .qr-main-page .qrFilterCon .containerr .qrTypeDropdown{
+    width: calc(100% - 22px);
+  }
 }
 @media screen and (max-width: 500px) {
+  .landingpage .sec-seven h1 {
+    font-size: 25px;
+  }
+  .landingpage .sec-one .containerr .left h1 {
+    font-size: 35px;
+    line-height: 43px;
+    padding-bottom: 0px;
+  }
+  .landingpage .sec-one .containerr .left p {
+    padding-bottom: 12px;
+  }
 }

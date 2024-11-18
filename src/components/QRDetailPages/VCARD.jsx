@@ -27,9 +27,7 @@ import ImageUploadComponent from "../ImageUploadComp";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
-import { QRPreviewPdf, QRPreviewVCard } from "./QRPreviewAll";
-import { resetField } from "../../redux/slice/qrSlice";
-import { useDispatch } from "react-redux";
+import {  QRPreviewVCard } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -59,13 +57,12 @@ const icons = {
 };
 
 const VCARD = ({ localQrData, setLocalQrData }) => {
-  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
   const location = useLocation();
-  console.log("LOCATIONURL", location);
+  // console.log("LOCATIONURL", location);
 
   useEffect(() => {
     if (location.state?.qrData) {

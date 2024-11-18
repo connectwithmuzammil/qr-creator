@@ -11,17 +11,15 @@ const ImageUploadComponent = ({
   onEditImagePreview,
 }) => {
   const [image, setImage] = useState(null);
-  console.log("localQrDataImagetesttt", localQrData);
+  // console.log("localQrDataImagetesttt", localQrData);
 
   // Generate a unique id for each instance of the component
   const uniqueId = `file-upload-${label.replace(/\s+/g, "-")}-${Math.random()}`;
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    console.log("filetetstt", file);
     if (file) {
       const imageUrl = URL.createObjectURL(file); // Generate a local URL for the file
-      console.log("imageurlll", imageUrl);
       setImage(imageUrl);
 
       event.target.value = null;

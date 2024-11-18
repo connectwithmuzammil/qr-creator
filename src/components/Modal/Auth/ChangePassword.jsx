@@ -16,7 +16,7 @@ const ChangePassword = ({ newPassword, setNewPassword }) => {
   const [showOtp, setShowOtp] = useState(false);
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  console.log("userrr", user);
+  // console.log("userrr", user);
 
   const userId = user?.id || user?.user?.id;
 

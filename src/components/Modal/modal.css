@@ -349,10 +349,10 @@
   gap: 20px;
   padding-bottom: 20px;
 }
-.confirmationModal .modal-body h2{
+.confirmationModal .modal-body h2 {
   font-size: 24px;
   text-align: center;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
 }
 .confirmationModal .modal-body .btn-con {
@@ -360,7 +360,7 @@
   justify-content: space-between;
   gap: 8px;
   align-items: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .confirmationModal .modal-body .btn-con button {
@@ -380,4 +380,12 @@
   background-color: #00af63;
   color: #fff;
   border: 1px solid #00af63;
+}
+
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 768px) {
+  .modal-lg {
+    width: 90%;
+  }
 }

@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 const PrivateRoute = ({ element: Component, ...rest }) => {
   const { user } = useSelector((store) => store.user);
   const location = useLocation();
-  console.log("userstateprivate", user);
-  console.log(" ", location); // Log the location object
+  // console.log("userstateprivate", user);
+
 
   // If there is no user (not authenticated), redirect to login page
   if (!user) {

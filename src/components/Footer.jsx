@@ -45,8 +45,12 @@ const Footer = () => {
               </div>
               <div className="one">
                 <h1>Need help?</h1>
-                <p>Contact us</p>
-                <p>FAQ</p>
+                <Link to={"/contact-us"}>
+                  <p>Contact us</p>
+                </Link>
+                <Link to={"/faq"}>
+                  <p>FAQ</p>
+                </Link>
               </div>
             </div>
           </div>

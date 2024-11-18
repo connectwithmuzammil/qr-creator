@@ -64,7 +64,7 @@ const Social = ({ localQrData, setLocalQrData }) => {
 
   //EDIT
   const location = useLocation();
-  console.log("LOCATIONURLSOCIAL", location);
+  // console.log("LOCATIONURLSOCIAL", location);
 
   useEffect(() => {
     if (location.state?.qrData) {

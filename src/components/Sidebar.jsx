@@ -7,13 +7,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery, IconButton } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 import {
   Logo,
@@ -34,7 +33,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  console.log("user", user?.user);
+  // console.log("user", user?.user);
   // State to control the sidebar and toggle between MenuIcon and CloseIcon
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [state, setState] = React.useState({
@@ -403,9 +402,9 @@ const Sidebar = () => {
             style={{ position: "fixed", top: 10, left: 10, zIndex: 1300 }}
           >
             {isDrawerOpen ? (
-              <CloseIcon sx={{ color: "#fff" }} />
+              <FaTimes size={25} color="#fff" />
             ) : (
-              <MenuIcon sx={{ color: "#000" }} />
+              <FaBars size={25} color="#000" />
             )}
           </IconButton>
           <Drawer

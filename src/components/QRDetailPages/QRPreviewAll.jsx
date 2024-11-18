@@ -38,7 +38,6 @@ import {
 } from "../../Helper/SocialSvgIcons";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import SwiperCore "swiper";
-import { Navigation, Pagination } from "swiper/modules";
 import { EffectCards } from "swiper/modules";
 
 // Import Swiper modules
@@ -215,7 +214,7 @@ const FacilitiesIconComp = ({ socialLinks, icons }) => {
 const DynamicImage = ({ data, imageKey, altText, style }) => {
   // Function to determine the image URL based on the input
   const getImageUrl = (source, key) => {
-    console.log("source chekkk", source);
+    // console.log("source chekkk", source);
     if (!source || !key) return null;
     const image = source[key];
     return typeof source?.key === "string"
@@ -1157,6 +1156,7 @@ export const QRPreviewApps = ({ localQrData }) => {
           }}
           href={localQrData?.app_website}
           target="_blank"
+          rel="noopener"
         >
           {localQrData?.app_website}
         </a>

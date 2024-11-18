@@ -34,7 +34,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  console.log("user", user?.user);
+  // console.log("user", user?.user);
   const [state, setState] = React.useState({
     left: false,
   });

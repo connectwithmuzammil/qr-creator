@@ -38,7 +38,6 @@ import {
 import ImageUploadComponent from "../ImageUploadComp";
 import SocialIconsComp from "../SocialIconComp";
 import FacilitiesIconComp from "../FacilitiesIconComp";
-import TimeInputComponent from "../TimeInputComponent";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
@@ -50,8 +49,6 @@ import {
   FormControlLabel,
   Grid,
   TextField,
-  Typography,
-  Box,
   IconButton,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -125,7 +122,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
 
   //EDIT
   const location = useLocation();
-  console.log("LOCATIONURLBusiness", location);
+  // console.log("LOCATIONURLBusiness", location);
 
   useEffect(() => {
     if (location.state?.qrData) {

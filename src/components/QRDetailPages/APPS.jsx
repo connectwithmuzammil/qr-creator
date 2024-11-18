@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaUpload, FaTrash } from "react-icons/fa";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -35,7 +34,7 @@ const APPS = ({ localQrData, setLocalQrData }) => {
   };
   //EDIT
   const location = useLocation();
-  console.log("LOCATIONURLSOCAPP", location);
+  // console.log("LOCATIONURLSOCAPP", location);
 
   useEffect(() => {
     if (location.state?.qrData) {

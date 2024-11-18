@@ -149,11 +149,11 @@ const QrAnalytics = () => {
         const end = dayjs(endDate).format("YYYY-MM-DD");
 
         const { data } = await apis.exportAnalyticData(start, end);
-        console.log(data, "response");
-        console.log(data?.data, "data?.data");
+        // console.log(data, "response");
+        // console.log(data?.data, "data?.data");
 
         const formattedData = data?.data?.flatMap((qrCode) => {
-          console.log("qrCodemnmmn", qrCode);
+          // console.log("qrCodemnmmn", qrCode);
 
           return qrCode?.data?.map((row) => ({
             qrCodeName: qrCode?.qr_name,
