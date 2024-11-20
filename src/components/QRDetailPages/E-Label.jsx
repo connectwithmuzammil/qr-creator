@@ -8,30 +8,26 @@ import ToggleButton from "./QRToggleButton";
 import { useLocation } from "react-router-dom";
 import ReviewFormBuilder from "../ReactFormBuilder";
 
+const products = [
+  "Wine/Spirits",
+  "beer",
+  "Cigars",
+  "Coffee",
+  "Food",
+  "Product",
+];
+
 const ELabels = ({ localQrData, setLocalQrData }) => {
   const location = useLocation();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showCustomQuestion, setShowCustomQuestion] = useState(false);
+  const [showRatings, setShowRatings] = useState(false);
 
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
 
   const [selectedProduct, setSelectedProduct] = useState("Wine/Spirits");
-
-  const handleProductSelection = (product) => {
-    setSelectedProduct(product);
-
-    setLocalQrData((prevData) => ({
-      ...prevData,
-      wine: product === "Wine/Spirits",
-      beer: product === "Beer",
-      cigars: product === "Cigars",
-      coffee: product === "Coffee",
-      food: product === "Food",
-      product: product === "Product",
-    }));
-  };
 
   console.log("checklocalqrdata", localQrData);
 
@@ -48,15 +44,67 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       const localQrDataFromLocation = location?.state?.qrData?.data;
       console.log("localQrDataFromLocation", localQrDataFromLocation);
       setLocalQrData(localQrDataFromLocation);
+
+      // Initialize the state with all false values
+      const updatedData = {
+        wine: false,
+        beer: false,
+        cigars: false,
+        coffee: false,
+        food: false,
+        product: false,
+      };
+
+      // Only set the value to true for the selected product in the API response
+      Object.keys(localQrDataFromLocation).forEach((key) => {
+        if (localQrDataFromLocation[key] === "true") {
+          updatedData[key] = true;
+        }
+      });
+
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        ...updatedData, // Only update true values from API response
+      }));
+
+      // Set selected product based on the response
+      const selected = Object.keys(localQrDataFromLocation).find(
+        (key) => localQrDataFromLocation[key] === "true"
+      );
+      if (selected) {
+        setSelectedProduct(selected);
+      }
+
+      if (localQrDataFromLocation?.is_question) {
+        setShowCustomQuestion(true);
+      }
+      if (localQrDataFromLocation?.is_rating) {
+        setShowRatings(true);
+      }
+   
     }
   }, [location.state?.qrData]);
+
+  const handleProductSelection = (product) => {
+    setSelectedProduct(product);
+
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      wine: product === "Wine/Spirits",
+      beer: product === "beer",
+      cigars: product === "Cigars",
+      coffee: product === "Coffee",
+      food: product === "Food",
+      product: product === "Product",
+    }));
+  };
 
   // Use a separate effect to set selectedProduct based on localQrData changes
   useEffect(() => {
     if (localQrData) {
       const productMap = {
         "Wine/Spirits": localQrData.wine,
-        Beer: localQrData.beer,
+        beer: localQrData.beer,
         Cigars: localQrData.cigars,
         Coffee: localQrData.coffee,
         Food: localQrData.food,
@@ -72,46 +120,38 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
     }
   }, [localQrData]);
 
+  //SET ADD REVIEW
+  const handleCheckboxChange = (checkboxType) => {
+    if (checkboxType === "ratings") {
+      setShowRatings(!showRatings);
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        is_rating: !prevData.is_rating,
+      }));
+    } else if (checkboxType === "questions") {
+      setShowCustomQuestion(!showCustomQuestion);
+      setLocalQrData((prevData) => ({
+        ...prevData,
+        is_question: !prevData.is_question,
+      }));
+    }
+  };
+
+  console.log("lcaooqrdtata", localQrData);
+
   return (
     <div className="app-page">
       {/* Buttons for selecting product */}
       <div className="product-selection-buttons">
-        <button
-          onClick={() => handleProductSelection("Wine/Spirits")}
-          className={selectedProduct === "Wine/Spirits" ? "selected" : ""}
-        >
-          Wine/Spirits
-        </button>
-        <button
-          onClick={() => handleProductSelection("Beer")}
-          className={selectedProduct === "Beer" ? "selected" : ""}
-        >
-          Beer
-        </button>
-        <button
-          onClick={() => handleProductSelection("Cigars")}
-          className={selectedProduct === "Cigars" ? "selected" : ""}
-        >
-          Cigars
-        </button>
-        <button
-          onClick={() => handleProductSelection("Coffee")}
-          className={selectedProduct === "Coffee" ? "selected" : ""}
-        >
-          Coffee
-        </button>
-        <button
-          onClick={() => handleProductSelection("Food")}
-          className={selectedProduct === "Food" ? "selected" : ""}
-        >
-          Food
-        </button>
-        <button
-          onClick={() => handleProductSelection("Product")}
-          className={selectedProduct === "Product" ? "selected" : ""}
-        >
-          Product
-        </button>
+        {products.map((product) => (
+          <button
+            key={product}
+            onClick={() => handleProductSelection(product)}
+            className={selectedProduct === product ? "selected" : ""}
+          >
+            {product}
+          </button>
+        ))}
       </div>
 
       {/* Accordion layout based on selected product */}
@@ -163,12 +203,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
               </AccordianComponent>
             )}
 
-            {selectedProduct === "Beer" && (
+            {selectedProduct === "beer" && (
               <AccordianComponent title={"Beer Details"}>
                 <InputComponent
                   label="Product Name"
                   placeholder="Enter Product Name"
-                  value={localQrData?.productName}
+                  value={localQrData?.product_name}
                   name="product_name"
                   onChange={handleInputChange}
                 />
@@ -181,15 +221,16 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 />
                 <ImageUploadComponent
                   defaultImage="/assets/images/default-img.png"
-                  label="Beer Image"
+                  label="Nutrition Image"
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
                       [name]: file,
                     }));
                   }}
-                  name="product_image"
+                  name="beer_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.beer_image}
                 />
                 <InputComponent
                   label="Description"
@@ -201,7 +242,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Alcohol %"
                   placeholder="Enter Alcohol Percentage"
-                  value={localQrData?.alcoholPercentage}
+                  value={localQrData?.alcohol_percentage}
                   name="alcohol_percentage"
                   type="number"
                   onChange={handleInputChange}
@@ -222,8 +263,9 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
-                  name="product_image"
+                  name="nutrition_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.nutrition_image}
                 />
                 <InputComponent
                   label="Brewed"
@@ -636,10 +678,17 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
 
             <AccordianComponent title={"Add Review"}>
               <div className="d-flex">
-                <InputCheckboxComponent label={"Add Ratings"} />
+                <InputCheckboxComponent
+                  label={"Add Ratings"}
+                  onChange={() => handleCheckboxChange("ratings")}
+                  checked={showRatings}
+                />
                 <InputCheckboxComponent
                   label={"Add Questions"}
-                  onChange={() => setShowCustomQuestion(!showCustomQuestion)}
+                  onChange={() => {
+                    setShowCustomQuestion(!showCustomQuestion);
+                    handleCheckboxChange("questions");
+                  }}
                   checked={showCustomQuestion}
                 />
               </div>
@@ -648,6 +697,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <ReviewFormBuilder
                   setShowCustomQuestion={setShowCustomQuestion}
                   showCustomQuestion={showCustomQuestion}
+                  localQrData={localQrData}
+                  setLocalQrData={setLocalQrData}
                 />
               )}
             </AccordianComponent>

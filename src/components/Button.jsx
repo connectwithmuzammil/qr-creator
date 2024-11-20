@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Button = ({ title, redirect, onClick, width, isLoading, disabled }) => {
+const Button = ({
+  title,
+  redirect,
+  onClick,
+  width,
+  isLoading,
+  customLoadingText,
+  disabled,
+}) => {
   return (
     <>
       {onClick ? (
@@ -12,7 +20,7 @@ const Button = ({ title, redirect, onClick, width, isLoading, disabled }) => {
           disabled={isLoading || disabled}
         >
           {/* {title} */}
-          {isLoading ? "Saving..." : title}
+          {isLoading ? customLoadingText || "Saving..." : title}
         </button>
       ) : (
         <Link to={redirect}>

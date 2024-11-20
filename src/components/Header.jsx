@@ -97,7 +97,7 @@ const Header = () => {
       toast.error(error?.message);
     },
     onSuccess: ({ data: loginSucess, status }) => {
-      console.log("loginSucessfully!!:", loginSucess);
+      // console.log("loginSucessfully!!:", loginSucess);
       if (loginSucess?.success) {
         toast.success(loginSucess?.message);
         setShowModal(false);

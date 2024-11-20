@@ -151,7 +151,8 @@ const initialState = {
 
   product_name: "",
   sku: "",
-  product_image: "",
+  nutrition_image: "",
+  beer_image: "",
   description: "",
   alcohol_percentage: "",
   ipa: "",
@@ -179,6 +180,9 @@ const initialState = {
   },
   social: {},
   qrDesignLogo: "",
+  is_rating: false,
+  is_question: false,
+  questions: [],
 };
 const qrSlice = createSlice({
   name: "qrData",

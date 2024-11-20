@@ -1,5 +1,39 @@
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1200px) {
+  .qr-creator-main .page1 .containerr .right {
+    display: none;
+  }
+  .qr-creator-main .page1 .containerr .left {
+    padding: 60px 25px;
+    padding-top: 95px;
+  }
+  .bottom-wrapper-stages {
+    padding-inline: 25px;
+  }
+  .stages-con {
+    display: none;
+  }
+
+  .stages-con.mobile {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    top: 120px; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+  }
+  .qr-editor-detail {
+    padding-top: 95px;
+  }
+  .qr-design{
+    padding-top: 95px;
+
+  }
+  
 }
+
 @media screen and (max-width: 991px) {
   header {
     padding: 12px 40px;
@@ -46,6 +80,42 @@
   }
   .landingpage .preview-container {
     flex-direction: column;
+  }
+  .qr-code-card-skeleton {
+    height: auto;
+    gap: 8px;
+  }
+  .qrDetailsPage {
+    padding-inline: 40px;
+  }
+  .pricing .content {
+    padding: 40px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pricing .content button {
+    width: 100%;
+  }
+  .pricing .card-container {
+    padding: 40px;
+  }
+  .payment-page .containerr {
+    flex-direction: column;
+    padding-inline: 25px;
+  }
+  .payment-page {
+    padding-bottom: 30px;
+  }
+  .payment-page .wrapper h1 {
+    text-align: center;
+    padding-inline: 25px;
+  }
+  .payment-page .containerr .left {
+    min-width: 0px;
+  }
+  .payment-page .containerr .right {
+    width: 100%;
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 768px) {
@@ -248,12 +318,137 @@
   .qr-main-page .qrFilterCon .cleanFilter h6 {
     display: none;
   }
-  .qr-main-page .qrFilterCon .containerr .left{
+  .qr-main-page .qrFilterCon .containerr .left {
     width: 100%;
   }
-  .qr-main-page .qrFilterCon .containerr .qrTypeDropdown{
+  .qr-main-page .qrFilterCon .containerr .qrTypeDropdown {
     width: calc(100% - 22px);
   }
+
+  .qr-code-card-skeleton .two-con .text1,
+  .qr-code-card-skeleton .three-con .text1 {
+    width: 80px;
+  }
+  .qr-code-card-skeleton .two-con,
+  .qr-code-card-skeleton .three-con {
+    gap: 0px;
+  }
+
+  /* QRDETAIL PAGE */
+  .qrDetailsPage {
+    padding-inline: 25px;
+  }
+
+  .who-we-are .heading {
+    padding: 25px;
+  }
+  .who-we-are .content {
+    padding: 25px;
+  }
+  .who-we-are .content .wrap {
+    padding: 12px;
+  }
+  .contact .top {
+    padding: 25px;
+  }
+  .contact .bottom {
+    padding: 25px;
+  }
+  .contact .bottom .form {
+    padding: 16px;
+  }
+  .faq .top {
+    padding: 25px;
+  }
+
+  /* ANALYTICS PAGE */
+  .qrAnalytics .bottom {
+    padding: 12px;
+  }
+  .qrAnalytics .bottom .all-card-con {
+    grid-template-columns: 1fr;
+  }
+
+  .qrAnalytics .bottom .all-card-con .cardd:last-child {
+    grid-column: span 1;
+    width: 100%;
+  }
+  .qrAnalytics .bottom .period-con {
+    width: 100%;
+  }
+  .qrAnalytics .bottom .period-con .wrap {
+    width: 100%;
+  }
+  .qrAnalytics .bottom .period-con .export-data {
+    width: 100%;
+  }
+  .download-csv-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .qrAnalytics .bottom .analytics-con .cardd h3 {
+    margin: 0;
+    text-align: center;
+  }
+
+  .qrAnalytics .bottom .analytics-con .cardd .wrap {
+    justify-content: center;
+  }
+  .qrAnalytics .bottom .analytics-con .cardd .wrap p {
+    text-align: center;
+  }
+  .qrAnalytics .recharts-wrapper {
+    width: 100% !important;
+  }
+
+  .EditContactInfo .form .input-wrap.last {
+    width: 100% !important;
+  }
+
+  /* PRICING CSS */
+  .pricing .card-container {
+    padding: 40px;
+  }
+  .pricing .card-container {
+    padding: 25px;
+  }
+  .pricing .card-container {
+    flex-direction: column;
+    gap: 25px;
+  }
+  .pricing .card-container .cardd:nth-child(2) {
+    top: 40px;
+    margin-bottom: 40px;
+  }
+  .payment-page .containerr .left form .top {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .payment-page .containerr .left form {
+    padding: 16px;
+    min-height: 0px;
+    height: auto;
+  }
+  .payment-page .containerr .right .payment-certificate {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .qr-creator-main .page1 .containerr .left .card-con {
+    flex-direction: column;
+  }
+  .qr-creator-main .page1 .containerr {
+    margin-bottom: 90px;
+  }
+  .qr-creator-main .page1 .containerr .left .h1{
+    margin-top: 30px;
+  }
+  .stages-con .select-qr .wrap{
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
 @media screen and (max-width: 500px) {
   .landingpage .sec-seven h1 {
@@ -266,5 +461,46 @@
   }
   .landingpage .sec-one .containerr .left p {
     padding-bottom: 12px;
+  }
+  .stages-con.mobile{
+    gap: 12px;
+  }
+  .stages-con .select-qr{
+    gap: 6px;
+  }
+  .stages-con .select-qr .wrap p{
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .qr-main-page .bottom .all-qrCode-con .result-cardd {
+    padding: 12px;
+  }
+  .qr-main-page .bottom .all-qrCode-con .result-cardd .four {
+    flex-wrap: wrap;
+  }
+  .bottom-wrapper-stages {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bottom-wrapper-stages .btn-next button.next {
+    width: 100%;
+  }
+  .bottom-wrapper-stages .btn-next svg {
+    right: 110px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .stages-con.mobile{
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .stages-con .select-qr{
+    gap: 3px;
+  }
+  .stages-con .select-qr .wrap p{
+    font-size: 12px;
   }
 }

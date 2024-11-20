@@ -656,18 +656,22 @@ footer .bottom p {
 /*********************************** QRCREATOR CSS ***************************************/
 .qr-creator-main {
   /* padding: 80px; */
-  background-color: #f6fafe;
+  /* background-color: #f6fafe; */
 }
 .qr-creator-main .page1 {
 }
 .qr-creator-main .page1 .containerr {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 40px;
+  margin-bottom: 40px;
 }
 .qr-creator-main .page1 .containerr .left {
   flex: 2;
-  padding: 80px 0px 80px 80px;
+  padding: 80px 20px 80px 80px;
+  background-color: #f6fafe;
+
 }
 .qr-creator-main .page1 .containerr .left .h1 {
   color: #262626;
@@ -728,7 +732,7 @@ footer .bottom p {
 }
 .qr-creator-main .page1 .containerr .right {
   flex: 1;
-  padding: 80px;
+  padding: 25px;
   background-color: #fff;
 }
 .qr-creator-main .page1 .containerr .right img {
@@ -792,22 +796,22 @@ footer .bottom p {
   justify-content: space-between;
   gap: 25px;
 }
-.bottom-wrapper-stages .stages-con {
+ .stages-con {
   display: flex;
   gap: 25px;
   justify-content: space-between;
   align-items: center;
 }
-.bottom-wrapper-stages .stages-con .select-qr {
+ .stages-con .select-qr {
   display: flex;
   align-items: center;
   gap: 30px;
 }
-.bottom-wrapper-stages .stages-con .select-qr .wrap {
+ .stages-con .select-qr .wrap {
   display: flex;
   gap: 10px;
 }
-.bottom-wrapper-stages .stages-con .select-qr .wrap h5 {
+ .stages-con .select-qr .wrap h5 {
   margin: 0;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
@@ -823,21 +827,21 @@ footer .bottom p {
   align-items: center;
   border: 1px solid #8c8c8c;
 }
-.bottom-wrapper-stages .stages-con .select-qr .wrap h5.active {
+ .stages-con .select-qr .wrap h5.active {
   background-color: #e0201c;
   color: #fff;
   border: 1px solid #e0201c;
 }
-.bottom-wrapper-stages .stages-con .select-qr .wrap p {
+ .stages-con .select-qr .wrap p {
   margin: 0;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
 }
-.bottom-wrapper-stages .stages-con .select-qr .wrap p.active {
+ .stages-con .select-qr .wrap p.active {
   color: #e0201c;
 }
-.bottom-wrapper-stages .stages-con .select-qr svg {
+ .stages-con .select-qr svg {
   font-size: 20px;
 }
 
@@ -1016,6 +1020,7 @@ footer .bottom p {
   padding: 88px 80px 30px 80px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 18px;
   background-color: #f6fafe;
 }
@@ -1318,6 +1323,7 @@ footer .bottom p {
 .qrAnalytics .bottom .period-con {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 25px;
   margin-bottom: 32px;
 }
@@ -1391,6 +1397,7 @@ footer .bottom p {
 .qrAnalytics .bottom .analytics-con .cardd .wrap {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 10px;
 }
@@ -1420,6 +1427,7 @@ footer .bottom p {
   background-color: #fcfcfc;
   padding: 1.5rem;
   height: 350px;
+width: 100%;
 }
 .qrAnalytics .bottom .all-card-con .cardd:last-child {
   grid-column: span 2;
@@ -1776,6 +1784,7 @@ footer .bottom p {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 16px;
 }
 
 .qr-main-page .qrFilterCon .containerr .left {
@@ -1807,7 +1816,7 @@ footer .bottom p {
     color: #f35b58;
   }
 }
-.qr-main-page .qrFilterCon .cleanFilter h6{
+.qr-main-page .qrFilterCon .cleanFilter h6 {
   margin: 0;
 }
 .qr-main-page .qrFilterCon .containerr .sortByDropdown {
@@ -3914,6 +3923,7 @@ p.social-con-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding-bottom: 16px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 25px;
@@ -4126,7 +4136,7 @@ p.social-con-content {
 .qrDetailsPage .userAnalyticscon .cardd {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 8px 0 #5959592e;
   padding: 20px;
   width: calc(50% - 10px);
   text-align: center;
@@ -4198,6 +4208,64 @@ p.social-con-content {
   justify-content: center;
   align-items: center;
   height: 200px;
+}
+
+/* Container Styles */
+.qrDetailsPage .toggle-con {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #f3ecec;
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* Hover effect for card container */
+.qrDetailsPage .toggle-con:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Tab Buttons */
+.qrDetailsPage .tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.qrDetailsPage .tab-button {
+  background-color: transparent;
+  border: 2px solid #f3ecec;
+  border-radius: 8px;
+  color: #333;
+  padding: 12px 25px;
+  margin: 0 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.qrDetailsPage .tab-button.active {
+  background-color: #e0201c;
+  color: #fff;
+  border-color: #e0201c;
+}
+
+.qrDetailsPage .tab-button:not(.active):hover {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+}
+
+.qrDetailsPage .tab-button.active::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 /* NO QR FOUND */
@@ -4493,7 +4561,7 @@ p.social-con-content {
 /* ADD REVIEW CSS START */
 /* General Styles */
 .form-builder-container {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -4502,7 +4570,8 @@ p.social-con-content {
   border-radius: 8px;
 }
 
-.title, .preview-title {
+.title,
+.preview-title {
   text-align: center;
   font-size: 24px;
   color: #333;
@@ -4639,7 +4708,8 @@ input[type="text"].input-field {
   margin-bottom: 10px;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"],
+input[type="checkbox"] {
   margin-right: 10px;
 }
 
@@ -4683,8 +4753,6 @@ input[type="radio"], input[type="checkbox"] {
   }
 }
 
-
-
 /* CUSTOM CHECKBOX STYLE */
 .checkbox-label {
   display: flex;
@@ -4692,19 +4760,19 @@ input[type="radio"], input[type="checkbox"] {
   cursor: pointer;
   position: relative;
   font-size: 16px;
-  padding-left: 35px; 
+  padding-left: 35px;
   padding-right: 10px;
   user-select: none;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .checkbox-label input {
   position: absolute;
-  left: -9999px; 
+  left: -9999px;
 }
 
 .checkbox-label input:checked + .checkbox-custom {
-  background-color: #e0201c; 
+  background-color: #e0201c;
   border-color: #e0201c;
 }
 
@@ -4739,3 +4807,35 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 /* ADD REVIEW CSS END */
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: inherit; 
+  padding: 8px 16px;
+  transition: color 0.3s ease, transform 0.3s ease;
+
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+}
+
+.back-button span {
+  margin-left: 8px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #e0201c;
+  font-weight: 700;
+}
+
+.back-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* BACK BUTTON COMP CSS END */

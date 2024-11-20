@@ -79,8 +79,8 @@ const MyAccount = () => {
   // }, [searchParams]);
 
   // API CALL RESET PASS
-  const { mutate: sendResetEmailMutate, isLoadingResetPass } = useMutation({
-    mutationFn: apis.sendPasswordResetEmail, // API method to send the reset email
+  const { mutate: sendResetEmailMutate, isPending : isLoadingResetPass } = useMutation({
+    mutationFn: apis.sendPasswordResetEmail, 
     onError: (error) => {
       toast.error(error?.message || "Failed to send reset email");
     },

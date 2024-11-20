@@ -14,23 +14,24 @@ import {
   CanvaFrame9,
   NotSelectedFrameCanvas,
 } from "../components/SVGIcon";
-import { LineChartComp, BarChartAnalytics } from "../components";
+import { LineChartComp, BarChartAnalytics, BackButton, Header } from "../components";
 import QRCodeStyling from "qr-code-styling";
 import { FaQrcode } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import apis from "../services";
 import Skeleton from "react-loading-skeleton";
 
-const QRIMAGESHOW = () => {
+const QRCodeDetail = () => {
   const [dataOS, setDataOS] = useState([]);
   const [dataCountry, setDataCountry] = useState([]);
   const [dataCity, setDataCity] = useState([]);
-
+  const [activeTab, setActiveTab] = useState("analytics");
+  const analyticsRef = useRef(null);
+  const reviewRef = useRef(null);
   const location = useLocation();
   const QRres = location.state || {};
-  console.log("QRres", QRres?.singleViewDetail);
-
   const qrCode = useRef(null);
+  console.log("QRres", QRres?.singleViewDetail);
 
   const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
   console.log("selectedFrame", selectedFrame);
@@ -41,7 +42,7 @@ const QRIMAGESHOW = () => {
     QRres?.singleViewDetail?.type === "wifi"
       ? typeWifiData
       : QRres?.singleViewDetail?.outcome;
-  console.log("QRres?.singleViewDetail?.outcome", data);
+  // console.log("QRres?.singleViewDetail?.outcome", data);
   let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
   let CornerbgColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres?.singleViewDetail?.style?.cornerBorderColor;
@@ -53,8 +54,6 @@ const QRIMAGESHOW = () => {
   let frameBgColor = QRres?.singleViewDetail?.style?.backgroundColor;
   let frameText = QRres?.singleViewDetail?.style?.frameText;
   let frameTextColor = QRres?.singleViewDetail?.style?.frameTextColor;
-
-  console.log("datta", data);
 
   const qrCodeOptions = {
     width: 130,
@@ -106,14 +105,13 @@ const QRIMAGESHOW = () => {
     if (QRres?.singleViewDetail?.id) {
       UserQRStat();
     }
-  }, [QRres?.singleViewDetail?.id]);
+  }, []);
 
   console.log("userQrStats", userQrStats);
 
   const renderFrame = () => {
     switch (selectedFrame) {
       case "notSelectedFrame":
-        console.log("INSIDE notSelctedFrame CASE");
         return (
           <NotSelectedFrameCanvas
             CornerbgColor={CornerbgColor}
@@ -126,7 +124,6 @@ const QRIMAGESHOW = () => {
           />
         );
       case "frame1":
-        console.log("INSIDE CASE 1");
         return (
           <CanvaFrame1
             frameColor={frameColor}
@@ -344,8 +341,32 @@ const QRIMAGESHOW = () => {
     scans: item.scans,
   }));
 
+  //TAB TOGGLE
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
+  useEffect(() => {
+    // Scroll to the respective section when the tab changes
+    if (activeTab === "analytics" && analyticsRef.current) {
+      analyticsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    } else if (activeTab === "review" && reviewRef.current) {
+      reviewRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [activeTab]);
+
   return (
+    <>
+    <Header />
     <div className="qrDetailsPage">
+      <BackButton onPageCSS={"30px"} redirectTo={"/my-qr-codes"} />
       <div className="qr-preview">
         <div
           className="img-con"
@@ -392,87 +413,118 @@ const QRIMAGESHOW = () => {
         </div>
       </div>
 
-      <div className="graph-con" style={{ width: "100%", height: "400px" }}>
-        <div className="main-filter-con">
-          <p>Scans Activity </p>
+      <div className="toggle-con">
+        <div className="tab-buttons">
+          <button
+            className={`tab-button ${
+              activeTab === "analytics" ? "active" : ""
+            }`}
+            onClick={() => handleTabChange("analytics")}
+          >
+            View Analytics
+          </button>
+          <button
+            className={`tab-button ${activeTab === "review" ? "active" : ""}`}
+            onClick={() => handleTabChange("review")}
+          >
+            Reviews
+          </button>
         </div>
+      </div>
 
-        {false ? (
-          <h4>Loading...</h4>
-        ) : (
-          <>
-            {formattedData && formattedData.length > 0 ? (
-              <LineChartComp data={formattedData} />
+      {activeTab === "analytics" && (
+        <>
+          <div
+            ref={analyticsRef}
+            className="graph-con"
+            style={{ width: "100%", height: "400px" }}
+          >
+            <div className="main-filter-con">
+              <p>Scans Activity </p>
+            </div>
+
+            {false ? (
+              <h4>Loading...</h4>
             ) : (
-              <h4 className="stats-txt">Need more data to show statistics</h4>
+              <>
+                {formattedData && formattedData.length > 0 ? (
+                  <LineChartComp data={formattedData} />
+                ) : (
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
+                )}
+              </>
             )}
-          </>
-        )}
-      </div>
+          </div>
+          <div className="all-card-con">
+            <div className="cardd">
+              <p>Scans per operating system</p>
+              {QRres?.statsDataSystem?.data?.os?.length < 0 ? (
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "250px",
+                  }}
+                >
+                  Loading...
+                </p>
+              ) : dataOS && dataOS.length > 0 ? (
+                <BarChartAnalytics data={dataOS} />
+              ) : (
+                <h4 className="stats-txt">Need more data to show statistics</h4>
+              )}
+            </div>
 
-      <div className="all-card-con">
-        <div className="cardd">
-          <p>Scans per operating system</p>
-          {QRres?.statsDataSystem?.data?.os?.length < 0 ? (
-            <p
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: "250px",
-              }}
-            >
-              Loading...
-            </p>
-          ) : dataOS && dataOS.length > 0 ? (
-            <BarChartAnalytics data={dataOS} />
-          ) : (
-            <h4 className="stats-txt">Need more data to show statistics</h4>
-          )}
-        </div>
+            <div className="cardd">
+              <p>Scans per country</p>
+              {QRres?.statsDataSystem?.data?.countries?.length < 0 ? (
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "250px",
+                  }}
+                >
+                  Loading...
+                </p>
+              ) : dataCountry && dataCountry.length > 0 ? (
+                <BarChartAnalytics data={dataCountry} />
+              ) : (
+                <h4 className="stats-txt">Need more data to show statistics</h4>
+              )}
+            </div>
 
-        <div className="cardd">
-          <p>Scans per country</p>
-          {QRres?.statsDataSystem?.data?.countries?.length < 0 ? (
-            <p
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: "250px",
-              }}
-            >
-              Loading...
-            </p>
-          ) : dataCountry && dataCountry.length > 0 ? (
-            <BarChartAnalytics data={dataCountry} />
-          ) : (
-            <h4 className="stats-txt">Need more data to show statistics</h4>
-          )}
-        </div>
+            <div className="cardd">
+              <p>Scans per city/region</p>
+              {QRres?.statsDataSystem?.data?.cities?.length < 0 ? (
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "250px",
+                  }}
+                >
+                  Loading...
+                </p>
+              ) : dataCity && dataCity.length > 0 ? (
+                <BarChartAnalytics data={dataCity} />
+              ) : (
+                <h4 className="stats-txt">Need more data to show statistics</h4>
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
-        <div className="cardd">
-          <p>Scans per city/region</p>
-          {QRres?.statsDataSystem?.data?.cities?.length < 0 ? (
-            <p
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: "250px",
-              }}
-            >
-              Loading...
-            </p>
-          ) : dataCity && dataCity.length > 0 ? (
-            <BarChartAnalytics data={dataCity} />
-          ) : (
-            <h4 className="stats-txt">Need more data to show statistics</h4>
-          )}
-        </div>
-      </div>
+      {activeTab === "review" && <div ref={reviewRef}>Review upcoming</div>}
     </div>
+    </>
   );
 };
 
-export default QRIMAGESHOW;
+export default QRCodeDetail;

@@ -434,13 +434,17 @@ const QRDetail = () => {
           ? {
               product_name: localQrData?.product_name,
               sku: localQrData?.sku,
-              product_image: localQrData?.product_image,
+              beer_image: localQrData?.beer_image,
+              nutrition_image: localQrData?.nutrition_image,
               description: localQrData?.description,
               alcohol_percentage: localQrData?.alcohol_percentage,
               ipa: localQrData?.ipa,
               brewed: localQrData?.brewed,
               website: localQrData?.website,
               beer: localQrData?.beer,
+              is_question : localQrData?.is_question,
+              questions : localQrData?.questions,
+              is_rating : localQrData?.is_rating
             }
           : {}),
       };

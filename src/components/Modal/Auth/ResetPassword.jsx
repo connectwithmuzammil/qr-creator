@@ -32,7 +32,12 @@ const ResetPassword = ({
           <h3>Want to change your password?</h3>
           <p>We’ll send you an email to reset your password.</p>
 
-          <Button title={"Reset password"} onClick={handleSubmit} />
+          <Button
+            title={"Reset password"}
+            onClick={handleSubmit}
+            isLoading={isLoading}
+            customLoadingText={"Loading..."}
+          />
         </div>
       </Modal.Body>
     </Modal>

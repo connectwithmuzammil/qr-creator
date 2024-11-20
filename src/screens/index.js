@@ -14,12 +14,12 @@ import QRDetail from "./QrCreator/QRDetail";
 import QRDesign from "./QrCreator/QRDesign";
 import MyAccount from "./QrCreator/MyAccount";
 import MyBilling from "./QrCreator/MyBilling";
-import QRIMAGESHOW from "./QRIMAGESHOW";
+import QRCodeDetail from "./QRCodeDetail";
 import Payment from "./Payment";
 import LOGINSCREEN from "./LOGIN";
 
 export {
     LandingPage, QrCreator, WhoWeAre, TermsCondition, TermOfUse, PrivacyPolicy, CookiePolicy, Pricing,
-    UserDashboard, FaqPage, QrAnalytics, QrMainPage, QRDetail, QRDesign, MyAccount, MyBilling, QRIMAGESHOW,
+    UserDashboard, FaqPage, QrAnalytics, QrMainPage, QRDetail, QRDesign, MyAccount, MyBilling, QRCodeDetail,
     Payment,LOGINSCREEN
 }

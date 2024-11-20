@@ -10,8 +10,8 @@ const userSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
-      console.log("USERSTATE", state);
-      console.log("action",action)
+      // console.log("USERSTATE", state);
+      // console.log("action",action)
       state.user = action.payload;
     },
     setEmail: (state, action) => {

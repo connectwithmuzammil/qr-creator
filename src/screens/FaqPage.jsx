@@ -1,5 +1,5 @@
 import React from "react";
-import { FAQ } from "../components";
+import { FAQ, Header } from "../components";
 
 const FaqPage = () => {
   const tabs = [
@@ -158,14 +158,17 @@ const FaqPage = () => {
     ],
   };
   return (
-    <div className="faq">
-      <div className="top">
-        <h1>FAQ</h1>
+    <>
+      <Header />
+      <div className="faq">
+        <div className="top">
+          <h1>FAQ</h1>
+        </div>
+        <div className="bottom">
+          <FAQ tabs={tabs} faqData={faqData} tabColor={"#000"} />
+        </div>
       </div>
-      <div className="bottom">
-        <FAQ tabs={tabs} faqData={faqData} tabColor={"#000"} />
-      </div>
-    </div>
+    </>
   );
 };
 

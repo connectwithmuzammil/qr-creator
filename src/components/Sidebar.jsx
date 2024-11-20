@@ -48,7 +48,7 @@ const Sidebar = () => {
     setOpenHelp(!openHelp);
   };
 
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:768px)");
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&

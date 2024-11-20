@@ -150,6 +150,7 @@
   margin-bottom: 20px;
   height: 80px;
   animation: shimmer 1.5s infinite;
+  flex-wrap: wrap;
 }
 
 .qr-code-card-skeleton .one-con {

@@ -59,16 +59,18 @@ function BottomWrapperStages({
       // }
       // if (generateQrPayload?.gallery_image && Array.isArray(generateQrPayload.gallery_image)) {
       //   generateQrPayload.gallery_image.forEach((file, index) => {
-      //     formData.append(`gallery_image_${index}`, file); 
+      //     formData.append(`gallery_image_${index}`, file);
       //   });
       // }
-      if (generateQrPayload?.gallery_image && Array.isArray(generateQrPayload.gallery_image)) {
+      if (
+        generateQrPayload?.gallery_image &&
+        Array.isArray(generateQrPayload.gallery_image)
+      ) {
         generateQrPayload.gallery_image.forEach((file) => {
-          formData.append('gallery_image[]', file); 
+          formData.append("gallery_image[]", file);
         });
       }
-      
-      
+
       if (generateQrPayload?.linkslogo) {
         formData.append("linkslogo", generateQrPayload?.linkslogo);
       }
@@ -277,6 +279,9 @@ function BottomWrapperStages({
         });
       }
 
+      formData.append('questions', JSON.stringify(generateQrPayload.questions));
+
+
       // if (generateQrPayload?.pdf_file) {
       //   if (generateQrPayload.pdf_file instanceof File) {
       //     formData.append("pdf_file", generateQrPayload.pdf_file);
@@ -291,7 +296,7 @@ function BottomWrapperStages({
 
       // console.log("formData", formData);
       // for (let [key, value] of formData.entries()) {
-        // console.log(`${key}: test`, value);
+      // console.log(`${key}: test`, value);
       // }
 
       // console.log("formdatalogoo",formData)
@@ -317,11 +322,72 @@ function BottomWrapperStages({
   //   }
   // };
   return (
-    <div className="bottom-wrapper-stages">
-      <button className="cancel" onClick={onCancelClick}>
-        {currentStage === 1 ? "Cancel" : "Back"}
-      </button>
-      <div className="stages-con">
+    <>
+      <div className="bottom-wrapper-stages">
+        <button className="cancel" onClick={onCancelClick}>
+          {currentStage === 1 ? "Cancel" : "Back"}
+        </button>
+        <div className="stages-con">
+          {stages.map((stage) => (
+            <div
+              key={stage.step}
+              className={`select-qr ${
+                currentStage === stage.step ? "active" : ""
+              }`}
+            >
+              <div className="wrap">
+                <h5 className={currentStage >= stage.step ? "active" : ""}>
+                  {stage.step}
+                </h5>
+                <p className={currentStage >= stage.step ? "active" : ""}>
+                  {stage.label}
+                </p>
+              </div>
+              {stage.step !== stages.length && <MdChevronRight />}
+            </div>
+          ))}
+        </div>
+
+        {/* {showNextButton && (
+        <div className="btn-next">
+          <button
+            className="next"
+            onClick={handleNextClick}
+            disabled={isLoading}
+          >
+            {isLastStage ? "Finish" : "Next"}
+            {isLoading ? "Loading..." : isLastStage ? "Finish" : "Next"}
+          </button>
+          <MdChevronRight />
+        </div>
+      )} */}
+
+        {/*  */}
+        {showNextButton && (
+          <div className="btn-next">
+            <button
+              className="next"
+              onClick={handleNextClick}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="loading-content">
+                  {/* <AiOutlineLoading3Quarters className="loading-spinner" /> */}
+                  <div className="loader"></div>
+                  <span>Loading...</span>
+                </div>
+              ) : isLastStage ? (
+                "Finish"
+              ) : (
+                "Next"
+              )}
+            </button>
+            {!isLoading && <MdChevronRight />}
+          </div>
+        )}
+      </div>
+
+      <div className="stages-con mobile">
         {stages.map((stage) => (
           <div
             key={stage.step}
@@ -341,44 +407,7 @@ function BottomWrapperStages({
           </div>
         ))}
       </div>
-      {/* {showNextButton && (
-        <div className="btn-next">
-          <button
-            className="next"
-            onClick={handleNextClick}
-            disabled={isLoading}
-          >
-            {isLastStage ? "Finish" : "Next"}
-            {isLoading ? "Loading..." : isLastStage ? "Finish" : "Next"}
-          </button>
-          <MdChevronRight />
-        </div>
-      )} */}
-
-      {/*  */}
-      {showNextButton && (
-        <div className="btn-next">
-          <button
-            className="next"
-            onClick={handleNextClick}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="loading-content">
-                {/* <AiOutlineLoading3Quarters className="loading-spinner" /> */}
-                <div className="loader"></div>
-                <span>Loading...</span>
-              </div>
-            ) : isLastStage ? (
-              "Finish"
-            ) : (
-              "Next"
-            )}
-          </button>
-          {!isLoading && <MdChevronRight />}
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 

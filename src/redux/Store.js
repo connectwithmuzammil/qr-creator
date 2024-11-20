@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage'
 
 const reducers = combineReducers({
   user: userReducers,
-  product: productReducer,
+  // product: productReducer,
   qrData: qrReducer
 });
 const persistConfig = {
