@@ -7,7 +7,7 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewYoutube } from "./QRPreviewAll";
 
-const YOUTUBE = ({ localQrData, setLocalQrData }) => {
+const YOUTUBE = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -27,6 +27,11 @@ const YOUTUBE = ({ localQrData, setLocalQrData }) => {
     setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
     }));
   };
 
@@ -50,6 +55,8 @@ const YOUTUBE = ({ localQrData, setLocalQrData }) => {
                 onChange={handleInputChange}
                 value={localQrData?.youtube_url}
                 name="youtube_url"
+                error={errors?.youtube_url}
+                type="url"
               />
               {/* <Button title={"Upload Video"} width={"200px"} /> */}
             </div>

@@ -1,3 +1,4 @@
+import { MdErrorOutline } from "react-icons/md";
 export const InputComponent = ({
   label,
   placeholder,
@@ -17,15 +18,24 @@ export const InputComponent = ({
         value={value}
         onChange={onChange}
         name={name}
-        className={error ? "input-error" : ""} // Apply error class if there's an error
+        className={error ? "input-error" : ""}
         {...props}
       />
-      {error && <div className="error-message">{error}</div>} {/* Show error message */}
+      {error && (
+        <div className="error-message">
+          <MdErrorOutline   className="error-icon" /> {error}
+        </div>
+      )}
     </div>
   );
 };
 
-export const InputCheckboxComponent = ({ label, onChange,checked, ...props }) => {
+export const InputCheckboxComponent = ({
+  label,
+  onChange,
+  checked,
+  ...props
+}) => {
   return (
     // <div className="input-checkbox-comp">
     //   <input type="checkbox" onChange={onChange} {...props} />

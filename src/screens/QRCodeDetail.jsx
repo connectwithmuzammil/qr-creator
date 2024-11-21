@@ -31,7 +31,7 @@ const QRCodeDetail = () => {
   const location = useLocation();
   const QRres = location.state || {};
   const qrCode = useRef(null);
-  console.log("QRres", QRres?.singleViewDetail);
+  console.log("QRres", QRres);
 
   const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
   console.log("selectedFrame", selectedFrame);

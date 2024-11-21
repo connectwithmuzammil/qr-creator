@@ -37,7 +37,7 @@ import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
 
 const QrMainPage = () => {
-// const ConfirmationModal = React.lazy(()=> import('../../components'))
+  // const ConfirmationModal = React.lazy(()=> import('../../components'))
 
   const navigate = useNavigate();
   const qrCodeRef = useRef(null);
@@ -635,7 +635,18 @@ const QrMainPage = () => {
                       const isLoading = loadingMap[qrCode.id];
                       // const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
                       const isPaused = 2;
-                      // console.log("qrcodeee", qrCode);
+                      console.log("qrcodeee", qrCode);
+                      const products = [
+                        "wine",
+                        "beer",
+                        "cigars",
+                        "coffee",
+                        "food",
+                        "product",
+                      ];
+                      const matchedProduct = products.find(
+                        (product) => qrCode[product] == "true"
+                      );
                       return (
                         <div className="all-qrCode-con" key={qrCode.id}>
                           <div className="result-cardd">
@@ -665,7 +676,11 @@ const QrMainPage = () => {
                                     ? "Business"
                                     : qrCode?.type}
                                 </h4>
-                                <h3>{qrCode?.qr_name}</h3>
+                                <h3>
+                                  {qrCode?.type === "elabels"
+                                    ? matchedProduct.toUpperCase()
+                                    : qrCode?.qr_name}
+                                </h3>
                               </div>
                             </div>
                             <div className="two">
@@ -755,9 +770,7 @@ const QrMainPage = () => {
                                         )
                                       }
                                     >
-                                      <MdDelete
-                                        className="delete-icon"
-                                      />
+                                      <MdDelete className="delete-icon" />
                                       <h4>Delete</h4>
                                     </div>
 
@@ -768,7 +781,7 @@ const QrMainPage = () => {
                                           isPaused ? "pause" : "activate"
                                         )
                                       }
-                                      style={{display:"none"}}
+                                      style={{ display: "none" }}
                                     >
                                       {isPaused ? (
                                         <div className="delete-wrap">

@@ -11,10 +11,10 @@ import ReviewFormBuilder from "../ReactFormBuilder";
 const products = [
   "Wine/Spirits",
   "beer",
-  "Cigars",
-  "Coffee",
-  "Food",
-  "Product",
+  "cigars",
+  "coffee",
+  "food",
+  "product",
 ];
 
 const ELabels = ({ localQrData, setLocalQrData }) => {
@@ -75,13 +75,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
         setSelectedProduct(selected);
       }
 
-      if (localQrDataFromLocation?.is_question) {
+      if (localQrDataFromLocation?.is_question == "true") {
         setShowCustomQuestion(true);
       }
-      if (localQrDataFromLocation?.is_rating) {
+      if (localQrDataFromLocation?.is_rating == "true") {
         setShowRatings(true);
       }
-   
     }
   }, [location.state?.qrData]);
 
@@ -92,10 +91,10 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       wine: product === "Wine/Spirits",
       beer: product === "beer",
-      cigars: product === "Cigars",
-      coffee: product === "Coffee",
-      food: product === "Food",
-      product: product === "Product",
+      cigars: product === "cigars",
+      coffee: product === "coffee",
+      food: product === "food",
+      product: product === "product",
     }));
   };
 
@@ -105,10 +104,10 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       const productMap = {
         "Wine/Spirits": localQrData.wine,
         beer: localQrData.beer,
-        Cigars: localQrData.cigars,
-        Coffee: localQrData.coffee,
-        Food: localQrData.food,
-        Product: localQrData.product,
+        cigars: localQrData.cigars,
+        coffee: localQrData.coffee,
+        food: localQrData.food,
+        product: localQrData.product,
       };
 
       for (const [product, isSelected] of Object.entries(productMap)) {
@@ -163,22 +162,23 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Grape Variety"
                   placeholder="Enter Grape Variety"
-                  value={localQrData?.grapeVariety}
-                  name="grapeVariety"
+                  value={localQrData?.grape_variety}
+                  name="grape_variety"
                   onChange={handleInputChange}
                 />
                 <InputComponent
                   label="Alcohol Volume"
                   placeholder="Enter Alcohol Volume"
-                  value={localQrData?.alcoholVolume}
-                  name="alcoholVolume"
+                  type="number"
+                  value={localQrData?.alcohol_percentage}
+                  name="alcohol_percentage"
                   onChange={handleInputChange}
                 />
                 <InputComponent
                   label="Tasting Notes"
                   placeholder="Enter Tasting Notes"
-                  value={localQrData?.tastingNotes}
-                  name="tastingNotes"
+                  value={localQrData?.task_notes}
+                  name="task_notes"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -197,8 +197,9 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: imageUrl,
                     }));
                   }}
-                  name="productImage"
+                  name="wine_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.wine_image}
                 />
               </AccordianComponent>
             )}
@@ -284,13 +285,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
               </AccordianComponent>
             )}
 
-            {selectedProduct === "Cigars" && (
+            {selectedProduct === "cigars" && (
               <AccordianComponent title={"Cigars Details"}>
                 <InputComponent
                   label="Product Name"
                   placeholder="Enter Product Name"
-                  value={localQrData?.productName}
-                  name="productName"
+                  value={localQrData?.product_name}
+                  name="product_name"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -306,11 +307,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="cigarsImage"
+                  name="cigar_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.cigar_image}
                 />
                 <InputComponent
                   label="Description"
@@ -322,8 +324,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Where it is made"
                   placeholder="Enter Origin"
-                  value={localQrData?.origin}
-                  name="origin"
+                  value={localQrData?.where_it_is_made}
+                  name="where_it_is_made"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -366,20 +368,21 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   placeholder="Enter Size"
                   value={localQrData?.size}
                   name="size"
+                  type="number"
                   onChange={handleInputChange}
                 />
                 <InputComponent
                   label="Flavour Profile"
                   placeholder="Enter Flavour Profile"
-                  value={localQrData?.flavourProfile}
-                  name="flavourProfile"
+                  value={localQrData?.flavour_profile}
+                  name="flavour_profile"
                   onChange={handleInputChange}
                 />
                 <InputComponent
                   label="Best Paired With"
                   placeholder="Enter Best Pairing"
-                  value={localQrData?.bestPairedWith}
-                  name="bestPairedWith"
+                  value={localQrData?.best_paired_with}
+                  name="best_paired_with"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -392,13 +395,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
               </AccordianComponent>
             )}
 
-            {selectedProduct === "Coffee" && (
+            {selectedProduct === "coffee" && (
               <AccordianComponent title={"Coffee Details"}>
                 <InputComponent
                   label="Product Name"
                   placeholder="Enter Product Name"
-                  value={localQrData?.productName}
-                  name="productName"
+                  value={localQrData?.product_name}
+                  name="product_name"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -414,11 +417,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="coffeeImage"
+                  name="coffee_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.coffee_image}
                 />
                 <InputComponent
                   label="Description"
@@ -445,6 +449,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   label="Altitude"
                   placeholder="Enter Altitude"
                   value={localQrData?.altitude}
+                  type="number"
                   name="altitude"
                   onChange={handleInputChange}
                 />
@@ -465,8 +470,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Tasting Notes"
                   placeholder="Enter Tasting Notes"
-                  value={localQrData?.tastingNotes}
-                  name="tastingNotes"
+                  value={localQrData?.tasting_notes}
+                  name="tasting_notes"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -482,11 +487,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="nutritionalImage"
+                  name="nutrition_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.nutrition_image}
                 />
                 <InputComponent
                   label="Website"
@@ -507,49 +513,47 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                     Organic
                     <input
                       type="checkbox"
-                      checked={localQrData?.organic}
-                      onChange={() =>
+                      name="organic"
+                      checked={
+                        localQrData?.organic === true ||
+                        localQrData?.organic === "true"
+                      }
+                      onChange={(e) =>
                         setLocalQrData((prev) => ({
                           ...prev,
-                          organic: !prev.organic,
+                          [e.target.name]: e.target.checked,
                         }))
                       }
-                    />
-                    <span
-                      className={`checkbox-indicator ${
-                        localQrData?.organic ? "green" : ""
-                      }`}
                     />
                   </label>
                   <label>
                     Free Trade
                     <input
                       type="checkbox"
-                      checked={localQrData?.freeTrade}
-                      onChange={() =>
+                      name="free_trade"
+                      checked={
+                        localQrData?.free_trade === true ||
+                        localQrData?.free_trade === "true"
+                      }
+                      onChange={(e) =>
                         setLocalQrData((prev) => ({
                           ...prev,
-                          freeTrade: !prev.freeTrade,
+                          [e.target.name]: e.target.checked,
                         }))
                       }
-                    />
-                    <span
-                      className={`checkbox-indicator ${
-                        localQrData?.freeTrade ? "green" : ""
-                      }`}
                     />
                   </label>
                 </div>
               </AccordianComponent>
             )}
 
-            {selectedProduct === "Food" && (
+            {selectedProduct === "food" && (
               <AccordianComponent title={"Food Details"}>
                 <InputComponent
                   label="Food Name"
                   placeholder="Enter Food Name"
-                  value={localQrData?.foodName}
-                  name="foodName"
+                  value={localQrData?.product_name}
+                  name="product_name"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -569,15 +573,17 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Serving Size"
                   placeholder="Enter Serving Size"
-                  value={localQrData?.servingSize}
-                  name="servingSize"
+                  type="number"
+                  value={localQrData?.size}
+                  name="size"
                   onChange={handleInputChange}
                 />
                 <InputComponent
                   label="Calories"
                   placeholder="Enter Calories"
-                  value={localQrData?.calories}
-                  name="calories"
+                  type="number"
+                  value={localQrData?.clories}
+                  name="clories"
                   onChange={handleInputChange}
                 />
                 <ImageUploadComponent
@@ -586,11 +592,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="foodImage"
+                  name="product_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.product_image}
                 />
                 <InputComponent
                   label="Website"
@@ -602,13 +609,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
               </AccordianComponent>
             )}
 
-            {selectedProduct === "Product" && (
+            {selectedProduct === "product" && (
               <AccordianComponent title={"Product Details"}>
                 <InputComponent
                   label="Product Name"
                   placeholder="Enter Product Name"
-                  value={localQrData?.productName}
-                  name="productName"
+                  value={localQrData?.product_name}
+                  name="product_name"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -624,11 +631,12 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
-                  name="productImage"
+                  name="product_image"
                   localQrData={localQrData}
+                  onEditImagePreview={localQrData?.product_image}
                 />
                 <InputComponent
                   label="Description"
@@ -640,8 +648,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Direction"
                   placeholder="Enter Direction"
-                  value={localQrData?.direction}
-                  name="description"
+                  value={localQrData?.directions}
+                  name="directions"
                   onChange={handleInputChange}
                 />
                 <InputComponent

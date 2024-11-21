@@ -27,7 +27,7 @@ import ImageUploadComponent from "../ImageUploadComp";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
-import {  QRPreviewVCard } from "./QRPreviewAll";
+import { QRPreviewVCard } from "./QRPreviewAll";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -56,7 +56,7 @@ const icons = {
   xing: <XingSocial />,
 };
 
-const VCARD = ({ localQrData, setLocalQrData }) => {
+const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -119,6 +119,11 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [name]: value,
     }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
   const handleSocialIconChange = (iconName, url) => {
     console.log("ICONS NAME, URL", iconName, url);
@@ -166,6 +171,7 @@ const VCARD = ({ localQrData, setLocalQrData }) => {
                 placeholder={"e.g. Johana Smith"}
                 onChange={handleInputChange}
                 value={localQrData?.vcard_full_name}
+                error={errors?.vcard_full_name}
               />
               <InputComponent
                 label={"Email"}

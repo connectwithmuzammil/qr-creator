@@ -21,7 +21,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { resetQrData, setsQrData } from "../../redux/slice/qrSlice";
-import { URLSchema } from "../../Helper/QRValidation";
 const QRDetail = () => {
   const dispatch = useDispatch();
   const { type } = useParams();
@@ -189,36 +188,84 @@ const QRDetail = () => {
 
   const qrDataVar = useSelector((state) => state.qrData);
   const [localQrData, setLocalQrData] = useState(qrDataVar);
-  const [errors, setErrors] = useState({ field_url: "" });
-  console.log("qrDataVarr", qrDataVar);
-  console.log("localQrData", localQrData);
+  const [errors, setErrors] = useState({});
+  // console.log("qrDataVarr", qrDataVar);
+  // console.log("localQrData", localQrData);
 
-  const validateUrl = (url) => {
-    if (!url) {
-      return "Please enter a URL";
+  const validateField = (type, name, value) => {
+    switch (type) {
+      case "url":
+        if (name === "field_url") {
+          if (!value) return "Please enter a URL.";
+          const urlRegex = /^(https:\/\/)/;
+          if (!urlRegex.test(value)) return "URL must start with 'https://'.";
+        }
+        break;
+
+      case "youtube":
+        if (name === "youtube_url") {
+          if (!value) return "Please enter a YouTube URL.";
+          const youtubeRegex = /^(https:\/\/www\.youtube\.com\/watch\?v=)/;
+          if (!youtubeRegex.test(value))
+            return "YouTube URL must start with 'https://www.youtube.com/watch?v='.";
+          return "";
+        }
+        break;
+
+      case "vcard":
+        if (name === "vcard_full_name") {
+          if (!value) return "Required field";
+        }
+
+        break;
+
+      case "social_media":
+        if (name === "media_headline") {
+          if (!value) return "Enter at least 1 character";
+        }
+        if (name === "media_social") {
+          if (!value || Object.keys(value).length === 0) {
+            return "Please add at least one social media link";
+          }
+        }
+        break;
+
+      default:
+        return "";
     }
-    const urlRegex = /^(https:\/\/)/; // Check if the URL starts with "https://"
-    if (!urlRegex.test(url)) {
-      return "URL must start with 'https://'";
-    }
-    try {
-      new URL(url); // Try creating a valid URL object
-      return "";
-    } catch (e) {
-      return "Please enter a valid URL";
-    }
+    return ""; // Return empty string if no validation rule found
   };
 
   const handleSubmit = () => {
-    // Validate URL on form submission
-    const urlError = validateUrl(localQrData.field_url);
-    if (urlError) {
-      setErrors({ field_url: urlError });
-      return
+    let errorFound = false;
+    let newErrors = { ...errors }; // Clone the errors object
+
+    // Validate `media_social`
+    const socialError = validateField(
+      type,
+      "media_social",
+      localQrData.media_social
+    );
+    if (socialError) {
+      newErrors.media_social = socialError;
+      errorFound = true;
     } else {
-      // Proceed with form submission if no errors
-      console.log("Form submitted:", localQrData);
+      newErrors.media_social = "";
     }
+
+    for (const field in localQrData) {
+      const error = validateField(type, field, localQrData[field]);
+      if (error) {
+        newErrors[field] = error;
+        errorFound = true;
+      } else {
+        newErrors[field] = "";
+      }
+    }
+
+    setErrors(newErrors);
+
+    return !errorFound;
   };
 
   // useEffect(() => {
@@ -233,46 +280,19 @@ const QRDetail = () => {
   const navigate = useNavigate();
 
   const handleNextClick = async () => {
+    const isValid = handleSubmit();
+    console.log("isValiddd", isValid);
+    console.log("localqrdataio", localQrData);
+
+    if (!isValid) {
+      if (errors?.media_social) {
+        toast.error(errors.media_social);
+      } else {
+        toast.error("Please correct the highlighted errors before proceeding.");
+      }
+      return;
+    }
     try {
-      if (type === "url") {
-        await URLSchema.validate(localQrData);
-        // handleSubmit();
-      }
-      if (type === "youtube") {
-        // await youtubeSchema.validate(qrData);
-      }
-
-      // else if (type === "url") {
-      //   await UrlSchema.validate(qrData);
-      // }
-      else if (type === "wifi") {
-        // await WifiSchema.validate(qrData);
-      } else if (type === "video") {
-        // await videoSchema.validate(qrData);
-      } else if (type === "image_gallery") {
-        // if (!qrData?.gallery_image) {
-        // toast.error("Please Upload Image");
-        // return;
-        // }
-      }
-      // else if (type === "vcard") {
-      //   if (!qrData?.vcard_image) {
-      //     toast.error("Please Upload Image");
-      //     return;
-      //   }
-      // }
-      else if (type === "business_page") {
-        // if (!qrData?.business_logo) {
-        // toast.error("Please Upload Logo");
-        // return;
-        // }
-      } else if (type === "events") {
-        // if (!qrData?.event_image) {
-        // toast.error("Please Upload Cover Image");
-        // return;
-        // }
-      }
-
       const dataToSend = {
         type: type,
         style: localQrData?.style,
@@ -465,16 +485,50 @@ const QRDetail = () => {
 
         ...(type === "elabels"
           ? {
+              wine: localQrData?.wine,
+              beer: localQrData?.beer,
+              cigars: localQrData?.cigars,
+              coffee: localQrData?.coffee,
+              food: localQrData?.food,
+              product: localQrData?.product,
               product_name: localQrData?.product_name,
               sku: localQrData?.sku,
-              beer_image: localQrData?.beer_image,
-              nutrition_image: localQrData?.nutrition_image,
               description: localQrData?.description,
               alcohol_percentage: localQrData?.alcohol_percentage,
               ipa: localQrData?.ipa,
               brewed: localQrData?.brewed,
               website: localQrData?.website,
-              beer: localQrData?.beer,
+              where_it_is_made: localQrData?.where_it_is_made,
+              wrapper: localQrData?.wrapper,
+              binder: localQrData?.binder,
+              filler: localQrData?.filler,
+              strength: localQrData?.strength,
+              body: localQrData?.body,
+              size: localQrData?.size,
+              flavour_profile: localQrData?.flavour_profile,
+              best_paired_with: localQrData?.best_paired_with,
+              origin: localQrData?.origin,
+              farm: localQrData?.farm,
+              altitude: localQrData?.altitude,
+              roast: localQrData?.roast,
+              flavour: localQrData?.flavour,
+              tasting_notes: localQrData?.tasting_notes,
+              ingredients: localQrData?.ingredients,
+              storage: localQrData?.storage,
+              free_trade: localQrData?.free_trade,
+              organic: localQrData?.organic,
+              grape_variety: localQrData?.grape_variety,
+              task_notes: localQrData?.task_notes,
+              directions: localQrData?.directions,
+              warning: localQrData?.warning,
+
+              beer_image: localQrData?.beer_image,
+              nutrition_image: localQrData?.nutrition_image,
+              cigar_image: localQrData?.cigar_image,
+              coffee_image : localQrData?.coffee_image,
+              wine_image : localQrData?.wine_image,
+              product_image : localQrData?.product_image,
+
               is_question: localQrData?.is_question,
               questions: localQrData?.questions,
               is_rating: localQrData?.is_rating,
@@ -510,7 +564,12 @@ const QRDetail = () => {
         );
       case "vcard":
         return (
-          <VCARD localQrData={localQrData} setLocalQrData={setLocalQrData} />
+          <VCARD
+            localQrData={localQrData}
+            setLocalQrData={setLocalQrData}
+            errors={errors}
+            setErrors={setErrors}
+          />
         );
       case "pdf":
         return (
@@ -530,6 +589,8 @@ const QRDetail = () => {
             <YOUTUBE
               localQrData={localQrData}
               setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
             />
           </div>
         );
@@ -566,7 +627,12 @@ const QRDetail = () => {
       case "social_media":
         return (
           <div>
-            <Social localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <Social
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "video":

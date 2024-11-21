@@ -28,6 +28,7 @@ import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewSocial } from "./QRPreviewAll";
+import { MdErrorOutline } from "react-icons/md";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -56,7 +57,8 @@ const icons = {
   xing: <XingSocial />,
 };
 
-const Social = ({ localQrData, setLocalQrData }) => {
+const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
+  console.log("rrrerrr",errors)
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -96,9 +98,14 @@ const Social = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [name]: value,
     }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
-  const handleImageUpload = (mediaData, name,file) => {
+  const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
@@ -164,6 +171,7 @@ const Social = ({ localQrData, setLocalQrData }) => {
               placeholder={"e.g. Connect with us"}
               onChange={handleInputChange}
               value={localQrData.media_headline}
+              error={errors?.media_headline}
             />
             <InputComponent
               label={"Description"}
@@ -182,6 +190,13 @@ const Social = ({ localQrData, setLocalQrData }) => {
               initialLinks={localQrData?.media_social}
               isEditing={!!location.state?.qrData}
             />
+
+            {errors?.media_social && (
+              <div className="error-message">
+                <MdErrorOutline className="error-icon" />
+                {errors.media_social}
+              </div>
+            )}
           </AccordianComponent>
         </div>
         <div className="right">
