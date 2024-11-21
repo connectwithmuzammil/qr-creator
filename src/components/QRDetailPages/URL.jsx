@@ -6,7 +6,7 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLanding, QRPreviewURL } from "./QRPreviewAll";
 
-const URL = ({ localQrData, setLocalQrData }) => {
+const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const location = useLocation();
   console.log("LOCATIONURL", location);
 
@@ -26,6 +26,11 @@ const URL = ({ localQrData, setLocalQrData }) => {
     setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
     }));
   };
 
@@ -52,25 +57,29 @@ const URL = ({ localQrData, setLocalQrData }) => {
                 onChange={handleInputChange}
                 value={localQrData?.field_url}
                 name={"field_url"}
+                error={errors.field_url}
               />
             </AccordianComponent>
           </div>
 
           <div className="right">
-          <ToggleButton
-            selectedOption={selectedOption}
-            onToggle={handleToggle}
-          />
-          <div className="qr-preview__layout__image">
-            <div className="Preview-layout Preview-layout--vcard">
-              <TopPreviewHeader className="topHeaderSvg" urlLink = {localQrData?.field_url}/>
-              <QRPreviewURL localQrData={localQrData} />
-            </div>
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader
+                  className="topHeaderSvg"
+                  urlLink={localQrData?.field_url}
+                />
+                <QRPreviewURL localQrData={localQrData} />
+              </div>
 
-            <PreviewFrame className="preview-frame" />
+              <PreviewFrame className="preview-frame" />
+            </div>
+            {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
           </div>
-          {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
-        </div>
 
           {/* <img src="/assets/images/phone-url.png" alt="" /> */}
         </div>

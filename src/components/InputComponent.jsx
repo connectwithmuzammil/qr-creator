@@ -5,29 +5,26 @@ export const InputComponent = ({
   value,
   onChange,
   name,
-  defaultValue,
-  disabled = false,
-  // error,
+  error, // Error prop
   ...props
 }) => {
   return (
     <div className="input-wrap-comp">
-      <label htmlFor="">{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         name={name}
-        defaultValue={defaultValue}
-        disabled={disabled}
+        className={error ? "input-error" : ""} // Apply error class if there's an error
         {...props}
-        // className={error ? "input-comp-error" : ""}
       />
-      {/* {error && <span className="error-message-input-comp">{error}</span>} */}
+      {error && <div className="error-message">{error}</div>} {/* Show error message */}
     </div>
   );
 };
+
 export const InputCheckboxComponent = ({ label, onChange,checked, ...props }) => {
   return (
     // <div className="input-checkbox-comp">

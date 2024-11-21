@@ -259,6 +259,7 @@ function BottomWrapperStages({
           key !== "all_links" &&
           key !== "social_logo" &&
           key !== "app_logo" &&
+          key !== "questions" &&
           key !== "qrDesignLogo"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob

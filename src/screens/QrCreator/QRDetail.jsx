@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   APPS,
   BottomWrapperStages,
@@ -21,7 +21,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { resetQrData, setsQrData } from "../../redux/slice/qrSlice";
-
+import { URLSchema } from "../../Helper/QRValidation";
 const QRDetail = () => {
   const dispatch = useDispatch();
   const { type } = useParams();
@@ -188,9 +188,38 @@ const QRDetail = () => {
   // const [qrData, setQrData] = useState(initialState);
 
   const qrDataVar = useSelector((state) => state.qrData);
-  console.log("qrDataVarr", qrDataVar);
   const [localQrData, setLocalQrData] = useState(qrDataVar);
+  const [errors, setErrors] = useState({ field_url: "" });
+  console.log("qrDataVarr", qrDataVar);
   console.log("localQrData", localQrData);
+
+  const validateUrl = (url) => {
+    if (!url) {
+      return "Please enter a URL";
+    }
+    const urlRegex = /^(https:\/\/)/; // Check if the URL starts with "https://"
+    if (!urlRegex.test(url)) {
+      return "URL must start with 'https://'";
+    }
+    try {
+      new URL(url); // Try creating a valid URL object
+      return "";
+    } catch (e) {
+      return "Please enter a valid URL";
+    }
+  };
+
+  const handleSubmit = () => {
+    // Validate URL on form submission
+    const urlError = validateUrl(localQrData.field_url);
+    if (urlError) {
+      setErrors({ field_url: urlError });
+      return
+    } else {
+      // Proceed with form submission if no errors
+      console.log("Form submitted:", localQrData);
+    }
+  };
 
   // useEffect(() => {
   //   setQrData((prevState) => ({
@@ -205,6 +234,10 @@ const QRDetail = () => {
 
   const handleNextClick = async () => {
     try {
+      if (type === "url") {
+        await URLSchema.validate(localQrData);
+        // handleSubmit();
+      }
       if (type === "youtube") {
         // await youtubeSchema.validate(qrData);
       }
@@ -442,9 +475,9 @@ const QRDetail = () => {
               brewed: localQrData?.brewed,
               website: localQrData?.website,
               beer: localQrData?.beer,
-              is_question : localQrData?.is_question,
-              questions : localQrData?.questions,
-              is_rating : localQrData?.is_rating
+              is_question: localQrData?.is_question,
+              questions: localQrData?.questions,
+              is_rating: localQrData?.is_rating,
             }
           : {}),
       };
@@ -467,7 +500,12 @@ const QRDetail = () => {
       case "url":
         return (
           <>
-            <URL localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <URL
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </>
         );
       case "vcard":
