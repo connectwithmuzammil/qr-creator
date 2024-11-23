@@ -446,7 +446,7 @@ export const QRPreviewVCard = ({ localQrData }) => {
   return (
     <div
       className="layout-content showBrowser "
-      style={{ backgroundColor: localQrData?.color?.background }}
+      style={{ backgroundColor: localQrData?.color?.background, left: "4px" }}
     >
       <DynamicImage
         data={localQrData}
@@ -2060,7 +2060,10 @@ export const QRPreviewEvent = ({ localQrData }) => {
 
 export const QRPreviewElabelsBeer = ({ localQrData }) => {
   return (
-    <div className="beer-container layout-content showBrowser" style={{left:"4px",overflowX:"hidden"}}>
+    <div
+      className="beer-container layout-content showBrowser"
+      style={{ left: "4px", overflowX: "hidden" }}
+    >
       <header className="beer-header">
         <DynamicImage
           data={localQrData}

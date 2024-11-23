@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AccordianComponent, AccordianWithInput } from "../AccordianComponent";
+import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
-import { QRPreviewLanding, QRPreviewURL } from "./QRPreviewAll";
+import { QRPreviewURL } from "./QRPreviewAll";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
@@ -96,6 +96,7 @@ const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
         setShowModalPreview={setShowModalPreview}
         showModalPreview={showModalPreview}
         localQrData={localQrData}
+        type={"url"}
       />
     </>
   );

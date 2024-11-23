@@ -57,6 +57,7 @@ import { TimeClock } from "@mui/x-date-pickers/TimeClock";
 import dayjs from "dayjs";
 import { Add as AddIcon } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -116,6 +117,8 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
       localQrData.business_state);
 
   const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [showModalPreview, setShowModalPreview] = useState(false);
+
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
@@ -345,588 +348,602 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
   };
   //CODE FOR TIMER END
   return (
-    <div className="business-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData?.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Business information"}>
-            <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
-              onImageUpload={handleImageUpload}
-              onImageDelete={handleImageDelete}
-              label="Logo"
-              name="business_logo"
-              onEditImagePreview={localQrData?.business_logo}
-            />
-            <InputComponent
-              label={"Company name"}
-              name={"business_company"}
-              placeholder={"e.g. Artisan Bakery"}
-              onChange={handleInputChange}
-              // value={
-              //   localQrData?.business_company ||
-              //   localQrData?.business_page?.business_company
-              // }
-              value={
-                localQrData?.business_company ||
-                localQrData?.business_page?.business_company
-              }
-            />
-            <InputComponent
-              label={"Title"}
-              name={"business_title"}
-              placeholder={"e.g. Fresh Bread and Pastries"}
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_title ||
-                localQrData?.business_page?.business_title
-              }
-            />
-            <InputComponent
-              label={"Subtitle"}
-              name={"business_subtitle"}
-              placeholder={
-                "e.g. Delicious bread and pastries baked daily. vVsit our bakery or order online."
-              }
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_subtitle ||
-                localQrData?.business_page?.business_subtitle
-              }
-            />
-            <div className="wrap-inp-cmp">
+    <>
+      <div className="business-page">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
               <InputComponent
-                label={"Button text"}
-                name={"business_btn_text"}
-                placeholder={"e.g. View our products"}
+                placeholder="e.g My QR code"
                 onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData?.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Business information"}>
+              <ImageUploadComponent
+                defaultImage={"/assets/images/default-img.png"}
+                onImageUpload={handleImageUpload}
+                onImageDelete={handleImageDelete}
+                label="Logo"
+                name="business_logo"
+                onEditImagePreview={localQrData?.business_logo}
+              />
+              <InputComponent
+                label={"Company name"}
+                name={"business_company"}
+                placeholder={"e.g. Artisan Bakery"}
+                onChange={handleInputChange}
+                // value={
+                //   localQrData?.business_company ||
+                //   localQrData?.business_page?.business_company
+                // }
                 value={
-                  localQrData?.business_btn_text ||
-                  localQrData?.business_page?.business_btn_text
+                  localQrData?.business_company ||
+                  localQrData?.business_page?.business_company
                 }
               />
               <InputComponent
-                label={"URL"}
-                name={"business_url"}
-                placeholder={"e.g. https://URL here"}
+                label={"Title"}
+                name={"business_title"}
+                placeholder={"e.g. Fresh Bread and Pastries"}
                 onChange={handleInputChange}
                 value={
-                  localQrData?.business_url ||
-                  localQrData?.business_page?.business_url
+                  localQrData?.business_title ||
+                  localQrData?.business_page?.business_title
                 }
               />
-            </div>
-          </AccordianComponent>
-          <AccordianComponent title={"Opening hours"}>
-            {/* <TimeInputComponent
+              <InputComponent
+                label={"Subtitle"}
+                name={"business_subtitle"}
+                placeholder={
+                  "e.g. Delicious bread and pastries baked daily. vVsit our bakery or order online."
+                }
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_subtitle ||
+                  localQrData?.business_page?.business_subtitle
+                }
+              />
+              <div className="wrap-inp-cmp">
+                <InputComponent
+                  label={"Button text"}
+                  name={"business_btn_text"}
+                  placeholder={"e.g. View our products"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_btn_text ||
+                    localQrData?.business_page?.business_btn_text
+                  }
+                />
+                <InputComponent
+                  label={"URL"}
+                  name={"business_url"}
+                  placeholder={"e.g. https://URL here"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_url ||
+                    localQrData?.business_page?.business_url
+                  }
+                />
+              </div>
+            </AccordianComponent>
+            <AccordianComponent title={"Opening hours"}>
+              {/* <TimeInputComponent
               onTimeDataChange={handleTimeDataChange}
               is24HourFormat={is24HourFormat}
               setIs24HourFormat={setIs24HourFormat}
               openingHours = {localQrData?.opening_hours_days}
             /> */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Grid
-                container
-                spacing={2}
-                sx={{ maxWidth: "100%", margin: "0 auto" }}
-              >
-                {/* Time Format Buttons (AM/PM vs 24-hour) */}
-                <Grid item xs={12}>
-                  <Button
-                    variant={
-                      selectedFormat === "AM-PM" ? "contained" : "outlined"
-                    }
-                    onClick={() => handleFormatChange("AM-PM")}
-                    sx={{ marginRight: 1 }}
-                  >
-                    AM/PM
-                  </Button>
-                  <Button
-                    variant={
-                      selectedFormat === "24-Hour" ? "contained" : "outlined"
-                    }
-                    onClick={() => handleFormatChange("24-Hour")}
-                  >
-                    24-Hour
-                  </Button>
-                </Grid>
-
-                {/* Days of the Week with Checkbox */}
-                {Object.keys(localQrData.opening_hours_days).map((day) => (
-                  <Grid
-                    item
-                    xs={12}
-                    key={day}
-                    sx={{ borderBottom: "1px solid #ccc", paddingBottom: 2 }}
-                  >
-                    {/* Checkbox and Time Inputs in One Row */}
-                    <Grid
-                      container
-                      spacing={2}
-                      alignItems="center"
-                      sx={{ marginTop: 2 }}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{ maxWidth: "100%", margin: "0 auto" }}
+                >
+                  {/* Time Format Buttons (AM/PM vs 24-hour) */}
+                  <Grid item xs={12}>
+                    <Button
+                      variant={
+                        selectedFormat === "AM-PM" ? "contained" : "outlined"
+                      }
+                      onClick={() => handleFormatChange("AM-PM")}
+                      sx={{ marginRight: 1 }}
                     >
-                      <Grid item xs={2}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={
-                                localQrData.opening_hours_days[day].enabled
-                              }
-                              onChange={(e) =>
-                                handleDayChange(day, e.target.checked)
-                              }
-                              sx={{
-                                "&.Mui-checked": {
-                                  color: "primary.main",
-                                },
-                              }}
-                            />
-                          }
-                          label={day.charAt(0).toUpperCase() + day.slice(1)}
-                          sx={{ marginBottom: 0 }}
-                        />
-                      </Grid>
+                      AM/PM
+                    </Button>
+                    <Button
+                      variant={
+                        selectedFormat === "24-Hour" ? "contained" : "outlined"
+                      }
+                      onClick={() => handleFormatChange("24-Hour")}
+                    >
+                      24-Hour
+                    </Button>
+                  </Grid>
 
-                      {/* Start Time Input */}
-                      <Grid item xs={4} sx={{ position: "relative" }}>
-                        <TextField
-                          label="Start Time"
-                          value={
-                            localQrData.opening_hours_days[day].times[0]
-                              ?.start || ""
-                          }
-                          disabled={
-                            !localQrData.opening_hours_days[day].enabled
-                          } // Ensure input is enabled when checkbox is checked
-                          fullWidth
-                          onClick={() => handleInputClick(day, 0, "start")}
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              backgroundColor: "#f5f5f5",
-                              borderRadius: "8px",
-                              padding: "8px 12px",
-                              height: "40px", // Reduced input height
-                            },
-                          }}
-                        />
-                        {/* Clock Picker for Start Time */}
-                        {openClockData[`${day}-0-start`] && (
-                          <div
-                            style={{
-                              position: "fixed",
-                              top: "50%",
-                              left: "39%",
-                              transform: "translate(-50%, -50%)",
-                              zIndex: 1000,
-                              width: "300px",
-                              backgroundColor: "white",
-                              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
-                              borderRadius: "8px",
-                              padding: "20px",
-                              boxSizing: "border-box",
-                              height: "360px",
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <TimeClock
-                              value={clockData.value}
-                              onChange={handleTimeChange}
-                              ampm={selectedFormat === "AM-PM"}
-                            />
-                          </div>
-                        )}
-                      </Grid>
-
-                      {/* End Time Input */}
-                      <Grid item xs={4} sx={{ position: "relative" }}>
-                        <TextField
-                          label="End Time"
-                          value={
-                            localQrData.opening_hours_days[day].times[0]?.end ||
-                            ""
-                          }
-                          disabled={
-                            !localQrData.opening_hours_days[day].enabled
-                          } // Ensure input is enabled when checkbox is checked
-                          fullWidth
-                          onClick={() => handleInputClick(day, 0, "end")}
-                          sx={{
-                            "& .MuiInputBase-root": {
-                              backgroundColor: "#f5f5f5",
-                              borderRadius: "8px",
-                              padding: "6px 8px",
-                              height: "40px",
-                            },
-                          }}
-                        />
-                        {/* Clock Picker for End Time */}
-                        {openClockData[`${day}-0-end`] && (
-                          <div
-                            style={{
-                              position: "fixed",
-                              top: "50%",
-                              left: "39%",
-                              transform: "translate(-50%, -50%)",
-                              zIndex: 1000,
-                              width: "300px",
-                              backgroundColor: "white",
-                              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
-                              borderRadius: "8px",
-                              padding: "20px",
-                              boxSizing: "border-box",
-                              height: "360px",
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <TimeClock
-                              value={clockData.value}
-                              onChange={handleTimeChange}
-                              ampm={selectedFormat === "AM-PM"}
-                            />
-                          </div>
-                        )}
-                      </Grid>
-
-                      {/* Add Time Slot Icon */}
+                  {/* Days of the Week with Checkbox */}
+                  {Object.keys(localQrData.opening_hours_days).map((day) => (
+                    <Grid
+                      item
+                      xs={12}
+                      key={day}
+                      sx={{ borderBottom: "1px solid #ccc", paddingBottom: 2 }}
+                    >
+                      {/* Checkbox and Time Inputs in One Row */}
                       <Grid
-                        item
-                        xs={2}
-                        sx={{ display: "flex", justifyContent: "center" }}
+                        container
+                        spacing={2}
+                        alignItems="center"
+                        sx={{ marginTop: 2 }}
                       >
-                        <IconButton
-                          onClick={() => addTimeSlot(day)}
-                          color="primary"
-                          disabled={
-                            !localQrData.opening_hours_days[day].enabled
-                          } // Disable button if day is not enabled
-                          sx={{
-                            borderRadius: "50%",
-                            padding: "10px",
-                            "&:hover": {
-                              backgroundColor: "#e0e0e0",
-                            },
-                          }}
-                        >
-                          <AddIcon />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-
-                    {/* Additional Time Slots */}
-                    {localQrData.opening_hours_days[day].times
-                      .slice(1)
-                      .map((timeSlot, index) => (
-                        <Grid
-                          container
-                          spacing={2}
-                          alignItems="center"
-                          key={index}
-                          direction="row"
-                          sx={{
-                            marginTop: 2, // Ensure proper spacing between new slots
-                          }}
-                        >
-                          {/* Start Time */}
-                          <Grid item xs={4} sx={{ position: "relative" }}>
-                            <TextField
-                              label="Start Time"
-                              value={timeSlot.start}
-                              onClick={() =>
-                                handleInputClick(day, index + 1, "start")
-                              }
-                              fullWidth
-                              sx={{
-                                "& .MuiInputBase-root": {
-                                  backgroundColor: "#f5f5f5",
-                                  borderRadius: "8px",
-                                  padding: "8px 12px",
-                                  height: "40px", // Reduced input height
-                                },
-                              }}
-                            />
-                            {/* Clock Picker for Start Time */}
-                            {openClockData[`${day}-${index + 1}-start`] && (
-                              <div
-                                style={{
-                                  position: "fixed",
-                                  top: "50%",
-                                  left: "50%",
-                                  transform: "translate(-50%, -50%)", // Center the clock picker
-                                  zIndex: 1000, // Ensure it appears on top of other elements
-                                  width: "300px", // Set a fixed width for the clock picker
-                                  backgroundColor: "white", // White background for the modal
-                                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", // Shadow for better visibility
-                                  borderRadius: "8px", // Rounded corners for the modal
-                                  padding: "20px", // Add some padding inside the modal
-                                  boxSizing: "border-box", // Ensure padding does not overflow
+                        <Grid item xs={2}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={
+                                  localQrData.opening_hours_days[day].enabled
+                                }
+                                onChange={(e) =>
+                                  handleDayChange(day, e.target.checked)
+                                }
+                                sx={{
+                                  "&.Mui-checked": {
+                                    color: "primary.main",
+                                  },
                                 }}
-                              >
-                                <TimeClock
-                                  value={clockData.value}
-                                  onChange={handleTimeChange}
-                                  ampm={selectedFormat === "AM-PM"}
-                                />
-                              </div>
-                            )}
-                          </Grid>
+                              />
+                            }
+                            label={day.charAt(0).toUpperCase() + day.slice(1)}
+                            sx={{ marginBottom: 0 }}
+                          />
+                        </Grid>
 
-                          {/* End Time */}
-                          <Grid item xs={4} sx={{ position: "relative" }}>
-                            <TextField
-                              label="End Time"
-                              value={timeSlot.end}
-                              onClick={() =>
-                                handleInputClick(day, index + 1, "end")
-                              }
-                              fullWidth
-                              sx={{
-                                "& .MuiInputBase-root": {
-                                  backgroundColor: "#f5f5f5",
-                                  borderRadius: "8px",
-                                  padding: "8px 12px",
-                                  height: "40px", // Reduced input height
-                                },
-                              }}
-                            />
-                            {/* Clock Picker for End Time */}
-                            {openClockData[`${day}-${index + 1}-end`] && (
-                              <div
-                                style={{
-                                  position: "fixed",
-                                  top: "50%",
-                                  left: "50%",
-                                  transform: "translate(-50%, -50%)", // Center the clock picker
-                                  zIndex: 1000, // Ensure it appears on top of other elements
-                                  width: "300px", // Set a fixed width for the clock picker
-                                  backgroundColor: "white", // White background for the modal
-                                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", // Shadow for better visibility
-                                  borderRadius: "8px", // Rounded corners for the modal
-                                  padding: "20px", // Add some padding inside the modal
-                                  boxSizing: "border-box", // Ensure padding does not overflow
-                                }}
-                              >
-                                <TimeClock
-                                  value={clockData.value}
-                                  onChange={handleTimeChange}
-                                  ampm={selectedFormat === "AM-PM"}
-                                />
-                              </div>
-                            )}
-                          </Grid>
-
-                          {/* Delete Button/Icon */}
-                          <Grid
-                            item
-                            xs={2}
-                            sx={{ display: "flex", justifyContent: "center" }}
-                          >
-                            <IconButton
-                              onClick={() =>
-                                handleDeleteTimeSlot(day, index + 1)
-                              }
-                              color="error"
-                              sx={{
-                                "&:hover": {
-                                  color: "red",
-                                },
-                                padding: "10px",
-                                borderRadius: "50%",
+                        {/* Start Time Input */}
+                        <Grid item xs={4} sx={{ position: "relative" }}>
+                          <TextField
+                            label="Start Time"
+                            value={
+                              localQrData.opening_hours_days[day].times[0]
+                                ?.start || ""
+                            }
+                            disabled={
+                              !localQrData.opening_hours_days[day].enabled
+                            } // Ensure input is enabled when checkbox is checked
+                            fullWidth
+                            onClick={() => handleInputClick(day, 0, "start")}
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                backgroundColor: "#f5f5f5",
+                                borderRadius: "8px",
+                                padding: "8px 12px",
+                                height: "40px", // Reduced input height
+                              },
+                            }}
+                          />
+                          {/* Clock Picker for Start Time */}
+                          {openClockData[`${day}-0-start`] && (
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: "50%",
+                                left: "39%",
+                                transform: "translate(-50%, -50%)",
+                                zIndex: 1000,
+                                width: "300px",
+                                backgroundColor: "white",
+                                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+                                borderRadius: "8px",
+                                padding: "20px",
+                                boxSizing: "border-box",
+                                height: "360px",
+                                display: "flex",
+                                alignItems: "center",
                               }}
                             >
-                              <DeleteIcon />
-                            </IconButton>
-                          </Grid>
+                              <TimeClock
+                                value={clockData.value}
+                                onChange={handleTimeChange}
+                                ampm={selectedFormat === "AM-PM"}
+                              />
+                            </div>
+                          )}
                         </Grid>
-                      ))}
-                  </Grid>
-                ))}
-              </Grid>
-            </LocalizationProvider>
-          </AccordianComponent>
 
-          <AccordianComponent title={"Location"}>
-            <div className="wrap-inp-cmp">
-              <InputComponent
-                label={"Address"}
-                name={"business_address"}
-                placeholder={"e.g. High Street"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_address ||
-                  localQrData?.business_page?.business_address
-                }
-              />
-              <InputComponent
-                label={"Number"}
-                name={"business_numeration"}
-                placeholder={"e.g. 10"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_numeration ||
-                  localQrData?.business_page?.business_numeration
-                }
-              />
-              <InputComponent
-                label={"Zip code"}
-                name={"business_postalcode"}
-                placeholder={"e.g. 12548"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_postalcode ||
-                  localQrData?.business_page?.business_postalcode
-                }
-              />
-            </div>
-            <div className="wrap-inp-cmp">
-              <InputComponent
-                label={"City"}
-                name={"business_city"}
-                placeholder={"e.g. New York"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_city ??
-                  localQrData?.business_page?.business_city
-                }
-              />
-              <InputComponent
-                label={"State"}
-                name={"business_state"}
-                placeholder={"e.g. 10"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_state ||
-                  localQrData?.business_page?.business_state
-                }
-              />
-              <InputComponent
-                label={"Country"}
-                name={"business_country"}
-                placeholder={"e.g. USA"}
-                onChange={handleInputChange}
-                value={
-                  localQrData?.business_country ||
-                  localQrData?.business_page?.business_country
-                }
-              />
-            </div>
-          </AccordianComponent>
-          <AccordianComponent title={"Facilities"}>
-            <FacilitiesIconComp
-              icons={FacilitiesIcon}
-              onIconClick={handleFacilitiesIconChange}
-              initialSelectedIcons={localQrData.business_facilities}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Contact information"}>
-            <InputComponent
-              label={"Name"}
-              name={"business_name"}
-              placeholder={"e.g. John Smith"}
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_name ||
-                localQrData?.business_page?.business_name
-              }
-            />
-            <InputComponent
-              label={"Phone"}
-              name={"business_phone"}
-              placeholder={"e.g. (123)-123-123-123"}
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_phone ||
-                localQrData?.business_page?.business_phone
-              }
-            />
-            <InputComponent
-              label={"Email"}
-              name={"business_email"}
-              placeholder={"e.g. youremail@domain.com"}
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_email ||
-                localQrData?.business_page?.business_email
-              }
-            />
-            <InputComponent
-              label={"Website"}
-              name={"business_website"}
-              placeholder={"e.g. https://www.artisian-bakery.com"}
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_website ||
-                localQrData?.business_page?.business_website
-              }
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"About the company"}>
-            <InputComponent
-              name={"business_about"}
-              placeholder={
-                "e.g. Indicate your business opening hour and/or any relevant information about it"
-              }
-              onChange={handleInputChange}
-              value={
-                localQrData?.business_about ||
-                localQrData?.business_page?.business_about
-              }
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Social networks"}>
-            <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              initialLinks={localQrData?.business_social}
-              isEditing={!!location.state?.qrData}
-            />
-          </AccordianComponent>
-        </div>
+                        {/* End Time Input */}
+                        <Grid item xs={4} sx={{ position: "relative" }}>
+                          <TextField
+                            label="End Time"
+                            value={
+                              localQrData.opening_hours_days[day].times[0]
+                                ?.end || ""
+                            }
+                            disabled={
+                              !localQrData.opening_hours_days[day].enabled
+                            } // Ensure input is enabled when checkbox is checked
+                            fullWidth
+                            onClick={() => handleInputClick(day, 0, "end")}
+                            sx={{
+                              "& .MuiInputBase-root": {
+                                backgroundColor: "#f5f5f5",
+                                borderRadius: "8px",
+                                padding: "6px 8px",
+                                height: "40px",
+                              },
+                            }}
+                          />
+                          {/* Clock Picker for End Time */}
+                          {openClockData[`${day}-0-end`] && (
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: "50%",
+                                left: "39%",
+                                transform: "translate(-50%, -50%)",
+                                zIndex: 1000,
+                                width: "300px",
+                                backgroundColor: "white",
+                                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+                                borderRadius: "8px",
+                                padding: "20px",
+                                boxSizing: "border-box",
+                                height: "360px",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <TimeClock
+                                value={clockData.value}
+                                onChange={handleTimeChange}
+                                ampm={selectedFormat === "AM-PM"}
+                              />
+                            </div>
+                          )}
+                        </Grid>
 
-        <div className="right">
-          {
-            // hasBusinessData
-            true ? (
-              <>
-                <ToggleButton
-                  selectedOption={selectedOption}
-                  onToggle={handleToggle}
+                        {/* Add Time Slot Icon */}
+                        <Grid
+                          item
+                          xs={2}
+                          sx={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <IconButton
+                            onClick={() => addTimeSlot(day)}
+                            color="primary"
+                            disabled={
+                              !localQrData.opening_hours_days[day].enabled
+                            } // Disable button if day is not enabled
+                            sx={{
+                              borderRadius: "50%",
+                              padding: "10px",
+                              "&:hover": {
+                                backgroundColor: "#e0e0e0",
+                              },
+                            }}
+                          >
+                            <AddIcon />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+
+                      {/* Additional Time Slots */}
+                      {localQrData.opening_hours_days[day].times
+                        .slice(1)
+                        .map((timeSlot, index) => (
+                          <Grid
+                            container
+                            spacing={2}
+                            alignItems="center"
+                            key={index}
+                            direction="row"
+                            sx={{
+                              marginTop: 2, // Ensure proper spacing between new slots
+                            }}
+                          >
+                            {/* Start Time */}
+                            <Grid item xs={4} sx={{ position: "relative" }}>
+                              <TextField
+                                label="Start Time"
+                                value={timeSlot.start}
+                                onClick={() =>
+                                  handleInputClick(day, index + 1, "start")
+                                }
+                                fullWidth
+                                sx={{
+                                  "& .MuiInputBase-root": {
+                                    backgroundColor: "#f5f5f5",
+                                    borderRadius: "8px",
+                                    padding: "8px 12px",
+                                    height: "40px", // Reduced input height
+                                  },
+                                }}
+                              />
+                              {/* Clock Picker for Start Time */}
+                              {openClockData[`${day}-${index + 1}-start`] && (
+                                <div
+                                  style={{
+                                    position: "fixed",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)", // Center the clock picker
+                                    zIndex: 1000, // Ensure it appears on top of other elements
+                                    width: "300px", // Set a fixed width for the clock picker
+                                    backgroundColor: "white", // White background for the modal
+                                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", // Shadow for better visibility
+                                    borderRadius: "8px", // Rounded corners for the modal
+                                    padding: "20px", // Add some padding inside the modal
+                                    boxSizing: "border-box", // Ensure padding does not overflow
+                                  }}
+                                >
+                                  <TimeClock
+                                    value={clockData.value}
+                                    onChange={handleTimeChange}
+                                    ampm={selectedFormat === "AM-PM"}
+                                  />
+                                </div>
+                              )}
+                            </Grid>
+
+                            {/* End Time */}
+                            <Grid item xs={4} sx={{ position: "relative" }}>
+                              <TextField
+                                label="End Time"
+                                value={timeSlot.end}
+                                onClick={() =>
+                                  handleInputClick(day, index + 1, "end")
+                                }
+                                fullWidth
+                                sx={{
+                                  "& .MuiInputBase-root": {
+                                    backgroundColor: "#f5f5f5",
+                                    borderRadius: "8px",
+                                    padding: "8px 12px",
+                                    height: "40px", // Reduced input height
+                                  },
+                                }}
+                              />
+                              {/* Clock Picker for End Time */}
+                              {openClockData[`${day}-${index + 1}-end`] && (
+                                <div
+                                  style={{
+                                    position: "fixed",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)", // Center the clock picker
+                                    zIndex: 1000, // Ensure it appears on top of other elements
+                                    width: "300px", // Set a fixed width for the clock picker
+                                    backgroundColor: "white", // White background for the modal
+                                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", // Shadow for better visibility
+                                    borderRadius: "8px", // Rounded corners for the modal
+                                    padding: "20px", // Add some padding inside the modal
+                                    boxSizing: "border-box", // Ensure padding does not overflow
+                                  }}
+                                >
+                                  <TimeClock
+                                    value={clockData.value}
+                                    onChange={handleTimeChange}
+                                    ampm={selectedFormat === "AM-PM"}
+                                  />
+                                </div>
+                              )}
+                            </Grid>
+
+                            {/* Delete Button/Icon */}
+                            <Grid
+                              item
+                              xs={2}
+                              sx={{ display: "flex", justifyContent: "center" }}
+                            >
+                              <IconButton
+                                onClick={() =>
+                                  handleDeleteTimeSlot(day, index + 1)
+                                }
+                                color="error"
+                                sx={{
+                                  "&:hover": {
+                                    color: "red",
+                                  },
+                                  padding: "10px",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Grid>
+                          </Grid>
+                        ))}
+                    </Grid>
+                  ))}
+                </Grid>
+              </LocalizationProvider>
+            </AccordianComponent>
+
+            <AccordianComponent title={"Location"}>
+              <div className="wrap-inp-cmp">
+                <InputComponent
+                  label={"Address"}
+                  name={"business_address"}
+                  placeholder={"e.g. High Street"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_address ||
+                    localQrData?.business_page?.business_address
+                  }
                 />
-                <div className="qr-preview__layout__image">
-                  <div className="Preview-layout Preview-layout--vcard">
-                    <TopPreviewHeader className="topHeaderSvg" />
-                    <QRPreviewBusiness localQrData={localQrData} />
-                  </div>
-                  <PreviewFrame className="preview-frame" />
-                </div>
-              </>
-            ) : (
-              <img
-                src="/assets/images/phone-business.png"
-                alt="phone-business"
+                <InputComponent
+                  label={"Number"}
+                  name={"business_numeration"}
+                  placeholder={"e.g. 10"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_numeration ||
+                    localQrData?.business_page?.business_numeration
+                  }
+                />
+                <InputComponent
+                  label={"Zip code"}
+                  name={"business_postalcode"}
+                  placeholder={"e.g. 12548"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_postalcode ||
+                    localQrData?.business_page?.business_postalcode
+                  }
+                />
+              </div>
+              <div className="wrap-inp-cmp">
+                <InputComponent
+                  label={"City"}
+                  name={"business_city"}
+                  placeholder={"e.g. New York"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_city ??
+                    localQrData?.business_page?.business_city
+                  }
+                />
+                <InputComponent
+                  label={"State"}
+                  name={"business_state"}
+                  placeholder={"e.g. 10"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_state ||
+                    localQrData?.business_page?.business_state
+                  }
+                />
+                <InputComponent
+                  label={"Country"}
+                  name={"business_country"}
+                  placeholder={"e.g. USA"}
+                  onChange={handleInputChange}
+                  value={
+                    localQrData?.business_country ||
+                    localQrData?.business_page?.business_country
+                  }
+                />
+              </div>
+            </AccordianComponent>
+            <AccordianComponent title={"Facilities"}>
+              <FacilitiesIconComp
+                icons={FacilitiesIcon}
+                onIconClick={handleFacilitiesIconChange}
+                initialSelectedIcons={localQrData.business_facilities}
               />
-            )
-          }
+            </AccordianComponent>
+            <AccordianComponent title={"Contact information"}>
+              <InputComponent
+                label={"Name"}
+                name={"business_name"}
+                placeholder={"e.g. John Smith"}
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_name ||
+                  localQrData?.business_page?.business_name
+                }
+              />
+              <InputComponent
+                label={"Phone"}
+                name={"business_phone"}
+                placeholder={"e.g. (123)-123-123-123"}
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_phone ||
+                  localQrData?.business_page?.business_phone
+                }
+              />
+              <InputComponent
+                label={"Email"}
+                name={"business_email"}
+                placeholder={"e.g. youremail@domain.com"}
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_email ||
+                  localQrData?.business_page?.business_email
+                }
+              />
+              <InputComponent
+                label={"Website"}
+                name={"business_website"}
+                placeholder={"e.g. https://www.artisian-bakery.com"}
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_website ||
+                  localQrData?.business_page?.business_website
+                }
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"About the company"}>
+              <InputComponent
+                name={"business_about"}
+                placeholder={
+                  "e.g. Indicate your business opening hour and/or any relevant information about it"
+                }
+                onChange={handleInputChange}
+                value={
+                  localQrData?.business_about ||
+                  localQrData?.business_page?.business_about
+                }
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Social networks"}>
+              <p className="social-con-content">Add Link to...</p>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                initialLinks={localQrData?.business_social}
+                isEditing={!!location.state?.qrData}
+              />
+            </AccordianComponent>
+          </div>
+
+          <div className="right">
+            {
+              // hasBusinessData
+              true ? (
+                <>
+                  <ToggleButton
+                    selectedOption={selectedOption}
+                    onToggle={handleToggle}
+                  />
+                  <div className="qr-preview__layout__image">
+                    <div className="Preview-layout Preview-layout--vcard">
+                      <TopPreviewHeader className="topHeaderSvg" />
+                      <QRPreviewBusiness localQrData={localQrData} />
+                    </div>
+                    <PreviewFrame className="preview-frame" />
+                  </div>
+                </>
+              ) : (
+                <img
+                  src="/assets/images/phone-business.png"
+                  alt="phone-business"
+                />
+              )
+            }
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"business_page"}
+      />
+    </>
   );
 };
 

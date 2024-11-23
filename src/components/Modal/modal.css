@@ -383,7 +383,7 @@
 }
 
 .previewModal .modal-lg {
-  max-width: 450px;
+  max-width: 380px;
   margin-inline: auto;
 }
 .previewModal .modal-header {
@@ -404,7 +404,19 @@
   gap: 20px;
   justify-content: center;
 }
-.previewModal .modal-body .right
+.previewModal .layout-content.url {
+  overflow: hidden;
+  padding: 0;
+  top: -20px;
+}
+.previewModal .layout-content.url img {
+  height: 550px;
+  object-fit: contain;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+.previewModal .modal-body .right{}
 
 @media screen and (max-width: 768px) {
 }

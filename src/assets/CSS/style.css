@@ -1944,7 +1944,7 @@ footer .bottom p {
   margin-bottom: 20px;
 }
 .qr-editor-detail .url {
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
 }
 .qr-editor-detail .url .containerr {
   display: flex;
@@ -4530,6 +4530,7 @@ p.social-con-content {
 /* CSS FOR ELABELS BUTTON PRODUCT SELECTION */
 .product-selection-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }

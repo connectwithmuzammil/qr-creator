@@ -32,8 +32,9 @@
     padding-top: 95px;
   }
 
-  .qr-editor-detail .url .containerr {
+  .qr-editor-detail .containerr {
     flex-direction: column;
+    margin-bottom: 150px;
   }
   .qr-editor-detail .containerr .left {
     padding: 12px !important;
@@ -45,10 +46,10 @@
     display: block;
     width: 50%;
   }
-  .qr-editor-detail .url .containerr .right {
-    display: none;
+  .qr-editor-detail .containerr .right {
+    display: none !important;
   }
-  .qr-creator-main .page1 .containerr .left .card-con{
+  .qr-creator-main .page1 .containerr .left .card-con {
     flex-direction: column;
   }
 }
@@ -268,6 +269,7 @@
   header .mobile-nav.active {
     transform: translate(0);
   }
+
   header .mobile-nav {
     display: block;
     position: fixed;
@@ -467,6 +469,35 @@
   .viewPreviewbtn {
     width: 60%;
   }
+  .ThemePicker__label--first {
+    margin-bottom: 8px;
+  }
+  /* COLOR PICKER */
+  .ThemePicker__wrapper {
+    gap: 6px;
+  }
+  .ThemePicker__item {
+    width: 16%;
+    padding: 0.5rem;
+  }
+  .ThemePicker__swatch {
+    height: 1.5rem;
+  }
+
+  .ThemePicker__labels {
+    border: 1px solid transparent;
+    padding: 0.75rem 0 0;
+    flex-basis: content;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 1.5rem;
+    flex-direction: column;
+  }
+  .wrap-inp-cmp{
+    flex-direction: column;
+    padding-bottom: 0px;
+    gap: 0px;
+  }
 }
 @media screen and (max-width: 500px) {
   .landingpage .sec-seven h1 {
@@ -498,6 +529,21 @@
   .accordion-body {
     /* padding: 4px; */
   }
+  .qr-editor-detail .accordion-item {
+    padding: 6px !important;
+  }
+  .qr-editor-detail .accordion-body {
+    padding: 6px;
+  }
+  .qr-editor-detail .containerr .left {
+    padding: 0px !important;
+  }
+  .qr-editor-detail .accordion-button {
+    padding: 12px 8px;
+  }
+  .layout-content {
+    padding-left: 0px;
+  }
 }
 @media screen and (max-width: 400px) {
   .qr-main-page .bottom .all-qrCode-con .result-cardd {
@@ -507,7 +553,7 @@
     flex-wrap: wrap;
   }
   .bottom-wrapper-stages {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 12px;
   }
 
