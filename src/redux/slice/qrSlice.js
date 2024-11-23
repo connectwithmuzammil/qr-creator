@@ -217,6 +217,7 @@ const initialState = {
   is_rating: false,
   is_question: false,
   questions: [],
+  only_question:[],
 };
 const qrSlice = createSlice({
   name: "qrData",

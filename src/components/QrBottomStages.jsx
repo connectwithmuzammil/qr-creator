@@ -24,7 +24,7 @@ function BottomWrapperStages({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // console.log("qrDataqrData", generateQrPayload);
+  console.log("qrDataqrData", generateQrPayload);
 
   // console.log("generateQrPayload?.business_logo",typeof(generateQrPayload?.business_logo))
 
@@ -124,6 +124,30 @@ function BottomWrapperStages({
           }
         });
       }
+
+      let questions = generateQrPayload?.only_question;
+
+      questions = questions?.map((question) =>
+        question.trim().replace(/\s+/g, " ")
+      );
+
+      questions?.forEach((question, index) => {
+        formData.append(`only_question[${index}]`, question);
+      });
+
+      // formData.append("questions", JSON.stringify(generateQrPayload.questions));
+
+      const cleanQuestionsText = (questions) => {
+        console.log("questooo",questions)
+        return questions?.map((question) => ({
+          ...question,
+          text: question.text.trim().replace(/\s+/g, " "),
+        }));
+      };
+
+      const cleanedQuestions = cleanQuestionsText(generateQrPayload.questions);
+
+      formData.append("questions", JSON.stringify(cleanedQuestions));
 
       // Flatten and append existing payload data except 'landing_logo'
       Object.keys(generateQrPayload).forEach((key) => {
@@ -260,6 +284,7 @@ function BottomWrapperStages({
           key !== "social_logo" &&
           key !== "app_logo" &&
           key !== "questions" &&
+          key !== "only_question" &&
           key !== "qrDesignLogo"
         ) {
           // Skip 'landing_logo' since it's already handled as a blob
@@ -279,9 +304,6 @@ function BottomWrapperStages({
           formData.append(`all_links[${index}][image]`, link.image);
         });
       }
-
-      formData.append('questions', JSON.stringify(generateQrPayload.questions));
-
 
       // if (generateQrPayload?.pdf_file) {
       //   if (generateQrPayload.pdf_file instanceof File) {

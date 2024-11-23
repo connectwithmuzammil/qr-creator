@@ -538,6 +538,7 @@ const QRDetail = () => {
               is_question: localQrData?.is_question,
               questions: localQrData?.questions,
               is_rating: localQrData?.is_rating,
+              only_question: localQrData?.only_question,
             }
           : {}),
       };

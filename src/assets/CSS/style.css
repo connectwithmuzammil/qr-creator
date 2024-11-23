@@ -2189,20 +2189,25 @@ footer .bottom p {
   flex: 2;
 }
 .qr-design .containerr .right {
-  flex: 1;
+  /* flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   position: sticky;
   top: 20px;
   height: 400px;
-  margin-top: 100px;
+  margin-top: 100px; */
 
-  /* width: 100%;
-    object-fit: contain;
-    height: 550px;
-    position: sticky;
-    top: 0px; */
+  align-items: center;
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  gap: 20px;
+  /* justify-content: center; */
+  position: sticky;
+  top: 20px;
+  height: 400px;
+  margin-top: 100px;
 }
 .qr-design .bottom {
 }
@@ -2235,6 +2240,7 @@ footer .bottom p {
   cursor: pointer;
   border: 1px solid #bfbfbf;
   height: 108px;
+  width: 100%;
 }
 .qr-design .bottom .one .card-con .cardd.active {
   border: 2px solid #e0201c;
@@ -4903,7 +4909,6 @@ input[type="checkbox"] {
   display: none;
 }
 
-
 /* ELABELS PREVIEW  */
 .beer-container {
   background: linear-gradient(135deg, #f4f4f4, #ffffff);
@@ -4964,7 +4969,7 @@ input[type="checkbox"] {
   margin-bottom: 12px;
   color: #555;
 }
-.beer-container .beer-sku span{
+.beer-container .beer-sku span {
   word-break: break-all;
 }
 .beer-container .beer-sku .icon-info {

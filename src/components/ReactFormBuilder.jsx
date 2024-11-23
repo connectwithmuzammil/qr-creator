@@ -17,26 +17,22 @@ const ReviewFormBuilder = ({
   useEffect(() => {
     if (localQrData?.questions) {
       // Ensure questions is always an array
-      setQuestions(localQrData?.questions)
+      setQuestions(localQrData?.questions);
     }
   }, [localQrData]);
 
-  console.log("questionsquestions",questions)
+
+  useEffect(() => {
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      only_question: questions.map((q) => q.text),
+    }));
+  }, [questions, setLocalQrData]);
+
+  console.log("questionsquestions", questions);
 
 
-  // const addQuestion = () => {
-  //   if (questions.length === 0 || questions[questions?.length - 1].text !== "") {
-  //     setQuestions((prevQuestions) => [
-  //       ...prevQuestions,
-  //       { text: "", type: "text", options: [] },
-  //     ]);
 
-  //   } else {
-  //     toast.error(
-  //       "Please fill in the current question before adding a new one."
-  //     );
-  //   }
-  // };
 
   const addQuestion = () => {
     if (
@@ -49,6 +45,7 @@ const ReviewFormBuilder = ({
       setLocalQrData((prevData) => ({
         ...prevData,
         questions: [...prevData.questions, newQuestion],
+        only_question: [...(prevData.only_question || []), newQuestion.text],
       }));
     } else {
       toast.error(
@@ -58,6 +55,8 @@ const ReviewFormBuilder = ({
   };
 
   const handleQuestionChange = (index, field, value) => {
+    // const cleanedValue = value.trim().replace(/\s+/g, ' ');
+
     const updatedQuestions = questions?.map((question, i) =>
       i === index ? { ...question, [field]: value } : question
     );
@@ -67,6 +66,7 @@ const ReviewFormBuilder = ({
     setLocalQrData((prevData) => ({
       ...prevData,
       questions: updatedQuestions,
+      only_question: updatedQuestions.map((question) => question.text),
     }));
   };
 
@@ -76,7 +76,7 @@ const ReviewFormBuilder = ({
         ? { ...question, options: [...question?.options, ""] }
         : question
     );
-    setQuestions(updatedQuestions);
+    // setQuestions({updatedQuestions});
     setLocalQrData((prevData) => ({
       ...prevData,
       questions: updatedQuestions,

@@ -83,11 +83,11 @@ const QRDesign = () => {
       title: "Standard QR code",
       description: "Manually design and customize your QR code",
     },
-    {
-      id: 2,
-      title: "AI-generated QR code",
-      description: "Use AI to design and generate your QR code",
-    },
+    // {
+    //   id: 2,
+    //   title: "AI-generated QR code",
+    //   description: "Use AI to design and generate your QR code",
+    // },
   ];
   const [SelectQrCode, setSelectQrCode] = useState(cards[0].id);
 
@@ -197,7 +197,6 @@ const QRDesign = () => {
   const handleImageDelete = () => {
     setQRLogo(null);
   };
-
 
   //Render Frame CANVAS
   const renderFrame = () => {
@@ -801,6 +800,10 @@ const QRDesign = () => {
             </div>
           </div>
           <div className="right">
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
             <div className="qr-preview design">
               <div className="img-con">
                 <img
@@ -811,18 +814,6 @@ const QRDesign = () => {
                 {renderFrame()}
               </div>
             </div>
-
-            {/* <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewVCard localQrData={qrData} />
-                </div>
-                <PreviewFrame className="preview-frame" />
-              </div> */}
           </div>
         </div>
       </div>
