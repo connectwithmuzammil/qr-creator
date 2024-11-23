@@ -183,6 +183,8 @@ const initialState = {
   cuisine: "",
   directions: "",
   warning:"",
+  category:"",
+  price:"",
 
   nutritional_image: "",
   food_image: "",

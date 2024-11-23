@@ -3,7 +3,15 @@ import { InputCheckboxComponent, InputComponent } from "../InputComponent";
 import ImageUploadComponent from "../ImageUploadComp";
 import { AccordianComponent } from "../AccordianComponent";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
-import { QRPreviewURL } from "./QRPreviewAll";
+import {
+  QRPreviewElabelsBeer,
+  QRPreviewElabelsCigar,
+  QRPreviewElabelsCoffee,
+  QRPreviewElabelsFood,
+  QRPreviewElabelsProduct,
+  QRPreviewElabelsWine,
+  QRPreviewURL,
+} from "./QRPreviewAll";
 import ToggleButton from "./QRToggleButton";
 import { useLocation } from "react-router-dom";
 import ReviewFormBuilder from "../ReactFormBuilder";
@@ -194,7 +202,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
-                      [name]: imageUrl,
+                      [name]: file,
                     }));
                   }}
                   name="wine_image"
@@ -222,7 +230,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 />
                 <ImageUploadComponent
                   defaultImage="/assets/images/default-img.png"
-                  label="Nutrition Image"
+                  label="beer Image"
                   onImageUpload={(imageUrl, name, file) => {
                     setLocalQrData((prev) => ({
                       ...prev,
@@ -470,8 +478,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Tasting Notes"
                   placeholder="Enter Tasting Notes"
-                  value={localQrData?.tasting_notes}
-                  name="tasting_notes"
+                  value={localQrData?.task_notes}
+                  name="task_notes"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -595,9 +603,9 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
-                  name="product_image"
+                  name="food_image"
                   localQrData={localQrData}
-                  onEditImagePreview={localQrData?.product_image}
+                  onEditImagePreview={localQrData?.food_image}
                 />
                 <InputComponent
                   label="Website"
@@ -670,6 +678,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   label="Price"
                   placeholder="Enter Price"
                   value={localQrData?.price}
+                  type="number"
                   name="price"
                   onChange={handleInputChange}
                 />
@@ -722,7 +731,19 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   className="topHeaderSvg"
                   urlLink={localQrData?.field_url}
                 />
-                <QRPreviewURL localQrData={localQrData} />
+                {selectedProduct === "beer" ? (
+                  <QRPreviewElabelsBeer localQrData={localQrData} />
+                ) : selectedProduct === "coffee" ? (
+                  <QRPreviewElabelsCoffee localQrData={localQrData} />
+                ) : selectedProduct === "cigars" ? (
+                  <QRPreviewElabelsCigar localQrData={localQrData} />
+                ) : selectedProduct === "food" ? (
+                  <QRPreviewElabelsFood localQrData={localQrData} />
+                ) : selectedProduct === "product" ? (
+                  <QRPreviewElabelsProduct localQrData={localQrData} />
+                ) : (
+                  <QRPreviewElabelsWine localQrData={localQrData} />
+                )}
               </div>
 
               <PreviewFrame className="preview-frame" />

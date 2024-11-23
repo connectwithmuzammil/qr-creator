@@ -22,7 +22,7 @@ const ScanAndRedirectQr = () => {
   const [outcomeContent, setOutcomeContent] = useState(null);
   const [error, setError] = useState(null);
   const [qrType, setQrType] = useState(null);
-  console.log("qrCodeId",qrCodeId)
+  console.log("qrCodeId", qrCodeId);
 
   // Function to detect the operating system
   const getOperatingSystem = () => {
@@ -49,7 +49,7 @@ const ScanAndRedirectQr = () => {
         // console.log("DATATOSEND", dataToSend);
 
         let res = await apis.scanQrCode(dataToSend);
-        console.log("Response Scan QR Code", res?.data);
+        console.log("Response Scan QR Code", res?.data?.outcome?.questions);
 
         if (res && res.data && res.data.outcome) {
           const outcome = res.data.outcome;

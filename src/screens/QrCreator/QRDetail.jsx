@@ -521,6 +521,11 @@ const QRDetail = () => {
               task_notes: localQrData?.task_notes,
               directions: localQrData?.directions,
               warning: localQrData?.warning,
+              clories: localQrData?.clories,
+              cuisine: localQrData?.cuisine,
+              category: localQrData?.category,
+              price: localQrData?.price,
+              brand: localQrData?.brand,
 
               beer_image: localQrData?.beer_image,
               nutrition_image: localQrData?.nutrition_image,
@@ -528,6 +533,7 @@ const QRDetail = () => {
               coffee_image : localQrData?.coffee_image,
               wine_image : localQrData?.wine_image,
               product_image : localQrData?.product_image,
+              food_image : localQrData?.food_image,
 
               is_question: localQrData?.is_question,
               questions: localQrData?.questions,
@@ -673,7 +679,7 @@ const QRDetail = () => {
   return (
     <>
       <Header />
-      <div className="qr-editor-detail">
+      <div className="qr-editor-detail mobile">
         <div className="top">
           <h1>2. Your QR code content</h1>
         </div>

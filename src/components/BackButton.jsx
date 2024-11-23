@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const BackButton = ({ onClick, color = "#e0201c", onPageCSS, redirectTo }) => {
-    console.log("onPageCSS",onPageCSS)
+    // console.log("onPageCSS",onPageCSS)
   const navigate = useNavigate(); 
 
   const handleBackClick = () => {

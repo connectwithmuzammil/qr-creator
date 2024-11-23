@@ -5,8 +5,10 @@ import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLanding, QRPreviewURL } from "./QRPreviewAll";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const location = useLocation();
   console.log("LOCATIONURL", location);
 
@@ -38,6 +40,12 @@ const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   return (
     <>
       <div className="url">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
         <div className="containerr">
           <div className="left">
             <AccordianComponent title={"Enter the name of your QR code"}>
@@ -84,6 +92,11 @@ const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
           {/* <img src="/assets/images/phone-url.png" alt="" /> */}
         </div>
       </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+      />
     </>
   );
 };

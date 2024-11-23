@@ -46,6 +46,7 @@ import ScanAndRedirectQr from "./ScanAndRedirectQr";
 import { BarChartAnalytics } from "./BarChartAnalytics";
 import ReviewFormBuilder from "./ReactFormBuilder";
 import BackButton from "./BackButton";
+import ViewPreviewModal from "./Modal/QR/ViewPreviewModal";
 
 export {
   ReviewFormBuilder,
@@ -91,5 +92,6 @@ export {
   ConfirmationModal,
   OpenQrScanModal,
   ELabels,
-  BackButton
+  BackButton,
+  ViewPreviewModal
 };

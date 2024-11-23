@@ -382,6 +382,30 @@
   border: 1px solid #00af63;
 }
 
+.previewModal .modal-lg {
+  max-width: 450px;
+  margin-inline: auto;
+}
+.previewModal .modal-header {
+  border: none;
+}
+.previewModal .modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+.previewModal .modal-body .right {
+  align-items: center;
+  display: flex;
+    flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+.previewModal .modal-body .right
+
 @media screen and (max-width: 768px) {
 }
 @media screen and (max-width: 768px) {

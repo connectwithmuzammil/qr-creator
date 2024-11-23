@@ -58,7 +58,11 @@ import {
   FaFax,
   FaGoogle,
   FaYahoo,
+  FaBeer,
+  FaGlobe,
+  FaInfoCircle,
 } from "react-icons/fa";
+
 import { FaLocationDot } from "react-icons/fa6";
 import { IoGlobeOutline, IoPeopleCircle } from "react-icons/io5";
 import { TbBriefcase2Filled } from "react-icons/tb";
@@ -398,7 +402,7 @@ export const QRPreviewPdf = ({ localQrData }) => {
 export const QRPreviewURL = ({ localQrData }) => {
   return (
     <div className="layout-content url ">
-      <img src="/assets/images/URLPreview.avif" alt="URLPreview" />
+      <img src="/assets/images/URLPreview.avif" alt="URLPreview" clas />
     </div>
   );
 };
@@ -2051,5 +2055,123 @@ export const QRPreviewEvent = ({ localQrData }) => {
         </div>
       )}
     </div>
+  );
+};
+
+export const QRPreviewElabelsBeer = ({ localQrData }) => {
+  return (
+    <div className="beer-container layout-content showBrowser" style={{left:"4px",overflowX:"hidden"}}>
+      <header className="beer-header">
+        <DynamicImage
+          data={localQrData}
+          imageKey="beer_image"
+          altText="Beer Image"
+          className="beer-image"
+          style={{
+            width: "100%",
+            height: "200px",
+            objectFit: "cover",
+            borderRadius: "12px 12px 0 0",
+          }}
+        />
+      </header>
+      <div className="beer-content">
+        <h2 className="beer-product-name">
+          <FaBeer className="icon-beer" />
+          {localQrData.product_name || "Product Name"}
+        </h2>
+        <p className="beer-sku">
+          <FaInfoCircle className="icon-info" />
+          SKU: <span>{localQrData.sku || "N/A"}</span>
+        </p>
+        <p className="beer-description">
+          {localQrData.description || "No description available."}
+        </p>
+        <div className="beer-details">
+          <p>
+            <strong>Alcohol Percentage:</strong>{" "}
+            {localQrData.alcohol_percentage || "0"}%
+          </p>
+          <p>
+            <strong>IPA:</strong> {localQrData.ipa || "N/A"}
+          </p>
+          <p>
+            <strong>Brewed At:</strong> {localQrData.brewed || "Unknown"}
+          </p>
+        </div>
+        <p className="beer-website">
+          <FaGlobe className="icon-globe" />
+          <strong>Website:</strong>{" "}
+          {localQrData.website ? (
+            <a
+              href={localQrData.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {localQrData.website}
+            </a>
+          ) : (
+            "N/A"
+          )}
+        </p>
+      </div>
+      {localQrData.nutrition_image && (
+        <footer className="beer-footer">
+          <DynamicImage
+            data={localQrData}
+            imageKey="nutrition_image"
+            altText="Nutrition Information"
+            className="nutrition-image"
+            style={{
+              width: "100%",
+              height: "120px",
+              objectFit: "cover",
+              borderRadius: "0 0 12px 12px",
+            }}
+          />
+        </footer>
+      )}
+    </div>
+  );
+};
+
+export const QRPreviewElabelsCigar = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  return (
+    <>
+      <h6>CIGARS</h6>
+    </>
+  );
+};
+export const QRPreviewElabelsCoffee = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  return (
+    <>
+      <h6>COFFEE</h6>
+    </>
+  );
+};
+export const QRPreviewElabelsWine = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  return (
+    <>
+      <h6>Wine</h6>
+    </>
+  );
+};
+export const QRPreviewElabelsFood = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  return (
+    <>
+      <h6>Food</h6>
+    </>
+  );
+};
+export const QRPreviewElabelsProduct = ({ localQrData }) => {
+  console.log("localQrData", localQrData);
+  return (
+    <>
+      <h6>Product</h6>
+    </>
   );
 };

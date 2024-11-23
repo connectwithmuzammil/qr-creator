@@ -20,18 +20,37 @@
     align-items: center;
     position: absolute;
     width: 100%;
-    top: 120px; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .qr-editor-detail {
     padding-top: 95px;
+    padding-inline: 25px;
   }
-  .qr-design{
+  .qr-design {
     padding-top: 95px;
-
   }
-  
+
+  .qr-editor-detail .url .containerr {
+    flex-direction: column;
+  }
+  .qr-editor-detail .containerr .left {
+    padding: 12px !important;
+  }
+  .qr-editor-detail .top h1 {
+    margin-top: 30px;
+  }
+  .viewPreviewbtn {
+    display: block;
+    width: 50%;
+  }
+  .qr-editor-detail .url .containerr .right {
+    display: none;
+  }
+  .qr-creator-main .page1 .containerr .left .card-con{
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -435,20 +454,19 @@
     padding-right: 0px;
   }
 
-  .qr-creator-main .page1 .containerr .left .card-con {
-    flex-direction: column;
-  }
   .qr-creator-main .page1 .containerr {
     margin-bottom: 90px;
   }
-  .qr-creator-main .page1 .containerr .left .h1{
+  .qr-creator-main .page1 .containerr .left .h1 {
     margin-top: 30px;
   }
-  .stages-con .select-qr .wrap{
+  .stages-con .select-qr .wrap {
     flex-direction: column;
     align-items: center;
   }
-
+  .viewPreviewbtn {
+    width: 60%;
+  }
 }
 @media screen and (max-width: 500px) {
   .landingpage .sec-seven h1 {
@@ -462,14 +480,23 @@
   .landingpage .sec-one .containerr .left p {
     padding-bottom: 12px;
   }
-  .stages-con.mobile{
+  .stages-con.mobile {
     gap: 12px;
   }
-  .stages-con .select-qr{
+  .stages-con .select-qr {
     gap: 6px;
   }
-  .stages-con .select-qr .wrap p{
+  .stages-con .select-qr .wrap p {
     font-size: 13px;
+  }
+  .qr-editor-detail .accordion-item {
+    padding: 0px;
+  }
+  .accordion-button {
+    /* padding: 4px; */
+  }
+  .accordion-body {
+    /* padding: 4px; */
   }
 }
 @media screen and (max-width: 400px) {
@@ -493,14 +520,14 @@
 }
 
 @media screen and (max-width: 350px) {
-  .stages-con.mobile{
+  .stages-con.mobile {
     flex-wrap: wrap;
     gap: 6px;
   }
-  .stages-con .select-qr{
+  .stages-con .select-qr {
     gap: 3px;
   }
-  .stages-con .select-qr .wrap p{
+  .stages-con .select-qr .wrap p {
     font-size: 12px;
   }
 }

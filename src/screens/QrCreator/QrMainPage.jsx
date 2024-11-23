@@ -484,6 +484,7 @@ const QrMainPage = () => {
     { id: 11, name: "image_gallery" },
     { id: 12, name: "Landing" },
     { id: 13, name: "Events" },
+    { id: 14, name: "elabels" },
   ];
 
   const handleCheckboxChange = (event) => {
@@ -528,7 +529,11 @@ const QrMainPage = () => {
 
     return mappedSelectedTypes.join(", ") || "Select QR Types";
   };
-
+  const resetFilter = async () => {
+    setSelectedTypes([]);
+    refetchAllQrCodes();
+  };
+  console.log("selectedTypes", selectedTypes);
   return (
     <>
       <div className="qr-main-page">
@@ -593,7 +598,7 @@ const QrMainPage = () => {
                   </div>
                   <div className="cleanFilter">
                     <RxCross2 size={22} />
-                    <h6>Clean Filter</h6>
+                    <h6 onClick={resetFilter}>Clean Filter</h6>
                   </div>
                 </div>
                 <div className="right">

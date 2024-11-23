@@ -31,10 +31,10 @@ const QRCodeDetail = () => {
   const location = useLocation();
   const QRres = location.state || {};
   const qrCode = useRef(null);
-  console.log("QRres", QRres);
+  // console.log("QRres", QRres);
 
   const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
-  console.log("selectedFrame", selectedFrame);
+  // console.log("selectedFrame", selectedFrame);
 
   let typeWifiData = `WIFI:S:${QRres?.singleViewDetail?.network_name};T:${QRres?.singleViewDetail?.network_security_type};P:${QRres?.singleViewDetail?.password};;`;
 
@@ -90,6 +90,7 @@ const QRCodeDetail = () => {
   const [isUserQRStatsLoading, setIsUserQRStatsLoading] = useState(true);
   useEffect(() => {
     const UserQRStat = async () => {
+      console.log("testtt")
       setIsUserQRStatsLoading(true);
       try {
         const fetchedUserQrStats = await apis.getEachUserQRStat(
@@ -105,9 +106,9 @@ const QRCodeDetail = () => {
     if (QRres?.singleViewDetail?.id) {
       UserQRStat();
     }
-  }, []);
+  }, [QRres]);
 
-  console.log("userQrStats", userQrStats);
+  // console.log("userQrStats", userQrStats);
 
   const renderFrame = () => {
     switch (selectedFrame) {
