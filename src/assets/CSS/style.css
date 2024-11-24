@@ -4911,7 +4911,9 @@ input[type="checkbox"] {
 
 /* ELABELS PREVIEW  */
 .beer-container {
-  background: linear-gradient(135deg, #f4f4f4, #ffffff);
+  /* background: linear-gradient(135deg, #f4f4f4, #ffffff); */
+  background: #fef7f3;
+
   border: 1px solid #ddd;
   border-radius: 12px;
   max-width: 600px;
@@ -4928,7 +4930,7 @@ input[type="checkbox"] {
 .beer-container .beer-header {
   background: #eee;
   border-bottom: 1px solid #ddd;
-  padding: 0px;
+  margin-bottom: 16px;
 }
 
 .beer-container .beer-image img {
@@ -4946,7 +4948,7 @@ input[type="checkbox"] {
 }
 
 .beer-container .beer-product-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -4958,7 +4960,7 @@ input[type="checkbox"] {
 .beer-container .beer-product-name .icon-beer {
   margin-right: 8px;
   color: #ff9f00;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 .beer-container .beer-sku {
@@ -5038,6 +5040,11 @@ input[type="checkbox"] {
 .beer-container a:hover {
   color: #0056b3;
 }
+
+
+/* WINE UI */
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -512,7 +512,7 @@ const QRDetail = () => {
               altitude: localQrData?.altitude,
               roast: localQrData?.roast,
               flavour: localQrData?.flavour,
-              tasting_notes: localQrData?.tasting_notes,
+              // tasting_notes: localQrData?.tasting_notes,
               ingredients: localQrData?.ingredients,
               storage: localQrData?.storage,
               free_trade: localQrData?.free_trade,

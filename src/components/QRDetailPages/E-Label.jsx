@@ -144,6 +144,15 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
     }
   };
 
+  const handleImageDelete = (fieldName) => {
+    // dispatch(resetField({ field: fieldName }));
+    setLocalQrData((prevData) => ({
+      ...prevData,
+      [fieldName]: "",
+    }));
+    console.log(`Deleted image for field: ${fieldName}`);
+  };
+
   console.log("lcaooqrdtata", localQrData);
 
   return (
@@ -205,6 +214,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
+                  onImageDelete={handleImageDelete}
                   name="wine_image"
                   localQrData={localQrData}
                   onEditImagePreview={localQrData?.wine_image}
@@ -318,6 +328,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
+                  onImageDelete={handleImageDelete}
                   name="cigar_image"
                   localQrData={localQrData}
                   onEditImagePreview={localQrData?.cigar_image}
@@ -334,6 +345,14 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   placeholder="Enter Origin"
                   value={localQrData?.where_it_is_made}
                   name="where_it_is_made"
+                  onChange={handleInputChange}
+                />
+                <InputComponent
+                  label="Size"
+                  placeholder="Enter Size"
+                  value={localQrData?.size}
+                  name="size"
+                  type="text"
                   onChange={handleInputChange}
                 />
                 <InputComponent
@@ -371,14 +390,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                   name="body"
                   onChange={handleInputChange}
                 />
-                <InputComponent
-                  label="Size"
-                  placeholder="Enter Size"
-                  value={localQrData?.size}
-                  name="size"
-                  type="number"
-                  onChange={handleInputChange}
-                />
+
                 <InputComponent
                   label="Flavour Profile"
                   placeholder="Enter Flavour Profile"
@@ -428,6 +440,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
+                  onImageDelete={handleImageDelete}
                   name="coffee_image"
                   localQrData={localQrData}
                   onEditImagePreview={localQrData?.coffee_image}
@@ -498,6 +511,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
+                  onImageDelete={handleImageDelete}
                   name="nutrition_image"
                   localQrData={localQrData}
                   onEditImagePreview={localQrData?.nutrition_image}
@@ -535,7 +549,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                     />
                   </label>
                   <label>
-                    Free Trade
+                    Fare Trade
                     <input
                       type="checkbox"
                       name="free_trade"
@@ -581,7 +595,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                 <InputComponent
                   label="Serving Size"
                   placeholder="Enter Serving Size"
-                  type="number"
+                  type="text"
                   value={localQrData?.size}
                   name="size"
                   onChange={handleInputChange}
@@ -603,6 +617,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       [name]: file,
                     }));
                   }}
+                  onImageDelete={handleImageDelete}
                   name="food_image"
                   localQrData={localQrData}
                   onEditImagePreview={localQrData?.food_image}

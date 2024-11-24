@@ -151,8 +151,6 @@ const initialState = {
 
   product_name: "",
   sku: "",
-  nutrition_image: "",
-  beer_image: "",
   description: "",
   alcohol_percentage: 0,
   ipa: "",
@@ -164,7 +162,7 @@ const initialState = {
   filler: "",
   strength: "",
   body: "",
-  size: 0,
+  size: "",
   flavour_profile: "",
   best_paired_with: "",
   origin: "",
@@ -172,7 +170,6 @@ const initialState = {
   altitude: 0,
   roast: "",
   flavour: "",
-  tasting_notes: "",
   ingredients: "",
   storage: "",
   grape_variety: "",
@@ -182,16 +179,19 @@ const initialState = {
   clories: "",
   cuisine: "",
   directions: "",
-  warning:"",
-  category:"",
-  price:"",
+  brand: "",
+  warning: "",
+  category: "",
+  price: 0,
 
   nutritional_image: "",
   food_image: "",
   coffee_image: "",
   cigar_image: "",
   wine_image: "",
-  product_image:"",
+  product_image: "",
+  nutrition_image: "",
+  beer_image: "",
 
   type: "",
   style: {
@@ -217,7 +217,7 @@ const initialState = {
   is_rating: false,
   is_question: false,
   questions: [],
-  only_question:[],
+  only_question: [],
 };
 const qrSlice = createSlice({
   name: "qrData",
