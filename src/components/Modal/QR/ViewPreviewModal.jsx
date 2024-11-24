@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { PreviewFrame, TopPreviewHeader } from "../../SVGIcon";
-import { QRPreviewBusiness, QRPreviewURL, QRPreviewVCard } from "../../QRDetailPages/QRPreviewAll";
+import {
+  QRPreviewBusiness,
+  QRPreviewURL,
+  QRPreviewVCard,
+} from "../../QRDetailPages/QRPreviewAll";
+import ToggleButton from "../../QRDetailPages/QRToggleButton";
 
 const ViewPreviewModal = ({
   showModalPreview,
   setShowModalPreview,
   type,
   localQrData,
+  showToggleBtn,
 }) => {
   console.log("check type", type);
+  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const handleToggle = (option) => {
+    setSelectedOption(option);
+  };
   return (
     <Modal
       show={showModalPreview}
@@ -19,6 +29,9 @@ const ViewPreviewModal = ({
       className="previewModal"
     >
       <Modal.Header closeButton />
+      {showToggleBtn === "qrDesign" && (
+        <ToggleButton selectedOption={selectedOption} onToggle={handleToggle} />
+      )}
       <Modal.Body>
         <div className="right">
           <div className="qr-preview__layout__image">

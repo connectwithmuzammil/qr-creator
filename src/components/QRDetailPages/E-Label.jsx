@@ -10,7 +10,6 @@ import {
   QRPreviewElabelsFood,
   QRPreviewElabelsProduct,
   QRPreviewElabelsWine,
-  QRPreviewURL,
 } from "./QRPreviewAll";
 import ToggleButton from "./QRToggleButton";
 import { useLocation } from "react-router-dom";

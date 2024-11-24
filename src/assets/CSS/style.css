@@ -1965,7 +1965,7 @@ footer .bottom p {
   align-items: center;
   gap: 20px;
 }
-.qr-editor-detail .url .containerr .right img {
+.layout-content.url img {
   width: 100%;
   object-fit: contain;
   height: 550px;
@@ -2206,7 +2206,7 @@ footer .bottom p {
   /* justify-content: center; */
   position: sticky;
   top: 20px;
-  height: 400px;
+  /* height: 400px; */
   margin-top: 100px;
 }
 .qr-design .bottom {
@@ -2494,6 +2494,7 @@ footer .bottom p {
 .qr-design .three .dotStylePicker ul {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   gap: 12px;
@@ -4337,6 +4338,8 @@ p.social-con-content {
   display: flex;
   padding: 7px 8px;
   border-radius: 6.25rem;
+
+  margin-inline: auto;
 }
 .button-toggle.button--secondary {
   color: #fcfcfc;

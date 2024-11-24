@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BottomWrapperStages,
   ColorPickerComponent,
   Header,
+  ViewPreviewModal,
 } from "../../components";
 import Accordion from "react-bootstrap/Accordion";
 
@@ -48,17 +49,20 @@ import {
   QRDesignDetailIcon,
   TopPreviewHeader,
 } from "../../components/SVGIcon";
-import apis from "../../services";
 import { AccordianComponent } from "../../components/AccordianComponent";
-import { useSelector } from "react-redux";
 import ToggleButton from "../../components/QRDetailPages/QRToggleButton";
-import { QRPreviewVCard } from "../../components/QRDetailPages/QRPreviewAll";
+import {
+  QRPreviewBusiness,
+  QRPreviewURL,
+  QRPreviewVCard,
+} from "../../components/QRDetailPages/QRPreviewAll";
 
 const QRDesign = () => {
-  const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [selectedOption, setSelectedOption] = useState("QR Code");
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
+  const [showModalPreview, setShowModalPreview] = useState(false);
 
   const { type } = useParams();
   // const qrDataVar = useSelector((state) => state.qrData);
@@ -67,7 +71,7 @@ const QRDesign = () => {
   const { qrData } = location.state || {};
   // const [qrLogoFile, setQrLogoFile] = useState(qrData?.qrDesignLogo || null);
   const [QRLogo, setQRLogo] = useState(qrData?.qrDesignLogo || null);
-  console.log("QRLogotetstt", QRLogo);
+  // console.log("QRLogotetstt", QRLogo);
 
   console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
@@ -404,6 +408,12 @@ const QRDesign = () => {
       <div className="qr-design">
         <div className="top">
           <h1>3. Design your QR code</h1>
+          <button
+            className="viewPreviewbtn"
+            onClick={() => setShowModalPreview(true)}
+          >
+            View Preview
+          </button>
         </div>
         <div className="containerr">
           <div className="left">
@@ -804,16 +814,39 @@ const QRDesign = () => {
               selectedOption={selectedOption}
               onToggle={handleToggle}
             />
-            <div className="qr-preview design">
-              <div className="img-con">
-                <img
-                  src="/assets/images/phone-frame.jpeg"
-                  alt=""
-                  className="mobile-frame"
-                />
-                {renderFrame()}
+            {selectedOption === "QR Code" && (
+              <div className="qr-preview design">
+                <div className="img-con">
+                  <img
+                    src="/assets/images/phone-frame.jpeg"
+                    alt=""
+                    className="mobile-frame"
+                  />
+                  {renderFrame()}
+                </div>
               </div>
-            </div>
+            )}
+            {selectedOption === "Preview Page" ? (
+              <div className="qr-preview__layout__image">
+                <div className="Preview-layout Preview-layout--vcard">
+                  <TopPreviewHeader
+                    className="topHeaderSvg"
+                    urlLink={qrData?.field_url}
+                  />
+                  {type === "url" ? (
+                    <QRPreviewURL localQrData={qrData} />
+                  ) : type === "vcard" ? (
+                    <QRPreviewVCard localQrData={qrData} />
+                  ) : type === "business_page" ? (
+                    <QRPreviewBusiness localQrData={qrData} />
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+                <PreviewFrame className="preview-frame" />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -823,6 +856,14 @@ const QRDesign = () => {
         onCancelClick={handleCancelClick}
         showNextButton={true}
         generateQrPayload={qrData}
+      />
+
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={qrData}
+        type={qrData?.type}
+        showToggleBtn={"qrDesign"}
       />
     </>
   );

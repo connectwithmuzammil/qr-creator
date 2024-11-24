@@ -30,6 +30,7 @@
   }
   .qr-design {
     padding-top: 95px;
+    margin-bottom: 160px;
   }
 
   .qr-editor-detail .containerr {
@@ -51,6 +52,15 @@
   }
   .qr-creator-main .page1 .containerr .left .card-con {
     flex-direction: column;
+  }
+  .qr-design {
+    padding-inline: 25px;
+  }
+  .qr-design .containerr .right {
+    display: none;
+  }
+  .qr-design .top h1 {
+    margin: 30px 0px 20px 0px;
   }
 }
 
@@ -493,10 +503,18 @@
     margin-right: 1.5rem;
     flex-direction: column;
   }
-  .wrap-inp-cmp{
+  .wrap-inp-cmp {
     flex-direction: column;
     padding-bottom: 0px;
     gap: 0px;
+  }
+
+  .qr-design .two .qr-frames-con .img-con {
+    flex-basis: calc(100% / 3 - 12px); 
+  }
+  .color-picker-con{
+    flex-direction: column;
+    gap: 6px;
   }
 }
 @media screen and (max-width: 500px) {
@@ -544,6 +562,9 @@
   .layout-content {
     padding-left: 0px;
   }
+  .qr-design .two .bottom{
+    padding: 6px;
+  }
 }
 @media screen and (max-width: 400px) {
   .qr-main-page .bottom .all-qrCode-con .result-cardd {
@@ -575,5 +596,8 @@
   }
   .stages-con .select-qr .wrap p {
     font-size: 12px;
+  }
+    .qr-design .two .qr-frames-con .img-con {
+    flex-basis: calc(100% / 1 - 12px); 
   }
 }
