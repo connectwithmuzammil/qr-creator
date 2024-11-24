@@ -4917,12 +4917,25 @@ input[type="checkbox"] {
 .beer-container {
   /* background: linear-gradient(135deg, #f4f4f4, #ffffff); */
   background: #fef7f3;
-
   border: 1px solid #ddd;
   border-radius: 12px;
   max-width: 600px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  margin-inline: auto;
+}
+.beer-container.ScanPageClass {
+  position: relative;
+  padding: 0px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
+  left: 0px !important; 
+}
+.beer-container.ScanPageClass .beer-header {
+  background-color: transparent;
+  padding-bottom: 20px;
 }
 
 .beer-container:hover {
@@ -4949,6 +4962,9 @@ input[type="checkbox"] {
   color: #333;
   text-align: left;
   padding: 10px 0px;
+}
+.beer-container.ScanPageClass .beer-content {
+  padding: 20px;
 }
 
 .beer-container .beer-product-name {
@@ -5031,6 +5047,10 @@ input[type="checkbox"] {
   border-top: 1px solid #ddd;
 }
 
+.beer-container.ScanPageClass .beer-footer {
+  padding: 10px ;
+  background-color: transparent;
+}
 .beer-container .nutrition-image img {
   width: 100%;
   height: auto;
@@ -5067,7 +5087,6 @@ input[type="checkbox"] {
     font-size: 12px;
   }
 }
-
 
 /* REVIEW LIST UI CSS */
 /* Container for the review list */
@@ -5123,9 +5142,9 @@ input[type="checkbox"] {
 }
 
 /* Show More button */
-.review-list-container .button-container{
-display: flex;
-justify-content: end;
+.review-list-container .button-container {
+  display: flex;
+  justify-content: end;
 }
 .review-list-container .show-more-btn {
   background-color: #e0201c;

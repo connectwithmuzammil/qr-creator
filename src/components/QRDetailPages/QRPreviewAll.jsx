@@ -1292,7 +1292,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
         localQrData?.video_path.trim() !== ""
       ? localQrData.video_path
       : null;
-  console.log("videoURL",  localQrData?.video);
+  console.log("videoURL", localQrData?.video);
 
   return (
     <div
@@ -2067,12 +2067,12 @@ export const QRPreviewEvent = ({ localQrData }) => {
   );
 };
 
-export const QRPreviewElabelsWine = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
+export const QRPreviewElabelsWine = ({ localQrData, className }) => {
+  // console.log("localQrData", localQrData);
   return (
     <>
       <div
-        className="beer-container layout-content showBrowser"
+        className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
@@ -2124,10 +2124,10 @@ export const QRPreviewElabelsWine = ({ localQrData }) => {
   );
 };
 
-export const QRPreviewElabelsBeer = ({ localQrData }) => {
+export const QRPreviewElabelsBeer = ({ localQrData, className }) => {
   return (
     <div
-      className="beer-container layout-content showBrowser"
+      className={`beer-container layout-content showBrowser ${className}`}
       style={{ left: "4px", overflowX: "hidden" }}
     >
       <div className="beer-header">
@@ -2204,12 +2204,12 @@ export const QRPreviewElabelsBeer = ({ localQrData }) => {
   );
 };
 
-export const QRPreviewElabelsCigar = ({ localQrData }) => {
+export const QRPreviewElabelsCigar = ({ localQrData, className }) => {
   console.log("localQrData", localQrData);
   return (
     <>
       <div
-        className="beer-container layout-content showBrowser" // Reusing the beer-container styles
+        className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
@@ -2290,12 +2290,12 @@ export const QRPreviewElabelsCigar = ({ localQrData }) => {
     </>
   );
 };
-export const QRPreviewElabelsCoffee = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
+export const QRPreviewElabelsCoffee = ({ localQrData, className }) => {
+  // console.log("localQrData", localQrData);
   return (
     <>
       <div
-        className="beer-container layout-content showBrowser"
+        className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
@@ -2417,12 +2417,12 @@ export const QRPreviewElabelsCoffee = ({ localQrData }) => {
   );
 };
 
-export const QRPreviewElabelsFood = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
+export const QRPreviewElabelsFood = ({ localQrData, className }) => {
+  // console.log("localQrData", localQrData);
   return (
     <>
       <div
-        className="beer-container layout-content showBrowser"
+        className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
@@ -2479,12 +2479,12 @@ export const QRPreviewElabelsFood = ({ localQrData }) => {
     </>
   );
 };
-export const QRPreviewElabelsProduct = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
+export const QRPreviewElabelsProduct = ({ localQrData, className }) => {
+  // console.log("localQrData", localQrData);
   return (
     <>
       <div
-        className="beer-container layout-content showBrowser"
+        className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">

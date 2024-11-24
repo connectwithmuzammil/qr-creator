@@ -15,6 +15,14 @@ import {
   QRVIDEO,
   QRYOUTUBE,
 } from "./QRScanRedirectUI/AllQRType";
+import {
+  QRPreviewElabelsBeer,
+  QRPreviewElabelsCigar,
+  QRPreviewElabelsCoffee,
+  QRPreviewElabelsFood,
+  QRPreviewElabelsProduct,
+  QRPreviewElabelsWine,
+} from "./QRDetailPages/QRPreviewAll";
 
 const ScanAndRedirectQr = () => {
   const { qrCodeId } = useParams();
@@ -77,11 +85,69 @@ const ScanAndRedirectQr = () => {
   }, [qrCodeId]);
 
   console.log("outcomeContent", outcomeContent);
+
   useEffect(() => {
     console.log("qrType", qrType);
   }, [qrType]);
 
   const renderContentByType = () => {
+    // First, check if qrType is "elabels"
+    if (qrType === "elabels") {
+      const products = ["wine", "beer", "cigars", "coffee", "food", "product"];
+
+      const matchedProduct = products.find(
+        (product) => outcomeContent[product] === "true"
+      );
+      console.log("matchedProduct", matchedProduct);
+
+      switch (matchedProduct) {
+        case "wine":
+          return (
+            <QRPreviewElabelsWine
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        case "beer":
+          return (
+            <QRPreviewElabelsBeer
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        case "cigars":
+          return (
+            <QRPreviewElabelsCigar
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        case "coffee":
+          return (
+            <QRPreviewElabelsCoffee
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        case "food":
+          return (
+            <QRPreviewElabelsFood
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        case "product":
+          return (
+            <QRPreviewElabelsProduct
+              localQrData={outcomeContent}
+              className={"ScanPageClass"}
+            />
+          );
+        default:
+          return <div>No product selected</div>;
+      }
+    }
+
     switch (qrType) {
       case "youtube":
         return <QRYOUTUBE qrContent={outcomeContent} />;
@@ -121,7 +187,7 @@ const ScanAndRedirectQr = () => {
       ) : error ? (
         <div>{error}</div>
       ) : outcomeContent ? (
-        <div className="">{renderContentByType()}</div>
+        <>{renderContentByType()}</>
       ) : (
         <div>Redirecting...</div>
       )}

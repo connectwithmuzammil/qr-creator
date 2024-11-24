@@ -28,7 +28,6 @@ import {
 import {
   ContactUs,
   PrivateRoute,
-  ReviewFormBuilder,
   ScanAndRedirectQr,
   ScrollToTop,
 } from "./components";
@@ -96,47 +95,3 @@ function App() {
 }
 
 export default App;
-
-// import React, { useState } from 'react';
-// import { QrReader } from 'react-qr-reader';
-
-// const App = () => {
-//   const [result, setResult] = useState('No result');
-
-//   console.log("result",result)
-//   const handleScan = data => {
-//     if (data) {
-//       setResult(data);
-//     }
-//   };
-
-//   const handleError = err => {
-//     console.error(err);
-//   };
-
-//   return (
-//     <div>
-//       <QrReader
-//         delay={300}
-//         onError={handleError}
-//         onScan={handleScan}
-//         style={{ width: '100%' }}
-//       />
-//       <p>{result}</p>
-//     </div>
-//   );
-// };
-
-// export default App;
-
-// import React from 'react'
-
-// const App = () => {
-//   return (
-//     <div style={{ height: "100vh", paddingInline: "40px", display: "flex", alignItems: "center" }}>
-//       <h2 style={{fontFamily:"poppins",color:"red",textAlign:"center"}}>Development on this project has been paused because the developer has not been compensated. Please make the pending payment to resume work and regain access to the full functionality of the website.</h2>
-//     </div>
-//   )
-// }
-
-// export default App

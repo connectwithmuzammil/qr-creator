@@ -590,7 +590,10 @@
   .qr-design .two .bottom{
     padding: 6px;
   }
-
+  .beer-container.ScanPageClass{
+    width: 95%;
+    margin-top: 40px;
+  }
 }
 @media screen and (max-width: 400px) {
   .qr-main-page .bottom .all-qrCode-con .result-cardd {
