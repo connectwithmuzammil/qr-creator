@@ -47,6 +47,7 @@ import { BarChartAnalytics } from "./BarChartAnalytics";
 import ReviewFormBuilder from "./ReactFormBuilder";
 import BackButton from "./BackButton";
 import ViewPreviewModal from "./Modal/QR/ViewPreviewModal";
+import { RenderFrame } from "./RenderFrameQR";
 
 export {
   ReviewFormBuilder,
@@ -93,5 +94,6 @@ export {
   OpenQrScanModal,
   ELabels,
   BackButton,
-  ViewPreviewModal
+  ViewPreviewModal,
+  RenderFrame
 };

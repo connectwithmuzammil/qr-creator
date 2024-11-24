@@ -6,11 +6,14 @@ import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
-import {  PreviewFrame, TopPreviewHeader } from "../SVGIcon";
+import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLanding, QRPreviewPdf } from "./QRPreviewAll";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const PDF = ({ localQrData, setLocalQrData }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [showModalPreview, setShowModalPreview] = useState(false);
+
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
@@ -84,119 +87,137 @@ const PDF = ({ localQrData, setLocalQrData }) => {
 
   console.log("updatedQRData", localQrData);
   return (
-    <div className="pdf-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Upload your PDF file"}>
-            <div className="pdf-uploader-container">
-              {!file ? (
-                <>
-                  <label htmlFor="pdfUpload" className="upload-button">
-                    Upload your PDF file
-                  </label>
-                  <input
-                    id="pdfUpload"
-                    type="file"
-                    accept=".pdf"
-                    onChange={handleFileChange}
-                    style={{ display: "none" }}
-                  />
-                  <p className="file-size-text">Max-size: 20MB</p>
-                </>
-              ) : (
-                <div className="file-info">
-                  {typeof file === "string" ? (
-                    <>
-                      <p>{file}</p>
-                      <a href={file} target="_blank" rel="noopener noreferrer">
-                        View PDF
-                      </a>
-                      {/* <iframe
+    <>
+      <div className="pdf-page">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Upload your PDF file"}>
+              <div className="pdf-uploader-container">
+                {!file ? (
+                  <>
+                    <label htmlFor="pdfUpload" className="upload-button">
+                      Upload your PDF file
+                    </label>
+                    <input
+                      id="pdfUpload"
+                      type="file"
+                      accept=".pdf"
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                    />
+                    <p className="file-size-text">Max-size: 20MB</p>
+                  </>
+                ) : (
+                  <div className="file-info">
+                    {typeof file === "string" ? (
+                      <>
+                        <p>{file}</p>
+                        <a
+                          href={file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View PDF
+                        </a>
+                        {/* <iframe
                         src={file}
                         width="100%"
                         height="500px"
                         title="PDF Preview"
                       ></iframe> */}
-                    </>
-                  ) : (
-                    <>
-                      {file.name ? (
-                        <>
-                          <p>{file.name}</p>
-                          <p>{formatFileSize(file.size)}</p>
-                        </>
-                      ) : (
-                        <p>No file name available</p>
-                      )}
-                    </>
-                  )}
-                  <FaTrash className="delete-icon" onClick={handleDelete} />
-                </div>
-              )}
-            </div>
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Enter the PDF details"}>
-            <InputComponent
-              label={"Company"}
-              placeholder={"e.g. Pizza Palace"}
-              name={"pdf_company"}
-              value={localQrData.pdf_company}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"PDF name/title"}
-              placeholder={"e.g. Pizza   Menu"}
-              name={"pdf_title"}
-              value={localQrData.pdf_title}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"Description"}
-              placeholder={"e.g. Over 50 topping to choose from!="}
-              name={"pdf_description"}
-              value={localQrData?.pdf_description}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"Website"}
-              placeholder={"e.g. https://www.pizzapalace.com"}
-              name={"pdf_website"}
-              value={localQrData?.pdf_website}
-              onChange={handleInputChange}
-            />
-          </AccordianComponent>
-        </div>
-        <div className="right">
-        <ToggleButton
-            selectedOption={selectedOption}
-            onToggle={handleToggle}
-          />
-          <div className="qr-preview__layout__image">
-            <div className="Preview-layout Preview-layout--vcard">
-              <TopPreviewHeader className="topHeaderSvg"  />
-            <QRPreviewPdf localQrData={localQrData}/>
-            </div>
-            <PreviewFrame className="preview-frame" />
+                      </>
+                    ) : (
+                      <>
+                        {file.name ? (
+                          <>
+                            <p>{file.name}</p>
+                            <p>{formatFileSize(file.size)}</p>
+                          </>
+                        ) : (
+                          <p>No file name available</p>
+                        )}
+                      </>
+                    )}
+                    <FaTrash className="delete-icon" onClick={handleDelete} />
+                  </div>
+                )}
+              </div>
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Enter the PDF details"}>
+              <InputComponent
+                label={"Company"}
+                placeholder={"e.g. Pizza Palace"}
+                name={"pdf_company"}
+                value={localQrData.pdf_company}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"PDF name/title"}
+                placeholder={"e.g. Pizza   Menu"}
+                name={"pdf_title"}
+                value={localQrData.pdf_title}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"Description"}
+                placeholder={"e.g. Over 50 topping to choose from!="}
+                name={"pdf_description"}
+                value={localQrData?.pdf_description}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"Website"}
+                placeholder={"e.g. https://www.pizzapalace.com"}
+                name={"pdf_website"}
+                value={localQrData?.pdf_website}
+                onChange={handleInputChange}
+              />
+            </AccordianComponent>
           </div>
-          {/* <img src="/assets/images/phone-pdf.png" alt="" /> */}
+          <div className="right">
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader className="topHeaderSvg" />
+                <QRPreviewPdf localQrData={localQrData} />
+              </div>
+              <PreviewFrame className="preview-frame" />
+            </div>
+            {/* <img src="/assets/images/phone-pdf.png" alt="" /> */}
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"pdf"}
+      />
+    </>
   );
 };
 

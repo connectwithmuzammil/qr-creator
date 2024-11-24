@@ -30,6 +30,7 @@ import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewVideo } from "./QRPreviewAll";
 import { useDispatch } from "react-redux";
 import { clearField } from "../../redux/slice/qrSlice";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -59,6 +60,7 @@ const icons = {
 };
 const Video = ({ localQrData, setLocalQrData }) => {
   const dispatch = useDispatch();
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -120,26 +122,33 @@ const Video = ({ localQrData, setLocalQrData }) => {
   console.log("oneditcheckLocal", localQrData?.video_path);
 
   return (
-    <div className="video-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData?.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Video"}>
-            {/* <div
+    <>
+      <div className="video-page">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData?.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Video"}>
+              {/* <div
               className="wrap-inp-cmp"
               style={{ alignItems: "center", display: "none" }}
             >
@@ -152,187 +161,194 @@ const Video = ({ localQrData, setLocalQrData }) => {
               />
               <Button title={"Add Video"} width={"200px"} />
             </div> */}
-            <p className="social-con-content">
-              If you prefer, you can upload your video (up to 10 videos)
-            </p>
-            <div className="wrapper-img-upload-dashed">
-              {localQrData?.video_path ? (
-                localQrData?.video_path instanceof File ? (
-                  <div className="video-url-display">
-                    <div
-                      style={{
-                        margin: "0",
-                        padding: "10px",
-                        position: "relative",
-                      }}
-                    >
-                      <video
-                        src={URL.createObjectURL(localQrData?.video_path)}
-                        controls
+              <p className="social-con-content">
+                If you prefer, you can upload your video
+              </p>
+              <div className="wrapper-img-upload-dashed">
+                {localQrData?.video_path ? (
+                  localQrData?.video_path instanceof File ? (
+                    <div className="video-url-display">
+                      <div
                         style={{
-                          width: "100%",
-                          maxWidth: "500px",
-                          border: "2px solid #007BFF",
-                          borderRadius: "8px",
-                          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                        }}
-                      />
-                      <button
-                        onClick={() => handleVideoRemove()}
-                        style={{
-                          position: "absolute",
-                          top: "10px",
-                          right: "10px",
-                          backgroundColor: "#FF4D4F",
-                          color: "#fff",
-                          border: "none",
-                          borderRadius: "4px",
-                          padding: "5px 10px",
-                          cursor: "pointer",
+                          margin: "0",
+                          padding: "10px",
+                          position: "relative",
                         }}
                       >
-                        Delete
-                      </button>
+                        <video
+                          src={URL.createObjectURL(localQrData?.video_path)}
+                          controls
+                          style={{
+                            width: "100%",
+                            maxWidth: "500px",
+                            border: "2px solid #007BFF",
+                            borderRadius: "8px",
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                          }}
+                        />
+                        <button
+                          onClick={() => handleVideoRemove()}
+                          style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            backgroundColor: "#FF4D4F",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "5px 10px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div
-                    className="video-url-display"
-                    style={{ position: "relative" }}
-                  >
-                    <p
-                      style={{
-                        margin: "0",
-                        color: "#007BFF",
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        padding: "10px",
-                      }}
+                  ) : (
+                    <div
+                      className="video-url-display"
+                      style={{ position: "relative" }}
                     >
-                      Video URL: &nbsp;
-                      <a
-                        href={localQrData?.video_path}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <p
                         style={{
-                          textDecoration: "none",
+                          margin: "0",
                           color: "#007BFF",
-                          fontWeight: "bold",
-                          wordBreak: "break-all",
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          padding: "10px",
                         }}
                       >
-                        {localQrData?.video_path}
-                      </a>
-                      <button
-                        onClick={() => handleVideoRemove()}
-                        style={{
-                          marginLeft: "10px",
-                          backgroundColor: "#FF4D4F",
-                          color: "#fff",
-                          border: "none",
-                          borderRadius: "4px",
-                          padding: "5px 10px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </p>
-                  </div>
-                )
-              ) : (
-                <VideoUpload
-                  onVideoUpload={handleVideoUpload}
-                  localQrData={localQrData}
-                  setLocalQrData={setLocalQrData}
-                />
-              )}
-            </div>
-          </AccordianComponent>
-          <AccordianComponent title={"Video Information"}>
-            <InputComponent
-              label={"Company name"}
-              name={"video_name"}
-              placeholder={"e.g. Furniture Store"}
-              onChange={handleInputChange}
-              value={localQrData?.video_name}
-            />
-            <InputComponent
-              label={"Video title"}
-              name={"video_title"}
-              placeholder={"e.g. Assemble your flat-pack wardrobe"}
-              onChange={handleInputChange}
-              value={localQrData?.video_title}
-            />
-            <InputComponent
-              label={"Description"}
-              name={"video_description"}
-              placeholder={
-                "e.g. A video guide to putting together your new furniture store wardrobe"
-              }
-              onChange={handleInputChange}
-              value={localQrData?.video_description}
-            />
-            <InputComponent
-              // value={localQrData?.video_button}
+                        Video URL: &nbsp;
+                        <a
+                          href={localQrData?.video_path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            textDecoration: "none",
+                            color: "#007BFF",
+                            fontWeight: "bold",
+                            wordBreak: "break-all",
+                          }}
+                        >
+                          {localQrData?.video_path}
+                        </a>
+                        <button
+                          onClick={() => handleVideoRemove()}
+                          style={{
+                            marginLeft: "10px",
+                            backgroundColor: "#FF4D4F",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "5px 10px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </p>
+                    </div>
+                  )
+                ) : (
+                  <VideoUpload
+                    onVideoUpload={handleVideoUpload}
+                    localQrData={localQrData}
+                    setLocalQrData={setLocalQrData}
+                  />
+                )}
+              </div>
+            </AccordianComponent>
+            <AccordianComponent title={"Video Information"}>
+              <InputComponent
+                label={"Company name"}
+                name={"video_name"}
+                placeholder={"e.g. Furniture Store"}
+                onChange={handleInputChange}
+                value={localQrData?.video_name}
+              />
+              <InputComponent
+                label={"Video title"}
+                name={"video_title"}
+                placeholder={"e.g. Assemble your flat-pack wardrobe"}
+                onChange={handleInputChange}
+                value={localQrData?.video_title}
+              />
+              <InputComponent
+                label={"Description"}
+                name={"video_description"}
+                placeholder={
+                  "e.g. A video guide to putting together your new furniture store wardrobe"
+                }
+                onChange={handleInputChange}
+                value={localQrData?.video_description}
+              />
+              <InputComponent
+                // value={localQrData?.video_button}
 
-              label={"Button text"}
-              name={"video_button"}
-              placeholder={"e.g. Watch now"}
-              onChange={handleInputChange}
-              value={localQrData?.video_button}
-            />
-            {console.log(
-              "localQrData?.video_button",
-              localQrData?.video_button
-            )}
-            <InputComponent
-              label={"URL"}
-              name={"video_url"}
-              placeholder={"e.g. https://www.myvideo..."}
-              onChange={handleInputChange}
-              value={localQrData?.video_url}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Social networks"}>
-            <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              initialLinks={localQrData?.video_social}
-              isEditing={!!location.state?.qrData}
-            />
-          </AccordianComponent>
-        </div>
-        <div className="right">
-          {
-            // localQrData?.video_name ||
-            // localQrData?.video_title ||
-            // localQrData?.video_description ||
-            // localQrData?.video_button ||
-            // localQrData?.video_url ||
-            // localQrData?.video_path
-            true ? (
-              <>
-                <ToggleButton
-                  selectedOption={selectedOption}
-                  onToggle={handleToggle}
-                />
-                <div className="qr-preview__layout__image">
-                  <div className="Preview-layout Preview-layout--vcard">
-                    <TopPreviewHeader className="topHeaderSvg" />
-                    <QRPreviewVideo localQrData={localQrData} />
+                label={"Button text"}
+                name={"video_button"}
+                placeholder={"e.g. Watch now"}
+                onChange={handleInputChange}
+                value={localQrData?.video_button}
+              />
+              {console.log(
+                "localQrData?.video_button",
+                localQrData?.video_button
+              )}
+              <InputComponent
+                label={"URL"}
+                name={"video_url"}
+                placeholder={"e.g. https://www.myvideo..."}
+                onChange={handleInputChange}
+                value={localQrData?.video_url}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Social networks"}>
+              <p className="social-con-content">Add Link to...</p>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                initialLinks={localQrData?.video_social}
+                isEditing={!!location.state?.qrData}
+              />
+            </AccordianComponent>
+          </div>
+          <div className="right">
+            {
+              // localQrData?.video_name ||
+              // localQrData?.video_title ||
+              // localQrData?.video_description ||
+              // localQrData?.video_button ||
+              // localQrData?.video_url ||
+              // localQrData?.video_path
+              true ? (
+                <>
+                  <ToggleButton
+                    selectedOption={selectedOption}
+                    onToggle={handleToggle}
+                  />
+                  <div className="qr-preview__layout__image">
+                    <div className="Preview-layout Preview-layout--vcard">
+                      <TopPreviewHeader className="topHeaderSvg" />
+                      <QRPreviewVideo localQrData={localQrData} />
+                    </div>
+                    <PreviewFrame className="preview-frame" />
                   </div>
-                  <PreviewFrame className="preview-frame" />
-                </div>
-              </>
-            ) : (
-              <img src="/assets/images/phone-video.png" alt="phone-video" />
-            )
-          }
+                </>
+              ) : (
+                <img src="/assets/images/phone-video.png" alt="phone-video" />
+              )
+            }
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"video"}
+      />
+    </>
   );
 };
 

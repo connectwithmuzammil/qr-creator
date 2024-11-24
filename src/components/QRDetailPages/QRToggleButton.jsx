@@ -1,14 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const ToggleButton = ({ selectedOption, onToggle }) => {
+const ToggleButton = ({ selectedOption, onToggle, showToggleBtn }) => {
   return (
     <div className="qr-preview__header__buttons-toggle">
       <button
         aria-label="Preview Page"
         data-testid="button"
         data-qa="qr-editor-preview-button"
-        className={`button button-toggle button--secondary button--square ${selectedOption === 'Preview Page' ? 'button--active' : 'button--inactive'}`}
+        className={`button button-toggle button--secondary button--square ${
+          selectedOption === "Preview Page"
+            ? "button--active"
+            : "button--inactive"
+        }`}
         type="button"
         onClick={() => onToggle("Preview Page")}
       >
@@ -16,19 +20,23 @@ const ToggleButton = ({ selectedOption, onToggle }) => {
           Preview Page
         </span>
       </button>
-      <button
-        aria-label="QR Code"
-        data-testid="button"
-        data-qa="qr-editor-qr-preview-button"
-        className={`button button-toggle button--secondary button--square ${selectedOption === 'QR Code' ? 'button--active' : 'button--inactive'}`}
-        type="button"
-        onClick={() => onToggle("QR Code")}
-        // style={{display:"none"}}
-      >
-        <span data-testid="button-label" className="button__text">
-          QR Code
-        </span>
-      </button>
+      {showToggleBtn === "qrDesign" && (
+        <button
+          aria-label="QR Code"
+          data-testid="button"
+          data-qa="qr-editor-qr-preview-button"
+          className={`button button-toggle button--secondary button--square ${
+            selectedOption === "QR Code" ? "button--active" : "button--inactive"
+          }`}
+          type="button"
+          onClick={() => onToggle("QR Code")}
+          // style={{display:"none"}}
+        >
+          <span data-testid="button-label" className="button__text">
+            QR Code
+          </span>
+        </button>
+      )}
     </div>
   );
 };

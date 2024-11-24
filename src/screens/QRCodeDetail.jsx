@@ -14,13 +14,67 @@ import {
   CanvaFrame9,
   NotSelectedFrameCanvas,
 } from "../components/SVGIcon";
-import { LineChartComp, BarChartAnalytics, BackButton, Header } from "../components";
+import {
+  LineChartComp,
+  BarChartAnalytics,
+  BackButton,
+  Header,
+} from "../components";
 import QRCodeStyling from "qr-code-styling";
 import { FaQrcode } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import apis from "../services";
 import Skeleton from "react-loading-skeleton";
+import { AccordianComponent } from "../components/AccordianComponent";
 
+const reviews = [
+  {
+    question: "What do you like about our product?",
+    answers: [
+      "It's very user-friendly.",
+      "Great design!",
+      "Affordable pricing.",
+      "Excellent customer support.",
+      "High quality.",
+      "Fast delivery.",
+      "Reliable performance.",
+    ],
+  },
+  {
+    question: "What can we improve?",
+    answers: [
+      "Add more features.",
+      "Improve packaging.",
+      "Better mobile experience.",
+    ],
+  },
+];
+
+const ReviewItem = ({ question, answers }) => {
+  const [showMore, setShowMore] = useState(false);
+
+  return (
+    <AccordianComponent title={question}>
+      <ul className="review-answers">
+        {answers.slice(0, showMore ? answers.length : 5).map((answer, i) => (
+          <li key={i} className="review-answer">
+            {answer}
+          </li>
+        ))}
+      </ul>
+      {answers.length > 5 && (
+        <div className="button-container">
+          <button
+            className="show-more-btn"
+            onClick={() => setShowMore((prev) => !prev)}
+          >
+            {showMore ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
+    </AccordianComponent>
+  );
+};
 const QRCodeDetail = () => {
   const [dataOS, setDataOS] = useState([]);
   const [dataCountry, setDataCountry] = useState([]);
@@ -31,7 +85,8 @@ const QRCodeDetail = () => {
   const location = useLocation();
   const QRres = location.state || {};
   const qrCode = useRef(null);
-  // console.log("QRres", QRres);
+
+  console.log("QRres", QRres);
 
   const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
   // console.log("selectedFrame", selectedFrame);
@@ -90,7 +145,7 @@ const QRCodeDetail = () => {
   const [isUserQRStatsLoading, setIsUserQRStatsLoading] = useState(true);
   useEffect(() => {
     const UserQRStat = async () => {
-      console.log("testtt")
+      console.log("testtt");
       setIsUserQRStatsLoading(true);
       try {
         const fetchedUserQrStats = await apis.getEachUserQRStat(
@@ -365,165 +420,186 @@ const QRCodeDetail = () => {
 
   return (
     <>
-    <Header />
-    <div className="qrDetailsPage">
-      <BackButton onPageCSS={"30px"} redirectTo={"/my-qr-codes"} />
-      <div className="qr-preview">
-        <div
-          className="img-con"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {renderFrame()}
-          {/* <img
+      <Header />
+      <div className="qrDetailsPage">
+        <BackButton onPageCSS={"30px"} redirectTo={"/my-qr-codes"} />
+        <div className="qr-preview">
+          <div
+            className="img-con"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {renderFrame()}
+            {/* <img
             src="/assets/images/qrDelete.png"
             alt="qrdelete"
             style={{ width: "250px", height: "250px" }}
           /> */}
-          <div className="frame-overlay" style={{ position: "static" }}></div>
+            <div className="frame-overlay" style={{ position: "static" }}></div>
+          </div>
         </div>
-      </div>
-      <div className="userAnalyticscon">
-        <div className="cardd">
-          <FaQrcode />
-          <h3>Total Views</h3>
-          {isUserQRStatsLoading ? (
-            <Skeleton width={100} height={20} />
-          ) : (
-            <p>
-              {userQrStats?.data?.total_qr ? userQrStats?.data?.total_qr : "0"}
-            </p>
-          )}
-        </div>
-
-        <div className="cardd">
-          <AiOutlineEye />
-          <h3>Total Scan</h3>
-          {isUserQRStatsLoading ? (
-            <Skeleton width={100} height={20} />
-          ) : (
-            <p>
-              {userQrStats?.data?.total_scan
-                ? userQrStats?.data?.total_scan
-                : "0"}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div className="toggle-con">
-        <div className="tab-buttons">
-          <button
-            className={`tab-button ${
-              activeTab === "analytics" ? "active" : ""
-            }`}
-            onClick={() => handleTabChange("analytics")}
-          >
-            View Analytics
-          </button>
-          <button
-            className={`tab-button ${activeTab === "review" ? "active" : ""}`}
-            onClick={() => handleTabChange("review")}
-          >
-            Reviews
-          </button>
-        </div>
-      </div>
-
-      {activeTab === "analytics" && (
-        <>
-          <div
-            ref={analyticsRef}
-            className="graph-con"
-            style={{ width: "100%", height: "400px" }}
-          >
-            <div className="main-filter-con">
-              <p>Scans Activity </p>
-            </div>
-
-            {false ? (
-              <h4>Loading...</h4>
+        <div className="userAnalyticscon">
+          <div className="cardd">
+            <FaQrcode />
+            <h3>Total Views</h3>
+            {isUserQRStatsLoading ? (
+              <Skeleton width={100} height={20} />
             ) : (
-              <>
-                {formattedData && formattedData.length > 0 ? (
-                  <LineChartComp data={formattedData} />
+              <p>
+                {userQrStats?.data?.total_qr
+                  ? userQrStats?.data?.total_qr
+                  : "0"}
+              </p>
+            )}
+          </div>
+
+          <div className="cardd">
+            <AiOutlineEye />
+            <h3>Total Scan</h3>
+            {isUserQRStatsLoading ? (
+              <Skeleton width={100} height={20} />
+            ) : (
+              <p>
+                {userQrStats?.data?.total_scan
+                  ? userQrStats?.data?.total_scan
+                  : "0"}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {QRres?.singleViewDetail?.type === "elabels" && (
+          <div className="toggle-con">
+            <div className="tab-buttons">
+              <button
+                className={`tab-button ${
+                  activeTab === "analytics" ? "active" : ""
+                }`}
+                onClick={() => handleTabChange("analytics")}
+              >
+                View Analytics
+              </button>
+              <button
+                className={`tab-button ${
+                  activeTab === "review" ? "active" : ""
+                }`}
+                onClick={() => handleTabChange("review")}
+              >
+                Reviews
+              </button>
+            </div>
+          </div>
+        )}
+        {activeTab === "analytics" && (
+          <>
+            <div
+              ref={analyticsRef}
+              className="graph-con"
+              style={{ width: "100%", height: "400px" }}
+            >
+              <div className="main-filter-con">
+                <p>Scans Activity </p>
+              </div>
+
+              {false ? (
+                <h4>Loading...</h4>
+              ) : (
+                <>
+                  {formattedData && formattedData.length > 0 ? (
+                    <LineChartComp data={formattedData} />
+                  ) : (
+                    <h4 className="stats-txt">
+                      Need more data to show statistics
+                    </h4>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="all-card-con">
+              <div className="cardd">
+                <p>Scans per operating system</p>
+                {QRres?.statsDataSystem?.data?.os?.length < 0 ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataOS && dataOS.length > 0 ? (
+                  <BarChartAnalytics data={dataOS} />
                 ) : (
                   <h4 className="stats-txt">
                     Need more data to show statistics
                   </h4>
                 )}
-              </>
-            )}
+              </div>
+
+              <div className="cardd">
+                <p>Scans per country</p>
+                {QRres?.statsDataSystem?.data?.countries?.length < 0 ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataCountry && dataCountry.length > 0 ? (
+                  <BarChartAnalytics data={dataCountry} />
+                ) : (
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
+                )}
+              </div>
+
+              <div className="cardd">
+                <p>Scans per city/region</p>
+                {QRres?.statsDataSystem?.data?.cities?.length < 0 ? (
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "250px",
+                    }}
+                  >
+                    Loading...
+                  </p>
+                ) : dataCity && dataCity.length > 0 ? (
+                  <BarChartAnalytics data={dataCity} />
+                ) : (
+                  <h4 className="stats-txt">
+                    Need more data to show statistics
+                  </h4>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {activeTab === "review" && (
+          <div ref={reviewRef} className="review-list-container">
+            {reviews.map((review, index) => (
+              <ReviewItem
+                key={index}
+                question={review.question}
+                answers={review.answers}
+              />
+            ))}
           </div>
-          <div className="all-card-con">
-            <div className="cardd">
-              <p>Scans per operating system</p>
-              {QRres?.statsDataSystem?.data?.os?.length < 0 ? (
-                <p
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "250px",
-                  }}
-                >
-                  Loading...
-                </p>
-              ) : dataOS && dataOS.length > 0 ? (
-                <BarChartAnalytics data={dataOS} />
-              ) : (
-                <h4 className="stats-txt">Need more data to show statistics</h4>
-              )}
-            </div>
-
-            <div className="cardd">
-              <p>Scans per country</p>
-              {QRres?.statsDataSystem?.data?.countries?.length < 0 ? (
-                <p
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "250px",
-                  }}
-                >
-                  Loading...
-                </p>
-              ) : dataCountry && dataCountry.length > 0 ? (
-                <BarChartAnalytics data={dataCountry} />
-              ) : (
-                <h4 className="stats-txt">Need more data to show statistics</h4>
-              )}
-            </div>
-
-            <div className="cardd">
-              <p>Scans per city/region</p>
-              {QRres?.statsDataSystem?.data?.cities?.length < 0 ? (
-                <p
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "250px",
-                  }}
-                >
-                  Loading...
-                </p>
-              ) : dataCity && dataCity.length > 0 ? (
-                <BarChartAnalytics data={dataCity} />
-              ) : (
-                <h4 className="stats-txt">Need more data to show statistics</h4>
-              )}
-            </div>
-          </div>
-        </>
-      )}
-
-      {activeTab === "review" && <div ref={reviewRef}>Review upcoming</div>}
-    </div>
+        )}
+      </div>
     </>
   );
 };

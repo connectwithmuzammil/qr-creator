@@ -25,6 +25,7 @@ export const RenderFrame = ({
   frameColor,
   frameBgColor,
   frameTextColor,
+  frameText,
 }) => {
   switch (selectedFrame) {
     case "notSelectedFrame":

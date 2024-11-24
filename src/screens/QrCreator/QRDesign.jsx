@@ -52,9 +52,14 @@ import {
 import { AccordianComponent } from "../../components/AccordianComponent";
 import ToggleButton from "../../components/QRDetailPages/QRToggleButton";
 import {
+  QRPreviewApps,
   QRPreviewBusiness,
+  QRPreviewLinks,
+  QRPreviewPdf,
+  QRPreviewSocial,
   QRPreviewURL,
   QRPreviewVCard,
+  QRPreviewVideo,
 } from "../../components/QRDetailPages/QRPreviewAll";
 
 const QRDesign = () => {
@@ -200,6 +205,17 @@ const QRDesign = () => {
   }
   const handleImageDelete = () => {
     setQRLogo(null);
+  };
+
+  const previewComponents = {
+    url: <QRPreviewURL localQrData={qrData} />,
+    vcard: <QRPreviewVCard localQrData={qrData} />,
+    social_media: <QRPreviewSocial localQrData={qrData} />,
+    business_page: <QRPreviewBusiness localQrData={qrData} />,
+    apps: <QRPreviewApps localQrData={qrData} />,
+    video: <QRPreviewVideo localQrData={qrData} />,
+    pdf: <QRPreviewPdf localQrData={qrData} />,
+    links: <QRPreviewLinks localQrData={qrData} />,
   };
 
   //Render Frame CANVAS
@@ -813,6 +829,7 @@ const QRDesign = () => {
             <ToggleButton
               selectedOption={selectedOption}
               onToggle={handleToggle}
+              showToggleBtn={"qrDesign"}
             />
             {selectedOption === "QR Code" && (
               <div className="qr-preview design">
@@ -833,15 +850,7 @@ const QRDesign = () => {
                     className="topHeaderSvg"
                     urlLink={qrData?.field_url}
                   />
-                  {type === "url" ? (
-                    <QRPreviewURL localQrData={qrData} />
-                  ) : type === "vcard" ? (
-                    <QRPreviewVCard localQrData={qrData} />
-                  ) : type === "business_page" ? (
-                    <QRPreviewBusiness localQrData={qrData} />
-                  ) : (
-                    ""
-                  )}
+                  {previewComponents[type]}
                 </div>
 
                 <PreviewFrame className="preview-frame" />
@@ -864,6 +873,20 @@ const QRDesign = () => {
         localQrData={qrData}
         type={qrData?.type}
         showToggleBtn={"qrDesign"}
+        style={{
+          CornerbgColor,
+          dotColor,
+          cornerBorderColor,
+          cornerDotColor,
+          selectedCornerStyle,
+          selectedDotStyle,
+          QRLogo,
+          frameColor,
+          frameBgColor,
+          frameTextColor,
+          frameText,
+          selectedFrame,
+        }}
       />
     </>
   );

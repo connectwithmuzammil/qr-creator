@@ -1286,12 +1286,13 @@ export const QRPreviewVideo = ({ localQrData }) => {
       Object.keys(localQrData.video_social).length > 0);
 
   const videoUrl =
-    localQrData?.video_path instanceof File
-      ? URL.createObjectURL(localQrData.video_path)
+    (localQrData?.video_path || localQrData?.video) instanceof File
+      ? URL.createObjectURL(localQrData.video_path || localQrData?.video)
       : typeof localQrData?.video_path === "string" &&
         localQrData?.video_path.trim() !== ""
       ? localQrData.video_path
       : null;
+  console.log("videoURL",  localQrData?.video);
 
   return (
     <div
@@ -2377,7 +2378,7 @@ export const QRPreviewElabelsCoffee = ({ localQrData }) => {
 
           <div className="beer-certifications">
             <p>
-              <strong>Free Trade:</strong>{" "}
+              <strong>Fare Trade:</strong>{" "}
               {localQrData.free_trade ? (
                 <FaCheck style={{ color: "green" }} />
               ) : (

@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewApps } from "./QRPreviewAll";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -29,6 +30,7 @@ const icons = {
 
 const APPS = ({ localQrData, setLocalQrData }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
@@ -96,102 +98,117 @@ const APPS = ({ localQrData, setLocalQrData }) => {
   };
 
   return (
-    <div className="app-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"App information"}>
-            <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
-              label="Logo"
-              onImageUpload={handleImageUpload}
-              onImageDelete={handleImageDelete}
-              name="app_logo"
-              localQrData={localQrData}
-              onEditImagePreview={localQrData?.app_logo}
-            />
-            <InputComponent
-              label={"App name*"}
-              placeholder={"e.g. FitnessNow"}
-              name={"app_name"}
-              value={localQrData?.app_name}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"Developer/Company"}
-              placeholder={"e.g. App Developer PRO"}
-              name={"app_company"}
-              value={localQrData?.app_company}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"Description"}
-              placeholder={"e.g. The only fitness app you need"}
-              name={"app_description"}
-              value={localQrData?.app_description}
-              onChange={handleInputChange}
-            />
-            <InputComponent
-              label={"Website"}
-              placeholder={"e.g. https://www.fitnessnow.com"}
-              name={"app_website"}
-              value={localQrData?.app_website}
-              onChange={handleInputChange}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Links to platforms"}>
-            <p className="social-con-content">Add at least one link to...</p>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              className={"app-social"}
-              initialLinks={localQrData?.app_social}
-              isEditing={!!location.state?.qrData}
-            />
-          </AccordianComponent>
-        </div>
-        <div className="right">
-          {
-            // localQrData?.app_name ||
-            // localQrData?.app_company ||
-            // localQrData?.app_description ||
-            // localQrData?.app_website ||
-            // localQrData?.app_logo
-            true ? (
-              <>
-                <ToggleButton
-                  selectedOption={selectedOption}
-                  onToggle={handleToggle}
-                />
-                <div className="qr-preview__layout__image">
-                  <div className="Preview-layout Preview-layout--vcard">
-                    <TopPreviewHeader className="topHeaderSvg" />
-                    <QRPreviewApps localQrData={localQrData} />
+    <>
+      <div className="app-page">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"App information"}>
+              <ImageUploadComponent
+                defaultImage={"/assets/images/default-img.png"}
+                label="Logo"
+                onImageUpload={handleImageUpload}
+                onImageDelete={handleImageDelete}
+                name="app_logo"
+                localQrData={localQrData}
+                onEditImagePreview={localQrData?.app_logo}
+              />
+              <InputComponent
+                label={"App name*"}
+                placeholder={"e.g. FitnessNow"}
+                name={"app_name"}
+                value={localQrData?.app_name}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"Developer/Company"}
+                placeholder={"e.g. App Developer PRO"}
+                name={"app_company"}
+                value={localQrData?.app_company}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"Description"}
+                placeholder={"e.g. The only fitness app you need"}
+                name={"app_description"}
+                value={localQrData?.app_description}
+                onChange={handleInputChange}
+              />
+              <InputComponent
+                label={"Website"}
+                placeholder={"e.g. https://www.fitnessnow.com"}
+                name={"app_website"}
+                value={localQrData?.app_website}
+                onChange={handleInputChange}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Links to platforms"}>
+              <p className="social-con-content">Add at least one link to...</p>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                className={"app-social"}
+                initialLinks={localQrData?.app_social}
+                isEditing={!!location.state?.qrData}
+                customStyle={"app-social"}
+              />
+            </AccordianComponent>
+          </div>
+          <div className="right">
+            {
+              // localQrData?.app_name ||
+              // localQrData?.app_company ||
+              // localQrData?.app_description ||
+              // localQrData?.app_website ||
+              // localQrData?.app_logo
+              true ? (
+                <>
+                  <ToggleButton
+                    selectedOption={selectedOption}
+                    onToggle={handleToggle}
+                  />
+                  <div className="qr-preview__layout__image">
+                    <div className="Preview-layout Preview-layout--vcard">
+                      <TopPreviewHeader className="topHeaderSvg" />
+                      <QRPreviewApps localQrData={localQrData} />
+                    </div>
+                    <PreviewFrame className="preview-frame" />
                   </div>
-                  <PreviewFrame className="preview-frame" />
-                </div>
-              </>
-            ) : (
-              <img src="/assets/images/phone-apps.png" alt="phone-apps" />
-            )
-          }
+                </>
+              ) : (
+                <img src="/assets/images/phone-apps.png" alt="phone-apps" />
+              )
+            }
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"apps"}
+      />
+    </>
   );
 };
 

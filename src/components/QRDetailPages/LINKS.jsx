@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { InputComponent } from "../InputComponent";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
@@ -31,6 +31,7 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLinks } from "./QRPreviewAll";
 import { toast } from "react-toastify";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -61,6 +62,8 @@ const icons = {
 
 const LINKS = ({ localQrData, setLocalQrData }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
+  const [showModalPreview, setShowModalPreview] = useState(false);
+
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
@@ -88,9 +91,8 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
     }
   }, [location.state, setLocalQrData]);
 
-
   const [linkData, setLinkData] = useState({ image: "", text: "", url: "" });
-  const [QRLogo, setQRLogo] = useState(null); 
+  const [QRLogo, setQRLogo] = useState(null);
 
   // Function to handle input change
   const handleChange = (e) => {
@@ -182,170 +184,181 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-
   return (
-    <div className="link-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Information about your List of Links"}>
-            <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
-              onImageUpload={handleSingleImageUpload}
-              onImageDelete={handleSingleImageDelete}
-              label="Logo"
-              name="linkslogo"
-              localQrData={localQrData}
-              onEditImagePreview={localQrData?.linkslogo}
-            />
-            <InputComponent
-              label={"Title"}
-              name={"links_title"}
-              placeholder={"e.g. Our sportswear collection"}
-              onChange={handleInputChange}
-              value={localQrData?.links_title}
-            />
-            <InputComponent
-              label={"Description"}
-              name={"links_description"}
-              placeholder={
-                "e.g. Our Clothing, footwear, and accessories for athletes"
-              }
-              onChange={handleInputChange}
-              value={localQrData?.links_description}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Your links"}>
-            <p className="social-con-content">Add one link*</p>
+    <>
+      <div className="link-page">
+      <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Information about your List of Links"}>
+              <ImageUploadComponent
+                defaultImage={"/assets/images/default-img.png"}
+                onImageUpload={handleSingleImageUpload}
+                onImageDelete={handleSingleImageDelete}
+                label="Logo"
+                name="linkslogo"
+                localQrData={localQrData}
+                onEditImagePreview={localQrData?.linkslogo}
+              />
+              <InputComponent
+                label={"Title"}
+                name={"links_title"}
+                placeholder={"e.g. Our sportswear collection"}
+                onChange={handleInputChange}
+                value={localQrData?.links_title}
+              />
+              <InputComponent
+                label={"Description"}
+                name={"links_description"}
+                placeholder={
+                  "e.g. Our Clothing, footwear, and accessories for athletes"
+                }
+                onChange={handleInputChange}
+                value={localQrData?.links_description}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Your links"}>
+              <p className="social-con-content">Add one link*</p>
 
-            <div className="links-container">
-              <div className="img-upload-comp">
-                <div className="wrap">
-                  <div className="img-wrapper">
-                    <img
-                      src={getLogoSrc()}
-                      alt="Uploaded"
-                      className="uploaded-img"
-                    />
-                    <div className="icon-overlay">
-                      <label className="upload-icon">
-                        <h3>+</h3>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                        />
-                      </label>
+              <div className="links-container">
+                <div className="img-upload-comp">
+                  <div className="wrap">
+                    <div className="img-wrapper">
+                      <img
+                        src={getLogoSrc()}
+                        alt="Uploaded"
+                        className="uploaded-img"
+                      />
+                      <div className="icon-overlay">
+                        <label className="upload-icon">
+                          <h3>+</h3>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                          />
+                        </label>
+                      </div>
                     </div>
                   </div>
+                  {QRLogo && (
+                    <button className="delete-icon" onClick={handleImageDelete}>
+                      Delete
+                    </button>
+                  )}
                 </div>
-                {QRLogo && (
-                  <button className="delete-icon" onClick={handleImageDelete}>
-                    Delete
-                  </button>
+
+                <InputComponent
+                  label="Text"
+                  placeholder="Enter text"
+                  name="text"
+                  value={linkData.text}
+                  onChange={handleChange}
+                />
+                <InputComponent
+                  label="URL"
+                  placeholder="Enter URL"
+                  name="url"
+                  value={linkData.url}
+                  onChange={handleChange}
+                />
+                <Button
+                  title={"Add Link"}
+                  width={"100%"}
+                  onClick={handleAddLink}
+                />
+
+                {localQrData.all_links.length > 0 && (
+                  <>
+                    <h4>All Links</h4>
+                    <ul>
+                      {localQrData.all_links.map((link, index) => {
+                        console.log("linkk", link);
+                        const imageUrl =
+                          link.image instanceof File
+                            ? URL.createObjectURL(link.image)
+                            : link.image;
+
+                        return (
+                          <li key={index}>
+                            <img src={imageUrl} alt={link.text} width="50" />
+                            <span>{link.text}</span> -{" "}
+                            <a
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {link.url}
+                            </a>
+                            <button onClick={() => handleDeleteLink(index)}>
+                              Delete
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
                 )}
               </div>
-
-              <InputComponent
-                label="Text"
-                placeholder="Enter text"
-                name="text"
-                value={linkData.text}
-                onChange={handleChange}
+            </AccordianComponent>
+            <AccordianComponent title={"Your social networks"}>
+              <p className="social-con-content">Add Link to...</p>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                initialLinks={localQrData?.links_social}
+                isEditing={!!location.state?.qrData}
               />
-              <InputComponent
-                label="URL"
-                placeholder="Enter URL"
-                name="url"
-                value={linkData.url}
-                onChange={handleChange}
-              />
-              <Button
-                title={"Add Link"}
-                width={"100%"}
-                onClick={handleAddLink}
-              />
-
-              {localQrData.all_links.length > 0 && (
-                <>
-                  <h4>All Links</h4>
-                  <ul>
-                    {localQrData.all_links.map((link, index) => {
-                      console.log("linkk",link)
-                      const imageUrl =
-                        link.image instanceof File
-                          ? URL.createObjectURL(link.image)
-                          : link.image;
-
-                      return (
-                        <li key={index}>
-                          <img src={imageUrl} alt={link.text} width="50" />
-                          <span>{link.text}</span> -{" "}
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {link.url}
-                          </a>
-                          <button onClick={() => handleDeleteLink(index)}>
-                            Delete
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </>
-              )}
-            </div>
-
-    
-          </AccordianComponent>
-          <AccordianComponent title={"Your social networks"}>
-            <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              initialLinks={localQrData?.links_social}
-              isEditing={!!location.state?.qrData}
-            />
-          </AccordianComponent>
-        </div>
-        <div className="right">
-          {
-            <>
-              <ToggleButton
-                selectedOption={selectedOption}
-                onToggle={handleToggle}
-              />
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader className="topHeaderSvg" />
-                  <QRPreviewLinks localQrData={localQrData} />
+            </AccordianComponent>
+          </div>
+          <div className="right">
+            {
+              <>
+                <ToggleButton
+                  selectedOption={selectedOption}
+                  onToggle={handleToggle}
+                />
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader className="topHeaderSvg" />
+                    <QRPreviewLinks localQrData={localQrData} />
+                  </div>
+                  <PreviewFrame className="preview-frame" />
                 </div>
-                <PreviewFrame className="preview-frame" />
-              </div>
-            </>
-          }
+              </>
+            }
 
-          {/* <img src="/assets/images/phone-links.png" alt="phone-links" /> */}
+            {/* <img src="/assets/images/phone-links.png" alt="phone-links" /> */}
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"links"}
+      />
+    </>
   );
 };
 

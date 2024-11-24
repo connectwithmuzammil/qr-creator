@@ -6,6 +6,8 @@ const SocialIconsComp = ({
   className,
   initialLinks = {},
   isEditing,
+  customStyle
+  
 }) => {
   const [activeIcons, setActiveIcons] = useState([]);
   const [iconLinks, setIconLinks] = useState({});

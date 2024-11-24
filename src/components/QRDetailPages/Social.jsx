@@ -29,6 +29,7 @@ import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewSocial } from "./QRPreviewAll";
 import { MdErrorOutline } from "react-icons/md";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -58,7 +59,8 @@ const icons = {
 };
 
 const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
-  console.log("rrrerrr",errors)
+  console.log("rrrerrr", errors);
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -134,97 +136,112 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   return (
-    <div className="social-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Basic information"}>
-            <div className="wrapper-img-upload-dashed">
-              <ImageUploadComponent
-                defaultImage={"/assets/images/default-img.png"}
-                //   onImageDelete={handleImageDelete}
-                label="Upload Your Own Image"
-                onImageUpload={handleImageUpload}
-                onImageDelete={handleImageDelete}
-                name="social_logo"
-                localQrData={localQrData}
-                onEditImagePreview={localQrData?.social_logo}
+    <>
+      <div className="social-page">
+        <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData.qr_name}
               />
-            </div>
-            <InputComponent
-              label={"Headline*"}
-              name={"media_headline"}
-              placeholder={"e.g. Connect with us"}
-              onChange={handleInputChange}
-              value={localQrData.media_headline}
-              error={errors?.media_headline}
-            />
-            <InputComponent
-              label={"Description"}
-              name={"media_description"}
-              placeholder={
-                "e.g. If you would like to keep up on the latest content, come by and follow us"
-              }
-              onChange={handleInputChange}
-              value={localQrData.media_description}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Social Media Channels"}>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              initialLinks={localQrData?.media_social}
-              isEditing={!!location.state?.qrData}
-            />
-
-            {errors?.media_social && (
-              <div className="error-message">
-                <MdErrorOutline className="error-icon" />
-                {errors.media_social}
-              </div>
-            )}
-          </AccordianComponent>
-        </div>
-        <div className="right">
-          {
-            // localQrData.media_headline ||
-            // localQrData.media_description ||
-            // localQrData?.social_logo
-            true ? (
-              <>
-                <ToggleButton
-                  selectedOption={selectedOption}
-                  onToggle={handleToggle}
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Basic information"}>
+              <div className="wrapper-img-upload-dashed">
+                <ImageUploadComponent
+                  defaultImage={"/assets/images/default-img.png"}
+                  //   onImageDelete={handleImageDelete}
+                  label="Upload Your Own Image"
+                  onImageUpload={handleImageUpload}
+                  onImageDelete={handleImageDelete}
+                  name="social_logo"
+                  localQrData={localQrData}
+                  onEditImagePreview={localQrData?.social_logo}
                 />
-                <div className="qr-preview__layout__image">
-                  <div className="Preview-layout Preview-layout--vcard">
-                    <TopPreviewHeader className="topHeaderSvg" />
-                    <QRPreviewSocial localQrData={localQrData} />
-                  </div>
-                  <PreviewFrame className="preview-frame" />
+              </div>
+              <InputComponent
+                label={"Headline*"}
+                name={"media_headline"}
+                placeholder={"e.g. Connect with us"}
+                onChange={handleInputChange}
+                value={localQrData.media_headline}
+                error={errors?.media_headline}
+              />
+              <InputComponent
+                label={"Description"}
+                name={"media_description"}
+                placeholder={
+                  "e.g. If you would like to keep up on the latest content, come by and follow us"
+                }
+                onChange={handleInputChange}
+                value={localQrData.media_description}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Social Media Channels"}>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                initialLinks={localQrData?.media_social}
+                isEditing={!!location.state?.qrData}
+              />
+
+              {errors?.media_social && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.media_social}
                 </div>
-              </>
-            ) : (
-              <img src="/assets/images/phone-social.png" alt="phone-social" />
-            )
-          }
+              )}
+            </AccordianComponent>
+          </div>
+          <div className="right">
+            {
+              // localQrData.media_headline ||
+              // localQrData.media_description ||
+              // localQrData?.social_logo
+              true ? (
+                <>
+                  <ToggleButton
+                    selectedOption={selectedOption}
+                    onToggle={handleToggle}
+                  />
+                  <div className="qr-preview__layout__image">
+                    <div className="Preview-layout Preview-layout--vcard">
+                      <TopPreviewHeader className="topHeaderSvg" />
+                      <QRPreviewSocial localQrData={localQrData} />
+                    </div>
+                    <PreviewFrame className="preview-frame" />
+                  </div>
+                </>
+              ) : (
+                <img src="/assets/images/phone-social.png" alt="phone-social" />
+              )
+            }
+          </div>
         </div>
       </div>
-    </div>
+
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"social_media"}
+      />
+    </>
   );
 };
 
