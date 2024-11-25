@@ -1253,6 +1253,7 @@ export const QRLINK = ({ qrContent }) => {
 };
 
 export const QRGALLERY = ({ qrContent }) => {
+  console.log("qrcontent",qrContent)
   return (
     <div
       style={{

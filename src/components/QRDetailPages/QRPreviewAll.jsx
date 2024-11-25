@@ -37,12 +37,7 @@ import {
   XingSocial,
 } from "../../Helper/SocialSvgIcons";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import SwiperCore "swiper";
 import { EffectCards } from "swiper/modules";
-
-// Import Swiper modules
-// SwiperCore.use([Navigation, Pagination]);
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -77,6 +72,12 @@ import { GoClockFill } from "react-icons/go";
 import formatDate from "../../utils/FormatDate";
 import { CiCalendar } from "react-icons/ci";
 import { PiCigaretteBold } from "react-icons/pi";
+
+import { useForm, Controller } from "react-hook-form";
+import { AccordianComponent } from "../AccordianComponent";
+import apis from "../../services";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const icons = {
   facebook: <FacebookSocial />,
@@ -2067,7 +2068,354 @@ export const QRPreviewEvent = ({ localQrData }) => {
   );
 };
 
-export const QRPreviewElabelsWine = ({ localQrData, className }) => {
+// ELABELS
+
+const ReviewFormSubmit = ({ questions }) => {
+  console.log("questions", questions);
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  const { mutate: mutateReview, isPending: isLoading } = useMutation({
+    mutationFn: apis.PostReviews,
+    onError: function (error) {
+      console.log("error", error);
+      toast.error("An error occurred while submitting your review.");
+    },
+    onSuccess: ({ data: reviewSubmitSuccess, status }) => {
+      console.log("reviewSubmitSuccess!!:", reviewSubmitSuccess);
+      toast.success(
+        "Your review has been successfully submitted! Thank you for your feedback."
+      );
+      questions.forEach((_, index) => {
+        setValue(`question-${index}`, "");
+      });
+      console.log("Form State after reset:", control._formValues);
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data, "formloggg");
+
+    const payload = Object.entries(data).map(([key, value]) => {
+      const questionIndex = key.split("-")[1];
+      const questionId = questions[questionIndex]?.id;
+
+      return {
+        question_id: questionId,
+        answer: value,
+      };
+    });
+
+    console.log("Payload to be sent:", payload);
+
+    // payload.forEach((payload) => {
+    mutateReview(payload);
+    // });
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="form-preview">
+      {questions?.map((question, index) => (
+        <div key={index} className="question-card">
+          <p className="question-text">{question.text}</p>
+
+          {/* Text Input */}
+          {question?.type === "text" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    placeholder="Your answer here"
+                    className="input-field"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Radio Input */}
+          {question?.type === "radio" &&
+            question?.options.map((option, optIndex) => (
+              <label key={optIndex} className="radio-label">
+                <Controller
+                  name={`question-${index}`}
+                  control={control}
+                  rules={{ required: "Please select an option" }}
+                  render={({ field }) => (
+                    <div>
+                      <input
+                        {...field}
+                        type="radio"
+                        value={option}
+                        className="radio-input"
+                      />
+                      {option}
+                      {errors[`question-${index}`] && (
+                        <p className="error-message">
+                          {errors[`question-${index}`]?.message}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                />
+              </label>
+            ))}
+
+          {/* Dropdown Input */}
+          {question.type === "dropdown" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "Please select an option" }}
+              render={({ field }) => (
+                <div>
+                  <select {...field} className="input-field">
+                    <option value="" disabled>
+                      Please Select Option
+                    </option>
+                    {question.options.map((option, optIndex) => (
+                      <option key={optIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Checkbox Input */}
+          {question.type === "checkbox" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "Please check this box" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="checkbox"
+                    className="checkbox-input"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Number Input */}
+          {question.type === "number" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{
+                required: "Please enter a number",
+                min: { value: 1, message: "Number must be at least 1" },
+                max: { value: 100, message: "Number must be less than 100" },
+              }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="number"
+                    placeholder="Number"
+                    className="input-field"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Email Input */}
+          {question.type === "email" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Invalid email address",
+                },
+              }} // Validation for email input
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="email"
+                    placeholder="Email"
+                    className="input-field"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Telephone Input */}
+          {question.type === "tel" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{
+                required: "Phone number is required",
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: "Invalid phone number (10 digits required)",
+                },
+              }} // Validation for tel input
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="tel"
+                    placeholder="Telephone"
+                    className="input-field"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Password Input */}
+          {question.type === "password" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              }} // Validation for password input
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="password"
+                    placeholder="Password"
+                    className="input-field"
+                  />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Date Input */}
+          {question.type === "date" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "Date is required" }}
+              render={({ field }) => (
+                <div>
+                  <input {...field} type="date" className="input-field" />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* Range Input */}
+          {question.type === "range" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "Range value is required" }}
+              render={({ field }) => (
+                <div>
+                  <input {...field} type="range" className="input-field" />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+
+          {/* File Input */}
+          {question.type === "file" && (
+            <Controller
+              name={`question-${index}`}
+              control={control}
+              rules={{ required: "Please upload a file" }}
+              render={({ field }) => (
+                <div>
+                  <input {...field} type="file" className="input-field" />
+                  {errors[`question-${index}`] && (
+                    <p className="error-message">
+                      {errors[`question-${index}`]?.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          )}
+        </div>
+      ))}
+
+      <button type="submit" className="submit-btn" disabled={isLoading}>
+        {isLoading ? "Submitting..." : "Submit"}
+      </button>
+    </form>
+  );
+};
+
+export const QRPreviewElabelsWine = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
   // console.log("localQrData", localQrData);
   return (
     <>
@@ -2120,92 +2468,117 @@ export const QRPreviewElabelsWine = ({ localQrData, className }) => {
           </p>
         </div>
       </div>
+
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
+      )}
     </>
   );
 };
 
-export const QRPreviewElabelsBeer = ({ localQrData, className }) => {
+export const QRPreviewElabelsBeer = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
   return (
-    <div
-      className={`beer-container layout-content showBrowser ${className}`}
-      style={{ left: "4px", overflowX: "hidden" }}
-    >
-      <div className="beer-header">
-        <DynamicImage
-          data={localQrData}
-          imageKey="beer_image"
-          altText="Beer Image"
-          className="beer-image"
-          style={{
-            width: "100%",
-            height: "200px",
-            objectFit: "cover",
-            borderRadius: "12px 12px 0 0",
-          }}
-        />
-      </div>
-      <div className="beer-content">
-        <h2 className="beer-product-name">
-          <FaBeer className="icon-beer" />
-          {localQrData.product_name || "Product Name"}
-        </h2>
-        <p className="beer-sku">
-          <FaInfoCircle className="icon-info" />
-          SKU: <span>{localQrData.sku || "N/A"}</span>
-        </p>
-        <p className="beer-description">
-          {localQrData.description || "No description available."}
-        </p>
-        <div className="beer-details">
-          <p>
-            <strong>Alcohol Percentage:</strong>{" "}
-            {localQrData.alcohol_percentage || "0"}%
-          </p>
-          <p>
-            <strong>IPA:</strong> {localQrData.ipa || "N/A"}
-          </p>
-          <p>
-            <strong>Brewed At:</strong> {localQrData.brewed || "Unknown"}
-          </p>
-        </div>
-        <p className="beer-website">
-          <FaGlobe className="icon-globe" />
-          <strong>Website:</strong>{" "}
-          {localQrData.website ? (
-            <a
-              href={localQrData.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {localQrData.website}
-            </a>
-          ) : (
-            "N/A"
-          )}
-        </p>
-      </div>
-      {localQrData.nutrition_image && (
-        <footer className="beer-footer">
+    <>
+      <div
+        className={`beer-container layout-content showBrowser ${className}`}
+        style={{ left: "4px", overflowX: "hidden" }}
+      >
+        <div className="beer-header">
           <DynamicImage
             data={localQrData}
-            imageKey="nutrition_image"
-            altText="Nutrition Information"
-            className="nutrition-image"
+            imageKey="beer_image"
+            altText="Beer Image"
+            className="beer-image"
             style={{
               width: "100%",
-              height: "120px",
+              height: "200px",
               objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
+              borderRadius: "12px 12px 0 0",
             }}
           />
-        </footer>
+        </div>
+        <div className="beer-content">
+          <h2 className="beer-product-name">
+            <FaBeer className="icon-beer" />
+            {localQrData.product_name || "Product Name"}
+          </h2>
+          <p className="beer-sku">
+            <FaInfoCircle className="icon-info" />
+            SKU: <span>{localQrData.sku || "N/A"}</span>
+          </p>
+          <p className="beer-description">
+            {localQrData.description || "No description available."}
+          </p>
+          <div className="beer-details">
+            <p>
+              <strong>Alcohol Percentage:</strong>{" "}
+              {localQrData.alcohol_percentage || "0"}%
+            </p>
+            <p>
+              <strong>IPA:</strong> {localQrData.ipa || "N/A"}
+            </p>
+            <p>
+              <strong>Brewed At:</strong> {localQrData.brewed || "Unknown"}
+            </p>
+          </div>
+          <p className="beer-website">
+            <FaGlobe className="icon-globe" />
+            <strong>Website:</strong>{" "}
+            {localQrData.website ? (
+              <a
+                href={localQrData.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {localQrData.website}
+              </a>
+            ) : (
+              "N/A"
+            )}
+          </p>
+        </div>
+        {localQrData.nutrition_image && (
+          <footer className="beer-footer">
+            <DynamicImage
+              data={localQrData}
+              imageKey="nutrition_image"
+              altText="Nutrition Information"
+              className="nutrition-image"
+              style={{
+                width: "100%",
+                height: "120px",
+                objectFit: "cover",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
+          </footer>
+        )}
+      </div>
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
-export const QRPreviewElabelsCigar = ({ localQrData, className }) => {
-  console.log("localQrData", localQrData);
+export const QRPreviewElabelsCigar = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
+  // console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -2287,10 +2660,21 @@ export const QRPreviewElabelsCigar = ({ localQrData, className }) => {
           </p>
         </div>
       </div>
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
+      )}
     </>
   );
 };
-export const QRPreviewElabelsCoffee = ({ localQrData, className }) => {
+export const QRPreviewElabelsCoffee = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
   // console.log("localQrData", localQrData);
   return (
     <>
@@ -2413,11 +2797,22 @@ export const QRPreviewElabelsCoffee = ({ localQrData, className }) => {
           </footer>
         )}
       </div>
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
+      )}
     </>
   );
 };
 
-export const QRPreviewElabelsFood = ({ localQrData, className }) => {
+export const QRPreviewElabelsFood = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
   // console.log("localQrData", localQrData);
   return (
     <>
@@ -2476,10 +2871,21 @@ export const QRPreviewElabelsFood = ({ localQrData, className }) => {
           </p>
         </div>
       </div>
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
+      )}
     </>
   );
 };
-export const QRPreviewElabelsProduct = ({ localQrData, className }) => {
+export const QRPreviewElabelsProduct = ({
+  localQrData,
+  className,
+  showReview,
+}) => {
   // console.log("localQrData", localQrData);
   return (
     <>
@@ -2535,6 +2941,13 @@ export const QRPreviewElabelsProduct = ({ localQrData, className }) => {
           )}
         </div>
       </div>
+      {showReview && (
+        <div className="review-container">
+          <AccordianComponent title="📝 Share Your Feedback">
+            <ReviewFormSubmit questions={localQrData?.questions} />
+          </AccordianComponent>
+        </div>
+      )}
     </>
   );
 };

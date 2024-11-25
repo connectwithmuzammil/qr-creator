@@ -26,6 +26,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import apis from "../services";
 import Skeleton from "react-loading-skeleton";
 import { AccordianComponent } from "../components/AccordianComponent";
+import { useQuery } from "@tanstack/react-query";
 
 const reviews = [
   {
@@ -56,11 +57,15 @@ const ReviewItem = ({ question, answers }) => {
   return (
     <AccordianComponent title={question}>
       <ul className="review-answers">
-        {answers.slice(0, showMore ? answers.length : 5).map((answer, i) => (
-          <li key={i} className="review-answer">
-            {answer}
-          </li>
-        ))}
+        {answers.length === 0 ? (
+          <li className="no-answer">No reviews available for this question.</li>
+        ) : (
+          answers.slice(0, showMore ? answers.length : 5).map((answer, i) => (
+            <li key={i} className="review-answer">
+              {answer?.answer || "No answer provided"}
+            </li>
+          ))
+        )}
       </ul>
       {answers.length > 5 && (
         <div className="button-container">
@@ -418,6 +423,16 @@ const QRCodeDetail = () => {
     }
   }, [activeTab]);
 
+  //API CALL FOR GET REVIEWS
+  const { isLoading, data: { data: getReviews } = {} } = useQuery({
+    queryKey: ["getReviews"],
+    queryFn: () => apis.getReviews(QRres?.singleViewDetail?.id),
+    onError: (error) => {
+      console.error("Error geting Order History:", error);
+    },
+  });
+  console.log("getReviewsAll", getReviews?.data);
+
   return (
     <>
       <Header />
@@ -590,13 +605,24 @@ const QRCodeDetail = () => {
 
         {activeTab === "review" && (
           <div ref={reviewRef} className="review-list-container">
-            {reviews.map((review, index) => (
-              <ReviewItem
-                key={index}
-                question={review.question}
-                answers={review.answers}
-              />
-            ))}
+            {isLoading ? (
+              <div className="loader-wrapper">
+                <div className="loaderr" />
+              </div>
+            ) : getReviews?.data?.length > 0 ? (
+              getReviews.data.map((review, index) => {
+                console.log("review", review);
+                return (
+                  <ReviewItem
+                    key={index}
+                    question={review.question}
+                    answers={review.answers}
+                  />
+                );
+              })
+            ) : (
+              <p className="text-center m-0">No reviews available.</p>
+            )}
           </div>
         )}
       </div>

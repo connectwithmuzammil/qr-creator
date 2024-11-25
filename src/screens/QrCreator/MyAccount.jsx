@@ -41,7 +41,7 @@ const MyAccount = () => {
         // toast.error(error?.message);
       },
       onSuccess: ({ data: updateProfileSucess, status }) => {
-        // console.log("update profile successfully!!:", updateProfileSucess);
+        console.log("update profile successfully!!:", updateProfileSucess);
         if (updateProfileSucess?.success) {
           toast.success(updateProfileSucess?.message);
           dispatch(setUser(updateProfileSucess?.data));

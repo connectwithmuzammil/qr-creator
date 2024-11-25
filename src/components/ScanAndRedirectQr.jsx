@@ -91,7 +91,6 @@ const ScanAndRedirectQr = () => {
   }, [qrType]);
 
   const renderContentByType = () => {
-    // First, check if qrType is "elabels"
     if (qrType === "elabels") {
       const products = ["wine", "beer", "cigars", "coffee", "food", "product"];
 
@@ -106,6 +105,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsWine
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         case "beer":
@@ -113,6 +113,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsBeer
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         case "cigars":
@@ -120,6 +121,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsCigar
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         case "coffee":
@@ -127,6 +129,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsCoffee
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         case "food":
@@ -134,6 +137,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsFood
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         case "product":
@@ -141,6 +145,7 @@ const ScanAndRedirectQr = () => {
             <QRPreviewElabelsProduct
               localQrData={outcomeContent}
               className={"ScanPageClass"}
+              showReview
             />
           );
         default:

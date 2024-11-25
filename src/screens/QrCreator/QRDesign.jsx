@@ -54,6 +54,7 @@ import ToggleButton from "../../components/QRDetailPages/QRToggleButton";
 import {
   QRPreviewApps,
   QRPreviewBusiness,
+  QRPreviewGallery,
   QRPreviewLinks,
   QRPreviewPdf,
   QRPreviewSocial,
@@ -216,6 +217,8 @@ const QRDesign = () => {
     video: <QRPreviewVideo localQrData={qrData} />,
     pdf: <QRPreviewPdf localQrData={qrData} />,
     links: <QRPreviewLinks localQrData={qrData} />,
+    image_gallery: <QRPreviewGallery localQrData={qrData} />,
+
   };
 
   //Render Frame CANVAS
@@ -844,17 +847,25 @@ const QRDesign = () => {
               </div>
             )}
             {selectedOption === "Preview Page" ? (
-              <div className="qr-preview__layout__image">
-                <div className="Preview-layout Preview-layout--vcard">
-                  <TopPreviewHeader
-                    className="topHeaderSvg"
-                    urlLink={qrData?.field_url}
-                  />
-                  {previewComponents[type]}
-                </div>
+              qrData?.type === "wifi" ? (
+                <img
+                  src="/assets/images/phone-wifi.png"
+                  alt=" WiFi preview"
+                  width={"80%"}
+                />
+              ) : (
+                <div className="qr-preview__layout__image">
+                  <div className="Preview-layout Preview-layout--vcard">
+                    <TopPreviewHeader
+                      className="topHeaderSvg"
+                      urlLink={qrData?.field_url}
+                    />
+                    {previewComponents[type]}
+                  </div>
 
-                <PreviewFrame className="preview-frame" />
-              </div>
+                  <PreviewFrame className="preview-frame" />
+                </div>
+              )
             ) : null}
           </div>
         </div>

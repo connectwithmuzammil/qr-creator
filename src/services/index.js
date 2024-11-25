@@ -126,6 +126,11 @@ const createBackendServer = (baseURL) => {
   const getEachUserQRSystem = (id) => api.get(`admin/qr_stats_system_each/${id}`);
   const getEachUserQRScanActivity = (id) => api.get(`admin/qr_stats_each/${id}`);
 
+  // REVIEWS APIS ELABELS
+  const PostReviews = (body) => api.post(`create_answer`, body);
+  const getReviews = (id) => api.get(`get-reviews/${id}`);
+  
+
   //Returning all the API
   return {
     signup,
@@ -150,7 +155,9 @@ const createBackendServer = (baseURL) => {
     viewQrCode,
     getEachUserQRStat,
     getEachUserQRSystem,
-    getEachUserQRScanActivity
+    getEachUserQRScanActivity,
+    PostReviews,
+    getReviews
   };
 };
 

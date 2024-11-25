@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../redux/slice/userSlice";
 
 const EditContactInfo = ({
   showConactInfo,
@@ -10,6 +11,7 @@ const EditContactInfo = ({
   isLoading,
 }) => {
   const { user } = useSelector((store) => store.user); 
+  // const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     first_name: "Muzammil",
     last_name: "Khan",
@@ -38,6 +40,8 @@ const EditContactInfo = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProfile(formData);
+  
+
   };
   return (
     <Modal

@@ -591,8 +591,25 @@
     padding: 6px;
   }
   .beer-container.ScanPageClass{
-    width: 95%;
-    margin-top: 40px;
+    width: 90%;
+    /* margin-top: 40px; */
+  }
+  .review-container{
+    width: 90%;
+  }
+  .review-container .accordion-body{
+    padding: 0px;
+  }
+  .review-container .question-card{
+    box-shadow: none;
+    padding: 0px;
+    border: none;
+  }
+  .review-container .question-card .input-field{
+    margin: 0px;
+  }
+  .review-container .accord-con .accordion-button{
+    padding: 10px 0px 20px 0px;
   }
 }
 @media screen and (max-width: 400px) {

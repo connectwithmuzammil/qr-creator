@@ -4,6 +4,7 @@ import { PreviewFrame, TopPreviewHeader } from "../../SVGIcon";
 import {
   QRPreviewApps,
   QRPreviewBusiness,
+  QRPreviewGallery,
   QRPreviewLinks,
   QRPreviewPdf,
   QRPreviewSocial,
@@ -55,6 +56,7 @@ const ViewPreviewModal = ({
     video: <QRPreviewVideo localQrData={localQrData} />,
     pdf: <QRPreviewPdf localQrData={localQrData} />,
     links: <QRPreviewLinks localQrData={localQrData} />,
+    image_gallery: <QRPreviewGallery localQrData={localQrData} />,
   };
   return (
     <Modal
@@ -77,37 +79,44 @@ const ViewPreviewModal = ({
       )}
       <Modal.Body>
         <div className="right">
-          <div className="qr-preview__layout__image">
-            <div className="Preview-layout Preview-layout--vcard">
-              <TopPreviewHeader
-                className="topHeaderSvg"
-                urlLink={localQrData?.field_url}
-              />
-              {selectedOption === "Preview Page" && previewComponents[type]}
+          {selectedOption === "Preview Page" && type === "wifi" ? (
+            <img
+              src="/assets/images/phone-wifi.png"
+              alt=" WiFi preview"
+              width={"90%"}
+            />
+          ) : (
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader
+                  className="topHeaderSvg"
+                  urlLink={localQrData?.field_url}
+                />
+                {selectedOption === "Preview Page" && previewComponents[type]}
 
-              {selectedOption === "QR Code" && (
-                <div className="qrCodePreviewMobile">
-                  <RenderFrame
-                    selectedFrame={selectedFrame}
-                    CornerbgColor={CornerbgColor}
-                    dotColor={dotColor}
-                    cornerBorderColor={cornerBorderColor}
-                    cornerDotColor={cornerDotColor}
-                    selectedCornerStyle={selectedCornerStyle}
-                    selectedDotStyle={selectedDotStyle}
-                    QRLogo={QRLogo}
-                    frameColor={frameColor}
-                    frameBgColor={frameBgColor}
-                    frameTextColor={frameTextColor}
-                    frameText={frameText}
-                  />
-                </div>
-              )}
+                {selectedOption === "QR Code" && (
+                  <div className="qrCodePreviewMobile">
+                    <RenderFrame
+                      selectedFrame={selectedFrame}
+                      CornerbgColor={CornerbgColor}
+                      dotColor={dotColor}
+                      cornerBorderColor={cornerBorderColor}
+                      cornerDotColor={cornerDotColor}
+                      selectedCornerStyle={selectedCornerStyle}
+                      selectedDotStyle={selectedDotStyle}
+                      QRLogo={QRLogo}
+                      frameColor={frameColor}
+                      frameBgColor={frameBgColor}
+                      frameTextColor={frameTextColor}
+                      frameText={frameText}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <PreviewFrame className="preview-frame" />
             </div>
-
-            <PreviewFrame className="preview-frame" />
-          </div>
-          {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
+          )}
         </div>
       </Modal.Body>
     </Modal>

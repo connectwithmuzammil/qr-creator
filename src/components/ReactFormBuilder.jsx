@@ -21,7 +21,6 @@ const ReviewFormBuilder = ({
     }
   }, [localQrData]);
 
-
   useEffect(() => {
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -30,9 +29,6 @@ const ReviewFormBuilder = ({
   }, [questions, setLocalQrData]);
 
   console.log("questionsquestions", questions);
-
-
-
 
   const addQuestion = () => {
     if (
@@ -191,164 +187,162 @@ const ReviewFormBuilder = ({
           ))}
         </div>
       )}
+
+      {/* <h3 className="preview-title">Preview:</h3>
+      <form onSubmit={handleSubmit(onSubmit)} className="form-preview">
+        {questions.map((question, index) => (
+          <div key={index} className="question-card">
+            <p className="question-text">{question.text}</p>
+            {question.type === "text" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    placeholder="Your answer here"
+                    className="input-field"
+                  />
+                )}
+              />
+            )}
+            {question.type === "radio" &&
+              question.options.map((option, optIndex) => (
+                <label key={optIndex} className="radio-label">
+                  <Controller
+                    name={`question-${index}`}
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="radio"
+                        value={option}
+                        className="radio-input"
+                      />
+                    )}
+                  />
+                  {option}
+                </label>
+              ))}
+            {question.type === "dropdown" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <select {...field} className="input-field">
+                    {question.options.map((option, optIndex) => (
+                      <option key={optIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              />
+            )}
+            {question.type === "checkbox" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="checkbox"
+                    className="checkbox-input"
+                  />
+                )}
+              />
+            )}
+            {question.type === "number" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="number"
+                    placeholder="Number"
+                    className="input-field"
+                  />
+                )}
+              />
+            )}
+            {question.type === "email" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="email"
+                    placeholder="Email"
+                    className="input-field"
+                  />
+                )}
+              />
+            )}
+            {question.type === "tel" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="tel"
+                    placeholder="Telephone"
+                    className="input-field"
+                  />
+                )}
+              />
+            )}
+            {question.type === "password" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="password"
+                    placeholder="Password"
+                    className="input-field"
+                  />
+                )}
+              />
+            )}
+            {question.type === "date" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input {...field} type="date" className="input-field" />
+                )}
+              />
+            )}
+            {question.type === "range" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input {...field} type="range" className="input-field" />
+                )}
+              />
+            )}
+            {question.type === "file" && (
+              <Controller
+                name={`question-${index}`}
+                control={control}
+                render={({ field }) => (
+                  <input {...field} type="file" className="input-field" />
+                )}
+              />
+            )}
+          </div>
+        ))}
+        <button type="submit" className="submit-btn d-none">
+          Submit
+        </button>
+      </form> */}
     </div>
   );
 };
 
 export default ReviewFormBuilder;
-
-{
-  /* <h3 className="preview-title">Preview:</h3>
-<form onSubmit={handleSubmit(onSubmit)} className="form-preview">
-  {questions.map((question, index) => (
-    <div key={index} className="question-card">
-      <p className="question-text">{question.text}</p>
-      {question.type === "text" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              placeholder="Your answer here"
-              className="input-field"
-            />
-          )}
-        />
-      )}
-      {question.type === "radio" &&
-        question.options.map((option, optIndex) => (
-          <label key={optIndex} className="radio-label">
-            <Controller
-              name={`question-${index}`}
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="radio"
-                  value={option}
-                  className="radio-input"
-                />
-              )}
-            />
-            {option}
-          </label>
-        ))}
-      {question.type === "dropdown" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <select {...field} className="input-field">
-              {question.options.map((option, optIndex) => (
-                <option key={optIndex} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          )}
-        />
-      )}
-      {question.type === "checkbox" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="checkbox"
-              className="checkbox-input"
-            />
-          )}
-        />
-      )}
-      {question.type === "number" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="number"
-              placeholder="Number"
-              className="input-field"
-            />
-          )}
-        />
-      )}
-      {question.type === "email" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="email"
-              placeholder="Email"
-              className="input-field"
-            />
-          )}
-        />
-      )}
-      {question.type === "tel" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="tel"
-              placeholder="Telephone"
-              className="input-field"
-            />
-          )}
-        />
-      )}
-      {question.type === "password" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="password"
-              placeholder="Password"
-              className="input-field"
-            />
-          )}
-        />
-      )}
-      {question.type === "date" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input {...field} type="date" className="input-field" />
-          )}
-        />
-      )}
-      {question.type === "range" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input {...field} type="range" className="input-field" />
-          )}
-        />
-      )}
-      {question.type === "file" && (
-        <Controller
-          name={`question-${index}`}
-          control={control}
-          render={({ field }) => (
-            <input {...field} type="file" className="input-field" />
-          )}
-        />
-      )}
-    </div>
-  ))}
-  <button type="submit" className="submit-btn d-none">
-    Submit
-  </button>
-</form> */
-}

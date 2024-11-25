@@ -4696,7 +4696,7 @@ input[type="text"].input-field {
 /* Preview Form Section */
 .form-preview {
   background-color: #fff;
-  padding: 20px;
+  padding: 12px;
   border-radius: 6px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -5160,4 +5160,14 @@ input[type="checkbox"] {
 
 .review-list-container .show-more-btn:hover {
   background-color: #b81917;
+}
+
+.review-container{
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-inline: auto;
+}
+.review-container .accordion-body{
+  padding: 16px;
 }

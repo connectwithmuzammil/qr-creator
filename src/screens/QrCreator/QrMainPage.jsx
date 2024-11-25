@@ -35,9 +35,12 @@ import { FaChevronDown } from "react-icons/fa";
 import axios from "axios";
 import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
 const QrMainPage = () => {
   // const ConfirmationModal = React.lazy(()=> import('../../components'))
+  const { user } = useSelector((store) => store.user);
+  // console.log("userdaraatta", user);
 
   const navigate = useNavigate();
   const qrCodeRef = useRef(null);
