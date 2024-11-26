@@ -129,6 +129,9 @@ const createBackendServer = (baseURL) => {
   // REVIEWS APIS ELABELS
   const PostReviews = (body) => api.post(`create_answer`, body);
   const getReviews = (id) => api.get(`get-reviews/${id}`);
+  const PostReviewsRating = (body) => api.post(`create_ratings`, body);
+  const getReviewsRating = (id) => api.get(`rating/${id}`);
+
   
 
   //Returning all the API
@@ -157,7 +160,9 @@ const createBackendServer = (baseURL) => {
     getEachUserQRSystem,
     getEachUserQRScanActivity,
     PostReviews,
-    getReviews
+    getReviews,
+    PostReviewsRating,
+    getReviewsRating
   };
 };
 

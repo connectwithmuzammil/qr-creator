@@ -27,29 +27,7 @@ import apis from "../services";
 import Skeleton from "react-loading-skeleton";
 import { AccordianComponent } from "../components/AccordianComponent";
 import { useQuery } from "@tanstack/react-query";
-
-const reviews = [
-  {
-    question: "What do you like about our product?",
-    answers: [
-      "It's very user-friendly.",
-      "Great design!",
-      "Affordable pricing.",
-      "Excellent customer support.",
-      "High quality.",
-      "Fast delivery.",
-      "Reliable performance.",
-    ],
-  },
-  {
-    question: "What can we improve?",
-    answers: [
-      "Add more features.",
-      "Improve packaging.",
-      "Better mobile experience.",
-    ],
-  },
-];
+import { Rating, Stack } from "@mui/material";
 
 const ReviewItem = ({ question, answers }) => {
   const [showMore, setShowMore] = useState(false);
@@ -424,15 +402,30 @@ const QRCodeDetail = () => {
   }, [activeTab]);
 
   //API CALL FOR GET REVIEWS
-  const { isLoading, data: { data: getReviews } = {} } = useQuery({
+  const { isLoadingReviews, data: { data: getReviews } = {} } = useQuery({
     queryKey: ["getReviews"],
     queryFn: () => apis.getReviews(QRres?.singleViewDetail?.id),
+    enabled: activeTab === "review",
     onError: (error) => {
-      console.error("Error geting Order History:", error);
+      console.error("Error fetching reviews:", error);
     },
   });
-  console.log("getReviewsAll", getReviews?.data);
+  // console.log("getReviewsAll", getReviews?.data);
 
+  //API CALL FOR GET REVIEWS STARR
+  const {
+    isLoading: isLoadingStarReview,
+    data: { data: getReviewsStar } = {},
+  } = useQuery({
+    queryKey: ["getReviewsStar"],
+    queryFn: () => apis.getReviewsRating(QRres?.singleViewDetail?.id),
+    enabled: activeTab === "review",
+    onError: (error) => {
+      console.error("Error getting star reviews:", error);
+    },
+  });
+
+  console.log("getReviewsStarr", getReviewsStar);
   return (
     <>
       <Header />
@@ -605,7 +598,83 @@ const QRCodeDetail = () => {
 
         {activeTab === "review" && (
           <div ref={reviewRef} className="review-list-container">
-            {isLoading ? (
+            {isLoadingStarReview ? (
+              <div className="loader-wrapper">
+                <div className="loaderr" />
+              </div>
+            ) : (
+              <>
+                {getReviewsStar?.rating > 0 ? (
+                  <div
+                    className="rating-container"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      padding: "16px",
+                      marginBottom: "24px",
+                      backgroundColor: "#ffffff",
+                      borderRadius: "8px",
+                      boxShadow: "0 2px 4px rgba(89, 89, 89, 0.18)",
+                    }}
+                  >
+                    <p
+                      className="rating-title"
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#333",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      Average Rating
+                    </p>
+                    <Stack spacing={1}>
+                      <Rating
+                        name="half-rating"
+                        value={getReviewsStar?.rating}
+                        precision={0.5}
+                        readOnly
+                      />
+                    </Stack>
+                  </div>
+                ) : (
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "500",
+                      color: "#666",
+                      marginBottom: "4px",
+                      textAlign:"center"
+                    }}
+                  >
+                    No ratings available yet.
+                  </p>
+                )}
+
+                {/* {getReviewsStar?.rating === 0 && (
+                  <div
+                    style={{
+                      textAlign: "center",
+                      padding: "8px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        color: "#666",
+                        marginBottom: "0px",
+                      }}
+                    >
+                      No ratings available yet.
+                    </p>
+                  </div>
+                )} */}
+              </>
+            )}
+
+            {isLoadingReviews ? (
               <div className="loader-wrapper">
                 <div className="loaderr" />
               </div>
@@ -621,7 +690,17 @@ const QRCodeDetail = () => {
                 );
               })
             ) : (
-              <p className="text-center m-0">No reviews available.</p>
+              <p
+                className="text-center m-0 "
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#666",
+                  marginBottom: "0px",
+                }}
+              >
+                No reviews available yet.
+              </p>
             )}
           </div>
         )}

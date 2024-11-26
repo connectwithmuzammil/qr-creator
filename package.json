@@ -24,7 +24,7 @@
     "file-saver": "^2.0.5",
     "formik": "^2.4.6",
     "html-to-image": "^1.11.11",
-    "lodash.debounce": "^4.0.8",
+    "lodash": "^4.17.21",
     "moment-timezone": "^0.5.45",
     "qr-code-styling": "^1.6.0-rc.1",
     "qrcode": "^1.5.4",

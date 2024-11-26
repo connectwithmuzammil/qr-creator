@@ -78,6 +78,8 @@ import { AccordianComponent } from "../AccordianComponent";
 import apis from "../../services";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { Rating, Stack } from "@mui/material";
+import { debounce } from "lodash";
 
 const icons = {
   facebook: <FacebookSocial />,
@@ -2070,8 +2072,9 @@ export const QRPreviewEvent = ({ localQrData }) => {
 
 // ELABELS
 
-const ReviewFormSubmit = ({ questions }) => {
-  console.log("questions", questions);
+const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
+  // console.log("questions", questions);
+  const [rating, setRating] = useState(null);
 
   const {
     control,
@@ -2081,6 +2084,7 @@ const ReviewFormSubmit = ({ questions }) => {
     formState: { errors },
   } = useForm();
 
+  //API FOR REVIEW FORM SUBMIT
   const { mutate: mutateReview, isPending: isLoading } = useMutation({
     mutationFn: apis.PostReviews,
     onError: function (error) {
@@ -2119,6 +2123,34 @@ const ReviewFormSubmit = ({ questions }) => {
     // });
   };
 
+  //API FOR REVIEW RATING STAR
+  const { mutate: mutateReviewRating, isPending: isLoadingRating } =
+    useMutation({
+      mutationFn: apis.PostReviewsRating,
+      onError: function (error) {
+        console.log("error", error);
+        toast.error("An error occurred while submitting your review.");
+      },
+      onSuccess: ({ data: reviewSubmitRating, status }) => {
+        console.log("reviewSubmitSuccess!!:", reviewSubmitRating);
+      },
+    });
+
+  // Debounced API call
+  const debouncedMutateReviewRating = React.useCallback(
+    debounce((newRating) => {
+      mutateReviewRating({
+        qr_id: qrCodeObj?.id,
+        rating: newRating.toString(),
+      });
+    }, 900),
+    [mutateReviewRating, qrCodeObj?.id]
+  );
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
+    debouncedMutateReviewRating(newRating);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-preview">
       {questions?.map((question, index) => (
@@ -2404,6 +2436,30 @@ const ReviewFormSubmit = ({ questions }) => {
         </div>
       ))}
 
+      {qrCodeObj?.is_rating && (
+        <div
+          style={{
+            margin: "16px 0px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontWeight: "bold", marginBottom: "8px" }}>
+            Rate Your Overall Experience
+          </p>
+          <Stack spacing={1}>
+            <Rating
+              name="size-medium"
+              value={rating}
+              precision={0.5}
+              onChange={(event, newValue) => handleRatingChange(newValue)}
+              disabled={isLoadingRating}
+            />
+          </Stack>
+        </div>
+      )}
+
       <button type="submit" className="submit-btn" disabled={isLoading}>
         {isLoading ? "Submitting..." : "Submit"}
       </button>
@@ -2416,7 +2472,7 @@ export const QRPreviewElabelsWine = ({
   className,
   showReview,
 }) => {
-  // console.log("localQrData", localQrData);
+  console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -2472,7 +2528,20 @@ export const QRPreviewElabelsWine = ({
       {showReview && (
         <div className="review-container">
           <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
+            {localQrData?.is_question && (
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            )}
+
+            {/* {localQrData?.is_rating && (
+              <div className="form-preview" style={{ marginTop: "12px" }}>
+                <Stack spacing={1}>
+                  <Rating name="size-medium" defaultValue={1} precision={0.5} />
+                </Stack>
+              </div>
+            )} */}
           </AccordianComponent>
         </div>
       )}
