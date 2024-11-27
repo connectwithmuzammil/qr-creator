@@ -26,6 +26,7 @@ import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewEvent } from "./QRPreviewAll";
 import { deleteField } from "../../redux/slice/qrSlice";
 import { useDispatch } from "react-redux";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -51,6 +52,7 @@ const FacilitiesIcon = {
 };
 
 const EVENT = ({ localQrData, setLocalQrData }) => {
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
@@ -121,7 +123,14 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
 
   console.log("localQrData?.event_facilities", localQrData?.event_facilities);
   return (
+    <>
     <div className="event-page">
+    <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
       <div className="containerr">
         <div className="left">
           <AccordianComponent title={"Enter the name of your QR code"}>
@@ -309,6 +318,13 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
         </div>
       </div>
     </div>
+    <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"events"}
+      />
+    </>
   );
 };
 

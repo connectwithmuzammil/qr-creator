@@ -4569,6 +4569,20 @@ p.social-con-content {
   box-shadow: 0 4px 8px rgba(224, 32, 28, 0.15);
   border-color: #e0201c;
 }
+/* CSS for disabled buttons */
+.product-selection-buttons button:disabled {
+  background-color: #f5f5f5; 
+  border-color: #ccc;
+  color: #888; 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+
+.product-selection-buttons button:disabled:hover {
+  background-color: #f5f5f5; 
+  color: #888; 
+  box-shadow: none; 
+}
 
 /* ADD REVIEW CSS START */
 /* General Styles */

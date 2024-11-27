@@ -20,7 +20,7 @@ const CutsomColorPickerComp = ({ colors, qrData, setQrData }) => {
     if (matchingColor) {
       setActiveColor(matchingColor.id);
     } else {
-      setActiveColor("custom"); // Set to custom if no predefined match
+      setActiveColor("custom"); 
     }
   }, [qrData, colors]);
 

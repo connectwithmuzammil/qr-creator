@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../Button";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../../redux/slice/userSlice";
+import {  useSelector } from "react-redux";
 
 const EditContactInfo = ({
   showConactInfo,

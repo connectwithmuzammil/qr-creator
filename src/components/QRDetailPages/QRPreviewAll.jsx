@@ -1493,6 +1493,7 @@ export const QRPreviewGallery = ({ localQrData }) => {
       )
     : [];
 
+
   return (
     <div
       className="layout-content showBrowser "
@@ -1584,24 +1585,30 @@ export const QRPreviewGallery = ({ localQrData }) => {
 };
 
 export const QRPreviewYoutube = ({ localQrData }) => {
+  // Extract videoId from youtube_url
   const videoId = localQrData?.youtube_url.split("v=")[1]?.split("&")[0];
-  console.log("videoId", videoId); // "0Yxf4hY8zjI"
-
-  // Create the embed URL
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+  // State to track embedding error
+  const [embedError, setEmbedError] = React.useState(false);
+
+  const handleEmbedError = () => {
+    console.error("Embedding is restricted for this video.");
+    setEmbedError(true); // Set error state to show fallback link
+  };
+
   return (
     <div
-      className="layout-content showBrowser "
+      className="layout-content showBrowser"
       style={{
-        backgroundColor: localQrData?.color?.background,
         left: "0",
       }}
     >
-      {localQrData?.youtube_url && (
+      {localQrData?.youtube_url ? (
         <div
           style={{
             width: "95%",
-            // maxWidth: "800px",
             position: "relative",
             paddingBottom: "50%",
             height: "200px",
@@ -1609,25 +1616,41 @@ export const QRPreviewYoutube = ({ localQrData }) => {
             marginInline: "auto",
           }}
         >
-          <iframe
-            src={embedUrl}
-            frameBorder="0"
-            allowFullScreen
-            title="YouTube Video"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              borderRadius: "4px",
-            }}
-          ></iframe>
+          {!embedError ? (
+            <iframe
+              src={embedUrl}
+              frameBorder="0"
+              allowFullScreen
+              title="YouTube Video"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                borderRadius: "4px",
+              }}
+              onError={handleEmbedError} 
+            ></iframe>
+          ) : (
+            <div>
+              <p>This video cannot be embedded. You can watch it directly on YouTube:</p>
+              <a
+                href={watchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "blue", textDecoration: "underline" }}
+              >
+                Watch on YouTube
+              </a>
+            </div>
+          )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
+
 
 export const QRPreviewEvent = ({ localQrData }) => {
   console.log("localQrData", localQrData);

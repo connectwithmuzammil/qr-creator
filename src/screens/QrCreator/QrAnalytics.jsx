@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { StyledEngineProvider } from "@mui/material/styles";
-import { saveAs } from "file-saver"; // For saving files on client-side
-import { CSVLink } from "react-csv"; // CSV link for downloading file
+// import { saveAs } from "file-saver"; 
+import { CSVLink } from "react-csv"; 
 import dayjs from "dayjs";
-import axios from "axios";
 
 import {
   BarChartAnalytics,
@@ -15,24 +13,24 @@ import { useQuery } from "@tanstack/react-query";
 import apis from "../../services";
 import { toast } from "react-toastify";
 
-const dataCountry = [
-  { name: "USA", scans: 500 },
-  { name: "Canada", scans: 350 },
-  { name: "UK", scans: 300 },
-  { name: "India", scans: 450 },
-];
-const dataOS = [
-  { name: "Windows", scans: 400 },
-  { name: "Mac", scans: 300 },
-  { name: "Linux", scans: 300 },
-  { name: "Android", scans: 200 },
-];
-const dataCity = [
-  { name: "New York", scans: 450 },
-  { name: "Los Angeles", scans: 300 },
-  { name: "Chicago", scans: 250 },
-  { name: "Houston", scans: 320 },
-];
+// const dataCountry = [
+//   { name: "USA", scans: 500 },
+//   { name: "Canada", scans: 350 },
+//   { name: "UK", scans: 300 },
+//   { name: "India", scans: 450 },
+// ];
+// const dataOS = [
+//   { name: "Windows", scans: 400 },
+//   { name: "Mac", scans: 300 },
+//   { name: "Linux", scans: 300 },
+//   { name: "Android", scans: 200 },
+// ];
+// const dataCity = [
+//   { name: "New York", scans: 450 },
+//   { name: "Los Angeles", scans: 300 },
+//   { name: "Chicago", scans: 250 },
+//   { name: "Houston", scans: 320 },
+// ];
 const QrAnalytics = () => {
   const [dataOS, setDataOS] = useState([]);
   const [dataCountry, setDataCountry] = useState([]);

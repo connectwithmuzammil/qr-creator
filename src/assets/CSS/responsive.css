@@ -630,6 +630,11 @@
   .bottom-wrapper-stages .btn-next svg {
     right: 110px;
   }
+.loading-content {
+  gap: 20px;
+  justify-content: center;
+
+}
 }
 
 @media screen and (max-width: 350px) {

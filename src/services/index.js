@@ -13,7 +13,7 @@ const createBackendServer = (baseURL) => {
 
   //Interceptor
   api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token"); // Change 'your_token_key' to the actual key used in localStorage
+    const token = localStorage.getItem("token"); 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -39,59 +39,59 @@ const createBackendServer = (baseURL) => {
     }
   );
 
-  const headers = {
-    "Content-Type": "multipart/form-data",
-  };
+  // const headers = {
+  //   "Content-Type": "multipart/form-data",
+  // };
 
   /*==========    GET REQUESTS    ==========*/
 
-  const getProfile = async (id) => await api.get(`/api/user/${id}`);
+  // const getProfile = async (id) => await api.get(`/api/user/${id}`);
 
   /*==========    POST REQUESTS JTC   ==========*/
-  const authLogin = async (body) => api.post("ecomuser/login", body);
+  // const authLogin = async (body) => api.post("ecomuser/login", body);
 
-  const authLogout = async (body) => api.post("logout", body);
+  // const authLogout = async (body) => api.post("logout", body);
 
-  const authVerify = async (body) => api.post("ecomuser/otp-verify", body);
-  const authResend = (body) => api.post("ecomuser/resend-otp", body);
-  const authForget = async (body) =>
-    api.post("ecomuser/sendPasswordResetLinkEmailEcom", body);
-  const authResetPassword = async (body) =>
-    api.post("ecomuser/resetPasswordEcom", body);
-  const authChangePassword = async (body) =>
-    api.post("ecomuser/change-password", body);
+  // const authVerify = async (body) => api.post("ecomuser/otp-verify", body);
+  // const authResend = (body) => api.post("ecomuser/resend-otp", body);
+  // const authForget = async (body) =>
+  //   api.post("ecomuser/sendPasswordResetLinkEmailEcom", body);
+  // const authResetPassword = async (body) =>
+  //   api.post("ecomuser/resetPasswordEcom", body);
+  // const authChangePassword = async (body) =>
+  //   api.post("ecomuser/change-password", body);
 
-  const removeProductFromCart = async (body) =>
-    api.post("ecomuser/remove-cart", body);
+  // const removeProductFromCart = async (body) =>
+  //   api.post("ecomuser/remove-cart", body);
 
   // const updateProfile = async (body) =>
   //   api.post("ecommerceProfile/updateProfileEcom", body);
 
-  const authResendForgot = async (body) =>
-    api.post("ecomuser/resend-otp-not-valid", body);
+  // const authResendForgot = async (body) =>
+  //   api.post("ecomuser/resend-otp-not-valid", body);
 
   /*==========    GET REQUESTS  JTC ==========*/
 
-  const getAllProductWithCategory = async (id) =>
-    await api.get(`getProductCategory?userId=${id}`);
-  const getProductDetails = async (id, userId) =>
-    await api.get(`product/product/${id}?user_id=${userId}`);
+  // const getAllProductWithCategory = async (id) =>
+  //   await api.get(`getProductCategory?userId=${id}`);
+  // const getProductDetails = async (id, userId) =>
+  //   await api.get(`product/product/${id}?user_id=${userId}`);
 
-  const authRegisterReferral = ({ body, code }) =>
-    api.post(`auth/register?referralCode=${code}`, body);
-  const updateUser = ({ id, body }) => api.put(`user/update/${id}`, body);
+  // const authRegisterReferral = ({ body, code }) =>
+  //   api.post(`auth/register?referralCode=${code}`, body);
+  // const updateUser = ({ id, body }) => api.put(`user/update/${id}`, body);
 
-  const getStoreDetails = async (id) => api.get(`store/slug/${id}?type=store`);
+  // const getStoreDetails = async (id) => api.get(`store/slug/${id}?type=store`);
 
-  const getStoreSlot = ({ id, duration, staff_Id }) =>
-    api.get(`store/slots/${id}?duration=${duration}&staff_Id=${staff_Id}`);
+  // const getStoreSlot = ({ id, duration, staff_Id }) =>
+  //   api.get(`store/slots/${id}?duration=${duration}&staff_Id=${staff_Id}`);
 
-  const getStoreSlotwithoutStaff = ({ id, duration }) =>
-    api.get(`store/slots/${id}?duration=${duration}
-    `);
-  const addFavorite = (body) => api.post(`user/favourite-add`, body);
+  // const getStoreSlotwithoutStaff = ({ id, duration }) =>
+  //   api.get(`store/slots/${id}?duration=${duration}
+  //   `);
+  // const addFavorite = (body) => api.post(`user/favourite-add`, body);
 
-  const getOrderDetails = (id) => api.get(`/getSalesApp/${id}`);
+  // const getOrderDetails = (id) => api.get(`/getSalesApp/${id}`);
 
   // ---------------------------------------------------------------------------------------
 

@@ -55,6 +55,13 @@ import { LuExternalLink } from "react-icons/lu";
 import formatDate from "../../utils/FormatDate.js";
 import { CiCalendar } from "react-icons/ci";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 const icons = {
   facebook: <FacebookSocial />,
   instagram: <InstagramSocial />,
@@ -1253,7 +1260,12 @@ export const QRLINK = ({ qrContent }) => {
 };
 
 export const QRGALLERY = ({ qrContent }) => {
-  console.log("qrcontent",qrContent)
+  console.log("qrcontent", qrContent);
+  const images = Array.isArray(qrContent?.gallery_image)
+    ? qrContent.gallery_image.map((image) =>
+        image instanceof File ? URL.createObjectURL(image) : image
+      )
+    : [];
   return (
     <div
       style={{
@@ -1266,7 +1278,7 @@ export const QRGALLERY = ({ qrContent }) => {
         gap: "25px",
         paddingTop: "40px",
         paddingBottom: "30px",
-        padding: "0 16px", // Horizontal padding for small screens
+        padding: "0 16px",
       }}
     >
       <div className="text" style={{ textAlign: "center" }}>
@@ -1279,34 +1291,69 @@ export const QRGALLERY = ({ qrContent }) => {
           background: "#fff",
           textAlign: "center",
           padding: "16px",
-          width: "100%", // Set to 100% for responsiveness
-          maxWidth: "700px", // Max width for larger screens
-          borderRadius: "8px", // Optional: add rounded corners
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: add a subtle shadow
+          width: "100%",
+          maxWidth: "700px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
         <div
           className="box-wrap"
           style={{
-            width: "100%", // Responsive width
-            maxWidth: "300px", // Limit for larger screens
+            width: "100%",
+            maxWidth: "600px",
             background: qrContent?.color?.button,
             padding: "16px",
             margin: "0 auto",
-            borderRadius: "6px", // Optional: add rounded corners
+            borderRadius: "6px",
           }}
         >
-          <img
+          {/* <img
             src={qrContent?.image_path}
             alt="gallery"
             style={{
-              width: "100%", // Responsive image
+              width: "100%", 
               maxWidth: "300px",
               objectFit: "cover",
               borderRadius: "6px",
-              height: "auto", // Allow for responsive height
+              height: "auto", 
             }}
-          />
+          /> */}
+
+          {images.length > 0 && (
+            <div
+              style={{
+                // backgroundColor: localQrData?.color?.button,
+                height: "220px",
+                marginBottom: "16px",
+              }}
+            >
+              <Swiper
+                effect={"cards"}
+                grabCursor={true}
+                modules={[EffectCards]}
+                className="mySwiper"
+              >
+                {images.map((imgUrl, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={imgUrl}
+                      alt={`Gallery Image ${index + 1}`}
+                      style={{
+                        width: "100%",
+                        borderRadius: "8px",
+                        height: "200px",
+
+                        marginTop: "10px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
         </div>
         <button
           style={{
@@ -1735,7 +1782,6 @@ export const QREVENT = ({ qrContent }) => {
         </a>
       </div>
 
-      
       <div
         className="box"
         style={{

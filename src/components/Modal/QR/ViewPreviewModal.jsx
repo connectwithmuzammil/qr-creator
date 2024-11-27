@@ -4,13 +4,22 @@ import { PreviewFrame, TopPreviewHeader } from "../../SVGIcon";
 import {
   QRPreviewApps,
   QRPreviewBusiness,
+  QRPreviewElabelsBeer,
+  QRPreviewElabelsCigar,
+  QRPreviewElabelsCoffee,
+  QRPreviewElabelsFood,
+  QRPreviewElabelsProduct,
+  QRPreviewElabelsWine,
+  QRPreviewEvent,
   QRPreviewGallery,
+  QRPreviewLanding,
   QRPreviewLinks,
   QRPreviewPdf,
   QRPreviewSocial,
   QRPreviewURL,
   QRPreviewVCard,
   QRPreviewVideo,
+  QRPreviewYoutube,
 } from "../../QRDetailPages/QRPreviewAll";
 import ToggleButton from "../../QRDetailPages/QRToggleButton";
 import { RenderFrame } from "../../RenderFrameQR";
@@ -23,6 +32,7 @@ const ViewPreviewModal = ({
   localQrData,
   showToggleBtn,
   style = {},
+  elabelsSelectedProduct,
 }) => {
   const {
     selectedFrame,
@@ -38,7 +48,7 @@ const ViewPreviewModal = ({
     frameTextColor,
     frameText,
   } = style;
-  console.log("check type", type);
+  // console.log("check type", type);
   const location = useLocation();
 
   const [selectedOption, setSelectedOption] = useState(
@@ -47,6 +57,7 @@ const ViewPreviewModal = ({
   const handleToggle = (option) => {
     setSelectedOption(option);
   };
+  // console.log("elabelsSelectedProduct", elabelsSelectedProduct);
   const previewComponents = {
     url: <QRPreviewURL localQrData={localQrData} />,
     vcard: <QRPreviewVCard localQrData={localQrData} />,
@@ -57,6 +68,23 @@ const ViewPreviewModal = ({
     pdf: <QRPreviewPdf localQrData={localQrData} />,
     links: <QRPreviewLinks localQrData={localQrData} />,
     image_gallery: <QRPreviewGallery localQrData={localQrData} />,
+    youtube: <QRPreviewYoutube localQrData={localQrData} />,
+    landing: <QRPreviewLanding localQrData={localQrData} />,
+    events: <QRPreviewEvent localQrData={localQrData} />,
+    elabels:
+      elabelsSelectedProduct === "beer" ? (
+        <QRPreviewElabelsBeer localQrData={localQrData} />
+      ) : elabelsSelectedProduct === "coffee" ? (
+        <QRPreviewElabelsCoffee localQrData={localQrData} />
+      ) : elabelsSelectedProduct === "cigars" ? (
+        <QRPreviewElabelsCigar localQrData={localQrData} />
+      ) : elabelsSelectedProduct === "food" ? (
+        <QRPreviewElabelsFood localQrData={localQrData} />
+      ) : elabelsSelectedProduct === "product" ? (
+        <QRPreviewElabelsProduct localQrData={localQrData} />
+      ) : (
+        <QRPreviewElabelsWine localQrData={localQrData} />
+      ),
   };
   return (
     <Modal

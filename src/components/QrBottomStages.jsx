@@ -35,9 +35,9 @@ function BottomWrapperStages({
       toast.error(message);
     },
     onSuccess: ({ data: generateQr, status }) => {
+      dispatch(resetQrData());
       navigate("/my-qr-codes");
       toast.success("QR code generated successfully");
-      dispatch(resetQrData());
     },
   });
 
@@ -138,7 +138,7 @@ function BottomWrapperStages({
       // formData.append("questions", JSON.stringify(generateQrPayload.questions));
 
       const cleanQuestionsText = (questions) => {
-        console.log("questooo",questions)
+        console.log("questooo", questions);
         return questions?.map((question) => ({
           ...question,
           text: question.text.trim().replace(/\s+/g, " "),
@@ -332,18 +332,6 @@ function BottomWrapperStages({
     }
   };
 
-  // const handleNextClick = () => {
-  //   if (isLastStage) {
-  //     setIsLoading(true);
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //       navigate("/pricing");
-  //     }, 4000);
-  //   } else {
-  //     // Go to the next stage
-  //     onNextClick();
-  //   }
-  // };
   return (
     <>
       <div className="bottom-wrapper-stages">
@@ -370,20 +358,6 @@ function BottomWrapperStages({
             </div>
           ))}
         </div>
-
-        {/* {showNextButton && (
-        <div className="btn-next">
-          <button
-            className="next"
-            onClick={handleNextClick}
-            disabled={isLoading}
-          >
-            {isLastStage ? "Finish" : "Next"}
-            {isLoading ? "Loading..." : isLastStage ? "Finish" : "Next"}
-          </button>
-          <MdChevronRight />
-        </div>
-      )} */}
 
         {/*  */}
         {showNextButton && (

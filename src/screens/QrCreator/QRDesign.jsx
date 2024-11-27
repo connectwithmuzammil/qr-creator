@@ -54,15 +54,32 @@ import ToggleButton from "../../components/QRDetailPages/QRToggleButton";
 import {
   QRPreviewApps,
   QRPreviewBusiness,
+  QRPreviewElabelsBeer,
+  QRPreviewElabelsCigar,
+  QRPreviewElabelsCoffee,
+  QRPreviewElabelsFood,
+  QRPreviewElabelsProduct,
+  QRPreviewElabelsWine,
+  QRPreviewEvent,
   QRPreviewGallery,
+  QRPreviewLanding,
   QRPreviewLinks,
   QRPreviewPdf,
   QRPreviewSocial,
   QRPreviewURL,
   QRPreviewVCard,
   QRPreviewVideo,
+  QRPreviewYoutube,
 } from "../../components/QRDetailPages/QRPreviewAll";
 
+const products = [
+  "Wine/Spirits",
+  "beer",
+  "cigars",
+  "coffee",
+  "food",
+  "product",
+];
 const QRDesign = () => {
   const [selectedOption, setSelectedOption] = useState("QR Code");
   const handleToggle = (option) => {
@@ -100,6 +117,13 @@ const QRDesign = () => {
     // },
   ];
   const [SelectQrCode, setSelectQrCode] = useState(cards[0].id);
+  //SET ELABELS TABS
+  const [elabelsSelectedProduct] = useState(
+    products.find(
+      (product) => qrData[product] === true || qrData[product] === "true"
+    )
+  );
+  console.log("onDesignelabelsSelectedProduct", elabelsSelectedProduct);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
   const [dotColor, setDotColor] = useState(
@@ -218,7 +242,23 @@ const QRDesign = () => {
     pdf: <QRPreviewPdf localQrData={qrData} />,
     links: <QRPreviewLinks localQrData={qrData} />,
     image_gallery: <QRPreviewGallery localQrData={qrData} />,
-
+    youtube: <QRPreviewYoutube localQrData={qrData} />,
+    landing: <QRPreviewLanding localQrData={qrData} />,
+    events: <QRPreviewEvent localQrData={qrData} />,
+    elabels:
+      elabelsSelectedProduct === "beer" ? (
+        <QRPreviewElabelsBeer localQrData={qrData} />
+      ) : elabelsSelectedProduct === "coffee" ? (
+        <QRPreviewElabelsCoffee localQrData={qrData} />
+      ) : elabelsSelectedProduct === "cigars" ? (
+        <QRPreviewElabelsCigar localQrData={qrData} />
+      ) : elabelsSelectedProduct === "food" ? (
+        <QRPreviewElabelsFood localQrData={qrData} />
+      ) : elabelsSelectedProduct === "product" ? (
+        <QRPreviewElabelsProduct localQrData={qrData} />
+      ) : (
+        <QRPreviewElabelsWine localQrData={qrData} />
+      ),
   };
 
   //Render Frame CANVAS
@@ -884,6 +924,7 @@ const QRDesign = () => {
         localQrData={qrData}
         type={qrData?.type}
         showToggleBtn={"qrDesign"}
+        elabelsSelectedProduct={elabelsSelectedProduct}
         style={{
           CornerbgColor,
           dotColor,

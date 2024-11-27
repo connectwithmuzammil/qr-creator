@@ -13,7 +13,7 @@ const UpdateEmailAndPassword = ({
   isLoading,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
+  // const [showNewPassword, setShowNewPassword] = useState(false);
   const { user } = useSelector((store) => store.user);
   // console.log("userrUpdateEmailPage", user);
   const currentEmail = user?.email || user?.user?.email;

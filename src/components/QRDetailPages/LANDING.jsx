@@ -30,6 +30,7 @@ import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLanding } from "./QRPreviewAll";
 import { resetField, resetQrData } from "../../redux/slice/qrSlice";
 import { useDispatch } from "react-redux";
+import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
   { id: "green", background: "#e8fce8", button: "#0e8b70" },
@@ -57,7 +58,7 @@ const icons = {
   xing: <XingSocial />,
 };
 const LANDING = ({ localQrData, setLocalQrData }) => {
-  const dispatch = useDispatch();
+  const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -100,7 +101,6 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [name]: file,
     }));
-    
   };
   const handleImageDelete = (fieldName) => {
     // dispatch(resetField({ field: fieldName }));
@@ -132,97 +132,111 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
 
   console.log("localqrdatalanding_social", localQrData?.landing_social);
   return (
-    <div className="landing-page">
-      <div className="containerr">
-        <div className="left">
-          <AccordianComponent title={"Enter the name of your QR code"}>
-            <InputComponent
-              placeholder="e.g My QR code"
-              onChange={handleInputChange}
-              name="qr_name"
-              value={localQrData?.qr_name}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Choose your design"}>
-            <CutsomColorPickerComp
-              colors={colors}
-              qrData={localQrData}
-              setQrData={setLocalQrData}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Website information"}>
-            <ImageUploadComponent
-              defaultImage={"/assets/images/default-img.png"}
-              onImageUpload={handleImageUpload}
-              onImageDelete={handleImageDelete}
-              label="Logo"
-              name="landing_logo"
-              localQrData={localQrData}
-              onEditImagePreview={localQrData?.landing_logo}
-            />
-            <InputComponent
-              label={"Company"}
-              name={"landing_company"}
-              placeholder={"e.g. Summer Store"}
-              onChange={handleInputChange}
-              value={localQrData?.landing_company}
-            />
-            <InputComponent
-              label={"Title"}
-              name={"landing_title"}
-              placeholder={"e.g. Summer Collection"}
-              onChange={handleInputChange}
-              value={localQrData?.landing_title}
-            />
-            <InputComponent
-              label={"Subtitle"}
-              name={"landing_subtitle"}
-              placeholder={"e.g. Shop for summer essentials at great prices"}
-              onChange={handleInputChange}
-              value={localQrData?.landing_subtitle}
-            />
-            <InputComponent
-              label={"Button text"}
-              name={"landing_btn_text"}
-              placeholder={"e.g. Browse the collection"}
-              onChange={handleInputChange}
-              value={localQrData?.landing_btn_text}
-            />
-            <InputComponent
-              label={"URL"}
-              name={"landing_action_url"}
-              placeholder={"e.g. https://www.yourclothesshop.com/summer"}
-              onChange={handleInputChange}
-              value={localQrData?.landing_action_url}
-            />
-          </AccordianComponent>
-          <AccordianComponent title={"Social networks"}>
-            <p className="social-con-content">Add Link to...</p>
-            <SocialIconsComp
-              icons={icons}
-              onIconClick={handleSocialIconChange}
-              initialLinks={localQrData?.landing_social}
-              isEditing={!!location.state?.qrData}
-            />
-          </AccordianComponent>
-        </div>
-        <div className="right">
-          <ToggleButton
-            selectedOption={selectedOption}
-            onToggle={handleToggle}
-          />
-          <div className="qr-preview__layout__image">
-            <div className="Preview-layout Preview-layout--vcard">
-              <TopPreviewHeader className="topHeaderSvg" />
-              <QRPreviewLanding localQrData={localQrData} />
-            </div>
-
-            <PreviewFrame className="preview-frame" />
+    <>
+      <div className="landing-page">
+      <button
+          className="viewPreviewbtn"
+          onClick={() => setShowModalPreview(true)}
+        >
+          View Preview
+        </button>
+        <div className="containerr">
+          <div className="left">
+            <AccordianComponent title={"Enter the name of your QR code"}>
+              <InputComponent
+                placeholder="e.g My QR code"
+                onChange={handleInputChange}
+                name="qr_name"
+                value={localQrData?.qr_name}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Choose your design"}>
+              <CutsomColorPickerComp
+                colors={colors}
+                qrData={localQrData}
+                setQrData={setLocalQrData}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Website information"}>
+              <ImageUploadComponent
+                defaultImage={"/assets/images/default-img.png"}
+                onImageUpload={handleImageUpload}
+                onImageDelete={handleImageDelete}
+                label="Logo"
+                name="landing_logo"
+                localQrData={localQrData}
+                onEditImagePreview={localQrData?.landing_logo}
+              />
+              <InputComponent
+                label={"Company"}
+                name={"landing_company"}
+                placeholder={"e.g. Summer Store"}
+                onChange={handleInputChange}
+                value={localQrData?.landing_company}
+              />
+              <InputComponent
+                label={"Title"}
+                name={"landing_title"}
+                placeholder={"e.g. Summer Collection"}
+                onChange={handleInputChange}
+                value={localQrData?.landing_title}
+              />
+              <InputComponent
+                label={"Subtitle"}
+                name={"landing_subtitle"}
+                placeholder={"e.g. Shop for summer essentials at great prices"}
+                onChange={handleInputChange}
+                value={localQrData?.landing_subtitle}
+              />
+              <InputComponent
+                label={"Button text"}
+                name={"landing_btn_text"}
+                placeholder={"e.g. Browse the collection"}
+                onChange={handleInputChange}
+                value={localQrData?.landing_btn_text}
+              />
+              <InputComponent
+                label={"URL"}
+                name={"landing_action_url"}
+                placeholder={"e.g. https://www.yourclothesshop.com/summer"}
+                onChange={handleInputChange}
+                value={localQrData?.landing_action_url}
+              />
+            </AccordianComponent>
+            <AccordianComponent title={"Social networks"}>
+              <p className="social-con-content">Add Link to...</p>
+              <SocialIconsComp
+                icons={icons}
+                onIconClick={handleSocialIconChange}
+                initialLinks={localQrData?.landing_social}
+                isEditing={!!location.state?.qrData}
+              />
+            </AccordianComponent>
           </div>
-          {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
+          <div className="right">
+            <ToggleButton
+              selectedOption={selectedOption}
+              onToggle={handleToggle}
+            />
+            <div className="qr-preview__layout__image">
+              <div className="Preview-layout Preview-layout--vcard">
+                <TopPreviewHeader className="topHeaderSvg" />
+                <QRPreviewLanding localQrData={localQrData} />
+              </div>
+
+              <PreviewFrame className="preview-frame" />
+            </div>
+            {/* <img src="/assets/images/phone-website.png" alt="phone-website" /> */}
+          </div>
         </div>
       </div>
-    </div>
+      <ViewPreviewModal
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        localQrData={localQrData}
+        type={"landing"}
+      />
+    </>
   );
 };
 
