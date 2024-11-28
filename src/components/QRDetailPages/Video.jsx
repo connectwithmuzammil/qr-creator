@@ -307,9 +307,12 @@ const Video = ({ localQrData, setLocalQrData }) => {
               <p className="social-con-content">Add Link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.video_social}
-                isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"video_social"}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.video_social}
+                // isEditing={!!location.state?.qrData}
               />
             </AccordianComponent>
           </div>

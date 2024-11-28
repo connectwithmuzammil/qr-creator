@@ -102,20 +102,6 @@ const FacilitiesIcon = {
 };
 
 const BUSINESS = ({ localQrData, setLocalQrData }) => {
-  const hasBusinessData =
-    localQrData &&
-    (localQrData.business_email ||
-      localQrData.business_name ||
-      localQrData.business_phone ||
-      localQrData.business_website ||
-      localQrData.business_company ||
-      localQrData.business_address ||
-      localQrData.business_city ||
-      localQrData.business_country ||
-      localQrData.business_numeration ||
-      localQrData.business_postalcode ||
-      localQrData.business_state);
-
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
 
@@ -125,24 +111,39 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
 
   //EDIT
   const location = useLocation();
-  // console.log("LOCATIONURLBusiness", location);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
       console.log("qrDataFromLocation", qrDataFromLocation);
+
+      // Set the data to local state
       setLocalQrData(qrDataFromLocation);
+      setSelectedFormat(qrDataFromLocation?.opening_hours_format);
 
-      // if (qrDataFromLocation?.opening_hours_format) {
-      //   setTimeFormat(qrDataFromLocation?.opening_hours_format);
-      // }
+      if (qrDataFromLocation?.opening_hours_days) {
+        const allDays = [
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday",
+          "sunday",
+        ];
+        const updatedOpeningHoursDays = allDays.reduce((acc, day) => {
+          acc[day] = qrDataFromLocation.opening_hours_days[day] || {
+            enabled: false,
+            times: [],
+          };
+          return acc;
+        }, {});
 
-      // const daysData = qrDataFromLocation.opening_hours_days;
-      // const updatedDays = Object.keys(selectedDays).reduce((acc, day) => {
-      //   acc[day] = daysData[day]?.enabled || false; // Preserve enabled state for each day
-      //   return acc;
-      // }, {});
-      // setSelectedDays(updatedDays);
+        setLocalQrData((prevState) => ({
+          ...prevState,
+          opening_hours_days: updatedOpeningHoursDays,
+        }));
+      }
 
       if (qrDataFromLocation?.color) {
         setLocalQrData((prevQrData) => ({
@@ -200,36 +201,6 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  // const handleTimeDataChange = (timeData) => {
-  //   const days = [
-  //     "Monday",
-  //     "Tuesday",
-  //     "Wednesday",
-  //     "Thursday",
-  //     "Friday",
-  //     "Saturday",
-  //     "Sunday",
-  //   ];
-  //   const updatedOpeningHours = {};
-
-  //   days.forEach((day) => {
-  //     const dayData = timeData[day][0];
-  //     updatedOpeningHours[day.toLowerCase()] = {
-  //       enabled: dayData.enabled,
-  //       times: timeData[day].map((slot) => ({
-  //         start: slot.from,
-  //         end: slot.to,
-  //       })),
-  //     };
-  //   });
-
-  //   setLocalQrData((prevData) => ({
-  //     ...prevData,
-  //     opening_hours_days: updatedOpeningHours,
-  //     opening_hours_format: is24HourFormat ? "24-Hour" : "AM-PM", // Update format based on toggle
-  //   }));
-  // };
-
   //CODE FOR TIMER START
   const [selectedFormat, setSelectedFormat] = React.useState("AM-PM");
   const [openClockData, setOpenClockData] = React.useState({});
@@ -271,20 +242,30 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
     );
 
     setLocalQrData((prevState) => {
-      const updatedDays = { ...prevState.opening_hours_days };
       const { day, index, timeType } = clockData;
 
       if (day && index !== null && timeType) {
-        updatedDays[day].times[index] = {
-          ...updatedDays[day].times[index],
+        // Deep clone of the nested state to avoid immutability issues
+        const updatedDays = { ...prevState.opening_hours_days };
+        const updatedTimes = [...updatedDays[day].times];
+
+        updatedTimes[index] = {
+          ...updatedTimes[index],
           [timeType]: formattedTime,
+        };
+
+        updatedDays[day] = {
+          ...updatedDays[day],
+          times: updatedTimes,
+        };
+
+        return {
+          ...prevState,
+          opening_hours_days: updatedDays,
         };
       }
 
-      return {
-        ...prevState,
-        opening_hours_days: updatedDays,
-      };
+      return prevState; // Return unchanged state if no valid modification
     });
 
     // Close the time picker after a selection
@@ -326,8 +307,16 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
         start: dayjs().format(selectedFormat === "AM-PM" ? "hh:mm A" : "HH:mm"),
         end: dayjs().format(selectedFormat === "AM-PM" ? "hh:mm A" : "HH:mm"),
       };
+
+      // Deep clone of the state
       const updatedDays = { ...prevState.opening_hours_days };
-      updatedDays[day].times.push(newTimeSlot);
+      const updatedTimes = [...updatedDays[day].times, newTimeSlot];
+
+      updatedDays[day] = {
+        ...updatedDays[day],
+        times: updatedTimes,
+      };
+
       return {
         ...prevState,
         opening_hours_days: updatedDays,
@@ -434,6 +423,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                   name={"business_url"}
                   placeholder={"e.g. https://URL here"}
                   onChange={handleInputChange}
+                  type="url"
                   value={
                     localQrData?.business_url ||
                     localQrData?.business_page?.business_url
@@ -452,16 +442,30 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                 <Grid
                   container
                   spacing={2}
-                  sx={{ maxWidth: "100%", margin: "0 auto" }}
+                  sx={{
+                    maxWidth: "100%",
+                    margin: "0 auto",
+                    padding: { xs: 1, sm: 2 },
+                  }}
                 >
                   {/* Time Format Buttons (AM/PM vs 24-hour) */}
-                  <Grid item xs={12}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: 2,
+                    }}
+                  >
                     <Button
                       variant={
                         selectedFormat === "AM-PM" ? "contained" : "outlined"
                       }
                       onClick={() => handleFormatChange("AM-PM")}
-                      sx={{ marginRight: 1 }}
+                      sx={{ marginRight: 1, width: "100%" }}
                     >
                       AM/PM
                     </Button>
@@ -470,6 +474,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                         selectedFormat === "24-Hour" ? "contained" : "outlined"
                       }
                       onClick={() => handleFormatChange("24-Hour")}
+                      sx={{ width: "100%" }}
                     >
                       24-Hour
                     </Button>
@@ -490,7 +495,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                         alignItems="center"
                         sx={{ marginTop: 2 }}
                       >
-                        <Grid item xs={2}>
+                        <Grid item xs={12} sm={2}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -513,7 +518,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                         </Grid>
 
                         {/* Start Time Input */}
-                        <Grid item xs={4} sx={{ position: "relative" }}>
+                        <Grid item xs={12} sm={4} sx={{ position: "relative" }}>
                           <TextField
                             label="Start Time"
                             value={
@@ -540,7 +545,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                               style={{
                                 position: "fixed",
                                 top: "50%",
-                                left: "39%",
+                                left: "50%",
                                 transform: "translate(-50%, -50%)",
                                 zIndex: 1000,
                                 width: "300px",
@@ -564,7 +569,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                         </Grid>
 
                         {/* End Time Input */}
-                        <Grid item xs={4} sx={{ position: "relative" }}>
+                        <Grid item xs={12} sm={4} sx={{ position: "relative" }}>
                           <TextField
                             label="End Time"
                             value={
@@ -591,18 +596,15 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                               style={{
                                 position: "fixed",
                                 top: "50%",
-                                left: "39%",
-                                transform: "translate(-50%, -50%)",
-                                zIndex: 1000,
-                                width: "300px",
-                                backgroundColor: "white",
-                                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
-                                borderRadius: "8px",
-                                padding: "20px",
-                                boxSizing: "border-box",
-                                height: "360px",
-                                display: "flex",
-                                alignItems: "center",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)", // Center the clock picker
+                                zIndex: 1000, // Ensure it appears on top of other elements
+                                width: "300px", // Set a fixed width for the clock picker
+                                backgroundColor: "white", // White background for the modal
+                                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", // Shadow for better visibility
+                                borderRadius: "8px", // Rounded corners for the modal
+                                padding: "20px", // Add some padding inside the modal
+                                boxSizing: "border-box", // Ensure padding does not overflow
                               }}
                             >
                               <TimeClock
@@ -617,7 +619,8 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                         {/* Add Time Slot Icon */}
                         <Grid
                           item
-                          xs={2}
+                          xs={12}
+                          sm={2}
                           sx={{ display: "flex", justifyContent: "center" }}
                         >
                           <IconButton
@@ -625,7 +628,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                             color="primary"
                             disabled={
                               !localQrData.opening_hours_days[day].enabled
-                            } // Disable button if day is not enabled
+                            }
                             sx={{
                               borderRadius: "50%",
                               padding: "10px",
@@ -654,7 +657,12 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                             }}
                           >
                             {/* Start Time */}
-                            <Grid item xs={4} sx={{ position: "relative" }}>
+                            <Grid
+                              item
+                              xs={12}
+                              sm={4}
+                              sx={{ position: "relative" }}
+                            >
                               <TextField
                                 label="Start Time"
                                 value={timeSlot.start}
@@ -698,7 +706,12 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                             </Grid>
 
                             {/* End Time */}
-                            <Grid item xs={4} sx={{ position: "relative" }}>
+                            <Grid
+                              item
+                              xs={12}
+                              sm={4}
+                              sx={{ position: "relative" }}
+                            >
                               <TextField
                                 label="End Time"
                                 value={timeSlot.end}
@@ -744,7 +757,8 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                             {/* Delete Button/Icon */}
                             <Grid
                               item
-                              xs={2}
+                              xs={12}
+                              sm={2}
                               sx={{ display: "flex", justifyContent: "center" }}
                             >
                               <IconButton
@@ -903,9 +917,12 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
               <p className="social-con-content">Add Link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.business_social}
-                isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"business_social"}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.business_social}
+                // isEditing={!!location.state?.qrData}
               />
             </AccordianComponent>
           </div>

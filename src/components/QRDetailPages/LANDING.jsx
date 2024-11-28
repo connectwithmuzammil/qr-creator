@@ -31,6 +31,7 @@ import { QRPreviewLanding } from "./QRPreviewAll";
 import { resetField, resetQrData } from "../../redux/slice/qrSlice";
 import { useDispatch } from "react-redux";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
   { id: "green", background: "#e8fce8", button: "#0e8b70" },
@@ -57,7 +58,7 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
-const LANDING = ({ localQrData, setLocalQrData }) => {
+const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
   const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
@@ -134,7 +135,7 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
   return (
     <>
       <div className="landing-page">
-      <button
+        <button
           className="viewPreviewbtn"
           onClick={() => setShowModalPreview(true)}
         >
@@ -207,10 +208,19 @@ const LANDING = ({ localQrData, setLocalQrData }) => {
               <p className="social-con-content">Add Link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.landing_social}
-                isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"landing_social"}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.landing_social}
+                // isEditing={!!location.state?.qrData}
               />
+              {errors?.landing_social && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.landing_social}
+                </div>
+              )}
             </AccordianComponent>
           </div>
           <div className="right">

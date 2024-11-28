@@ -300,9 +300,12 @@ const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
               <p className="social-con-content">Add Link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.vcard_social}
-                isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"vcard_social"}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.vcard_social}
+                // isEditing={!!location.state?.qrData}
               />
             </AccordianComponent>
           </div>

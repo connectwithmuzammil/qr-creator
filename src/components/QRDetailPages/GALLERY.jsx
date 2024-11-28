@@ -11,6 +11,7 @@ import ImageUploadMultipleComponent from "../ImageUploadMultipleComponent";
 import { useDispatch } from "react-redux";
 import { deleteField } from "../../redux/slice/qrSlice";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -18,7 +19,7 @@ const colors = [
   { id: "yellow", background: "#fff9cc", button: "#998600" },
   { id: "red", background: "#fecdd6", button: "#b00223" },
 ];
-const GALLERY = ({ localQrData, setLocalQrData }) => {
+const GALLERY = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [showModalPreview, setShowModalPreview] = useState(false);
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState("Preview Page");
@@ -104,7 +105,7 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
   return (
     <>
       <div className="gallery-page">
-      <button
+        <button
           className="viewPreviewbtn"
           onClick={() => setShowModalPreview(true)}
         >
@@ -138,6 +139,13 @@ const GALLERY = ({ localQrData, setLocalQrData }) => {
                   localQrData={localQrData}
                 />
               </div>
+
+              {errors?.gallery_image && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.gallery_image}
+                </div>
+              )}
             </AccordianComponent>
             <AccordianComponent
               title={"Information about your images' gallery"}

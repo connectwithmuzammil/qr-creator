@@ -135,6 +135,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
 
+  console.log("localQrDataSocial", localQrData);
   return (
     <>
       <div className="social-page">
@@ -195,9 +196,12 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
             <AccordianComponent title={"Social Media Channels"}>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.media_social}
-                isEditing={!!location.state?.qrData}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.media_social}
+                // isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"media_social"}
               />
 
               {errors?.media_social && (

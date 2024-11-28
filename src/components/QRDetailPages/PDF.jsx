@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { AccordianComponent } from "../AccordianComponent";
 import { FaTrash } from "react-icons/fa";
 import { InputComponent } from "../InputComponent";
-import ColorPickerComponent from "../ColorPicker";
 import CutsomColorPickerComp from "../CutsomColorPickerComp";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
-import { QRPreviewLanding, QRPreviewPdf } from "./QRPreviewAll";
+import {  QRPreviewPdf } from "./QRPreviewAll";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 
-const PDF = ({ localQrData, setLocalQrData }) => {
+const PDF = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
 
@@ -156,6 +156,13 @@ const PDF = ({ localQrData, setLocalQrData }) => {
                   </div>
                 )}
               </div>
+
+              {errors?.pdf_file && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.pdf_file}
+                </div>
+              )}
             </AccordianComponent>
             <AccordianComponent title={"Choose your design"}>
               <CutsomColorPickerComp

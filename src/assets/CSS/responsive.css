@@ -79,6 +79,9 @@
     height: 100%;
     padding: 2px;
   }
+  .previewModal{
+    /* display: none; */
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -540,6 +543,13 @@
   .links-container li{
     flex-wrap: wrap;
     gap: 8px;
+  }
+  .input-wrap-comp .error-message{
+    font-size: 12px;
+    /* bottom: -37px; */
+  }
+  .youtube-page .error-message{
+    bottom: -37px;
   }
 }
 @media screen and (max-width: 500px) {

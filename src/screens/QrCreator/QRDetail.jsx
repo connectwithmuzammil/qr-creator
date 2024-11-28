@@ -24,175 +24,15 @@ import { resetQrData, setsQrData } from "../../redux/slice/qrSlice";
 const QRDetail = () => {
   const dispatch = useDispatch();
   const { type } = useParams();
-  // console.log("typeeee", type);
-  // const initialState = {
-  //   qr_name: "",
-  //   id: "",
-  //   //URL
-  //   field_url: "",
-  //   //WIFI
-  //   network_name: user?.user?.email || user?.email,
-  //   network_password: user?.user?.password || user?.password,
-  //   network_security_type: "",
-  //   //YOTUBE
-  //   youtube_url: "",
-  //   //PDF
-  //   pdf_file: "",
-  //   pdf_company: "",
-  //   pdf_title: "",
-  //   pdf_description: "",
-  //   pdf_website: "",
-  //   //APPS
-  //   app_name: "",
-  //   app_company: "",
-  //   app_description: "",
-  //   app_logo: "",
-  //   app_website: "",
-  //   app_social: {},
-  //   //LANDING
-  //   landing_action_url: "",
-  //   landing_company: "",
-  //   landing_logo: "",
-  //   landing_title: "",
-  //   landing_subtitle: "",
-  //   landing_social: {},
-  //   landing_btn_text: "",
-  //   //SOCIAL
-  //   media_social: {},
-  //   media_headline: "",
-  //   media_description: "",
-
-  //   //image_gallery
-  //   gallery_image: "",
-  //   gallery_title: "",
-  //   gallery_description: "",
-  //   gallery_website: "",
-  //   gallery_url: "",
-  //   gallery_btn_text: "",
-
-  //   //LINKS
-  //   links_image: "",
-  //   links_title: "",
-  //   links_description: "",
-  //   all_links: [],
-  //   links_social: {},
-
-  //   //VCARD
-  //   vcard_address: "",
-  //   vcard_city: "",
-  //   vcard_company_name: "",
-  //   vcard_country: "",
-  //   vcard_email: "",
-  //   vcard_fax: "",
-  //   vcard_full_name: "",
-  //   vcard_landline_phone: "",
-  //   vcard_mobile_phone: "",
-  //   vcard_numeration: "",
-  //   vcard_profession: "",
-  //   vcard_state: "",
-  //   vcard_summary: "",
-  //   vcard_website: "",
-  //   vcard_zip_code: "",
-  //   vcard_social: "",
-  //   vcard_image: "",
-
-  //   //BUSINESS
-  //   business_email: "", //
-  //   business_name: "", //
-  //   business_phone: "", //
-  //   business_website: "", //
-  //   business_action_title: "",
-  //   business_url: "", //
-  //   business_company: "", //
-  //   business_subtitle: "", //
-  //   business_title: "", //
-  //   business_btn_text: "", //
-  //   business_address: "", //
-  //   business_city: "", //
-  //   business_country: "", //
-  //   business_numeration: "", //
-  //   business_postalcode: "", //
-  //   business_state: "", //
-  //   business_about: "", //
-
-  //   opening_hours_days: {
-  //     monday: { enabled: false, times: [] },
-  //     tuesday: { enabled: false, times: [] },
-  //     wednesday: { enabled: false, times: [] },
-  //     thursday: { enabled: false, times: [] },
-  //     friday: { enabled: false, times: [] },
-  //     saturday: { enabled: false, times: [] },
-  //     sunday: { enabled: false, times: [] },
-  //   },
-  //   opening_hours_format: "AM-PM",
-
-  //   business_facilities: "",
-  //   business_social: "",
-  //   business_logo: "",
-
-  //   //VIDEO
-  //   video: null,
-  //   video_name: "",
-  //   video_description: "",
-  //   video_button: "",
-  //   video_url: "",
-  //   video_social: {},
-
-  //   //EVENTS
-  //   event_action_title: "",
-  //   event_action_url: "", //
-  //   event_description: "", //
-  //   event_title: "", //
-  //   event_location_address: "", //
-  //   event_location_city: "", //
-  //   event_location_country: "", //
-  //   event_location_numeration: "", //
-  //   event_location_postal_code: "", //
-  //   event_location_state: "", //
-  //   event_organizer_about: "", //
-  //   event_organizer_email: "", //
-  //   event_organizer_name: "", //
-  //   event_organizer_phone: "", //
-  //   event_organizer_website: "", //
-  //   event_time_action_title: "",
-  //   event_time_all_day: true,
-  //   event_time_end: "2024-09-29T19:00:00.000Z",
-  //   event_time_start: "2024-09-28T19:00:00.000Z",
-  //   event_time_timezone: "",
-  //   event_image: "",
-  //   event_facilities: "",
-  //   event_btn_text: "",
-
-  //   type: "",
-  //   style: {
-  //     dotsStyle: "", //square
-  //     dotsColor: "#000000",
-  //     cornerStyle: "",
-  //     cornerBackgroundColor: "#ffffff",
-  //     cornerBorderColor: "",
-  //     cornerDotColor: "",
-  //     backgroundColor: "",
-  //     frameStyle: "",
-  //     frameColor: "", //#404040
-  //     frameText: "",
-  //     frameTextColor: "",
-  //     frameName: "",
-  //   },
-  //   color: {
-  //     background: "",
-  //     button: "",
-  //   },
-  //   social: {},
-  // };
-  // const [qrData, setQrData] = useState(initialState);
 
   const qrDataVar = useSelector((state) => state.qrData);
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   const [errors, setErrors] = useState({});
   // console.log("qrDataVarr", qrDataVar);
-  // console.log("localQrData", localQrData);
+  console.log("localQrDataDetail", localQrData);
 
   const validateField = (type, name, value) => {
+    console.log("valuetest", value);
     switch (type) {
       case "url":
         if (name === "field_url") {
@@ -225,57 +65,118 @@ const QRDetail = () => {
         }
         if (name === "media_social") {
           if (!value || Object.keys(value).length === 0) {
-            return "Please add at least one social media link";
+            return " Please add at least one social media link.";
+          }
+          for (const [key, link] of Object.entries(value)) {
+            if (!link) {
+              return `Please provide a valid link for ${key}.`;
+            }
+            const urlRegex = /^(https:\/\/)/;
+            if (!urlRegex.test(link)) {
+              return `${key} link must start with 'https://'.`;
+            }
           }
         }
         break;
 
+      case "landing":
+        if (name === "landing_social") {
+          if (!value || Object.keys(value).length === 0) {
+            return " Please add at least one social media link.";
+          }
+          for (const [key, link] of Object.entries(value)) {
+            if (!link) {
+              return `Please provide a valid link for ${key}.`;
+            }
+            const urlRegex = /^(https:\/\/)/;
+            if (!urlRegex.test(link)) {
+              return `${key} link must start with 'https://'.`;
+            }
+          }
+        }
+        break;
+
+      case "pdf":
+        if (name === "pdf_file") {
+          if (!value) return "Please upload a PDF file.";
+          const pdfRegex = /\.pdf$/i;
+          if (!pdfRegex.test(value.name)) return "File must be a PDF.";
+        }
+        break;
+      case "image_gallery":
+        if (name === "gallery_image") {
+          if (!value || value.length === 0)
+            return "Please upload at least one image.";
+        }
+        break;
+
+        case "links":
+          if (name === "all_links") {
+            if (!value || value.length === 0)
+              return "Please Add at least one Link.";
+          }
+          break;
+
       default:
         return "";
     }
-    return ""; // Return empty string if no validation rule found
+    return "";
   };
 
   const handleSubmit = () => {
     let errorFound = false;
-    let newErrors = { ...errors }; // Clone the errors object
+    let newErrors = { ...errors };
 
     // Validate `media_social`
-    const socialError = validateField(
-      type,
-      "media_social",
-      localQrData.media_social
-    );
-    if (socialError) {
-      newErrors.media_social = socialError;
-      errorFound = true;
-    } else {
-      newErrors.media_social = "";
-    }
+    // const socialError = validateField(
+    //   type,
+    //   "media_social",
+    //   localQrData.media_social
+    // );
+    // if (socialError) {
+    //   newErrors.media_social = socialError;
+    //   errorFound = true;
+    // } else {
+    //   newErrors.media_social = "";
+    // }
 
+    // for (const field in localQrData) {
+    //   const error = validateField(type, field, localQrData[field]);
+    //   if (error) {
+    //     newErrors[field] = error;
+    //     errorFound = true;
+    //   } else {
+    //     newErrors[field] = "";
+    //   }
+    // }
+
+    // Validate each field in `localQrData`
     for (const field in localQrData) {
-      const error = validateField(type, field, localQrData[field]);
+      const value = localQrData[field];
+      const error = validateField(type, field, value);
       if (error) {
         newErrors[field] = error;
         errorFound = true;
       } else {
         newErrors[field] = "";
       }
+
+      // Special handling for nested `media_social`
+      // if (field === "landing_social" && typeof value === "object") {
+      const socialError = validateField(type, field, value);
+      if (socialError) {
+        newErrors[field] = socialError;
+        errorFound = true;
+      } else {
+        newErrors[field] = "";
+      }
+      // }
     }
 
     setErrors(newErrors);
 
     return !errorFound;
   };
-
-  // useEffect(() => {
-  //   setQrData((prevState) => ({
-  //     ...prevState,
-  //     type: type,
-  //   }));
-  // }, [type]);
-
-  // console.log("qrData", qrData);
 
   const navigate = useNavigate();
 
@@ -285,13 +186,23 @@ const QRDetail = () => {
     console.log("localqrdataio", localQrData);
 
     if (!isValid) {
-      if (errors?.media_social) {
-        toast.error(errors.media_social);
+      const errorMessages = Object.values(errors).filter(Boolean);
+      if (errorMessages.length) {
+        toast.error(errorMessages[0]); // Display the first error
       } else {
         toast.error("Please correct the highlighted errors before proceeding.");
       }
       return;
     }
+
+    // if (!isValid) {
+    //   if (errors?.media_social) {
+    //     toast.error(errors.media_social);
+    //   } else {
+    //     toast.error("Please correct the highlighted errors before proceeding.");
+    //   }
+    //   return;
+    // }
     try {
       const dataToSend = {
         type: type,
@@ -530,10 +441,10 @@ const QRDetail = () => {
               beer_image: localQrData?.beer_image,
               nutrition_image: localQrData?.nutrition_image,
               cigar_image: localQrData?.cigar_image,
-              coffee_image : localQrData?.coffee_image,
-              wine_image : localQrData?.wine_image,
-              product_image : localQrData?.product_image,
-              food_image : localQrData?.food_image,
+              coffee_image: localQrData?.coffee_image,
+              wine_image: localQrData?.wine_image,
+              product_image: localQrData?.product_image,
+              food_image: localQrData?.food_image,
 
               is_question: localQrData?.is_question,
               questions: localQrData?.questions,
@@ -553,7 +464,11 @@ const QRDetail = () => {
 
   const handleCancelClick = () => {
     dispatch(resetQrData());
-    navigate(`/qr-editor`);
+    if (localQrData?.id !== "") {
+      navigate(`/my-qr-codes`);
+    } else {
+      navigate(`/qr-editor`);
+    }
   };
 
   const renderDetailContent = () => {
@@ -581,7 +496,12 @@ const QRDetail = () => {
       case "pdf":
         return (
           <div>
-            <PDF localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <PDF
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "wifi":
@@ -604,7 +524,12 @@ const QRDetail = () => {
       case "apps":
         return (
           <div>
-            <APPS localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <APPS
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "image_gallery":
@@ -613,13 +538,20 @@ const QRDetail = () => {
             <GALLERY
               localQrData={localQrData}
               setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
             />
           </div>
         );
       case "links":
         return (
           <div>
-            <LINKS localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <LINKS
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "landing":
@@ -628,6 +560,8 @@ const QRDetail = () => {
             <LANDING
               localQrData={localQrData}
               setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
             />
           </div>
         );
@@ -645,7 +579,12 @@ const QRDetail = () => {
       case "video":
         return (
           <div>
-            <Video localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <Video
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "business_page":
@@ -654,13 +593,20 @@ const QRDetail = () => {
             <BUSINESS
               localQrData={localQrData}
               setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
             />
           </div>
         );
       case "events":
         return (
           <div>
-            <EVENT localQrData={localQrData} setLocalQrData={setLocalQrData} />
+            <EVENT
+              localQrData={localQrData}
+              setLocalQrData={setLocalQrData}
+              errors={errors}
+              setErrors={setErrors}
+            />
           </div>
         );
       case "elabels":
@@ -699,18 +645,3 @@ const QRDetail = () => {
 };
 
 export default QRDetail;
-
-// let isValid = true;
-// let errorMessage = "";
-
-// if (type === "url") {
-//   if (!qrData.field_url) {
-//     isValid = false;
-//     errorMessage = "Please enter the URL";
-//   }
-// }
-// if (!isValid) {
-
-//   toast.error(errorMessage);
-//   return;
-// }

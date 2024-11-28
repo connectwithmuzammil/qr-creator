@@ -686,6 +686,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
               background: "#fff",
               width: "97%",
               padding: "8px",
+              marginInline:"auto",
               borderRadius: "8px",
               marginTop: "16px",
               marginBottom: "16px",

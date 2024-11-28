@@ -166,11 +166,14 @@ const APPS = ({ localQrData, setLocalQrData }) => {
               <p className="social-con-content">Add at least one link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.app_social}
+                // isEditing={!!location.state?.qrData}
                 className={"app-social"}
-                initialLinks={localQrData?.app_social}
-                isEditing={!!location.state?.qrData}
                 customStyle={"app-social"}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"app_social"}
               />
             </AccordianComponent>
           </div>

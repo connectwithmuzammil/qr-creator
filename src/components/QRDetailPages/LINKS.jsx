@@ -25,13 +25,13 @@ import {
   XingSocial,
 } from "../../Helper/SocialSvgIcons";
 import Button from "../Button";
-import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import ToggleButton from "./QRToggleButton";
 import { PreviewFrame, TopPreviewHeader } from "../SVGIcon";
 import { QRPreviewLinks } from "./QRPreviewAll";
 import { toast } from "react-toastify";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -60,7 +60,7 @@ const icons = {
   xing: <XingSocial />,
 };
 
-const LINKS = ({ localQrData, setLocalQrData }) => {
+const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
 
@@ -156,8 +156,8 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
   };
 
   const handleSingleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+    // console.log("Received media data", mediaData);
+    // console.log("Received media name", name);
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -184,10 +184,12 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
+  console.log("linksLocalQrdata", localQrData);
+
   return (
     <>
       <div className="link-page">
-      <button
+        <button
           className="viewPreviewbtn"
           onClick={() => setShowModalPreview(true)}
         >
@@ -320,14 +322,24 @@ const LINKS = ({ localQrData, setLocalQrData }) => {
                   </>
                 )}
               </div>
+
+              {errors?.all_links && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.all_links}
+                </div>
+              )}
             </AccordianComponent>
             <AccordianComponent title={"Your social networks"}>
               <p className="social-con-content">Add Link to...</p>
               <SocialIconsComp
                 icons={icons}
-                onIconClick={handleSocialIconChange}
-                initialLinks={localQrData?.links_social}
-                isEditing={!!location.state?.qrData}
+                localQrData={localQrData}
+                setLocalQrData={setLocalQrData}
+                dataKey={"links_social"}
+                // onIconClick={handleSocialIconChange}
+                // initialLinks={localQrData?.links_social}
+                // isEditing={!!location.state?.qrData}
               />
             </AccordianComponent>
           </div>

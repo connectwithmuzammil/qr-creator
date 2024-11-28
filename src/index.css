@@ -72,6 +72,9 @@
 .error-message {
   color: red;
   font-size: 0.875em;
+  display: flex;
+  gap: 2px;
+  align-items: center;
 }
 
 .input-comp-error {
@@ -255,5 +258,5 @@
 } */
 
 .css-eegpc0-MuiTimeClock-root {
-width: auto !important;
+  width: auto !important;
 }
