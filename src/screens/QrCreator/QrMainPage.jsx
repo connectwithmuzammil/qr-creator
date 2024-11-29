@@ -52,6 +52,7 @@ const QrMainPage = () => {
   const [modalContent, setModalContent] = useState({});
   const [showPreviewScanModal, setShowPreviewScanModal] = useState(false);
   const [PreviewScanImageData, setPreviewScanImageData] = useState({});
+  const [sortBy, setSortBy] = useState("most_recent");
 
   const handleDeleteBoxToggle = (id) => {
     // console.log("handleDeleteBoxToggleIDDD", id);
@@ -118,8 +119,9 @@ const QrMainPage = () => {
     refetch: refetchAllQrCodes,
     data: { data: getALLQrCodes } = {},
   } = useQuery({
-    queryKey: ["getALLQrCodes", selectedTypes],
-    queryFn: () => apis.GETAllQrCode({ type: selectedTypes.join(",") }),
+    queryKey: ["getALLQrCodes", selectedTypes, sortBy],
+    queryFn: () =>
+      apis.GETAllQrCode({ type: selectedTypes.join(","), sort: sortBy }),
     // enabled: selectedTypes.length > 0,
     onError: (error) => {
       console.error("Error geting QR Codes:", error);
@@ -568,6 +570,12 @@ const QrMainPage = () => {
     return mappedSelectedTypes.join(", ") || "Select QR Types";
   };
 
+  // FILTER SORT_BY HANDLECHANGE
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+  console.log("SORTTT", sortBy);
+
   // console.log("selectedTypes", selectedTypes);
   return (
     <>
@@ -642,20 +650,18 @@ const QrMainPage = () => {
                     <select
                       name="status"
                       id="qrStatusDropdown"
-                      value={status}
-                      onChange={handleChange}
+                      value={sortBy}
+                      onChange={handleSortChange}
                     >
-                      <option value="mostrecent">Most Recent</option>
-                      <option value="lastupdated">Last Updated</option>
-                      <option value="name">Name</option>
+                      <option value="most_recent">Most Recent</option>
+                      <option value="last_updated">Last Updated</option>
+                      <option value="sort_name">Name</option>
                     </select>
                     <FaChevronDown className="dropdown-icon" />
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Check if the data is still loading */}
             {isLoading ? (
               <div className="bottom">
                 <div className="status-con">
@@ -670,8 +676,8 @@ const QrMainPage = () => {
                 {getALLQrCodes?.data && getALLQrCodes?.data.length > 0 ? (
                   <>
                     {getALLQrCodes?.data
-                      ?.slice()
-                      ?.reverse()
+                      // ?.slice()
+                      // ?.reverse()
                       .map((qrCode, index) => {
                         const selectedFrame = qrCode?.style?.frameName;
                         // console.log("selectedFrametyy", selectedFrame);
@@ -866,6 +872,7 @@ const QrMainPage = () => {
                       src="/assets/images/noQRFound.jpg"
                       alt="No QR Codes"
                       className="no-qr-image"
+                      loading="lazy"
                     />
                     <h2>No QR Codes Found</h2>
                     <p>

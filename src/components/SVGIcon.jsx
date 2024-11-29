@@ -1931,7 +1931,10 @@ export const CanvaFrame1 = ({
   }, [qrLogo]);
 
   console.log("imageLogoSvg",imageLogo);
-  let testLogo = "https://qrgenarator.envobyte.dev/qrDesignLogo/design_6_5I9tzNbcal.jpeg"
+  let testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+  // "https://qrgenarator.envobyte.dev/qrDesignLogo/design_6_Zhw7Y6mpJ7.svg"
+
+
   // "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
 
 

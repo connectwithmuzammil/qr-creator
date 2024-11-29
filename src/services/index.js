@@ -108,7 +108,7 @@ const createBackendServer = (baseURL) => {
   const updateEmail = (body) => api.post(`update-email`, body);
   const scanQrCode = (body) => api.post(`qr_scan`, body);
   const QRCount = () => api.get(`qr_count`);
-  const GETAllQrCode = ({type}) => api.get(`user_qr?type=${type}`);
+  const GETAllQrCode = ({type,sort}) => api.get(`user_qr?type=${type}&sort_by=${sort}`);
   const getScanCount = () => api.get(`getScanCount`);
   const deleteQrCode = (body) => api.delete(`delete_user`, { data: body });
   const checkout = (body) => api.post(`craetePayment`, body);
