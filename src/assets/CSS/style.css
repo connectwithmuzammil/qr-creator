@@ -1683,6 +1683,19 @@ footer .bottom p {
   font-family: "Nunito Sans", sans-serif;
   margin: 0;
 }
+.qr-main-page
+  .bottom
+  .all-qrCode-con
+  .result-cardd
+  .two
+  .modifiedDate-con
+  .wrap
+  h6.link{
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; */
+  }
 .qr-main-page .bottom .all-qrCode-con .result-cardd .three {
   display: flex;
   flex-direction: column;

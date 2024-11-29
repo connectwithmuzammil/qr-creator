@@ -31,6 +31,7 @@ import { QRPreviewVideo } from "./QRPreviewAll";
 import { useDispatch } from "react-redux";
 import { clearField } from "../../redux/slice/qrSlice";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -58,7 +59,7 @@ const icons = {
   web: <WebSocial />,
   xing: <XingSocial />,
 };
-const Video = ({ localQrData, setLocalQrData }) => {
+const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const dispatch = useDispatch();
   const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
@@ -257,6 +258,13 @@ const Video = ({ localQrData, setLocalQrData }) => {
                   />
                 )}
               </div>
+
+              {errors?.video_path && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.video_path}
+                </div>
+              )}
             </AccordianComponent>
             <AccordianComponent title={"Video Information"}>
               <InputComponent

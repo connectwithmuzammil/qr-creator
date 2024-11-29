@@ -58,6 +58,7 @@ import dayjs from "dayjs";
 import { Add as AddIcon } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
+import { MdErrorOutline } from "react-icons/md";
 
 const colors = [
   { id: "blue", background: "#d1e5fa", button: "#1466b8" },
@@ -101,7 +102,7 @@ const FacilitiesIcon = {
   Wifi: <FacilitiesWifiIcon />,
 };
 
-const BUSINESS = ({ localQrData, setLocalQrData }) => {
+const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
 
@@ -453,7 +454,7 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                     item
                     xs={12}
                     sm={6}
-                    md={4}
+                    md={6}
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -783,6 +784,13 @@ const BUSINESS = ({ localQrData, setLocalQrData }) => {
                   ))}
                 </Grid>
               </LocalizationProvider>
+
+              {errors?.opening_hours_days && (
+                <div className="error-message">
+                  <MdErrorOutline className="error-icon" />
+                  {errors.opening_hours_days}
+                </div>
+              )}
             </AccordianComponent>
 
             <AccordianComponent title={"Location"}>

@@ -28,7 +28,7 @@ const icons = {
   amazon: <AmazonSocial />,
 };
 
-const APPS = ({ localQrData, setLocalQrData }) => {
+const APPS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
   const handleToggle = (option) => {
@@ -61,13 +61,13 @@ const APPS = ({ localQrData, setLocalQrData }) => {
     }
   }, [location.state, setLocalQrData]);
 
-  const handleImageUpload = (mediaData, name) => {
+  const handleImageUpload = (mediaData, name, file) => {
     console.log("Received media data", mediaData); // media data base64
     console.log("Received media name", name); // media name
 
     setLocalQrData((prevData) => ({
       ...prevData,
-      [name]: mediaData,
+      [name]: file,
     }));
   };
 
@@ -84,6 +84,11 @@ const APPS = ({ localQrData, setLocalQrData }) => {
     setLocalQrData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
@@ -126,9 +131,9 @@ const APPS = ({ localQrData, setLocalQrData }) => {
             <AccordianComponent title={"App information"}>
               <ImageUploadComponent
                 defaultImage={"/assets/images/default-img.png"}
-                label="Logo"
                 onImageUpload={handleImageUpload}
                 onImageDelete={handleImageDelete}
+                label="Logo"
                 name="app_logo"
                 localQrData={localQrData}
                 onEditImagePreview={localQrData?.app_logo}
@@ -139,6 +144,7 @@ const APPS = ({ localQrData, setLocalQrData }) => {
                 name={"app_name"}
                 value={localQrData?.app_name}
                 onChange={handleInputChange}
+                error={errors?.app_name}
               />
               <InputComponent
                 label={"Developer/Company"}
@@ -160,6 +166,7 @@ const APPS = ({ localQrData, setLocalQrData }) => {
                 name={"app_website"}
                 value={localQrData?.app_website}
                 onChange={handleInputChange}
+                error={errors?.app_website}
               />
             </AccordianComponent>
             <AccordianComponent title={"Links to platforms"}>

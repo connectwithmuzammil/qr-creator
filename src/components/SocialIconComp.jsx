@@ -180,7 +180,7 @@ const SocialIconsComp = ({
     <>
       {/* Render active icons with input fields */}
       {activeIcons.map((iconName) => (
-        <div className="input-box-wrapper-social" key={iconName}>
+        <div className={`input-box-wrapper-social ${className}`} key={iconName}>
           <div className="wrap">
             <div className="icon-selected">{icons[iconName]}</div>
             <input

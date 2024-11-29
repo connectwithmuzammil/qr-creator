@@ -41,7 +41,6 @@ const QRDetail = () => {
           if (!urlRegex.test(value)) return "URL must start with 'https://'.";
         }
         break;
-
       case "youtube":
         if (name === "youtube_url") {
           if (!value) return "Please enter a YouTube URL.";
@@ -51,14 +50,12 @@ const QRDetail = () => {
           return "";
         }
         break;
-
       case "vcard":
         if (name === "vcard_full_name") {
           if (!value) return "Required field";
         }
 
         break;
-
       case "social_media":
         if (name === "media_headline") {
           if (!value) return "Enter at least 1 character";
@@ -78,7 +75,6 @@ const QRDetail = () => {
           }
         }
         break;
-
       case "landing":
         if (name === "landing_social") {
           if (!value || Object.keys(value).length === 0) {
@@ -95,7 +91,6 @@ const QRDetail = () => {
           }
         }
         break;
-
       case "pdf":
         if (name === "pdf_file") {
           if (!value) return "Please upload a PDF file.";
@@ -109,14 +104,84 @@ const QRDetail = () => {
             return "Please upload at least one image.";
         }
         break;
-
-        case "links":
-          if (name === "all_links") {
-            if (!value || value.length === 0)
-              return "Please Add at least one Link.";
+      case "links":
+        if (name === "all_links") {
+          if (!value || value.length === 0)
+            return "Please Add at least one Link.";
+        }
+        break;
+      case "business_page":
+        if (name === "opening_hours_days") {
+          if (!value || Object.keys(value).length === 0) {
+            return "Opening hours must be provided.";
           }
-          break;
 
+          const days = Object.values(value);
+          const isAnyDayEnabled = days.some((day) => day.enabled);
+          if (!isAnyDayEnabled) {
+            return "At least one day must be enabled.";
+          }
+
+          for (const [day, data] of Object.entries(value)) {
+            if (data.enabled) {
+              if (!data.times || data.times.length === 0) {
+                return `Please provide time slots for ${day}.`;
+              }
+
+              for (const timeSlot of data.times) {
+                if (!timeSlot.start || !timeSlot.end) {
+                  return `Invalid time slot for ${day}: start and end times are required.`;
+                }
+
+                const startTime = new Date(`1970-01-01T${timeSlot.start}:00`);
+                const endTime = new Date(`1970-01-01T${timeSlot.end}:00`);
+
+                if (startTime >= endTime) {
+                  return `Invalid time slot for ${day}: start time must be before end time.`;
+                }
+              }
+            }
+          }
+        }
+        break;
+      case "apps":
+        if (name === "app_name") {
+          if (!value) return "Required field";
+        }
+        if (name === "app_website") {
+          if (!value) return "Required field";
+          const urlRegex =
+            /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$/;
+          if (!urlRegex.test(value)) {
+            return "App website must be a valid URL.";
+          }
+        }
+        break;
+      case "video":
+        if (name === "video_path") {
+          if (!value) return "Video is required.";
+
+          const validVideoExtensions = [".mp4", ".avi", ".mov", ".mkv"];
+          const fileName = value?.name || "";
+          const fileSize = value?.size || 0;
+
+          // Check file extension
+          const isValidExtension = validVideoExtensions.some((ext) =>
+            fileName.toLowerCase().endsWith(ext)
+          );
+          if (!isValidExtension) {
+            return `Invalid file type. Accepted formats are: ${validVideoExtensions.join(
+              ", "
+            )}`;
+          }
+
+          // Check file size (example: max 50MB)
+          const maxFileSize = 50 * 1024 * 1024; // 50MB
+          if (fileSize > maxFileSize) {
+            return "File size must not exceed 50MB.";
+          }
+        }
+        break;
       default:
         return "";
     }
@@ -245,6 +310,7 @@ const QRDetail = () => {
               app_description: localQrData?.app_description,
               app_website: localQrData?.app_website,
               app_social: localQrData?.app_social,
+              app_logo: localQrData?.app_logo,
               color: localQrData.color,
             }
           : {}),

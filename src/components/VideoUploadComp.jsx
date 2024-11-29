@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import { toast } from "react-toastify";
-import { clearField } from "../redux/slice/qrSlice";
-import { useDispatch } from "react-redux";
 
 const VideoUpload = ({ onVideoUpload, setLocalQrData, localQrData }) => {
   const [video, setVideo] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
-  const dispatch = useDispatch();
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
     if (!file) {
       return;
     }
-    if (file.size > 2048 * 1024) {
-      // 2MB in bytes
-      toast.error("The video is too large. Maximum size is 2MB.");
-      return;
-    }
+    // if (file.size > 2048 * 1024) {
+    //   // 2MB in bytes
+    //   toast.error("The video is too large. Maximum size is 2MB.");
+    //   return;
+    // }
     if (file) {
       const newVideoUrl = URL.createObjectURL(file);
       setVideo(file);
@@ -58,7 +54,6 @@ const VideoUpload = ({ onVideoUpload, setLocalQrData, localQrData }) => {
     //   ...prevData,
     //   video_path: null,
     // }));
-
   };
 
   return (

@@ -36,6 +36,7 @@ const ImageUploadComponent = ({
     }
   };
 
+  console.log("onEditImagePreview", onEditImagePreview);
   return (
     <div className="img-upload-comp">
       <div className="wrap">
@@ -43,11 +44,11 @@ const ImageUploadComponent = ({
         <div className="img-wrapper">
           <img
             src={
-              // ? image
-              // : onEditImagePreview
-              // ? onEditImagePreview
-              // : defaultImage
-              image || onEditImagePreview || defaultImage
+              image ||
+              (onEditImagePreview instanceof File
+                ? URL.createObjectURL(onEditImagePreview)
+                : onEditImagePreview) ||
+              defaultImage
             }
             alt="Uploaded"
             className="uploaded-img"
@@ -57,7 +58,7 @@ const ImageUploadComponent = ({
               <h3>+</h3>
               <input
                 type="file"
-                id={uniqueId} 
+                id={uniqueId}
                 accept="image/*"
                 onChange={handleImageUpload}
               />

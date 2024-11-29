@@ -121,7 +121,7 @@ const QrMainPage = () => {
     queryFn: () => apis.GETAllQrCode({ type: selectedTypes.join(",") }),
     // enabled: selectedTypes.length > 0,
     onError: (error) => {
-      console.error("Error geting Order History:", error);
+      console.error("Error geting QR Codes:", error);
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
@@ -501,14 +501,21 @@ const QrMainPage = () => {
     });
   };
 
+  const resetFilter = async () => {
+    if (selectedTypes.length > 0) {
+      setSelectedTypes([]);
+      // refetchAllQrCodes();
+    }
+  };
+
   useEffect(() => {
     // Only call the API if there are selected types
     if (selectedTypes.length > 0) {
       const timer = setTimeout(() => {
         refetchAllQrCodes();
-      }, 300); // Wait for 300ms before calling the API
+      }, 100);
 
-      return () => clearTimeout(timer); // Cleanup the timer on unmount or re-render
+      return () => clearTimeout(timer);
     }
   }, [selectedTypes, refetchAllQrCodes]);
 
@@ -531,10 +538,7 @@ const QrMainPage = () => {
 
     return mappedSelectedTypes.join(", ") || "Select QR Types";
   };
-  const resetFilter = async () => {
-    setSelectedTypes([]);
-    refetchAllQrCodes();
-  };
+
   console.log("selectedTypes", selectedTypes);
   return (
     <>
@@ -717,7 +721,7 @@ const QrMainPage = () => {
                                       rel="noopener noreferrer"
                                       style={{ textDecoration: "none" }}
                                     >
-                                      <h6>
+                                      <h6 className="link">
                                         {qrCode?.outcome}
                                         {/* https://qr-creator-black.vercel.app/ */}
                                       </h6>

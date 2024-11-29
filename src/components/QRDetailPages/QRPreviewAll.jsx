@@ -686,7 +686,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
               background: "#fff",
               width: "97%",
               padding: "8px",
-              marginInline:"auto",
+              marginInline: "auto",
               borderRadius: "8px",
               marginTop: "16px",
               marginBottom: "16px",
@@ -1494,7 +1494,6 @@ export const QRPreviewGallery = ({ localQrData }) => {
       )
     : [];
 
-
   return (
     <div
       className="layout-content showBrowser "
@@ -1631,11 +1630,14 @@ export const QRPreviewYoutube = ({ localQrData }) => {
                 height: "100%",
                 borderRadius: "4px",
               }}
-              onError={handleEmbedError} 
+              onError={handleEmbedError}
             ></iframe>
           ) : (
             <div>
-              <p>This video cannot be embedded. You can watch it directly on YouTube:</p>
+              <p>
+                This video cannot be embedded. You can watch it directly on
+                YouTube:
+              </p>
               <a
                 href={watchUrl}
                 target="_blank"
@@ -1651,7 +1653,6 @@ export const QRPreviewYoutube = ({ localQrData }) => {
     </div>
   );
 };
-
 
 export const QRPreviewEvent = ({ localQrData }) => {
   console.log("localQrData", localQrData);
@@ -2099,6 +2100,7 @@ export const QRPreviewEvent = ({ localQrData }) => {
 const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
   // console.log("questions", questions);
   const [rating, setRating] = useState(null);
+  // console.log("qrCodeObj", qrCodeObj);
 
   const {
     control,
@@ -2484,9 +2486,11 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
         </div>
       )}
 
-      <button type="submit" className="submit-btn" disabled={isLoading}>
-        {isLoading ? "Submitting..." : "Submit"}
-      </button>
+      {qrCodeObj?.is_question === "true" && (
+        <button type="submit" className="submit-btn" disabled={isLoading}>
+          {isLoading ? "Submitting..." : "Submit"}
+        </button>
+      )}
     </form>
   );
 };
