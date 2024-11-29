@@ -35,6 +35,7 @@ import { FaChevronDown } from "react-icons/fa";
 import axios from "axios";
 import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
+import QRCodeStyling from "qr-code-styling";
 
 const QrMainPage = () => {
   // const ConfirmationModal = React.lazy(()=> import('../../components'))
@@ -127,261 +128,289 @@ const QrMainPage = () => {
   });
   // console.log("getALLQrCodes", getALLQrCodes);
 
-  // let selectedFrame = getALLQrCodes?.data[0]?.style?.frameName
-  // console.log("selectedFrame",selectedFrame)
+  const handleDownload = (styleObj, qrCodeObj) => {
+    console.log("qrCodeObj", qrCodeObj);
+    // Configure the QR code styling
+    const qrCode = new QRCodeStyling({
+      width: 300,
+      height: 300,
+      data: qrCodeObj?.outcome || "https://example.com",
+      // image: imageLogo,
+      dotsOptions: {
+        color: styleObj?.dotColor || "#000",
+        type: styleObj?.selectedDotStyle || "rounded",
+      },
+      cornersSquareOptions: {
+        color: styleObj?.cornerBorderColor || "#000",
+        type: styleObj?.selectedCornerStyle || "extra-rounded",
+      },
+      cornersDotOptions: {
+        color: styleObj?.cornerDotColor || "#000",
+      },
+      backgroundOptions: {
+        color: styleObj?.CornerbgColor || "#fff",
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 0,
+      },
+    });
 
-  // const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+    // Create a temporary div for QR code rendering
+    const tempDiv = document.createElement("div");
+    document.body.appendChild(tempDiv);
 
-  const handleDownload = (qrCode) => {
-    // if (qrCodeRef.current) {
-    //   toPng(qrCodeRef.current)
-    //     .then((dataUrl) => {
-    //       const link = document.createElement("a");
-    //       link.href = dataUrl;
-    //       link.download = `${qrCodeName}.png`; // Download with the QR code name
-    //       link.click();
-    //     })
-    //     .catch((err) => {
-    //       console.error("Error generating QR code image:", err);
-    //     });
-    // }
+    // Render the QR code in the temporary div
+    qrCode.append(tempDiv);
 
-    // const imageUrl = qrCode?.image_path;
+    // Wait for QR code rendering
+    setTimeout(() => {
+      // Find the canvas inside the temporary div
+      const canvas = tempDiv.querySelector("canvas");
 
-    // if (imageUrl) {
-    //   const proxiedUrl = CORS_PROXY + imageUrl;
+      if (canvas) {
+        // Convert the canvas to a data URL
+        const dataUrl = canvas.toDataURL("image/png");
 
-    //   fetch(proxiedUrl)
-    //     .then((response) => response.blob())
-    //     .then((blob) => {
-    //       saveAs(blob, 'qr-code.png');
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error downloading the image:', error);
-    //     });
-    // } else {
-    //   console.error('No image path provided.');
-    // }
+        // Create a download link
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = `${qrCodeObj?.id || "qr-code"}.png`;
 
-    if (qrCode?.image_path) {
-      const link = document.createElement("a");
-      link.href = qrCode.image_path; // Set the href to the image path
-      link.download = `${qrCode?.qr_name || "qr-code"}.png`; // Set the download name
+        // Programmatically click the link to trigger the download
+        link.click();
+      } else {
+        console.error("QR code canvas not found");
+      }
 
-      // Append link to the body (required for some browsers)
-      document.body.appendChild(link);
+      // Clean up the temporary div
+      document.body.removeChild(tempDiv);
+    }, 500); // Adjust delay if needed
+  };
 
-      // Programmatically click the link to trigger the download
-      link.click();
-
-      // Remove the link from the body
-      document.body.removeChild(link);
-    } else {
-      console.error("No image path available for download.");
-    }
+  const frameComponents = {
+    notSelectedFrame: NotSelectedFrameCanvas,
+    frame1: CanvaFrame1,
+    frame2: CanvaFrame2,
+    frame3: CanvaFrame3,
+    frame4: CanvaFrame4,
+    frame5: CanvaFrame5,
+    frame6: CanvaFrame6,
+    frame7: CanvaFrame7,
+    frame8: CanvaFrame8,
+    frame9: CanvaFrame9,
+    frame10: CanvaFrame10,
+    frame11: CanvaFrame11,
   };
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
-    // console.log("qrCodeData", qrCodeData);
-    // console.log("dataQrCodeee", data);
-    // console.log("selectedFramet", selectedFrame);
-    switch (selectedFrame) {
-      case "notSelectedFrame":
-        // console.log("INSIDE notSelctedFrame CASE");
-        return (
-          <NotSelectedFrameCanvas
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-            // qrLogo={data?.qrDesignLogo}
-          />
-        );
-      case "frame1":
-        return (
-          <CanvaFrame1
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-            // qrLogo={data?.qrDesignLogo}
-          />
-        );
-      case "frame2":
-        return (
-          <CanvaFrame2
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame3":
-        return (
-          <CanvaFrame3
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame4":
-        return (
-          <CanvaFrame4
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame5":
-        return (
-          <CanvaFrame5
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame6":
-        return (
-          <CanvaFrame6
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame7":
-        return (
-          <CanvaFrame7
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame8":
-        return (
-          <CanvaFrame8
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame9":
-        return (
-          <CanvaFrame9
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame10":
-        return (
-          <CanvaFrame10
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      case "frame11":
-        return (
-          <CanvaFrame11
-            frameColor={qrCodeData?.frameColor}
-            frameBorderColor={qrCodeData?.frameBgColor}
-            frameText={qrCodeData?.frameText}
-            frameTextColor={qrCodeData?.frameTextColor}
-            CornerbgColor={qrCodeData?.CornerbgColor}
-            dotColor={qrCodeData?.dotColor}
-            cornerBorderColor={qrCodeData?.cornerBorderColor}
-            cornerDotColor={qrCodeData?.cornerDotColor}
-            selectedCornerStyle={qrCodeData?.selectedCornerStyle}
-            selectedDotStyle={qrCodeData?.selectedDotStyle}
-            data={data?.image_path}
-          />
-        );
-      // ... Add cases for other frames
-      default:
-        return null;
-    }
+    const FrameComponent = frameComponents[selectedFrame];
+    return FrameComponent ? (
+      <FrameComponent {...qrCodeData} data={data?.image_path} />
+    ) : null;
   };
+
+  // const renderFrame = (selectedFrame, qrCodeData, data) => {
+  //   // console.log("qrCodeData", qrCodeData);
+  //   // console.log("dataQrCodeee", data);
+  //   // console.log("selectedFramet", selectedFrame);
+  //   switch (selectedFrame) {
+  //     case "notSelectedFrame":
+  //       // console.log("INSIDE notSelctedFrame CASE");
+  //       return (
+  //         <NotSelectedFrameCanvas
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //           // qrLogo={data?.qrDesignLogo}
+  //         />
+  //       );
+  //     case "frame1":
+  //       return (
+  //         <CanvaFrame1
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //           // qrLogo={data?.qrDesignLogo}
+  //         />
+  //       );
+  //     case "frame2":
+  //       return (
+  //         <CanvaFrame2
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame3":
+  //       return (
+  //         <CanvaFrame3
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame4":
+  //       return (
+  //         <CanvaFrame4
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame5":
+  //       return (
+  //         <CanvaFrame5
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame6":
+  //       return (
+  //         <CanvaFrame6
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame7":
+  //       return (
+  //         <CanvaFrame7
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame8":
+  //       return (
+  //         <CanvaFrame8
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame9":
+  //       return (
+  //         <CanvaFrame9
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame10":
+  //       return (
+  //         <CanvaFrame10
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     case "frame11":
+  //       return (
+  //         <CanvaFrame11
+  //           frameColor={qrCodeData?.frameColor}
+  //           frameBorderColor={qrCodeData?.frameBgColor}
+  //           frameText={qrCodeData?.frameText}
+  //           frameTextColor={qrCodeData?.frameTextColor}
+  //           CornerbgColor={qrCodeData?.CornerbgColor}
+  //           dotColor={qrCodeData?.dotColor}
+  //           cornerBorderColor={qrCodeData?.cornerBorderColor}
+  //           cornerDotColor={qrCodeData?.cornerDotColor}
+  //           selectedCornerStyle={qrCodeData?.selectedCornerStyle}
+  //           selectedDotStyle={qrCodeData?.selectedDotStyle}
+  //           data={data?.image_path}
+  //         />
+  //       );
+  //     // ... Add cases for other frames
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   const handleDelete = async (id) => {
     // console.log("delete_id", id);
@@ -539,7 +568,7 @@ const QrMainPage = () => {
     return mappedSelectedTypes.join(", ") || "Select QR Types";
   };
 
-  console.log("selectedTypes", selectedTypes);
+  // console.log("selectedTypes", selectedTypes);
   return (
     <>
       <div className="qr-main-page">
@@ -602,9 +631,9 @@ const QrMainPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="cleanFilter">
+                  <div className="cleanFilter" onClick={resetFilter}>
                     <RxCross2 size={22} />
-                    <h6 onClick={resetFilter}>Clean Filter</h6>
+                    <h6>Clean Filter</h6>
                   </div>
                 </div>
                 <div className="right">
@@ -640,180 +669,196 @@ const QrMainPage = () => {
               <div className="bottom">
                 {getALLQrCodes?.data && getALLQrCodes?.data.length > 0 ? (
                   <>
-                    {[...getALLQrCodes.data]?.reverse().map((qrCode, index) => {
-                      const selectedFrame = qrCode?.style?.frameName;
-                      // console.log("selectedFrametyy", selectedFrame);
-                      const isLoading = loadingMap[qrCode.id];
-                      // const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
-                      const isPaused = 2;
-                      console.log("qrcodeee", qrCode);
-                      const products = [
-                        "wine",
-                        "beer",
-                        "cigars",
-                        "coffee",
-                        "food",
-                        "product",
-                      ];
-                      const matchedProduct = products.find(
-                        (product) => qrCode[product] === "true"
-                      );
-                      return (
-                        <div className="all-qrCode-con" key={qrCode.id}>
-                          <div className="result-cardd">
-                            <div className="one">
-                              <div
-                                className="img-con"
-                                ref={qrCodeRef}
-                                onClick={() => {
-                                  // setShowPreviewScanModal(true);
-                                  setPreviewScanImageData(qrCode);
-                                }}
-                              >
-                                {renderFrame(
-                                  selectedFrame,
-                                  qrCode?.style,
-                                  qrCode
-                                )}
-                                {/* <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"80px",height:"80px"}}/> */}
-                              </div>
-                              <div className="content-wrap">
-                                <h4>
-                                  {qrCode?.type === "social_media"
-                                    ? "Social Media"
-                                    : qrCode?.type === "image_gallery"
-                                    ? "Image Gallery"
-                                    : qrCode?.type === "business_page"
-                                    ? "Business"
-                                    : qrCode?.type}
-                                </h4>
-                                <h3>
-                                  {qrCode?.type === "elabels"
-                                    ? matchedProduct.toUpperCase()
-                                    : qrCode?.qr_name}
-                                </h3>
-                              </div>
-                            </div>
-                            <div className="two">
-                              <p className="status" style={{ display: "none" }}>
-                                Active
-                              </p>
-                              <div className="modifiedDate-con">
-                                <div className="wrap">
-                                  <CreatedIconDashboard />
-                                  <h6>Created: {qrCode?.created_at}</h6>
+                    {getALLQrCodes?.data
+                      ?.slice()
+                      ?.reverse()
+                      .map((qrCode, index) => {
+                        const selectedFrame = qrCode?.style?.frameName;
+                        // console.log("selectedFrametyy", selectedFrame);
+                        const isLoading = loadingMap[qrCode.id];
+                        // const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
+                        const isPaused = 2;
+                        console.log("qrcodeee", qrCode);
+                        const products = [
+                          "wine",
+                          "beer",
+                          "cigars",
+                          "coffee",
+                          "food",
+                          "product",
+                        ];
+                        const matchedProduct = products.find(
+                          (product) => qrCode[product] === "true"
+                        );
+                        return (
+                          <div
+                            className="all-qrCode-con"
+                            key={qrCode.id || index}
+                          >
+                            <div className="result-cardd">
+                              <div className="one">
+                                <div
+                                  className="img-con"
+                                  ref={qrCodeRef}
+                                  onClick={() => {
+                                    // setShowPreviewScanModal(true);
+                                    setPreviewScanImageData(qrCode);
+                                  }}
+                                >
+                                  {renderFrame(
+                                    selectedFrame,
+                                    qrCode?.style,
+                                    qrCode
+                                  )}
+
+                                  {/* <img src="/assets/images/qrDelete.png" alt="qrdelete" style={{width:"80px",height:"80px"}}/> */}
                                 </div>
-                                <div className="wrap">
-                                  <ModifiedIconDashboard />
-                                  <h6>Modified: {qrCode?.updated_at}</h6>
+                                <div className="content-wrap">
+                                  <h4>
+                                    {qrCode?.type === "social_media"
+                                      ? "Social Media"
+                                      : qrCode?.type === "image_gallery"
+                                      ? "Image Gallery"
+                                      : qrCode?.type === "business_page"
+                                      ? "Business"
+                                      : qrCode?.type}
+                                  </h4>
+                                  <h3>
+                                    {qrCode?.type === "elabels"
+                                      ? matchedProduct.toUpperCase()
+                                      : qrCode?.qr_name}
+                                  </h3>
                                 </div>
-                                {qrCode?.type !== "wifi" && (
+                              </div>
+                              <div className="two">
+                                <p
+                                  className="status"
+                                  style={{ display: "none" }}
+                                >
+                                  Active
+                                </p>
+                                <div className="modifiedDate-con">
                                   <div className="wrap">
-                                    <IoLinkOutline size={22} />
-                                    <a
-                                      href={
-                                        qrCode.outcome.startsWith("http")
-                                          ? qrCode.outcome
-                                          : `http://${qrCode.outcome}`
-                                      }
-                                      // href={qrCode?.outcome}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={{ textDecoration: "none" }}
-                                    >
-                                      <h6 className="link">
-                                        {qrCode?.outcome}
-                                        {/* https://qr-creator-black.vercel.app/ */}
-                                      </h6>
-                                    </a>
+                                    <CreatedIconDashboard />
+                                    <h6>Created: {qrCode?.created_at}</h6>
                                   </div>
-                                )}
+                                  <div className="wrap">
+                                    <ModifiedIconDashboard />
+                                    <h6>Modified: {qrCode?.updated_at}</h6>
+                                  </div>
+                                  {qrCode?.type !== "wifi" && (
+                                    <div className="wrap">
+                                      <IoLinkOutline size={22} />
+                                      <a
+                                        href={
+                                          qrCode.outcome.startsWith("http")
+                                            ? qrCode.outcome
+                                            : `http://${qrCode.outcome}`
+                                        }
+                                        // href={qrCode?.outcome}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{ textDecoration: "none" }}
+                                      >
+                                        <h6 className="link">
+                                          {qrCode?.outcome}
+                                          {/* https://qr-creator-black.vercel.app/ */}
+                                        </h6>
+                                      </a>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                            <div className="three">
-                              <p>Scans</p>
-                              <h1>
-                                {qrCode?.scan_count ? qrCode?.scan_count : "0"}
-                              </h1>
-                            </div>
-                            <div className="four">
-                              <p onClick={() => handleViewDetail(qrCode)}>
-                                View details
-                              </p>
-                              <p
-                                onClick={() =>
-                                  handleEdit(qrCode?.id, qrCode.type)
-                                }
-                              >
-                                {isLoading ? (
-                                  "Loading..."
-                                ) : (
-                                  <>
-                                    Edit
-                                    <span>
-                                      <MdEdit size={14} />
-                                    </span>
-                                  </>
-                                )}
-                              </p>
-                              <p onClick={() => handleDownload(qrCode)}>
-                                Download
-                                <span>
-                                  <MdDownload size={18} />
-                                </span>
-                              </p>
-                              <div className="delete-box">
+                              <div className="three">
+                                <p>Scans</p>
+                                <h1>
+                                  {qrCode?.scan_count
+                                    ? qrCode?.scan_count
+                                    : "0"}
+                                </h1>
+                              </div>
+                              <div className="four">
+                                <p onClick={() => handleViewDetail(qrCode)}>
+                                  View details
+                                </p>
                                 <p
                                   onClick={() =>
-                                    handleDeleteBoxToggle(qrCode?.id)
+                                    handleEdit(qrCode?.id, qrCode.type)
                                   }
                                 >
-                                  <BsThreeDotsVertical size={18} />
+                                  {isLoading ? (
+                                    "Loading..."
+                                  ) : (
+                                    <>
+                                      Edit
+                                      <span>
+                                        <MdEdit size={14} />
+                                      </span>
+                                    </>
+                                  )}
                                 </p>
-                                {showDeleteBox === qrCode?.id && (
-                                  <div className="box">
-                                    <div
-                                      className="delete-wrap"
-                                      onClick={() =>
-                                        openConfirmationModal(
-                                          qrCode.id,
-                                          "delete"
-                                        )
-                                      }
-                                    >
-                                      <MdDelete className="delete-icon" />
-                                      <h4>Delete</h4>
-                                    </div>
+                                <p
+                                  onClick={() =>
+                                    handleDownload(qrCode?.style, qrCode)
+                                  }
+                                >
+                                  Download
+                                  <span>
+                                    <MdDownload size={18} />
+                                  </span>
+                                </p>
+                                <div className="delete-box">
+                                  <p
+                                    onClick={() =>
+                                      handleDeleteBoxToggle(qrCode?.id)
+                                    }
+                                  >
+                                    <BsThreeDotsVertical size={18} />
+                                  </p>
+                                  {showDeleteBox === qrCode?.id && (
+                                    <div className="box">
+                                      <div
+                                        className="delete-wrap"
+                                        onClick={() =>
+                                          openConfirmationModal(
+                                            qrCode.id,
+                                            "delete"
+                                          )
+                                        }
+                                      >
+                                        <MdDelete className="delete-icon" />
+                                        <h4>Delete</h4>
+                                      </div>
 
-                                    <h4
-                                      onClick={() =>
-                                        openConfirmationModal(
-                                          qrCode.id,
-                                          isPaused ? "pause" : "activate"
-                                        )
-                                      }
-                                      style={{ display: "none" }}
-                                    >
-                                      {isPaused ? (
-                                        <div className="delete-wrap">
-                                          <IoIosPause size={20} />
-                                          Paused
-                                        </div>
-                                      ) : (
-                                        <>
-                                          <RxResume size={20} />
-                                          Active
-                                        </>
-                                      )}
-                                    </h4>
-                                  </div>
-                                )}
+                                      <h4
+                                        onClick={() =>
+                                          openConfirmationModal(
+                                            qrCode.id,
+                                            isPaused ? "pause" : "activate"
+                                          )
+                                        }
+                                        style={{ display: "none" }}
+                                      >
+                                        {isPaused ? (
+                                          <div className="delete-wrap">
+                                            <IoIosPause size={20} />
+                                            Paused
+                                          </div>
+                                        ) : (
+                                          <>
+                                            <RxResume size={20} />
+                                            Active
+                                          </>
+                                        )}
+                                      </h4>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
                   </>
                 ) : (
                   <div className="no-qr-found">

@@ -1810,50 +1810,58 @@ export const NotSelectedFrameCanvas = ({
     if (qrLogo instanceof File) {
       const logoUrl = URL.createObjectURL(qrLogo);
       setImageLogo(logoUrl);
-    } 
+    }
     // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo); 
+    //   setImageLogo(qrLogo);
     // }
-  }, [qrLogo]); 
+  }, [qrLogo]);
 
-  const qrCodeOptions = {
-    width: 215,
-    height: 215,
-    data: data || "www.example.com",
-    image:imageLogo,
-    dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
-    },
-    cornersSquareOptions: {
-      color: cornerBorderColor,
-      type: selectedCornerStyle,
-    },
-    cornersDotOptions: {
-      color: cornerDotColor,
-    },
-    backgroundOptions: {
-      color: CornerbgColor,
-    },
-    imageOptions: {
-      crossOrigin: "anonymous",
-      margin: 0, 
-      
-  }
-
-  
- 
-  };
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
+      width: 200,
+      height: 200,
+      data: data || "www.example.com",
+      image: imageLogo,
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle,
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle,
+      },
+      cornersDotOptions: {
+        color: cornerDotColor,
+      },
+      backgroundOptions: {
+        color: CornerbgColor,
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 0,
+      },
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
 
   useEffect(() => {
-
     if (qrCode.current) {
       qrCode.current.update(qrCodeOptions); // Update QR code with new options
     } else {
       qrCode.current = new QRCodeStyling(qrCodeOptions);
       qrCode.current.append(document.getElementById(qrCodeId.current));
     }
-  }, [qrCodeOptions]); 
+  }, [qrCodeOptions]);
   // useEffect(() => {
   //   qrCode.current = new QRCodeStyling(qrCodeOptions);
   //   qrCode.current.append(document.getElementById(qrCodeId.current));
@@ -1904,7 +1912,7 @@ export const CanvaFrame1 = ({
   selectedCornerStyle,
   CornerbgColor,
   cornerDotColor,
-  qrLogo,  
+  qrLogo,
   data,
   ...props
 }) => {
@@ -1912,50 +1920,58 @@ export const CanvaFrame1 = ({
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
 
   // console.log("qrLogooo",qrLogo)
-  
 
   const [imageLogo, setImageLogo] = useState(null);
 
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
-    } 
-    else{
-      setImageLogo(qrLogo)
     }
- 
-  }, [qrLogo]); 
+  }, [qrLogo]);
 
-// console.log("imageLogoSvg",imageLogo)
+  console.log("imageLogoSvg",imageLogo);
+  let testLogo = "https://qrgenarator.envobyte.dev/qrDesignLogo/design_6_5I9tzNbcal.jpeg"
+  // "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
 
 
- // Memoize qrCodeOptions to avoid re-creation on every render
- const qrCodeOptions = useMemo(() => ({
-  width: 200,
-  height: 200,
-  data: data || "www.example.com",
-  image: imageLogo,
-  dotsOptions: {
-    color: dotColor,
-    type: selectedDotStyle,
-  },
-  cornersSquareOptions: {
-    color: cornerBorderColor,
-    type: selectedCornerStyle,
-  },
-  cornersDotOptions: {
-    color: cornerDotColor,
-  },
-  backgroundOptions: {
-    color: CornerbgColor,
-  },
-  imageOptions: {
-    crossOrigin: "anonymous",
-    margin: 0,
-  },
-}), [data, imageLogo, dotColor, selectedDotStyle, cornerBorderColor, selectedCornerStyle, cornerDotColor, CornerbgColor]);
-
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
+      width: 200,
+      height: 200,
+      data: data || "www.example.com",
+      image: imageLogo,
+      dotsOptions: {
+        color: dotColor,
+        type: selectedDotStyle,
+      },
+      cornersSquareOptions: {
+        color: cornerBorderColor,
+        type: selectedCornerStyle,
+      },
+      cornersDotOptions: {
+        color: cornerDotColor,
+      },
+      backgroundOptions: {
+        color: CornerbgColor,
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 0,
+      },
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
 
   // Initialize QR code on mount and update when qrCodeOptions change
   useEffect(() => {
@@ -1967,7 +1983,7 @@ export const CanvaFrame1 = ({
       qrCode.current = new QRCodeStyling(qrCodeOptions);
       qrCode.current.append(document.getElementById(qrCodeId.current));
     }
-  }, [qrCodeOptions,imageLogo]); // Ensure QR code updates on option change
+  }, [qrCodeOptions, imageLogo]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2033,8 +2049,6 @@ export const CanvaFrame1 = ({
   );
 };
 
-
-
 export const CanvaFrame2 = ({
   frameColor,
   frameBorderColor,
@@ -2056,21 +2070,20 @@ export const CanvaFrame2 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      else if (typeof qrLogo === 'string') {
-        setImageLogo(qrLogo); 
-      }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
+      setImageLogo(logoUrl);
+    }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2087,23 +2100,32 @@ export const CanvaFrame2 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   // const qrCodeOptions = {
   //   width: 300,
@@ -2239,21 +2261,23 @@ export const CanvaFrame3 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2270,23 +2294,32 @@ export const CanvaFrame3 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2374,21 +2407,23 @@ export const CanvaFrame4 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2405,23 +2440,32 @@ export const CanvaFrame4 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2507,21 +2551,23 @@ export const CanvaFrame5 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2538,23 +2584,32 @@ export const CanvaFrame5 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2640,21 +2695,23 @@ export const CanvaFrame6 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2671,23 +2728,32 @@ export const CanvaFrame6 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2773,21 +2839,22 @@ export const CanvaFrame7 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2804,23 +2871,32 @@ export const CanvaFrame7 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -2924,21 +3000,23 @@ export const CanvaFrame8 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -2955,23 +3033,32 @@ export const CanvaFrame8 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -3062,21 +3149,23 @@ export const CanvaFrame9 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -3093,23 +3182,32 @@ export const CanvaFrame9 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -3206,21 +3304,23 @@ export const CanvaFrame10 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -3237,23 +3337,32 @@ export const CanvaFrame10 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
+
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -3356,21 +3465,23 @@ export const CanvaFrame11 = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   // console.log("imageLogoSvg",imageLogo)
-    useEffect(() => {
-      if (qrLogo instanceof File) {
-        const logoUrl = URL.createObjectURL(qrLogo);
-        setImageLogo(logoUrl);
-      } 
-      // else if (typeof qrLogo === 'string') {
-      //   setImageLogo(qrLogo); 
-      // }
-    }, [qrLogo]); 
-  
-    const qrCodeOptions = {
+  useEffect(() => {
+    if (qrLogo instanceof File) {
+      const logoUrl = URL.createObjectURL(qrLogo);
+      setImageLogo(logoUrl);
+    }
+    // else if (typeof qrLogo === 'string') {
+    //   setImageLogo(qrLogo);
+    // }
+  }, [qrLogo]);
+
+  // Memoize qrCodeOptions to avoid re-creation on every render
+  const qrCodeOptions = useMemo(
+    () => ({
       width: 200,
       height: 200,
       data: data || "www.example.com",
-      image: imageLogo,  
+      image: imageLogo,
       dotsOptions: {
         color: dotColor,
         type: selectedDotStyle,
@@ -3387,24 +3498,32 @@ export const CanvaFrame11 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0, 
-        borderRadius:"6px"
+        margin: 0,
       },
-    };
-  
-    // Initialize QR code on mount and update when qrCodeOptions change
-    useEffect(() => {
-      // console.log('qrCodeOptions updated:', qrCodeOptions);
-  
-      if (qrCode.current) {
-        qrCode.current.update(qrCodeOptions); // Update QR code with new options
-      } else {
-        qrCode.current = new QRCodeStyling(qrCodeOptions);
-        qrCode.current.append(document.getElementById(qrCodeId.current));
-      }
-    }, [qrCodeOptions]); // Ensure QR code updates on option change
-  
+    }),
+    [
+      data,
+      imageLogo,
+      dotColor,
+      selectedDotStyle,
+      cornerBorderColor,
+      selectedCornerStyle,
+      cornerDotColor,
+      CornerbgColor,
+    ]
+  );
 
+  // Initialize QR code on mount and update when qrCodeOptions change
+  useEffect(() => {
+    // console.log('qrCodeOptions updated:', qrCodeOptions);
+
+    if (qrCode.current) {
+      qrCode.current.update(qrCodeOptions); // Update QR code with new options
+    } else {
+      qrCode.current = new QRCodeStyling(qrCodeOptions);
+      qrCode.current.append(document.getElementById(qrCodeId.current));
+    }
+  }, [qrCodeOptions]); // Ensure QR code updates on option change
 
   return (
     <svg
@@ -16521,8 +16640,7 @@ export const PreviewFrame = (props) => (
   </svg>
 );
 
-export const TopPreviewHeader = ({urlLink,...props}) => (
-
+export const TopPreviewHeader = ({ urlLink, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={260}
@@ -16558,18 +16676,21 @@ export const TopPreviewHeader = ({urlLink,...props}) => (
       fill="white"
       stroke="#BFBFBF"
     />
-     <text
-    x={40.5 + 181 / 2}  
-    y={36.5 + 19 / 2} 
-    fill="black"
-    textAnchor="middle" 
-    dominantBaseline="middle" 
-    fontSize="10px"
-    color="#404040"
-  >
-  {urlLink ? (urlLink.length > 25 ? `${urlLink.slice(0, 25)}...` : urlLink) : "https://qr.envobyte.dev/"}
-    
-  </text>
+    <text
+      x={40.5 + 181 / 2}
+      y={36.5 + 19 / 2}
+      fill="black"
+      textAnchor="middle"
+      dominantBaseline="middle"
+      fontSize="10px"
+      color="#404040"
+    >
+      {urlLink
+        ? urlLink.length > 25
+          ? `${urlLink.slice(0, 25)}...`
+          : urlLink
+        : "https://qr.envobyte.dev/"}
+    </text>
 
     <path
       d="M33.6859 24C33.5536 24 33.4496 23.9622 33.374 23.8866C33.2984 23.811 33.2606 23.7102 33.2606 23.5842C33.2606 23.4519 33.2984 23.3511 33.374 23.2818C33.4496 23.2125 33.5536 23.1779 33.6859 23.1779H34.8388V18.1505H35.3302L33.9505 19.0293C33.8497 19.086 33.7552 19.1081 33.667 19.0955C33.5851 19.0829 33.5126 19.0482 33.4496 18.9915C33.3929 18.9348 33.352 18.8655 33.3268 18.7836C33.3079 18.7017 33.3142 18.6167 33.3457 18.5285C33.3835 18.4403 33.4496 18.3678 33.5441 18.3111L34.8482 17.489C34.9553 17.426 35.0561 17.3756 35.1506 17.3378C35.2514 17.2937 35.3459 17.2716 35.4341 17.2716C35.5412 17.2716 35.6294 17.3031 35.6987 17.3661C35.7743 17.4228 35.8121 17.5205 35.8121 17.6591V23.1779H36.8705C37.0091 23.1779 37.1162 23.2125 37.1918 23.2818C37.2674 23.3511 37.3052 23.4519 37.3052 23.5842C37.3052 23.7165 37.2674 23.8205 37.1918 23.8961C37.1162 23.9654 37.0091 24 36.8705 24H33.6859ZM41.4811 24.0661C41.3299 24.0661 41.2102 24.0252 41.122 23.9433C41.0338 23.8551 40.9897 23.7354 40.9897 23.5842V22.6487H38.4571C38.2996 22.6487 38.1736 22.614 38.0791 22.5447C37.9846 22.4754 37.9374 22.3683 37.9374 22.2234C37.9374 22.1415 37.9563 22.0533 37.9941 21.9588C38.0382 21.8643 38.1138 21.7415 38.2209 21.5903L40.9708 17.5929C41.0401 17.4858 41.1189 17.4071 41.2071 17.3567C41.2953 17.3 41.3961 17.2716 41.5095 17.2716C41.6418 17.2716 41.7489 17.3126 41.8308 17.3945C41.919 17.4701 41.9631 17.5898 41.9631 17.7536V21.8265H42.5584C42.7096 21.8265 42.8199 21.8612 42.8892 21.9305C42.9648 21.9998 43.0026 22.1006 43.0026 22.2329C43.0026 22.3715 42.9648 22.4754 42.8892 22.5447C42.8199 22.614 42.7096 22.6487 42.5584 22.6487H41.9631V23.5842C41.9631 23.7354 41.919 23.8551 41.8308 23.9433C41.7489 24.0252 41.6323 24.0661 41.4811 24.0661ZM40.9897 21.8265V18.4907H41.2449L38.7784 22.0911V21.8265H40.9897ZM44.0127 24.0378C43.83 24.0378 43.682 23.9811 43.5686 23.8677C43.4552 23.7543 43.3985 23.6094 43.3985 23.433C43.3985 23.2566 43.4552 23.1149 43.5686 23.0078C43.682 22.8944 43.83 22.8377 44.0127 22.8377C44.1954 22.8377 44.3403 22.8944 44.4474 23.0078C44.5545 23.1149 44.6081 23.2566 44.6081 23.433C44.6081 23.6094 44.5545 23.7543 44.4474 23.8677C44.3403 23.9811 44.1954 24.0378 44.0127 24.0378ZM44.0127 20.5508C43.83 20.5508 43.682 20.4941 43.5686 20.3807C43.4552 20.2673 43.3985 20.1255 43.3985 19.9554C43.3985 19.7727 43.4552 19.6278 43.5686 19.5207C43.682 19.4073 43.83 19.3506 44.0127 19.3506C44.1954 19.3506 44.3403 19.4073 44.4474 19.5207C44.5545 19.6278 44.6081 19.7727 44.6081 19.9554C44.6081 20.1255 44.5545 20.2673 44.4474 20.3807C44.3403 20.4941 44.1954 20.5508 44.0127 20.5508ZM48.715 24.0661C48.5638 24.0661 48.4441 24.0252 48.3559 23.9433C48.2677 23.8551 48.2236 23.7354 48.2236 23.5842V22.6487H45.691C45.5335 22.6487 45.4075 22.614 45.313 22.5447C45.2185 22.4754 45.1712 22.3683 45.1712 22.2234C45.1712 22.1415 45.1901 22.0533 45.2279 21.9588C45.272 21.8643 45.3476 21.7415 45.4547 21.5903L48.2047 17.5929C48.274 17.4858 48.3527 17.4071 48.4409 17.3567C48.5291 17.3 48.6299 17.2716 48.7433 17.2716C48.8756 17.2716 48.9827 17.3126 49.0646 17.3945C49.1528 17.4701 49.1969 17.5898 49.1969 17.7536V21.8265H49.7923C49.9435 21.8265 50.0537 21.8612 50.123 21.9305C50.1986 21.9998 50.2364 22.1006 50.2364 22.2329C50.2364 22.3715 50.1986 22.4754 50.123 22.5447C50.0537 22.614 49.9435 22.6487 49.7923 22.6487H49.1969V23.5842C49.1969 23.7354 49.1528 23.8551 49.0646 23.9433C48.9827 24.0252 48.8662 24.0661 48.715 24.0661ZM48.2236 21.8265V18.4907H48.4787L46.0123 22.0911V21.8265H48.2236ZM51.5773 24C51.445 24 51.3411 23.9622 51.2655 23.8866C51.1899 23.811 51.1521 23.7102 51.1521 23.5842C51.1521 23.4519 51.1899 23.3511 51.2655 23.2818C51.3411 23.2125 51.445 23.1779 51.5773 23.1779H52.7302V18.1505H53.2216L51.8419 19.0293C51.7411 19.086 51.6466 19.1081 51.5584 19.0955C51.4765 19.0829 51.4041 19.0482 51.3411 18.9915C51.2844 18.9348 51.2434 18.8655 51.2182 18.7836C51.1993 18.7017 51.2056 18.6167 51.2371 18.5285C51.2749 18.4403 51.3411 18.3678 51.4356 18.3111L52.7397 17.489C52.8468 17.426 52.9476 17.3756 53.0421 17.3378C53.1429 17.2937 53.2374 17.2716 53.3256 17.2716C53.4327 17.2716 53.5209 17.3031 53.5902 17.3661C53.6658 17.4228 53.7036 17.5205 53.7036 17.6591V23.1779H54.762C54.9006 23.1779 55.0077 23.2125 55.0833 23.2818C55.1589 23.3511 55.1967 23.4519 55.1967 23.5842C55.1967 23.7165 55.1589 23.8205 55.0833 23.8961C55.0077 23.9654 54.9006 24 54.762 24H51.5773Z"
