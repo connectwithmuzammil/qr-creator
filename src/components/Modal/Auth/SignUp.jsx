@@ -95,7 +95,7 @@ const SignUp = ({
                 <span className="text">or</span>
                 <hr className="line" />
               </div>
-              <div className="google-con">
+              <div className="google-con"  style={{display:"none"}}>
                 <FcGoogle />
                 <p>Continue with Google</p>
               </div>

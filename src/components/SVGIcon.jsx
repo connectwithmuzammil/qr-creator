@@ -1807,13 +1807,10 @@ export const NotSelectedFrameCanvas = ({
   const [imageLogo, setImageLogo] = useState(null);
 
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -1918,27 +1915,19 @@ export const CanvaFrame1 = ({
 }) => {
   const qrCode = useRef(null);
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
+  // console.log("qrCodeyy",qrCode)
 
-  // console.log("qrLogooo",qrLogo)
+  console.log("qrLogooo",qrLogo)
 
   const [imageLogo, setImageLogo] = useState(null);
-
   useEffect(() => {
     if (qrLogo) {
       const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
   }, [qrLogo]);
+  
 
-  console.log("imageLogoSvg",imageLogo);
-  let testLogo = "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-  // "https://qrgenarator.envobyte.dev/qrDesignLogo/design_6_Zhw7Y6mpJ7.svg"
-
-
-  // "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-
-
-  // Memoize qrCodeOptions to avoid re-creation on every render
   const qrCodeOptions = useMemo(
     () => ({
       width: 200,
@@ -1961,7 +1950,7 @@ export const CanvaFrame1 = ({
       },
       imageOptions: {
         crossOrigin: "anonymous",
-        margin: 0,
+        margin: 5,
       },
     }),
     [
@@ -1977,16 +1966,26 @@ export const CanvaFrame1 = ({
   );
 
   // Initialize QR code on mount and update when qrCodeOptions change
-  useEffect(() => {
-    // console.log('qrCodeOptions updated:', qrCodeOptions);
+  // useEffect(() => {
+  //   // console.log('qrCodeOptions updated:', qrCodeOptions);
 
-    if (qrCode.current) {
-      qrCode.current.update(qrCodeOptions); // Update QR code with new options
-    } else {
+  //   if (qrCode.current ) {
+  //     qrCode.current.update(qrCodeOptions); 
+  //   } else {
+  //     qrCode.current = new QRCodeStyling(qrCodeOptions);
+  //     qrCode.current.append(document.getElementById(qrCodeId.current));
+  //   }
+  // }, [qrCodeOptions, imageLogo]); // Ensure QR code updates on option change
+
+
+  useEffect(() => {
+    if (!qrCode.current) {
       qrCode.current = new QRCodeStyling(qrCodeOptions);
       qrCode.current.append(document.getElementById(qrCodeId.current));
+    } else {
+      qrCode.current.update(qrCodeOptions);
     }
-  }, [qrCodeOptions, imageLogo]); // Ensure QR code updates on option change
+  }, [qrCodeOptions]);
 
   return (
     <svg
@@ -2265,13 +2264,10 @@ export const CanvaFrame3 = ({
 
   // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -2411,13 +2407,10 @@ export const CanvaFrame4 = ({
 
   // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -2553,15 +2546,11 @@ export const CanvaFrame5 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -2699,13 +2688,10 @@ export const CanvaFrame6 = ({
 
   // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -2841,15 +2827,11 @@ export const CanvaFrame7 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
   // Memoize qrCodeOptions to avoid re-creation on every render
   const qrCodeOptions = useMemo(
@@ -3002,17 +2984,12 @@ export const CanvaFrame8 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
-
   // Memoize qrCodeOptions to avoid re-creation on every render
   const qrCodeOptions = useMemo(
     () => ({
@@ -3151,15 +3128,11 @@ export const CanvaFrame9 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -3306,15 +3279,11 @@ export const CanvaFrame10 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render
@@ -3467,15 +3436,11 @@ export const CanvaFrame11 = ({
 
   const [imageLogo, setImageLogo] = useState(null);
 
-  // console.log("imageLogoSvg",imageLogo)
   useEffect(() => {
-    if (qrLogo instanceof File) {
-      const logoUrl = URL.createObjectURL(qrLogo);
+    if (qrLogo) {
+      const logoUrl = qrLogo instanceof File ? URL.createObjectURL(qrLogo) : qrLogo;
       setImageLogo(logoUrl);
     }
-    // else if (typeof qrLogo === 'string') {
-    //   setImageLogo(qrLogo);
-    // }
   }, [qrLogo]);
 
   // Memoize qrCodeOptions to avoid re-creation on every render

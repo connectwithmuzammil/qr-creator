@@ -31,8 +31,8 @@ const QRDetail = () => {
   // console.log("qrDataVarr", qrDataVar);
   console.log("localQrDataDetail", localQrData);
 
-  const validateField = (type, name, value) => {
-    console.log("valuetest", value);
+  const validateField = (type, name, value, mode) => {
+    // console.log("valuetest", value);
     switch (type) {
       case "url":
         if (name === "field_url") {
@@ -94,8 +94,11 @@ const QRDetail = () => {
       case "pdf":
         if (name === "pdf_file") {
           if (!value) return "Please upload a PDF file.";
-          const pdfRegex = /\.pdf$/i;
-          // if (!pdfRegex.test(value.name)) return "File must be a PDF.";
+
+          if (mode === "create") {
+            const pdfRegex = /\.pdf$/i;
+            if (!pdfRegex.test(value.name)) return "File must be a PDF.";
+          }
         }
         break;
       case "image_gallery":
@@ -161,24 +164,26 @@ const QRDetail = () => {
         if (name === "video_path") {
           if (!value) return "Video is required.";
 
-          const validVideoExtensions = [".mp4", ".avi", ".mov", ".mkv"];
-          const fileName = value?.name || "";
-          const fileSize = value?.size || 0;
-
-          // Check file extension
-          // const isValidExtension = validVideoExtensions.some((ext) =>
-          //   fileName.toLowerCase().endsWith(ext)
-          // );
-          // if (!isValidExtension) {
-          //   return `Invalid file type. Accepted formats are: ${validVideoExtensions.join(
-          //     ", "
-          //   )}`;
-          // }
-
           // Check file size (example: max 50MB)
+          const fileSize = value?.size || 0;
           const maxFileSize = 50 * 1024 * 1024; // 50MB
           if (fileSize > maxFileSize) {
             return "File size must not exceed 50MB.";
+          }
+
+          if (mode === "create") {
+            const validVideoExtensions = [".mp4", ".avi", ".mov", ".mkv"];
+            const fileName = value?.name || "";
+
+            // Check file extension
+            const isValidExtension = validVideoExtensions.some((ext) =>
+              fileName.toLowerCase().endsWith(ext)
+            );
+            if (!isValidExtension) {
+              return `Invalid file type. Accepted formats are: ${validVideoExtensions.join(
+                ", "
+              )}`;
+            }
           }
         }
         break;
@@ -188,7 +193,7 @@ const QRDetail = () => {
     return "";
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (mode) => {
     let errorFound = false;
     let newErrors = { ...errors };
 
@@ -218,7 +223,7 @@ const QRDetail = () => {
     // Validate each field in `localQrData`
     for (const field in localQrData) {
       const value = localQrData[field];
-      const error = validateField(type, field, value);
+      const error = validateField(type, field, value, mode);
       if (error) {
         newErrors[field] = error;
         errorFound = true;
@@ -246,7 +251,10 @@ const QRDetail = () => {
   const navigate = useNavigate();
 
   const handleNextClick = async () => {
-    const isValid = handleSubmit();
+    const isEdit = Boolean(localQrData.id);
+    const mode = isEdit ? "edit" : "create";
+    console.log("mode", mode);
+    const isValid = handleSubmit(mode);
     console.log("isValiddd", isValid);
     console.log("localqrdataio", localQrData);
 
@@ -370,17 +378,17 @@ const QRDetail = () => {
               vcard_country: localQrData?.vcard_country || "",
               vcard_email: localQrData?.vcard_email || "",
               vcard_fax: localQrData?.vcard_fax || "",
-              vcard_full_name: localQrData?.vcard_full_name ,
-              vcard_landline_phone: localQrData?.vcard_landline_phone ,
-              vcard_mobile_phone: localQrData?.vcard_mobile_phone ,
-              vcard_numeration: localQrData?.vcard_numeration ,
-              vcard_profession: localQrData?.vcard_profession ,
-              vcard_state: localQrData?.vcard_state ,
-              vcard_summary: localQrData?.vcard_summary ,
-              vcard_website: localQrData?.vcard_website ,
-              vcard_zip_code: localQrData?.vcard_zip_code ,
-              vcard_social: localQrData?.vcard_social ,
-              vcard_image: localQrData?.vcard_image ,
+              vcard_full_name: localQrData?.vcard_full_name,
+              vcard_landline_phone: localQrData?.vcard_landline_phone,
+              vcard_mobile_phone: localQrData?.vcard_mobile_phone,
+              vcard_numeration: localQrData?.vcard_numeration,
+              vcard_profession: localQrData?.vcard_profession,
+              vcard_state: localQrData?.vcard_state,
+              vcard_summary: localQrData?.vcard_summary,
+              vcard_website: localQrData?.vcard_website,
+              vcard_zip_code: localQrData?.vcard_zip_code,
+              vcard_social: localQrData?.vcard_social,
+              vcard_image: localQrData?.vcard_image,
             }
           : {}),
         ...(type === "business_page"

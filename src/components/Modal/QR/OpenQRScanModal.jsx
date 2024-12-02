@@ -1,214 +1,88 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
+import {
+  NotSelectedFrameCanvas,
+  CanvaFrame1,
+  CanvaFrame10,
+  CanvaFrame11,
+  CanvaFrame2,
+  CanvaFrame3,
+  CanvaFrame4,
+  CanvaFrame5,
+  CanvaFrame6,
+  CanvaFrame7,
+  CanvaFrame8,
+  CanvaFrame9,
+} from "../../SVGIcon";
 
-const OpenQrScanModal = ({ showPreviewScanModal, setShowPreviewScanModal }) => {
-  // const renderFrame = () => {
-  //     switch (selectedFrame) {
-  //       case "notSelctedFrame":
-  //         console.log("INSIDE notSelctedFrame CASE");
-  //         return (
-  //           <NotSelectedFrameCanvas
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame1":
-  //         console.log("INSIDE CASE 1");
-  //         return (
-  //           <CanvaFrame1
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame2":
-  //         return (
-  //           <CanvaFrame2
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame3":
-  //         return (
-  //           <CanvaFrame3
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame4":
-  //         return (
-  //           <CanvaFrame4
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame5":
-  //         return (
-  //           <CanvaFrame5
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame6":
-  //         return (
-  //           <CanvaFrame6
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame7":
-  //         return (
-  //           <CanvaFrame7
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame8":
-  //         return (
-  //           <CanvaFrame8
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame9":
-  //         return (
-  //           <CanvaFrame9
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame10":
-  //         return (
-  //           <CanvaFrame10
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       case "frame11":
-  //         return (
-  //           <CanvaFrame11
-  //             frameColor={frameColor}
-  //             frameBorderColor={frameBgColor}
-  //             frameText={frameText}
-  //             frameTextColor={frameTextColor}
-  //             CornerbgColor={CornerbgColor}
-  //             dotColor={dotColor}
-  //             cornerBorderColor={cornerBorderColor}
-  //             cornerDotColor={cornerDotColor}
-  //             selectedCornerStyle={selectedCornerStyle}
-  //             selectedDotStyle={selectedDotStyle}
-  //             data={data}
-  //           />
-  //         );
-  //       // ... Add cases for other frames
-  //       default:
-  //         return null;
-  //     }
-  //   };
+const OpenQrScanModal = ({
+  showPreviewScanModal,
+  setShowPreviewScanModal,
+  qrObjData,
+}) => {
+  // console.log("qrObjData", qrObjData);
+  const FRAME_COMPONENTS = {
+    notSelectedFrame: NotSelectedFrameCanvas,
+    frame1: CanvaFrame1,
+    frame2: CanvaFrame2,
+    frame3: CanvaFrame3,
+    frame4: CanvaFrame4,
+    frame5: CanvaFrame5,
+    frame6: CanvaFrame6,
+    frame7: CanvaFrame7,
+    frame8: CanvaFrame8,
+    frame9: CanvaFrame9,
+    frame10: CanvaFrame10,
+    frame11: CanvaFrame11,
+  };
+
+  const renderFrame = () => {
+    const FrameComponent =
+      FRAME_COMPONENTS[qrObjData?.style?.frameName] || null;
+
+    const commonProps = {
+      frameColor: qrObjData?.style?.frameColor,
+      frameBorderColor: qrObjData?.style?.frameBgColor,
+      frameText: qrObjData?.style?.frameText,
+      frameTextColor: qrObjData?.style?.frameTextColor,
+      CornerbgColor: qrObjData?.style?.CornerbgColor,
+      dotColor: qrObjData?.style?.dotColor,
+      cornerBorderColor: qrObjData?.style?.cornerBorderColor,
+      cornerDotColor: qrObjData?.style?.cornerDotColor,
+      selectedCornerStyle: qrObjData?.style?.selectedCornerStyle,
+      selectedDotStyle: qrObjData?.style?.selectedDotStyle,
+      qrLogo: qrObjData?.qrDesignLogo,
+      data: qrObjData?.outcome,
+    };
+
+    return FrameComponent ? <FrameComponent {...commonProps} /> : null;
+  };
+
   return (
     <Modal
       show={showPreviewScanModal}
       onHide={() => setShowPreviewScanModal(false)}
       centered
       size="lg"
-      className="confirmationModal"
+      className="previewQrCodeSingle"
     >
       <Modal.Header closeButton />
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        <div className="qr-preview">
+          <div
+            className="img-con"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {renderFrame()}
+            <div className="frame-overlay" style={{ position: "static" }}></div>
+          </div>
+        </div>
+        <h3>Scan QR code</h3>
+      </Modal.Body>
     </Modal>
   );
 };

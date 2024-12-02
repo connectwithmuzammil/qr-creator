@@ -37,7 +37,11 @@ function BottomWrapperStages({
     onSuccess: ({ data: generateQr, status }) => {
       dispatch(resetQrData());
       navigate("/my-qr-codes");
-      toast.success("QR code generated successfully");
+      if (generateQrPayload?.editID) {
+        toast.success("QR code updated successfully");
+      } else {
+        toast.success("QR code generated successfully");
+      }
     },
   });
 

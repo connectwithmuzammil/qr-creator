@@ -2462,7 +2462,7 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
         </div>
       ))}
 
-      {qrCodeObj?.is_rating && (
+      {qrCodeObj?.is_rating === "true" && (
         <div
           style={{
             margin: "16px 0px",
@@ -2495,50 +2495,150 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
   );
 };
 
+// export const QRPreviewElabelsWine = ({
+//   localQrData,
+//   className,
+//   showReview,
+// }) => {
+//   console.log("localQrData", localQrData);
+//   return (
+//     <>
+//       <div
+//         className={`beer-container layout-content showBrowser ${className}`}
+//         style={{ left: "4px", overflowX: "hidden" }}
+//       >
+//         <div className="beer-header">
+//           <DynamicImage
+//             data={localQrData}
+//             imageKey="wine_image"
+//             altText="Wine Image"
+//             className="beer-image"
+//             style={{
+//               width: "100%",
+//               height: "200px",
+//               objectFit: "cover",
+//               borderRadius: "12px 12px 12px 12px",
+//             }}
+//           />
+//         </div>
+//         <div className="beer-content">
+//           <h2 className="beer-product-name">
+//             <FaWineGlassAlt className="icon-beer" />
+//             {localQrData.grape_variety || "Grape Variety"}
+//           </h2>
+//           <div className="beer-details">
+//             <p>
+//               <strong>Alcohol Percentage:</strong>{" "}
+//               {localQrData.alcohol_percentage || "0"}%
+//             </p>
+//             <p>
+//               <strong>Task Notes:</strong> {localQrData.task_notes || "N/A"}
+//             </p>
+//           </div>
+//           <p className="beer-website">
+//             <FaGlobe className="icon-globe" />
+//             <strong>Website:</strong>{" "}
+//             {localQrData.website ? (
+//               <a
+//                 href={localQrData.website}
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//               >
+//                 {localQrData.website}
+//               </a>
+//             ) : (
+//               "N/A"
+//             )}
+//           </p>
+//         </div>
+//       </div>
+
+//       {showReview && (
+//         <div className="review-container">
+//           <AccordianComponent title="📝 Share Your Feedback">
+//             {localQrData?.is_question && (
+//               <ReviewFormSubmit
+//                 questions={localQrData?.questions}
+//                 qrCodeObj={localQrData}
+//               />
+//             )}
+
+//             {/* {localQrData?.is_rating && (
+//               <div className="form-preview" style={{ marginTop: "12px" }}>
+//                 <Stack spacing={1}>
+//                   <Rating name="size-medium" defaultValue={1} precision={0.5} />
+//                 </Stack>
+//               </div>
+//             )} */}
+//           </AccordianComponent>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
 export const QRPreviewElabelsWine = ({
   localQrData,
   className,
   showReview,
 }) => {
   console.log("localQrData", localQrData);
+
   return (
     <>
       <div
         className={`beer-container layout-content showBrowser ${className}`}
         style={{ left: "4px", overflowX: "hidden" }}
       >
-        <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="wine_image"
-            altText="Wine Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
-            }}
-          />
-        </div>
-        <div className="beer-content">
-          <h2 className="beer-product-name">
-            <FaWineGlassAlt className="icon-beer" />
-            {localQrData.grape_variety || "Grape Variety"}
-          </h2>
-          <div className="beer-details">
-            <p>
-              <strong>Alcohol Percentage:</strong>{" "}
-              {localQrData.alcohol_percentage || "0"}%
-            </p>
-            <p>
-              <strong>Task Notes:</strong> {localQrData.task_notes || "N/A"}
-            </p>
+        {/* Wine Image */}
+        {localQrData?.wine_image && (
+          <div className="beer-header">
+            <DynamicImage
+              data={localQrData}
+              imageKey="wine_image"
+              altText="Wine Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
           </div>
-          <p className="beer-website">
-            <FaGlobe className="icon-globe" />
-            <strong>Website:</strong>{" "}
-            {localQrData.website ? (
+        )}
+
+        <div className="beer-content">
+          {/* Grape Variety */}
+          {localQrData?.grape_variety && (
+            <h2 className="beer-product-name">
+              <FaWineGlassAlt className="icon-beer" />
+              {localQrData.grape_variety || "Grape Variety"}
+            </h2>
+          )}
+
+          <div className="beer-details">
+            {/* Alcohol Percentage */}
+            {localQrData?.alcohol_percentage && (
+              <p>
+                <strong>Alcohol Percentage:</strong>{" "}
+                {localQrData.alcohol_percentage || "0"}%
+              </p>
+            )}
+
+            {/* Task Notes */}
+            {localQrData?.task_notes && (
+              <p>
+                <strong>Task Notes:</strong> {localQrData.task_notes || "N/A"}
+              </p>
+            )}
+          </div>
+
+          {/* Website */}
+          {localQrData?.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
               <a
                 href={localQrData.website}
                 target="_blank"
@@ -2546,13 +2646,12 @@ export const QRPreviewElabelsWine = ({
               >
                 {localQrData.website}
               </a>
-            ) : (
-              "N/A"
-            )}
-          </p>
+            </p>
+          )}
         </div>
       </div>
 
+      {/* Show Review Section */}
       {showReview && (
         <div className="review-container">
           <AccordianComponent title="📝 Share Your Feedback">
@@ -2563,10 +2662,15 @@ export const QRPreviewElabelsWine = ({
               />
             )}
 
+            {/* Rating Section */}
             {/* {localQrData?.is_rating && (
               <div className="form-preview" style={{ marginTop: "12px" }}>
                 <Stack spacing={1}>
-                  <Rating name="size-medium" defaultValue={1} precision={0.5} />
+                  <Rating
+                    name="size-medium"
+                    defaultValue={1}
+                    precision={0.5}
+                  />
                 </Stack>
               </div>
             )} */}
@@ -2576,6 +2680,7 @@ export const QRPreviewElabelsWine = ({
     </>
   );
 };
+
 
 export const QRPreviewElabelsBeer = ({
   localQrData,

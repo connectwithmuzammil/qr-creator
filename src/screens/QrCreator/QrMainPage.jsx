@@ -206,9 +206,14 @@ const QrMainPage = () => {
   };
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
+    // console.log("qrCodeDatatte", data);
     const FrameComponent = frameComponents[selectedFrame];
     return FrameComponent ? (
-      <FrameComponent {...qrCodeData} data={data?.image_path} />
+      <FrameComponent
+        {...qrCodeData}
+        data={data?.image_path}
+        qrLogo={data?.qrDesignLogo}
+      />
     ) : null;
   };
 
@@ -707,7 +712,7 @@ const QrMainPage = () => {
                                   className="img-con"
                                   ref={qrCodeRef}
                                   onClick={() => {
-                                    // setShowPreviewScanModal(true);
+                                    setShowPreviewScanModal(true);
                                     setPreviewScanImageData(qrCode);
                                   }}
                                 >
@@ -902,6 +907,7 @@ const QrMainPage = () => {
       <OpenQrScanModal
         setShowPreviewScanModal={setShowPreviewScanModal}
         showPreviewScanModal={showPreviewScanModal}
+        qrObjData = {PreviewScanImageData}
       />
     </>
   );

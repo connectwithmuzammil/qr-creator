@@ -202,7 +202,7 @@ const initialState = {
     cornerBorderColor: "",
     cornerDotColor: "",
     backgroundColor: "#ffffff",
-    frameStyle: "",
+    frameStyle: "#ffffff",
     frameColor: "", //#404040
     frameText: "",
     frameTextColor: "",
