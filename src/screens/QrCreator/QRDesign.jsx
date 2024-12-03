@@ -129,8 +129,8 @@ const QRDesign = () => {
   const [dotColor, setDotColor] = useState(
     qrData?.style?.dotsColor || "#000000"
   );
-  const [CornerbgColor, setCornerBgColor] = useState(
-    qrData?.style?.backgroundColor || "#ffffff"
+  const [cornerBackgroundColor, setCornerBackgroundColor] = useState(
+    qrData?.style?.cornerBackgroundColor || "#ffffff"
   );
   const [cornerBorderColor, setCornerBorderColor] = useState(
     qrData?.style?.cornerBorderColor || "#000000"
@@ -147,10 +147,10 @@ const QRDesign = () => {
   const [frameColor, setFrameColor] = useState(
     qrData?.style?.frameColor || "#404040"
   );
-  const [frameBgColor, setFrameBgColor] = useState(
-    qrData?.style?.frameStyle 
+  const [backgroundColor, setBackgroundColor] = useState(
+    qrData?.style?.backgroundColor
   );
-  console.log("frameBgColor",frameBgColor)
+  // console.log("frameBgColor",frameBgColor)
   const [frameText, setFrameText] = useState(
     qrData?.style?.frameText || "Scan Me!"
   );
@@ -182,8 +182,8 @@ const QRDesign = () => {
   useEffect(() => {
     if (qrData && qrData.style) {
       qrData.style.dotsColor = dotColor;
-      qrData.style.cornerBackgroundColor = CornerbgColor;
-      qrData.style.backgroundColor = frameBgColor;
+      qrData.style.cornerBackgroundColor = cornerBackgroundColor;
+      qrData.style.backgroundColor = backgroundColor;
       qrData.style.cornerBorderColor = cornerBorderColor;
       qrData.style.cornerDotColor = cornerDotColor;
       qrData.style.frameColor = frameColor;
@@ -195,8 +195,8 @@ const QRDesign = () => {
     }
   }, [
     dotColor,
-    CornerbgColor,
-    frameBgColor,
+    cornerBackgroundColor,
+    backgroundColor,
     cornerBorderColor,
     frameColor,
     frameTextColor,
@@ -284,10 +284,10 @@ const QRDesign = () => {
 
     const commonProps = {
       frameColor,
-      frameBorderColor: frameBgColor,
+      backgroundColor,
       frameText,
       frameTextColor,
-      CornerbgColor,
+      cornerBackgroundColor,
       dotColor,
       cornerBorderColor,
       cornerDotColor,
@@ -457,8 +457,8 @@ const QRDesign = () => {
                                 />
                                 <ColorPickerComponent
                                   label="Background color"
-                                  color={frameBgColor}
-                                  setColor={setFrameBgColor}
+                                  color={backgroundColor}
+                                  setColor={setBackgroundColor}
                                 />
                               </div>
                             </div>
@@ -572,8 +572,8 @@ const QRDesign = () => {
 
                           <ColorPickerComponent
                             label="Background Color"
-                            color={CornerbgColor}
-                            setColor={setCornerBgColor}
+                            color={cornerBackgroundColor}
+                            setColor={setCornerBackgroundColor}
                           />
                         </div>
                       </div>
@@ -768,7 +768,7 @@ const QRDesign = () => {
         showToggleBtn={"qrDesign"}
         elabelsSelectedProduct={elabelsSelectedProduct}
         style={{
-          CornerbgColor,
+          cornerBackgroundColor,
           dotColor,
           cornerBorderColor,
           cornerDotColor,
@@ -776,7 +776,7 @@ const QRDesign = () => {
           selectedDotStyle,
           QRLogo,
           frameColor,
-          frameBgColor,
+          backgroundColor,
           frameTextColor,
           frameText,
           selectedFrame,

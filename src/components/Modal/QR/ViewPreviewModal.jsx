@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { PreviewFrame, TopPreviewHeader } from "../../SVGIcon";
+import {
+  CanvaFrame1,
+  CanvaFrame10,
+  CanvaFrame11,
+  CanvaFrame2,
+  CanvaFrame3,
+  CanvaFrame4,
+  CanvaFrame5,
+  CanvaFrame6,
+  CanvaFrame7,
+  CanvaFrame8,
+  CanvaFrame9,
+  NotSelectedFrameCanvas,
+  PreviewFrame,
+  TopPreviewHeader,
+} from "../../SVGIcon";
 import {
   QRPreviewApps,
   QRPreviewBusiness,
@@ -36,7 +51,7 @@ const ViewPreviewModal = ({
 }) => {
   const {
     selectedFrame,
-    CornerbgColor,
+    cornerBackgroundColor,
     dotColor,
     cornerBorderColor,
     cornerDotColor,
@@ -44,11 +59,11 @@ const ViewPreviewModal = ({
     selectedDotStyle,
     QRLogo,
     frameColor,
-    frameBgColor,
+    backgroundColor,
     frameTextColor,
     frameText,
   } = style;
-  // console.log("check type", type);
+  console.log("check type", style);
   const location = useLocation();
 
   const [selectedOption, setSelectedOption] = useState(
@@ -85,6 +100,43 @@ const ViewPreviewModal = ({
       ) : (
         <QRPreviewElabelsWine localQrData={localQrData} />
       ),
+  };
+
+  //Render Frame CANVAS
+
+  const FRAME_COMPONENTS = {
+    notSelectedFrame: NotSelectedFrameCanvas,
+    frame1: CanvaFrame1,
+    frame2: CanvaFrame2,
+    frame3: CanvaFrame3,
+    frame4: CanvaFrame4,
+    frame5: CanvaFrame5,
+    frame6: CanvaFrame6,
+    frame7: CanvaFrame7,
+    frame8: CanvaFrame8,
+    frame9: CanvaFrame9,
+    frame10: CanvaFrame10,
+    frame11: CanvaFrame11,
+  };
+
+  const renderFrame = () => {
+    const FrameComponent = FRAME_COMPONENTS[selectedFrame] || null;
+
+    const commonProps = {
+      frameColor,
+      backgroundColor,
+      frameText,
+      frameTextColor,
+      cornerBackgroundColor,
+      dotColor,
+      cornerBorderColor,
+      cornerDotColor,
+      selectedCornerStyle,
+      selectedDotStyle,
+      qrLogo: QRLogo,
+    };
+
+    return FrameComponent ? <FrameComponent {...commonProps} /> : null;
   };
   return (
     <Modal
@@ -124,9 +176,9 @@ const ViewPreviewModal = ({
 
                 {selectedOption === "QR Code" && (
                   <div className="qrCodePreviewMobile">
-                    <RenderFrame
+                    {/* <RenderFrame
                       selectedFrame={selectedFrame}
-                      CornerbgColor={CornerbgColor}
+                      cornerBackgroundColor={cornerBackgroundColor}
                       dotColor={dotColor}
                       cornerBorderColor={cornerBorderColor}
                       cornerDotColor={cornerDotColor}
@@ -134,10 +186,11 @@ const ViewPreviewModal = ({
                       selectedDotStyle={selectedDotStyle}
                       QRLogo={QRLogo}
                       frameColor={frameColor}
-                      frameBgColor={frameBgColor}
+                      backgroundColor={backgroundColor}
                       frameTextColor={frameTextColor}
                       frameText={frameText}
-                    />
+                    /> */}
+                    {renderFrame()}
                   </div>
                 )}
               </div>

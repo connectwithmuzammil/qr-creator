@@ -206,7 +206,7 @@ const QrMainPage = () => {
   };
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
-    // console.log("qrCodeDatatte", data);
+    console.log("qrCodeDatatte", data);
     const FrameComponent = frameComponents[selectedFrame];
     return FrameComponent ? (
       <FrameComponent

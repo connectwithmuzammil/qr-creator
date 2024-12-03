@@ -1900,7 +1900,7 @@ export const NotSelectedFrameCanvas = ({
 
 export const CanvaFrame1 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2032,7 +2032,7 @@ export const CanvaFrame1 = ({
       <foreignObject width="90%" height="64px" x={4} y={18}>
         <div
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             backgroundColor: "white",
@@ -2053,7 +2053,7 @@ export const CanvaFrame1 = ({
 
 export const CanvaFrame2 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2199,7 +2199,7 @@ export const CanvaFrame2 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -2244,7 +2244,7 @@ export const CanvaFrame2 = ({
 };
 export const CanvaFrame3 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2342,7 +2342,7 @@ export const CanvaFrame3 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -2387,7 +2387,7 @@ export const CanvaFrame3 = ({
 };
 export const CanvaFrame4 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2483,7 +2483,7 @@ export const CanvaFrame4 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -2528,7 +2528,7 @@ export const CanvaFrame4 = ({
 };
 export const CanvaFrame5 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2649,7 +2649,7 @@ export const CanvaFrame5 = ({
           // id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -2668,7 +2668,7 @@ export const CanvaFrame5 = ({
 };
 export const CanvaFrame6 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2763,7 +2763,7 @@ export const CanvaFrame6 = ({
         <div
           // id="#qrCode"
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -2809,7 +2809,7 @@ export const CanvaFrame6 = ({
 };
 export const CanvaFrame7 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -2966,7 +2966,7 @@ export const CanvaFrame7 = ({
 };
 export const CanvaFrame8 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -3064,7 +3064,7 @@ export const CanvaFrame8 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",
@@ -3110,7 +3110,7 @@ export const CanvaFrame8 = ({
 };
 export const CanvaFrame9 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -3216,7 +3216,7 @@ export const CanvaFrame9 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `1px solid ${frameBorderColor}`,
+            border: `1px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             backgroundColor: "white",
@@ -3261,7 +3261,7 @@ export const CanvaFrame9 = ({
 };
 export const CanvaFrame10 = ({
   frameColor,
-  frameBorderColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
@@ -3418,14 +3418,15 @@ export const CanvaFrame10 = ({
 };
 export const CanvaFrame11 = ({
   frameColor,
-  frameBorderColor,
+  // backgroundColor,
+  backgroundColor,
   frameText,
   frameTextColor,
   dotColor,
   selectedDotStyle,
   cornerBorderColor,
   selectedCornerStyle,
-  CornerbgColor,
+  cornerBackgroundColor,
   cornerDotColor,
   qrLogo,
   data,
@@ -3435,6 +3436,7 @@ export const CanvaFrame11 = ({
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
 
   const [imageLogo, setImageLogo] = useState(null);
+  console.log("frameTexttye",frameTextColor)
 
   useEffect(() => {
     if (qrLogo) {
@@ -3462,7 +3464,7 @@ export const CanvaFrame11 = ({
         color: cornerDotColor,
       },
       backgroundOptions: {
-        color: CornerbgColor,
+        color: cornerBackgroundColor,
       },
       imageOptions: {
         crossOrigin: "anonymous",
@@ -3477,7 +3479,7 @@ export const CanvaFrame11 = ({
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
-      CornerbgColor,
+      cornerBackgroundColor,
     ]
   );
 
@@ -3513,7 +3515,7 @@ export const CanvaFrame11 = ({
           id="#qrCode"
           bis_skin_checked={1}
           style={{
-            border: `4px solid ${frameBorderColor}`,
+            border: `4px solid ${backgroundColor}`,
             width: "100%",
             height: "100%",
             boxSizing: "border-box",

@@ -138,6 +138,8 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       food: product === "food",
       product: product === "product",
     }));
+    // setLocalQrData(null);
+
   };
 
   // Use a separate effect to set selectedProduct based on localQrData changes
@@ -253,6 +255,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                         type="radio"
                         name="alcohol_type"
                         value="alcoholic"
+                        checked={localQrData?.alcohol_type === "alcoholic"}
                         onChange={(e) =>
                           setLocalQrData((prev) => ({
                             ...prev,
@@ -266,6 +269,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                       <input
                         type="radio"
                         name="alcohol_type"
+                        checked={localQrData?.alcohol_type === "non-alcoholic"}
                         value="non-alcoholic"
                         onChange={(e) =>
                           setLocalQrData((prev) => ({
@@ -372,7 +376,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                     placeholder="Enter Stored for (days) after opening"
                     value={localQrData?.stored_days_open}
                     name="stored_days_open"
-                    type="number"
+                    // type="number"
                     onChange={handleInputChange}
                   />
                   <ImageUploadComponent

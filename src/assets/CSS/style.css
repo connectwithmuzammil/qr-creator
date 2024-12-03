@@ -5106,6 +5106,7 @@ input[type="checkbox"] {
 .beer-container .beer-footer {
   background: #f9f9f9;
   border-top: 1px solid #ddd;
+  padding-top: 6px;
 }
 
 .beer-container.ScanPageClass .beer-footer {

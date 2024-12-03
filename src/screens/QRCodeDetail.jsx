@@ -82,16 +82,17 @@ const QRCodeDetail = () => {
       : QRres?.singleViewDetail?.outcome;
   // console.log("QRres?.singleViewDetail?.outcome", data);
   let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
-  let CornerbgColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
+  let cornerBackgroundColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres?.singleViewDetail?.style?.cornerBorderColor;
   let cornerDotColor = QRres?.singleViewDetail?.style?.cornerDotColor;
   let selectedDotStyle = QRres?.singleViewDetail?.style?.dotsStyle;
   let selectedCornerStyle = QRres?.singleViewDetail?.style?.cornerStyle;
   //FRAME
   let frameColor = QRres?.singleViewDetail?.style?.frameColor;
-  let frameBgColor = QRres?.singleViewDetail?.style?.backgroundColor;
+  let backgroundColor = QRres?.singleViewDetail?.style?.backgroundColor;
   let frameText = QRres?.singleViewDetail?.style?.frameText;
   let frameTextColor = QRres?.singleViewDetail?.style?.frameTextColor;
+  // console.log("frameText",frameText)
 
   const qrCodeOptions = {
     width: 130,
@@ -109,7 +110,7 @@ const QRCodeDetail = () => {
       color: cornerDotColor, // Customize if needed
     },
     backgroundOptions: {
-      color: CornerbgColor, // Background color of the QR code
+      color: cornerBackgroundColor, // Background color of the QR code
     },
     cornersSquareOptions: {
       color: cornerBorderColor,
@@ -167,10 +168,10 @@ const QRCodeDetail = () => {
     const FrameComponent = FRAME_COMPONENTS[selectedFrame] || null;
     const commonProps = {
       frameColor,
-      frameBorderColor: frameBgColor,
+      backgroundColor,
       frameText,
       frameTextColor,
-      CornerbgColor,
+      cornerBackgroundColor,
       dotColor,
       cornerBorderColor,
       cornerDotColor,

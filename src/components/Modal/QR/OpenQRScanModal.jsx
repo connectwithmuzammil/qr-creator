@@ -42,10 +42,10 @@ const OpenQrScanModal = ({
 
     const commonProps = {
       frameColor: qrObjData?.style?.frameColor,
-      frameBorderColor: qrObjData?.style?.frameBgColor,
+      backgroundColor: qrObjData?.style?.backgroundColor,
       frameText: qrObjData?.style?.frameText,
       frameTextColor: qrObjData?.style?.frameTextColor,
-      CornerbgColor: qrObjData?.style?.CornerbgColor,
+      cornerBackgroundColor: qrObjData?.style?.cornerBackgroundColor,
       dotColor: qrObjData?.style?.dotColor,
       cornerBorderColor: qrObjData?.style?.cornerBorderColor,
       cornerDotColor: qrObjData?.style?.cornerDotColor,
