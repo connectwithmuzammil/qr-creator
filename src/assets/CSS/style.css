@@ -2858,6 +2858,12 @@ footer .bottom p {
   width: 100%;
   margin-bottom: 16px;
 }
+.select-wrap-comp .custom-select-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+}
 .select-wrap-comp label {
   color: #262626;
   font-family: "Nunito Sans", sans-serif;
@@ -2865,16 +2871,38 @@ footer .bottom p {
   font-weight: 500;
 }
 .select-wrap-comp select {
-  outline: none;
+  /* outline: none;
   display: block;
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #bfbfbf;
   border-radius: 0.25rem;
   font-size: 14px;
-  transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out; */
+  width: 100%;
+  padding: 12px 30px 12px 10px; 
+  font-size: 16px;
+  border-radius: 0.25rem;
+  border: 1px solid #bfbfbf;
+  background-color: #ffffff;
+  appearance: none;
+  font-size: 14px;
+  color: #262626;
+  cursor: pointer;
 }
-
+.select-wrap-comp select:focus {
+  outline: none;
+  border-color: #bfbfbf;
+}
+.select-wrap-comp  .custom-select-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none; 
+  font-size: 18px;
+}
 /* WIFI PAGE */
 .wifi-page {
   margin-bottom: 100px;
@@ -4915,6 +4943,12 @@ input[type="checkbox"] {
 .checkbox-group input[type="checkbox"] {
   width: 20px;
   height: 20px;
+  accent-color: #e0201c;
+  cursor: pointer;
+}
+.checkbox-group input[type="radio"] {
+  width: 16px;
+  height: 16px;
   accent-color: #e0201c;
   cursor: pointer;
 }

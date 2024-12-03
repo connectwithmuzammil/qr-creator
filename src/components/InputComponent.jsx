@@ -1,3 +1,4 @@
+import { FaChevronDown } from "react-icons/fa";
 import { MdErrorOutline } from "react-icons/md";
 export const InputComponent = ({
   label,
@@ -23,7 +24,7 @@ export const InputComponent = ({
       />
       {error && (
         <div className="error-message">
-          <MdErrorOutline   className="error-icon" /> {error}
+          <MdErrorOutline className="error-icon" /> {error}
         </div>
       )}
     </div>
@@ -62,16 +63,24 @@ export const InputSelectComponent = ({
   return (
     <div className="select-wrap-comp">
       <label>{label}</label>
-      <select name={name} value={value} onChange={onChange}>
-        <option value="" disabled>
-          {defaultOption}
-        </option>
-        {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.label}
+      <div className="custom-select-container">
+        <select
+          name={name}
+          value={value}
+          onChange={onChange}
+          className="custom-select"
+        >
+          <option value="" disabled>
+            {defaultOption}
           </option>
-        ))}
-      </select>
+          {options.map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <FaChevronDown className="custom-select-icon" />
+      </div>
     </div>
   );
 };

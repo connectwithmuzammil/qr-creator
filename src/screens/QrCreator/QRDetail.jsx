@@ -512,6 +512,15 @@ const QRDetail = () => {
               price: localQrData?.price,
               brand: localQrData?.brand,
 
+              year : localQrData?.year,
+              drinking_temperature:localQrData?.drinking_temperature,
+              stored_temp_unopen:localQrData?.stored_temp_unopen,
+              stored_temp_open:localQrData?.stored_temp_open,
+              stored_days_open:localQrData?.stored_days_open,
+              alcohol_type:localQrData?.alcohol_type,
+              select_type_wine:localQrData?.select_type_wine,
+              custom_type_wine:localQrData?.custom_type_wine,
+
               beer_image: localQrData?.beer_image,
               nutrition_image: localQrData?.nutrition_image,
               cigar_image: localQrData?.cigar_image,

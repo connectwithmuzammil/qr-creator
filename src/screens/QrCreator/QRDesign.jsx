@@ -123,7 +123,7 @@ const QRDesign = () => {
       (product) => qrData[product] === true || qrData[product] === "true"
     )
   );
-  console.log("onDesignelabelsSelectedProduct", elabelsSelectedProduct);
+  // console.log("onDesignelabelsSelectedProduct", elabelsSelectedProduct);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
   const [dotColor, setDotColor] = useState(
