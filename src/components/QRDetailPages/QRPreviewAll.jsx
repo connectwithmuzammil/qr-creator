@@ -2601,7 +2601,7 @@ export const QRPreviewElabelsWine = ({
               style={{
                 width: "100%",
                 height: "200px",
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: "12px 12px 12px 12px",
               }}
             />
@@ -2652,41 +2652,28 @@ export const QRPreviewElabelsWine = ({
       </div>
 
       {/* Show Review Section */}
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            {localQrData?.is_question && (
+      {showReview &&
+        (localQrData?.is_question === "true" ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
               <ReviewFormSubmit
                 questions={localQrData?.questions}
                 qrCodeObj={localQrData}
               />
-            )}
-
-            {/* Rating Section */}
-            {/* {localQrData?.is_rating && (
-              <div className="form-preview" style={{ marginTop: "12px" }}>
-                <Stack spacing={1}>
-                  <Rating
-                    name="size-medium"
-                    defaultValue={1}
-                    precision={0.5}
-                  />
-                </Stack>
-              </div>
-            )} */}
-          </AccordianComponent>
-        </div>
-      )}
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };
-
 
 export const QRPreviewElabelsBeer = ({
   localQrData,
   className,
   showReview,
 }) => {
+  console.log("localQrDatamm",localQrData)
   return (
     <>
       <div
@@ -2694,47 +2681,60 @@ export const QRPreviewElabelsBeer = ({
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="beer_image"
-            altText="Beer Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 0 0",
-            }}
-          />
+          {localQrData?.beer_image && (
+            <DynamicImage
+              data={localQrData}
+              imageKey="beer_image"
+              altText="Beer Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "12px 12px 0 0",
+              }}
+            />
+          )}
         </div>
         <div className="beer-content">
-          <h2 className="beer-product-name">
-            <FaBeer className="icon-beer" />
-            {localQrData.product_name || "Product Name"}
-          </h2>
-          <p className="beer-sku">
-            <FaInfoCircle className="icon-info" />
-            SKU: <span>{localQrData.sku || "N/A"}</span>
-          </p>
-          <p className="beer-description">
-            {localQrData.description || "No description available."}
-          </p>
+          {localQrData?.product_name && (
+            <h2 className="beer-product-name">
+              <FaBeer className="icon-beer" />
+              {localQrData.product_name}
+            </h2>
+          )}
+          {localQrData?.sku && (
+            <p className="beer-sku">
+              <FaInfoCircle className="icon-info" />
+              SKU: <span>{localQrData.sku}</span>
+            </p>
+          )}
+          {localQrData?.description && (
+            <p className="beer-description">{localQrData.description}</p>
+          )}
           <div className="beer-details">
-            <p>
-              <strong>Alcohol Percentage:</strong>{" "}
-              {localQrData.alcohol_percentage || "0"}%
-            </p>
-            <p>
-              <strong>IPA:</strong> {localQrData.ipa || "N/A"}
-            </p>
-            <p>
-              <strong>Brewed At:</strong> {localQrData.brewed || "Unknown"}
-            </p>
+            {(localQrData?.alcohol_percentage &&
+              localQrData?.alcohol_percentage !== 0) && (
+              <p>
+                <strong>Alcohol Percentage:</strong>{" "}
+                {localQrData.alcohol_percentage}%
+              </p>
+            )}
+            {localQrData?.ipa && (
+              <p>
+                <strong>IPA:</strong> {localQrData.ipa}
+              </p>
+            )}
+            {localQrData?.brewed && (
+              <p>
+                <strong>Brewed At:</strong> {localQrData.brewed}
+              </p>
+            )}
           </div>
-          <p className="beer-website">
-            <FaGlobe className="icon-globe" />
-            <strong>Website:</strong>{" "}
-            {localQrData.website ? (
+          {localQrData?.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
               <a
                 href={localQrData.website}
                 target="_blank"
@@ -2742,12 +2742,10 @@ export const QRPreviewElabelsBeer = ({
               >
                 {localQrData.website}
               </a>
-            ) : (
-              "N/A"
-            )}
-          </p>
+            </p>
+          )}
         </div>
-        {localQrData.nutrition_image && (
+        {localQrData?.nutrition_image && (
           <footer className="beer-footer">
             <DynamicImage
               data={localQrData}
@@ -2757,7 +2755,7 @@ export const QRPreviewElabelsBeer = ({
               style={{
                 width: "100%",
                 height: "120px",
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: "12px 12px 12px 12px",
               }}
             />
@@ -2780,7 +2778,6 @@ export const QRPreviewElabelsCigar = ({
   className,
   showReview,
 }) => {
-  // console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -2788,67 +2785,89 @@ export const QRPreviewElabelsCigar = ({
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="cigar_image"
-            altText="Cigar Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
-            }}
-          />
+          {localQrData?.cigar_image && (
+            <DynamicImage
+              data={localQrData}
+              imageKey="cigar_image"
+              altText="Cigar Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
+          )}
         </div>
         <div className="beer-content">
-          <h2 className="beer-product-name">
-            <PiCigaretteBold className="icon-beer" />
-            {localQrData.product_name || "Product Name"}
-          </h2>
-          <p className="beer-sku">
-            <FaInfoCircle className="icon-info" />
-            SKU: <span>{localQrData.sku || "N/A"}</span>
-          </p>
-          <p className="beer-description">
-            {localQrData.description || "No description available."}
-          </p>
+          {localQrData?.product_name && (
+            <h2 className="beer-product-name">
+              <PiCigaretteBold className="icon-beer" />
+              {localQrData.product_name}
+            </h2>
+          )}
+          {localQrData?.sku && (
+            <p className="beer-sku">
+              <FaInfoCircle className="icon-info" />
+              SKU: <span>{localQrData.sku}</span>
+            </p>
+          )}
+          {localQrData?.description && (
+            <p className="beer-description">{localQrData.description}</p>
+          )}
           <div className="beer-details">
-            <p>
-              <strong>Where It's Made:</strong>{" "}
-              {localQrData.where_it_is_made || "Unknown"}
-            </p>
-            <p>
-              <strong>Size:</strong> {localQrData.size || "N/A"}
-            </p>
-            <p>
-              <strong>Wrapper:</strong> {localQrData.wrapper || "N/A"}
-            </p>
-            <p>
-              <strong>Binder:</strong> {localQrData.binder || "N/A"}
-            </p>
-            <p>
-              <strong>Filler:</strong> {localQrData.filler || "N/A"}
-            </p>
-            <p>
-              <strong>Strength:</strong> {localQrData.strength || "N/A"}
-            </p>
-            <p>
-              <strong>Body:</strong> {localQrData.body || "N/A"}
-            </p>
-            <p>
-              <strong>Flavour Profile:</strong>{" "}
-              {localQrData.flavour_profile || "N/A"}
-            </p>
-            <p>
-              <strong>Best Paired With:</strong>{" "}
-              {localQrData.best_paired_with || "N/A"}
-            </p>
+            {localQrData?.where_it_is_made && (
+              <p>
+                <strong>Where It's Made:</strong> {localQrData.where_it_is_made}
+              </p>
+            )}
+            {localQrData?.size && (
+              <p>
+                <strong>Size:</strong> {localQrData.size}
+              </p>
+            )}
+            {localQrData?.wrapper && (
+              <p>
+                <strong>Wrapper:</strong> {localQrData.wrapper}
+              </p>
+            )}
+            {localQrData?.binder && (
+              <p>
+                <strong>Binder:</strong> {localQrData.binder}
+              </p>
+            )}
+            {localQrData?.filler && (
+              <p>
+                <strong>Filler:</strong> {localQrData.filler}
+              </p>
+            )}
+            {localQrData?.strength && (
+              <p>
+                <strong>Strength:</strong> {localQrData.strength}
+              </p>
+            )}
+            {localQrData?.body && (
+              <p>
+                <strong>Body:</strong> {localQrData.body}
+              </p>
+            )}
+            {localQrData?.flavour_profile && (
+              <p>
+                <strong>Flavour Profile:</strong> {localQrData.flavour_profile}
+              </p>
+            )}
+            {localQrData?.best_paired_with && (
+              <p>
+                <strong>Best Paired With:</strong>{" "}
+                {localQrData.best_paired_with}
+              </p>
+            )}
           </div>
-          <p className="beer-website">
-            <FaGlobe className="icon-globe" />
-            <strong>Website:</strong>{" "}
-            {localQrData.website ? (
+          {localQrData?.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
               <a
                 href={localQrData.website}
                 target="_blank"
@@ -2856,10 +2875,8 @@ export const QRPreviewElabelsCigar = ({
               >
                 {localQrData.website}
               </a>
-            ) : (
-              "N/A"
-            )}
-          </p>
+            </p>
+          )}
         </div>
       </div>
       {showReview && (
@@ -2872,12 +2889,12 @@ export const QRPreviewElabelsCigar = ({
     </>
   );
 };
+
 export const QRPreviewElabelsCoffee = ({
   localQrData,
   className,
   showReview,
 }) => {
-  // console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -2885,65 +2902,84 @@ export const QRPreviewElabelsCoffee = ({
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="coffee_image"
-            altText="Coffee Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
-            }}
-          />
+          {localQrData.coffee_image && (
+            <DynamicImage
+              data={localQrData}
+              imageKey="coffee_image"
+              altText="Coffee Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
+          )}
         </div>
         <div className="beer-content">
-          <h2 className="beer-product-name">
-            <FaCoffee className="icon-coffee" />
-            {localQrData.product_name || "Product Name"}
-          </h2>
-          <p className="beer-sku">
-            <FaInfoCircle className="icon-info" />
-            SKU: <span>{localQrData.sku || "N/A"}</span>
-          </p>
-          <p className="beer-description">
-            {localQrData.description || "No description available."}
-          </p>
+          {localQrData.product_name && (
+            <h2 className="beer-product-name">
+              <FaCoffee className="icon-coffee" />
+              {localQrData.product_name}
+            </h2>
+          )}
+
+          {localQrData.sku && (
+            <p className="beer-sku">
+              <FaInfoCircle className="icon-info" />
+              SKU: <span>{localQrData.sku}</span>
+            </p>
+          )}
+
+          {localQrData.description && (
+            <p className="beer-description">{localQrData.description}</p>
+          )}
 
           <div className="beer-details">
-            <p>
-              <strong>Origin:</strong> {localQrData.origin || "Unknown"}
-            </p>
-            <p>
-              <strong>Farm:</strong> {localQrData.farm || "Unknown"}
-            </p>
-            <p>
-              <strong>Altitude:</strong>{" "}
-              {localQrData.altitude || "Not specified"} m
-            </p>
-            <p>
-              <strong>Roast:</strong> {localQrData.roast || "Not specified"}
-            </p>
-            <p>
-              <strong>Flavour:</strong> {localQrData.flavour || "Not specified"}
-            </p>
+            {localQrData.origin && (
+              <p>
+                <strong>Origin:</strong> {localQrData.origin}
+              </p>
+            )}
+            {localQrData.farm && (
+              <p>
+                <strong>Farm:</strong> {localQrData.farm}
+              </p>
+            )}
+            {localQrData.altitude && (
+              <p>
+                <strong>Altitude:</strong> {localQrData.altitude} m
+              </p>
+            )}
+            {localQrData.roast && (
+              <p>
+                <strong>Roast:</strong> {localQrData.roast}
+              </p>
+            )}
+            {localQrData.flavour && (
+              <p>
+                <strong>Flavour:</strong> {localQrData.flavour}
+              </p>
+            )}
           </div>
 
-          <p className="beer-task-notes">
-            <strong>Task Notes:</strong>{" "}
-            {localQrData.task_notes || "No task notes available."}
-          </p>
+          {localQrData.task_notes && (
+            <p className="beer-task-notes">
+              <strong>Task Notes:</strong> {localQrData.task_notes}
+            </p>
+          )}
 
-          <p className="beer-ingredients">
-            <strong>Ingredients:</strong>{" "}
-            {localQrData.ingredients || "Not listed"}
-          </p>
+          {localQrData.ingredients && (
+            <p className="beer-ingredients">
+              <strong>Ingredients:</strong> {localQrData.ingredients}
+            </p>
+          )}
 
-          <p className="beer-website">
-            <FaGlobe className="icon-globe" />
-            <strong>Website:</strong>{" "}
-            {localQrData.website ? (
+          {localQrData.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
               <a
                 href={localQrData.website}
                 target="_blank"
@@ -2951,34 +2987,38 @@ export const QRPreviewElabelsCoffee = ({
               >
                 {localQrData.website}
               </a>
-            ) : (
-              "N/A"
-            )}
-          </p>
-
-          <div className="beer-storage">
-            <p>
-              <strong>Storage:</strong> {localQrData.storage || "Not specified"}
             </p>
-          </div>
+          )}
+
+          {localQrData.storage && (
+            <div className="beer-storage">
+              <p>
+                <strong>Storage:</strong> {localQrData.storage}
+              </p>
+            </div>
+          )}
 
           <div className="beer-certifications">
-            <p>
-              <strong>Fare Trade:</strong>{" "}
-              {localQrData.free_trade ? (
-                <FaCheck style={{ color: "green" }} />
-              ) : (
-                <FaTimes style={{ color: "red" }} />
-              )}
-            </p>
-            <p>
-              <strong>Organic:</strong>{" "}
-              {localQrData.organic ? (
-                <FaCheck style={{ color: "green" }} />
-              ) : (
-                <FaTimes style={{ color: "red" }} />
-              )}
-            </p>
+            {localQrData.organic !== false && (
+              <p>
+                <strong>Organic:</strong>{" "}
+                {localQrData.organic ? (
+                  <FaCheck style={{ color: "green" }} />
+                ) : (
+                  <FaTimes style={{ color: "red" }} />
+                )}
+              </p>
+            )}
+            {localQrData.free_trade !== false && (
+              <p>
+                <strong>Fare Trade:</strong>{" "}
+                {localQrData.free_trade ? (
+                  <FaCheck style={{ color: "green" }} />
+                ) : (
+                  <FaTimes style={{ color: "red" }} />
+                )}
+              </p>
+            )}
           </div>
         </div>
 
@@ -2992,13 +3032,14 @@ export const QRPreviewElabelsCoffee = ({
               style={{
                 width: "100%",
                 height: "120px",
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: "12px 12px 12px 12px",
               }}
             />
           </footer>
         )}
       </div>
+
       {showReview && (
         <div className="review-container">
           <AccordianComponent title="📝 Share Your Feedback">
@@ -3015,7 +3056,6 @@ export const QRPreviewElabelsFood = ({
   className,
   showReview,
 }) => {
-  // console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -3023,43 +3063,58 @@ export const QRPreviewElabelsFood = ({
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="food_image"
-            altText="Food Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
-            }}
-          />
+          {localQrData.food_image && (
+            <DynamicImage
+              data={localQrData}
+              imageKey="food_image"
+              altText="Food Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
+          )}
         </div>
         <div className="beer-content">
-          <h2 className="beer-product-name">
-            <FaUtensils className="icon-utensils" />
-            {localQrData.product_name || "Product Name"}
-          </h2>
-          <p className="beer-sku">
-            <FaInfoCircle className="icon-info" />
-            Cuisine: <span>{localQrData.cuisine || "Unknown"}</span>
-          </p>
-          <p className="beer-description">
-            <strong>Ingredients:</strong>{" "}
-            {localQrData.ingredients || "Not listed"}
-          </p>
-          <p className="beer-description">
-            <strong>Serving Size:</strong> {localQrData.size || "Not specified"}
-          </p>
-          <p className="beer-description">
-            <strong>Calories:</strong> {localQrData.calories || "Not specified"}
-          </p>
+          {localQrData.product_name && (
+            <h2 className="beer-product-name">
+              <FaUtensils className="icon-utensils" />
+              {localQrData.product_name}
+            </h2>
+          )}
 
-          <p className="beer-website">
-            <FaGlobe className="icon-globe" />
-            <strong>Website:</strong>{" "}
-            {localQrData.website ? (
+          {localQrData.cuisine && (
+            <p className="beer-sku">
+              <FaInfoCircle className="icon-info" />
+              Cuisine: <span>{localQrData.cuisine}</span>
+            </p>
+          )}
+
+          {localQrData.ingredients && (
+            <p className="beer-description">
+              <strong>Ingredients:</strong> {localQrData.ingredients}
+            </p>
+          )}
+
+          {localQrData.size && (
+            <p className="beer-description">
+              <strong>Serving Size:</strong> {localQrData.size}
+            </p>
+          )}
+
+          {localQrData.clories && (
+            <p className="beer-description">
+              <strong>Calories:</strong> {localQrData.clories}
+            </p>
+          )}
+
+          {localQrData.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
               <a
                 href={localQrData.website}
                 target="_blank"
@@ -3067,12 +3122,11 @@ export const QRPreviewElabelsFood = ({
               >
                 {localQrData.website}
               </a>
-            ) : (
-              "N/A"
-            )}
-          </p>
+            </p>
+          )}
         </div>
       </div>
+
       {showReview && (
         <div className="review-container">
           <AccordianComponent title="📝 Share Your Feedback">
@@ -3083,12 +3137,12 @@ export const QRPreviewElabelsFood = ({
     </>
   );
 };
+
 export const QRPreviewElabelsProduct = ({
   localQrData,
   className,
   showReview,
 }) => {
-  // console.log("localQrData", localQrData);
   return (
     <>
       <div
@@ -3096,44 +3150,63 @@ export const QRPreviewElabelsProduct = ({
         style={{ left: "4px", overflowX: "hidden" }}
       >
         <div className="beer-header">
-          <DynamicImage
-            data={localQrData}
-            imageKey="product_image"
-            altText="Product Image"
-            className="beer-image"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "12px 12px 12px 12px",
-            }}
-          />
+          {localQrData.product_image && (
+            <DynamicImage
+              data={localQrData}
+              imageKey="product_image"
+              altText="Product Image"
+              className="beer-image"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "12px 12px 12px 12px",
+              }}
+            />
+          )}
         </div>
         <div className="beer-content">
-          <h2 className="beer-product-name">
-            <FaTag className="icon-tag" />
-            {localQrData.product_name || "Product Name"}
-          </h2>
-          <p className="beer-sku">
-            <FaInfoCircle className="icon-info" />
-            SKU: <span>{localQrData.sku || "N/A"}</span>
-          </p>
-          <p className="beer-description">
-            {localQrData.description || "No description available."}
-          </p>
-          <p className="beer-description">
-            <strong>Directions:</strong>{" "}
-            {localQrData.directions || "Not provided"}
-          </p>
-          <p className="beer-description">
-            <strong>Brand:</strong> {localQrData.brand || "Unknown"}
-          </p>
-          <p className="beer-description">
-            <strong>Category:</strong> {localQrData.category || "Uncategorized"}
-          </p>
-          <p className="beer-description">
-            <strong>Price:</strong> ${localQrData.price || "0.00"}
-          </p>
+          {localQrData.product_name && (
+            <h2 className="beer-product-name">
+              <FaTag className="icon-tag" />
+              {localQrData.product_name}
+            </h2>
+          )}
+
+          {localQrData.sku && (
+            <p className="beer-sku">
+              <FaInfoCircle className="icon-info" />
+              SKU: <span>{localQrData.sku}</span>
+            </p>
+          )}
+
+          {localQrData.description && (
+            <p className="beer-description">{localQrData.description}</p>
+          )}
+
+          {localQrData.directions && (
+            <p className="beer-description">
+              <strong>Directions:</strong> {localQrData.directions}
+            </p>
+          )}
+
+          {localQrData.brand && (
+            <p className="beer-description">
+              <strong>Brand:</strong> {localQrData.brand}
+            </p>
+          )}
+
+          {localQrData.category && (
+            <p className="beer-description">
+              <strong>Category:</strong> {localQrData.category}
+            </p>
+          )}
+
+          {localQrData.price && (
+            <p className="beer-description">
+              <strong>Price:</strong> ${localQrData.price}
+            </p>
+          )}
 
           {localQrData.warning && (
             <p className="beer-warning">
@@ -3143,6 +3216,7 @@ export const QRPreviewElabelsProduct = ({
           )}
         </div>
       </div>
+
       {showReview && (
         <div className="review-container">
           <AccordianComponent title="📝 Share Your Feedback">

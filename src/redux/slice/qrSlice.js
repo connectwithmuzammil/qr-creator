@@ -183,6 +183,7 @@ const initialState = {
   warning: "",
   category: "",
   price: 0,
+  
   year : 0,
   drinking_temperature:"",
   stored_temp_unopen:"",

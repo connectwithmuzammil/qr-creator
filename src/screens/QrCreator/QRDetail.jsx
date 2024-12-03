@@ -511,7 +511,6 @@ const QRDetail = () => {
               category: localQrData?.category,
               price: localQrData?.price,
               brand: localQrData?.brand,
-
               year : localQrData?.year,
               drinking_temperature:localQrData?.drinking_temperature,
               stored_temp_unopen:localQrData?.stored_temp_unopen,
@@ -520,7 +519,6 @@ const QRDetail = () => {
               alcohol_type:localQrData?.alcohol_type,
               select_type_wine:localQrData?.select_type_wine,
               custom_type_wine:localQrData?.custom_type_wine,
-
               beer_image: localQrData?.beer_image,
               nutrition_image: localQrData?.nutrition_image,
               cigar_image: localQrData?.cigar_image,
@@ -528,7 +526,6 @@ const QRDetail = () => {
               wine_image: localQrData?.wine_image,
               product_image: localQrData?.product_image,
               food_image: localQrData?.food_image,
-
               is_question: localQrData?.is_question,
               questions: localQrData?.questions,
               is_rating: localQrData?.is_rating,

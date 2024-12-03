@@ -553,6 +553,9 @@
   .input-box-wrapper-social.app-social .wrap {
     flex-direction: column;
   }
+  .qr-design .three .choose-contrasting-color{
+    flex-direction: column;
+  }
 }
 @media screen and (max-width: 500px) {
   .landingpage .sec-seven h1 {

@@ -24,7 +24,7 @@ function BottomWrapperStages({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // console.log("qrDataqrData", generateQrPayload);
+  console.log("qrDataqrData", generateQrPayload);
 
   // console.log("generateQrPayload?.business_logo",typeof(generateQrPayload?.business_logo))
 

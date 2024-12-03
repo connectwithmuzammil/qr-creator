@@ -5006,7 +5006,7 @@ input[type="checkbox"] {
 
 /* Header Section */
 .beer-container .beer-header {
-  background: #eee;
+  /* background: #eee; */
   border-bottom: 1px solid #ddd;
   margin-bottom: 16px;
 }

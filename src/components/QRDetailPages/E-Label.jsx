@@ -253,8 +253,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                         type="radio"
                         name="alcohol_type"
                         value="alcoholic"
-                        onChange={(e) => setLocalQrData({ alcohol_type: e.target.value })}
-                        />
+                        onChange={(e) =>
+                          setLocalQrData((prev) => ({
+                            ...prev,
+                            alcohol_type: e.target.value,
+                          }))
+                        }
+                      />
                     </label>
                     <label>
                       Non-Alcoholic
@@ -262,8 +267,13 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
                         type="radio"
                         name="alcohol_type"
                         value="non-alcoholic"
-                        onChange={(e) => setLocalQrData({ alcohol_type: e.target.value })}
-                        />
+                        onChange={(e) =>
+                          setLocalQrData((prev) => ({
+                            ...prev,
+                            alcohol_type: e.target.value,
+                          }))
+                        }
+                      />
                     </label>
                   </div>
                   <InputSelectComponent
