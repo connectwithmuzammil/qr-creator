@@ -1158,6 +1158,8 @@ export const QRAPPS = ({ qrContent }) => {
 };
 
 export const QRLINK = ({ qrContent }) => {
+  console.log("localQrDataLink",qrContent)
+
   return (
     <div
       style={{
@@ -1174,9 +1176,9 @@ export const QRLINK = ({ qrContent }) => {
       }}
     >
       <img
-        src={qrContent?.image_path}
+        src={qrContent?.landing_logo}
         alt="link"
-        style={{ width: "100%", maxWidth: "300px", objectFit: "cover" }} // Responsive image
+        style={{ width: "100%", maxWidth: "300px", objectFit: "contain" }} // Responsive image
       />
       <div className="text" style={{ textAlign: "center" }}>
         <h5>{qrContent?.links_title}</h5>
@@ -1213,7 +1215,7 @@ export const QRLINK = ({ qrContent }) => {
             target="_blank"
           >
             <img
-              src={link?.link_image}
+              src={link?.image}
               alt=""
               style={{ width: "24px", height: "24px" }}
             />{" "}
@@ -1345,7 +1347,7 @@ export const QRGALLERY = ({ qrContent }) => {
                         height: "200px",
 
                         marginTop: "10px",
-                        objectFit: "cover",
+                        objectFit: "contain",
                         borderRadius: "8px",
                       }}
                     />
@@ -1391,6 +1393,7 @@ export const QRGALLERY = ({ qrContent }) => {
 };
 
 export const QRLANDING = ({ qrContent }) => {
+
   return (
     <div
       style={{
@@ -1406,6 +1409,7 @@ export const QRLANDING = ({ qrContent }) => {
         padding: "0 16px", // Horizontal padding for smaller screens
       }}
     >
+      hhhhhhhhhhhhhhhhh
       <h6 style={{ textAlign: "center" }}>{qrContent?.landing_company}</h6>
       <img
         src={qrContent?.landing_logo}
@@ -1413,7 +1417,7 @@ export const QRLANDING = ({ qrContent }) => {
         style={{
           width: "100%", // Responsive width
           maxWidth: "300px",
-          objectFit: "cover",
+          objectFit: "contain",
           height: "auto", // Responsive height
           position: "relative",
           zIndex: "10",

@@ -260,6 +260,7 @@ export const QRPreviewLanding = ({ localQrData }) => {
   //   ? URL.createObjectURL(localQrData.landing_logo)
   //   : localQrData?.landing_logo;
 
+
   return (
     <div
       className="layout-content showBrowser "
