@@ -291,6 +291,7 @@ const QRDetail = () => {
               network_name: localQrData.network_name,
               network_password: localQrData.network_password,
               network_security_type: localQrData.network_security_type,
+              hidden_network: localQrData.hidden_network,
             }
           : {}),
         ...(type === "youtube"

@@ -90,11 +90,32 @@ const WIFI = ({ localQrData, setLocalQrData }) => {
                     { label: "WPA3", value: "WPA3" },
                   ]}
                 />
+
                 {/* <InputComponent
                 label={"Security type*"}
                 name={"network_security_type"}
               /> */}
-                <InputCheckboxComponent label={"Hidden network"} />
+                {/* <InputCheckboxComponent label={"Hidden network"} /> */}
+
+                <div className="checkbox-group wifi">
+                  <label>
+                    Hidden Network
+                    <input
+                      type="checkbox"
+                      name="hidden_network"
+                      checked={
+                        localQrData?.hidden_network === true ||
+                        localQrData?.hidden_network === "true"
+                      }
+                      onChange={(e) =>
+                        setLocalQrData((prev) => ({
+                          ...prev,
+                          [e.target.name]: e.target.checked,
+                        }))
+                      }
+                    />
+                  </label>
+                </div>
               </div>
             </AccordianComponent>
           </div>

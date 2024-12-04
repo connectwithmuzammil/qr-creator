@@ -46,11 +46,11 @@ const OpenQrScanModal = ({
       frameText: qrObjData?.style?.frameText,
       frameTextColor: qrObjData?.style?.frameTextColor,
       cornerBackgroundColor: qrObjData?.style?.cornerBackgroundColor,
-      dotColor: qrObjData?.style?.dotColor,
+      dotsColor: qrObjData?.style?.dotsColor,
       cornerBorderColor: qrObjData?.style?.cornerBorderColor,
       cornerDotColor: qrObjData?.style?.cornerDotColor,
       selectedCornerStyle: qrObjData?.style?.selectedCornerStyle,
-      selectedDotStyle: qrObjData?.style?.selectedDotStyle,
+      dotsStyle: qrObjData?.style?.dotsStyle,
       qrLogo: qrObjData?.qrDesignLogo,
       data: qrObjData?.outcome,
     };

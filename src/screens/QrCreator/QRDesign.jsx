@@ -126,7 +126,7 @@ const QRDesign = () => {
   // console.log("onDesignelabelsSelectedProduct", elabelsSelectedProduct);
 
   // State COLOR PASS IN COLOR PICKER COMPONENT
-  const [dotColor, setDotColor] = useState(
+  const [dotsColor, setDotColor] = useState(
     qrData?.style?.dotsColor || "#000000"
   );
   const [cornerBackgroundColor, setCornerBackgroundColor] = useState(
@@ -155,15 +155,15 @@ const QRDesign = () => {
     qrData?.style?.frameText || "Scan Me!"
   );
   const [frameTextColor, setFrameTextColor] = useState(
-    qrData?.style?.frameTextColor || "#000000"
+    qrData?.style?.frameTextColor 
   );
 
   //DOT STYLE STATE
-  const [selectedDotStyle, setSelectedDotStyle] = useState(
+  const [dotsStyle, setDotsStyle] = useState(
     qrData?.style?.dotsStyle || "classy-rounded"
   );
   const handleDotStyleClick = (styleId) => {
-    setSelectedDotStyle(styleId);
+    setDotsStyle(styleId);
   };
 
   //LOGO
@@ -181,7 +181,7 @@ const QRDesign = () => {
   // SET QR DATA TO QR CODE STYLING ON EDIT
   useEffect(() => {
     if (qrData && qrData.style) {
-      qrData.style.dotsColor = dotColor;
+      qrData.style.dotsColor = dotsColor;
       qrData.style.cornerBackgroundColor = cornerBackgroundColor;
       qrData.style.backgroundColor = backgroundColor;
       qrData.style.cornerBorderColor = cornerBorderColor;
@@ -190,11 +190,11 @@ const QRDesign = () => {
       qrData.style.frameTextColor = frameTextColor;
       qrData.style.frameText = frameText;
       qrData.style.cornerStyle = selectedCornerStyle;
-      qrData.style.dotsStyle = selectedDotStyle;
+      qrData.style.dotsStyle = dotsStyle;
       qrData.style.frameName = selectedFrame;
     }
   }, [
-    dotColor,
+    dotsColor,
     cornerBackgroundColor,
     backgroundColor,
     cornerBorderColor,
@@ -202,7 +202,7 @@ const QRDesign = () => {
     frameTextColor,
     frameText,
     selectedCornerStyle,
-    selectedDotStyle,
+    dotsStyle,
     qrData,
     selectedFrame,
     cornerDotColor,
@@ -288,11 +288,11 @@ const QRDesign = () => {
       frameText,
       frameTextColor,
       cornerBackgroundColor,
-      dotColor,
+      dotsColor,
       cornerBorderColor,
       cornerDotColor,
       selectedCornerStyle,
-      selectedDotStyle,
+      dotsStyle,
       qrLogo: QRLogo,
     };
 
@@ -506,7 +506,7 @@ const QRDesign = () => {
                         <ul>
                           <li
                             className={
-                              selectedDotStyle === "classy-rounded"
+                              dotsStyle === "classy-rounded"
                                 ? "active"
                                 : ""
                             }
@@ -518,7 +518,7 @@ const QRDesign = () => {
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "rounded" ? "active" : ""
+                              dotsStyle === "rounded" ? "active" : ""
                             }
                             onClick={() => handleDotStyleClick("rounded")}
                           >
@@ -526,7 +526,7 @@ const QRDesign = () => {
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "dots" ? "active" : ""
+                              dotsStyle === "dots" ? "active" : ""
                             }
                             onClick={() => handleDotStyleClick("dots")}
                           >
@@ -534,7 +534,7 @@ const QRDesign = () => {
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "extra-rounded"
+                              dotsStyle === "extra-rounded"
                                 ? "active"
                                 : ""
                             }
@@ -544,7 +544,7 @@ const QRDesign = () => {
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "classy" ? "active" : ""
+                              dotsStyle === "classy" ? "active" : ""
                             }
                             onClick={() => handleDotStyleClick("classy")}
                           >
@@ -552,7 +552,7 @@ const QRDesign = () => {
                           </li>
                           <li
                             className={
-                              selectedDotStyle === "extra-rounded"
+                              dotsStyle === "extra-rounded"
                                 ? "active"
                                 : ""
                             }
@@ -566,7 +566,7 @@ const QRDesign = () => {
                         <div className="color-picker-con">
                           <ColorPickerComponent
                             label="Dot Color"
-                            color={dotColor}
+                            color={dotsColor}
                             setColor={setDotColor}
                           />
 
@@ -769,11 +769,11 @@ const QRDesign = () => {
         elabelsSelectedProduct={elabelsSelectedProduct}
         style={{
           cornerBackgroundColor,
-          dotColor,
+          dotsColor,
           cornerBorderColor,
           cornerDotColor,
           selectedCornerStyle,
-          selectedDotStyle,
+          dotsStyle,
           QRLogo,
           frameColor,
           backgroundColor,

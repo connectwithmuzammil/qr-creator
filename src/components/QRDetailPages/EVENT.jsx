@@ -186,6 +186,7 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
               <InputComponent
                 label={"URL"}
                 name={"event_action_url"}
+                type="url"
                 placeholder={"e.g. https://www.yourwebsite.com"}
                 onChange={handleInputChange}
                 value={localQrData?.event_action_url}

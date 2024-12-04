@@ -81,49 +81,49 @@ const QRCodeDetail = () => {
       ? typeWifiData
       : QRres?.singleViewDetail?.outcome;
   // console.log("QRres?.singleViewDetail?.outcome", data);
-  let dotColor = QRres?.singleViewDetail?.style?.dotsColor;
+  let dotsColor = QRres?.singleViewDetail?.style?.dotsColor;
   let cornerBackgroundColor = QRres?.singleViewDetail?.style?.cornerBackgroundColor;
   let cornerBorderColor = QRres?.singleViewDetail?.style?.cornerBorderColor;
   let cornerDotColor = QRres?.singleViewDetail?.style?.cornerDotColor;
-  let selectedDotStyle = QRres?.singleViewDetail?.style?.dotsStyle;
+  let dotsStyle = QRres?.singleViewDetail?.style?.dotsStyle;
   let selectedCornerStyle = QRres?.singleViewDetail?.style?.cornerStyle;
   //FRAME
   let frameColor = QRres?.singleViewDetail?.style?.frameColor;
   let backgroundColor = QRres?.singleViewDetail?.style?.backgroundColor;
   let frameText = QRres?.singleViewDetail?.style?.frameText;
   let frameTextColor = QRres?.singleViewDetail?.style?.frameTextColor;
-  // console.log("frameText",frameText)
+  console.log("frameText",frameText)
 
   const qrCodeOptions = {
     width: 130,
     height: 130,
     data: data,
     dotsOptions: {
-      color: dotColor,
-      type: selectedDotStyle,
+      color: dotsColor,
+      type: dotsStyle,
     },
     cornersSquareOptions: {
       color: "#000000",
-      type: selectedCornerStyle, // This will dynamically change
+      type: selectedCornerStyle, 
     },
     cornersDotOptions: {
-      color: cornerDotColor, // Customize if needed
+      color: cornerDotColor, 
     },
     backgroundOptions: {
-      color: cornerBackgroundColor, // Background color of the QR code
+      color: cornerBackgroundColor, 
     },
     cornersSquareOptions: {
       color: cornerBorderColor,
-      type: selectedCornerStyle, // Update corner style on change
+      type: selectedCornerStyle, 
     },
     image:
       "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
   };
 
-  useEffect(() => {
-    qrCode.current = new QRCodeStyling(qrCodeOptions);
-    qrCode.current.append(document.getElementById("qrCode"));
-  }, [qrCodeOptions]);
+  // useEffect(() => {
+  //   qrCode.current = new QRCodeStyling(qrCodeOptions);
+  //   qrCode.current.append(document.getElementById("qrCode"));
+  // }, [qrCodeOptions]);
 
   const [userQrStats, setUserQrStats] = useState(null);
   const [isUserQRStatsLoading, setIsUserQRStatsLoading] = useState(true);
@@ -163,7 +163,6 @@ const QRCodeDetail = () => {
     frame10: CanvaFrame10,
     frame11: CanvaFrame11,
   };
-
   const renderFrame = () => {
     const FrameComponent = FRAME_COMPONENTS[selectedFrame] || null;
     const commonProps = {
@@ -172,11 +171,11 @@ const QRCodeDetail = () => {
       frameText,
       frameTextColor,
       cornerBackgroundColor,
-      dotColor,
+      dotsColor,
       cornerBorderColor,
       cornerDotColor,
       selectedCornerStyle,
-      selectedDotStyle,
+      dotsStyle,
       qrLogo: QRres?.singleViewDetail?.qrDesignLogo,
       data: QRres?.singleViewDetail?.outcome,
     };

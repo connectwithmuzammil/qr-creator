@@ -1791,8 +1791,8 @@ export const QRDesignCorner6 = (props) => (
 
 //CANVAS RENDER FRAME IMG1
 export const NotSelectedFrameCanvas = ({
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -1821,8 +1821,8 @@ export const NotSelectedFrameCanvas = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -1842,8 +1842,8 @@ export const NotSelectedFrameCanvas = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -1867,8 +1867,8 @@ export const NotSelectedFrameCanvas = ({
   // useEffect(() => {
   //   qrCode.current.update({
   //     dotsOptions: {
-  //       color: dotColor,
-  //       type: selectedDotStyle,
+  //       color: dotsColor,
+  //       type: dotsStyle,
   //     },
   //     cornersSquareOptions: {
   //       color: cornerBorderColor,
@@ -1882,9 +1882,9 @@ export const NotSelectedFrameCanvas = ({
   //     },
   //   });
   // }, [
-  //   selectedDotStyle,
+  //   dotsStyle,
   //   cornerBorderColor,
-  //   dotColor,
+  //   dotsColor,
   //   selectedCornerStyle,
   //   CornerbgColor,
   //   cornerDotColor,
@@ -1897,14 +1897,13 @@ export const NotSelectedFrameCanvas = ({
     </div>
   );
 };
-
 export const CanvaFrame1 = ({
   frameColor,
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -1917,7 +1916,7 @@ export const CanvaFrame1 = ({
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
   // console.log("qrCodeyy",qrCode)
 
-  console.log("qrLogooo",qrLogo)
+  // console.log("frameTextColor",frameTextColor)
 
   const [imageLogo, setImageLogo] = useState(null);
   useEffect(() => {
@@ -1935,8 +1934,8 @@ export const CanvaFrame1 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -1956,8 +1955,8 @@ export const CanvaFrame1 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2050,14 +2049,13 @@ export const CanvaFrame1 = ({
     </svg>
   );
 };
-
 export const CanvaFrame2 = ({
   frameColor,
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2087,8 +2085,8 @@ export const CanvaFrame2 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2108,8 +2106,8 @@ export const CanvaFrame2 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2134,8 +2132,8 @@ export const CanvaFrame2 = ({
   //   height: 300,
   //   data: data ? data : "www.example.com",
   //   dotsOptions: {
-  //     color: dotColor,
-  //     type: selectedDotStyle,
+  //     color: dotsColor,
+  //     type: dotsStyle,
   //   },
   //   cornersSquareOptions: {
   //     color: cornerBorderColor,
@@ -2156,8 +2154,8 @@ export const CanvaFrame2 = ({
   // useEffect(() => {
   //   qrCode.current.update({
   //     dotsOptions: {
-  //       color: dotColor,
-  //       type: selectedDotStyle, // Update dot style on change
+  //       color: dotsColor,
+  //       type: dotsStyle, // Update dot style on change
   //     },
   //     cornersSquareOptions: {
   //       color: cornerBorderColor,
@@ -2171,9 +2169,9 @@ export const CanvaFrame2 = ({
   //     },
   //   });
   // }, [
-  //   selectedDotStyle,
+  //   dotsStyle,
   //   cornerBorderColor,
-  //   dotColor,
+  //   dotsColor,
   //   selectedCornerStyle,
   //   CornerbgColor,
   //   cornerDotColor,
@@ -2247,8 +2245,8 @@ export const CanvaFrame3 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2278,8 +2276,8 @@ export const CanvaFrame3 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2299,8 +2297,8 @@ export const CanvaFrame3 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2320,6 +2318,7 @@ export const CanvaFrame3 = ({
     }
   }, [qrCodeOptions]); // Ensure QR code updates on option change
 
+  // console.log("frameTextColormnm",frameTextColor)
   return (
     <svg
       width={72}
@@ -2369,7 +2368,7 @@ export const CanvaFrame3 = ({
           <text
             x="50%"
             y={10}
-            fill={frameTextColor ? frameTextColor : "#FFFFFF"}
+            fill={frameTextColor == "#ffffff" ? "#000000"  : frameTextColor  }
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Nunito Sans"
@@ -2390,8 +2389,8 @@ export const CanvaFrame4 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2421,8 +2420,8 @@ export const CanvaFrame4 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2442,8 +2441,8 @@ export const CanvaFrame4 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2531,8 +2530,8 @@ export const CanvaFrame5 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2561,8 +2560,8 @@ export const CanvaFrame5 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2582,8 +2581,8 @@ export const CanvaFrame5 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2671,8 +2670,8 @@ export const CanvaFrame6 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2702,8 +2701,8 @@ export const CanvaFrame6 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2723,8 +2722,8 @@ export const CanvaFrame6 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2791,7 +2790,7 @@ export const CanvaFrame6 = ({
           <text
             x="50%"
             y={10}
-            fill={frameTextColor ? frameTextColor : "#000000"}
+            fill={frameTextColor == "#ffffff" ? "#000000"  : frameTextColor  }
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Nunito Sans"
@@ -2812,8 +2811,8 @@ export const CanvaFrame7 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2841,8 +2840,8 @@ export const CanvaFrame7 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -2862,8 +2861,8 @@ export const CanvaFrame7 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -2969,8 +2968,8 @@ export const CanvaFrame8 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -2998,8 +2997,8 @@ export const CanvaFrame8 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -3019,8 +3018,8 @@ export const CanvaFrame8 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -3113,8 +3112,8 @@ export const CanvaFrame9 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -3143,8 +3142,8 @@ export const CanvaFrame9 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -3164,8 +3163,8 @@ export const CanvaFrame9 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -3264,8 +3263,8 @@ export const CanvaFrame10 = ({
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   CornerbgColor,
@@ -3294,8 +3293,8 @@ export const CanvaFrame10 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -3315,8 +3314,8 @@ export const CanvaFrame10 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,
@@ -3418,12 +3417,11 @@ export const CanvaFrame10 = ({
 };
 export const CanvaFrame11 = ({
   frameColor,
-  // backgroundColor,
   backgroundColor,
   frameText,
   frameTextColor,
-  dotColor,
-  selectedDotStyle,
+  dotsColor,
+  dotsStyle,
   cornerBorderColor,
   selectedCornerStyle,
   cornerBackgroundColor,
@@ -3436,7 +3434,7 @@ export const CanvaFrame11 = ({
   const qrCodeId = useRef(`qrCode-${Math.random().toString(36).substr(2, 9)}`);
 
   const [imageLogo, setImageLogo] = useState(null);
-  console.log("frameTexttye",frameTextColor)
+  // console.log("frameTextSVGGG",frameText,frameTextColor)
 
   useEffect(() => {
     if (qrLogo) {
@@ -3453,8 +3451,8 @@ export const CanvaFrame11 = ({
       data: data || "www.example.com",
       image: imageLogo,
       dotsOptions: {
-        color: dotColor,
-        type: selectedDotStyle,
+        color: dotsColor,
+        type: dotsStyle,
       },
       cornersSquareOptions: {
         color: cornerBorderColor,
@@ -3474,8 +3472,8 @@ export const CanvaFrame11 = ({
     [
       data,
       imageLogo,
-      dotColor,
-      selectedDotStyle,
+      dotsColor,
+      dotsStyle,
       cornerBorderColor,
       selectedCornerStyle,
       cornerDotColor,

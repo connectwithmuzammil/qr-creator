@@ -199,6 +199,7 @@ const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
               <InputComponent
                 label={"URL"}
                 name={"landing_action_url"}
+                type="url"
                 placeholder={"e.g. https://www.yourclothesshop.com/summer"}
                 onChange={handleInputChange}
                 value={localQrData?.landing_action_url}

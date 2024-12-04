@@ -52,11 +52,11 @@ const ViewPreviewModal = ({
   const {
     selectedFrame,
     cornerBackgroundColor,
-    dotColor,
+    dotsColor,
     cornerBorderColor,
     cornerDotColor,
     selectedCornerStyle,
-    selectedDotStyle,
+    dotsStyle,
     QRLogo,
     frameColor,
     backgroundColor,
@@ -128,11 +128,11 @@ const ViewPreviewModal = ({
       frameText,
       frameTextColor,
       cornerBackgroundColor,
-      dotColor,
+      dotsColor,
       cornerBorderColor,
       cornerDotColor,
       selectedCornerStyle,
-      selectedDotStyle,
+      dotsStyle,
       qrLogo: QRLogo,
     };
 
@@ -179,11 +179,11 @@ const ViewPreviewModal = ({
                     {/* <RenderFrame
                       selectedFrame={selectedFrame}
                       cornerBackgroundColor={cornerBackgroundColor}
-                      dotColor={dotColor}
+                      dotsColor={dotsColor}
                       cornerBorderColor={cornerBorderColor}
                       cornerDotColor={cornerDotColor}
                       selectedCornerStyle={selectedCornerStyle}
-                      selectedDotStyle={selectedDotStyle}
+                      dotsStyle={dotsStyle}
                       QRLogo={QRLogo}
                       frameColor={frameColor}
                       backgroundColor={backgroundColor}
