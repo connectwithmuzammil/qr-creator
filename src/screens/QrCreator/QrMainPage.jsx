@@ -36,10 +36,11 @@ import axios from "axios";
 import { IoIosPause } from "react-icons/io";
 import { RxCross2, RxResume } from "react-icons/rx";
 import QRCodeStyling from "qr-code-styling";
+import { useSelector } from "react-redux";
 
 const QrMainPage = () => {
   // const ConfirmationModal = React.lazy(()=> import('../../components'))
-  // const { user } = useSelector((store) => store.user);
+  const { user } = useSelector((store) => store.user);
   // console.log("userdaraatta", user);
 
   const navigate = useNavigate();
@@ -131,16 +132,17 @@ const QrMainPage = () => {
   // console.log("getALLQrCodes", getALLQrCodes);
 
   const handleDownload = (styleObj, qrCodeObj) => {
-    console.log("qrCodeObj", qrCodeObj);
+    // console.log("qrCodeObj", qrCodeObj);
+    // console.log("styleObj", styleObj);
     // Configure the QR code styling
     const qrCode = new QRCodeStyling({
       width: 300,
       height: 300,
       data: qrCodeObj?.outcome || "https://example.com",
-      // image: imageLogo,
+      image: qrCodeObj?.qrDesignLogo,
       dotsOptions: {
-        color: styleObj?.dotColor || "#000",
-        type: styleObj?.selectedDotStyle || "rounded",
+        color: styleObj?.dotsColor || "#000",
+        type: styleObj?.dotsStyle || "rounded",
       },
       cornersSquareOptions: {
         color: styleObj?.cornerBorderColor || "#000",
@@ -206,7 +208,7 @@ const QrMainPage = () => {
   };
 
   const renderFrame = (selectedFrame, qrCodeData, data) => {
-    console.log("qrCodeDatatte", data);
+    // console.log("qrCodeDatatte", data);
     const FrameComponent = frameComponents[selectedFrame];
     return FrameComponent ? (
       <FrameComponent
@@ -600,73 +602,75 @@ const QrMainPage = () => {
             </div>
             <SubscriptionPopup />
 
-            <div className="qrFilterCon">
-              <div className="containerr">
-                <div className="left">
-                  <div className="statusDropdown" style={{ display: "none" }}>
-                    <div className="Select__prefix">QR Status:</div>
-                    <select
-                      name="status"
-                      id="qrStatusDropdown"
-                      value={status}
-                      onChange={handleChange}
-                    >
-                      <option value="all">All</option>
-                      <option value="active">Active</option>
-                      <option value="paused">Paused</option>
-                    </select>
-                    <FaChevronDown className="dropdown-icon" />
-                  </div>
+            {(user?.user?.expiry === false || user?.expiry === false) && (
+              <div className="qrFilterCon">
+                <div className="containerr">
+                  <div className="left">
+                    <div className="statusDropdown" style={{ display: "none" }}>
+                      <div className="Select__prefix">QR Status:</div>
+                      <select
+                        name="status"
+                        id="qrStatusDropdown"
+                        value={status}
+                        onChange={handleChange}
+                      >
+                        <option value="all">All</option>
+                        <option value="active">Active</option>
+                        <option value="paused">Paused</option>
+                      </select>
+                      <FaChevronDown className="dropdown-icon" />
+                    </div>
 
-                  <div className="qrTypeDropdown">
-                    <div className="Select__prefix">QR Type:</div>
-                    <div className="dropdown">
-                      <div className="dropdown-selected">{displayText()}</div>
-                      {/* <FaChevronDown className="dropdown-icon" /> */}
-                      <div className="dropdown-options">
-                        {qrTypes.map((type) => (
-                          <label key={type.id}>
-                            <input
-                              type="checkbox"
-                              value={type.name}
-                              checked={selectedTypes.includes(type.name)}
-                              onChange={handleCheckboxChange}
-                            />
-                            {type.name === "business_page"
-                              ? "Business"
-                              : type.name === "social_media"
-                              ? "Social"
-                              : type.name === "image_gallery"
-                              ? "Gallery"
-                              : type.name}
-                          </label>
-                        ))}
+                    <div className="qrTypeDropdown">
+                      <div className="Select__prefix">QR Type:</div>
+                      <div className="dropdown">
+                        <div className="dropdown-selected">{displayText()}</div>
+                        {/* <FaChevronDown className="dropdown-icon" /> */}
+                        <div className="dropdown-options">
+                          {qrTypes.map((type) => (
+                            <label key={type.id}>
+                              <input
+                                type="checkbox"
+                                value={type.name}
+                                checked={selectedTypes.includes(type.name)}
+                                onChange={handleCheckboxChange}
+                              />
+                              {type.name === "business_page"
+                                ? "Business"
+                                : type.name === "social_media"
+                                ? "Social"
+                                : type.name === "image_gallery"
+                                ? "Gallery"
+                                : type.name}
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <div className="cleanFilter" onClick={resetFilter}>
+                      <RxCross2 size={22} />
+                      <h6>Clean Filter</h6>
+                    </div>
                   </div>
-                  <div className="cleanFilter" onClick={resetFilter}>
-                    <RxCross2 size={22} />
-                    <h6>Clean Filter</h6>
-                  </div>
-                </div>
-                <div className="right">
-                  <div className="sortByDropdown">
-                    <div className="Select__prefix">Sort By:</div>
-                    <select
-                      name="status"
-                      id="qrStatusDropdown"
-                      value={sortBy}
-                      onChange={handleSortChange}
-                    >
-                      <option value="most_recent">Most Recent</option>
-                      <option value="last_updated">Last Updated</option>
-                      <option value="sort_name">Name</option>
-                    </select>
-                    <FaChevronDown className="dropdown-icon" />
+                  <div className="right">
+                    <div className="sortByDropdown">
+                      <div className="Select__prefix">Sort By:</div>
+                      <select
+                        name="status"
+                        id="qrStatusDropdown"
+                        value={sortBy}
+                        onChange={handleSortChange}
+                      >
+                        <option value="most_recent">Most Recent</option>
+                        <option value="last_updated">Last Updated</option>
+                        <option value="sort_name">Name</option>
+                      </select>
+                      <FaChevronDown className="dropdown-icon" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
             {isLoading ? (
               <div className="bottom">
                 <div className="status-con">
@@ -907,7 +911,7 @@ const QrMainPage = () => {
       <OpenQrScanModal
         setShowPreviewScanModal={setShowPreviewScanModal}
         showPreviewScanModal={showPreviewScanModal}
-        qrObjData = {PreviewScanImageData}
+        qrObjData={PreviewScanImageData}
       />
     </>
   );

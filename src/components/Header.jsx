@@ -7,7 +7,6 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-
 import { ChangePassword, Forgot, Login, SignUp } from "../components";
 import {
   Link,
@@ -37,18 +36,25 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
   const location = useLocation();
-  // console.log("locationn", location);
+  console.log("locationn", location);
 
-  //OPEN CHANGE PASSWORD MODAL
-
+  //OPEN CHANGE PASSWORD MODAL ON RESET
   useEffect(() => {
     const tokenFromUrl = searchParams.get("token");
     // console.log("tokenFromUrl", tokenFromUrl);
     if (tokenFromUrl) {
       setToken(tokenFromUrl);
-      setNewPassword(true); // Open the change password modal if token is present
+      setNewPassword(true);
     }
   }, [searchParams]);
+
+  //OPEN CHANGE PASSWORD MODAL ON FORGOT
+  useEffect(() => {
+    if (location.pathname === "/reset") {
+      console.log("inside iFFF");
+      setNewPassword(true);
+    }
+  }, [location]);
 
   const openModal = (type) => {
     setModalType(type);
@@ -103,6 +109,24 @@ const Header = () => {
         setShowModal(false);
         dispatch(setUser(loginSucess?.data));
         localStorage.setItem("token", loginSucess?.token);
+      }
+    },
+  });
+
+  //FORGOT API CALL
+  const { mutate: mutateForgot, isPending: isLoadingForgot } = useMutation({
+    mutationFn: apis.sendPasswordResetEmail,
+    onError: (error) => {
+      console.log("erroceh", error);
+      toast.error(error?.message || "Failed to send reset email");
+    },
+    onSuccess: (response) => {
+      console.log("RESPONSE", response);
+      if (response?.status) {
+        toast.success(response?.data?.message);
+        // setResetPassword(false);
+      } else {
+        toast.error(response?.message || "Failed to send reset email");
       }
     },
   });
@@ -200,42 +224,53 @@ const Header = () => {
           </div>
 
           <div className="two" id="after-login-mobile">
-          <div className="auth-con">
-          {(location.pathname === "/qr-editor/video" ||
-            location.pathname === "/qr-editor/image_gallery") && (
-            <div onClick={toggleFullScreen} aria-label="Toggle Full Screen">
-              {isFullScreen ? (
-                <FaCompressArrowsAlt size={22} style={{ cursor: "pointer" }} />
+            <div className="auth-con">
+              {(location.pathname === "/qr-editor/video" ||
+                location.pathname === "/qr-editor/image_gallery") && (
+                <div onClick={toggleFullScreen} aria-label="Toggle Full Screen">
+                  {isFullScreen ? (
+                    <FaCompressArrowsAlt
+                      size={22}
+                      style={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <FaExpandArrowsAlt
+                      size={22}
+                      style={{ cursor: "pointer" }}
+                    />
+                  )}
+                </div>
+              )}
+              {user || user?.user ? (
+                <button
+                  onClick={() => {
+                    if (
+                      /^\/qr-editor\/[^/]+(\/design)?$/.test(location.pathname)
+                    ) {
+                      dispatch(resetQrData());
+                      navigate("/my-qr-codes");
+                    } else {
+                      navigate("/my-qr-codes");
+                    }
+                  }}
+                  className="my-account-btn"
+                >
+                  My Account
+                </button>
               ) : (
-                <FaExpandArrowsAlt size={22} style={{ cursor: "pointer" }} />
+                <>
+                  <button onClick={() => openModal("login")} className="login">
+                    Login
+                  </button>
+                  <button
+                    onClick={() => openModal("signup")}
+                    className="signup"
+                  >
+                    Sign Up
+                  </button>
+                </>
               )}
             </div>
-          )}
-          {user || user?.user ? (
-            <button
-              onClick={() => {
-                if (/^\/qr-editor\/[^/]+(\/design)?$/.test(location.pathname)) {
-                  dispatch(resetQrData());
-                  navigate("/my-qr-codes");
-                } else {
-                  navigate("/my-qr-codes");
-                }
-              }}
-              className="my-account-btn"
-            >
-              My Account
-            </button>
-          ) : (
-            <>
-              <button onClick={() => openModal("login")} className="login">
-                Login
-              </button>
-              <button onClick={() => openModal("signup")} className="signup">
-                Sign Up
-              </button>
-            </>
-          )}
-        </div>
           </div>
         </div>
 
@@ -265,6 +300,8 @@ const Header = () => {
                 showForgot={modalType === "forgot"}
                 setShowForgot={setShowModal}
                 onSwitchToLogin={switchToLogin}
+                mutateForgot={mutateForgot}
+                isPending={isLoadingForgot}
               />
             )}
           </div>

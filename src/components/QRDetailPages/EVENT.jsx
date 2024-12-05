@@ -156,8 +156,8 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
               label="Cover"
               name="event_image"
               // onEditImagePreview={location?.state?.qrData?.data?.event_image}
-              onEditImagePreview={localQrData?.event_image}
               localQrData={localQrData}
+              onEditImagePreview={localQrData?.event_image}
             />
             <InputComponent
               label={"Title"}

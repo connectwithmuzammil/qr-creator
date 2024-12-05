@@ -55,24 +55,31 @@ function App() {
           path="/qr-editor"
           element={<PrivateRoute element={QrCreator} />}
         />
-        <Route path="/qr-editor/:type" element={<QRDetail />} />
-        <Route path="/qr-editor/:type/design" element={<QRDesign />} />
-        <Route path="/my-qr-analytics" element={<QrAnalytics />} />
-        <Route path="/my-account" element={<MyAccount />} />
-        <Route path="/my-billing" element={<MyBilling />} />
-
-        <Route path="/who-we-are" element={<WhoWeAre />} />
-        <Route path="/terms-and-conditions" element={<TermsCondition />} />
-        <Route path="/terms-of-use" element={<TermOfUse />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/cookies-policy" element={<CookiePolicy />} />
-        <Route path="/pricing" element={<PrivateRoute element={Pricing} />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/faq" element={<FaqPage />} />
+        <Route
+          path="/qr-editor/:type"
+          element={<PrivateRoute element={QRDetail} />}
+        />
+        <Route
+          path="/qr-editor/:type/design"
+          element={<PrivateRoute element={QRDesign} />}
+        />
+        <Route
+          path="/my-qr-analytics"
+          element={<PrivateRoute element={QrAnalytics} />}
+        />
+        <Route
+          path="/my-account"
+          element={<PrivateRoute element={MyAccount} />}
+        />
+        <Route
+          path="/my-billing"
+          element={<PrivateRoute element={MyBilling} />}
+        />
         <Route
           path="/my-qr-codes-details"
           element={<PrivateRoute element={QRCodeDetail} />}
         />
+        <Route path="/pricing" element={<PrivateRoute element={Pricing} />} />
         <Route
           path="/payment"
           element={
@@ -86,7 +93,16 @@ function App() {
           }
         />
 
+
+        {/******************************* PUBLIC PAGES ********************/}
         <Route path="/qrcode/:qrCodeId" element={<ScanAndRedirectQr />} />
+        <Route path="/who-we-are" element={<WhoWeAre />} />
+        <Route path="/terms-and-conditions" element={<TermsCondition />} />
+        <Route path="/terms-of-use" element={<TermOfUse />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/cookies-policy" element={<CookiePolicy />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/faq" element={<FaqPage />} />
       </Routes>
 
       <ScrollToTop />

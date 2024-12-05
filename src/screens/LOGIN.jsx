@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { setUser } from "../redux/slice/userSlice";
 import { useMutation } from "@tanstack/react-query";
 import apis from "../services";
 import { Forgot, Login, SignUp } from "../components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandingPage from "./LandingPage";
 
@@ -13,6 +13,13 @@ const LOGINSCREEN = () => {
   const [modalType, setModalType] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((store) => store.user);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   const openModal = (type) => {
     setModalType(type);

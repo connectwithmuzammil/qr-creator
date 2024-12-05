@@ -630,9 +630,13 @@
 @media screen and (max-width: 400px) {
   .qr-main-page .bottom .all-qrCode-con .result-cardd {
     padding: 12px;
+    flex-direction: column;
+    align-items: start;
   }
   .qr-main-page .bottom .all-qrCode-con .result-cardd .four {
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: end;
   }
   .bottom-wrapper-stages {
     flex-direction: column-reverse;

@@ -9,17 +9,21 @@ import apis from "../../../services";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { setUser } from "../../../redux/slice/userSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const ChangePassword = ({ newPassword, setNewPassword }) => {
+  const { user } = useSelector((store) => store.user);
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
-  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   // console.log("userrr", user);
-
-  const userId = user?.id || user?.user?.id;
-
+  const email = localStorage.getItem("forgotUserEmail");
+  // console.log("chekkemai",email)
+  const tokenFromUrl = searchParams.get("token");
+  // console.log("tokenFromUrlbbb", tokenFromUrl);
   //CHANGE PASSWORD API
   const { mutate: mutateChangePass, isPending } = useMutation({
     mutationFn: apis.changePassword,
@@ -29,17 +33,20 @@ const ChangePassword = ({ newPassword, setNewPassword }) => {
     },
     onSuccess: ({ data: changePassword, status }) => {
       console.log("changePassword successfully!!:", changePassword);
-      dispatch(setUser(changePassword));
-
-     
+      if ((!user?.user || !user) && tokenFromUrl == null) {
+        navigate("/login");
+      } else if (tokenFromUrl) {
+        navigate("/my-qr-codes");
+        dispatch(setUser(changePassword));
+      }
     },
   });
 
   const handleSubmit = (values, actions) => {
     const payload = {
-      user_id: userId,
       otp: values.otp,
       password: values.newPassword,
+      email: email,
     };
     console.log("Changing password with values:", values);
 
