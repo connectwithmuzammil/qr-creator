@@ -2947,7 +2947,7 @@ export const CanvaFrame7 = ({
           <text
             x="50%"
             y={5}
-            fill="#000000"
+            fill={frameTextColor == "#ffffff" ? "#000000"  : frameTextColor  }
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Nunito Sans"
