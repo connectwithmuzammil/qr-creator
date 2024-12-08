@@ -35,7 +35,6 @@ const WIFI = ({ localQrData, setLocalQrData }) => {
       [name]: value,
     }));
   };
-  console.log("location", location);
 
   return (
     <>

@@ -116,7 +116,7 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
 
       // Set the data to local state
       setLocalQrData(qrDataFromLocation);
@@ -155,12 +155,11 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }
   }, [location.state, setLocalQrData]);
 
-  console.log("updatedQrDataBusiness", localQrData);
+  // console.log("updatedQrDataBusiness", localQrData);
 
   // const [is24HourFormat, setIs24HourFormat] = useState(false);
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+   
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -168,7 +167,7 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleImageDelete = (fieldName) => {
-    console.log("Image deleted");
+
     // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -183,7 +182,7 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
+
     setLocalQrData((prevData) => ({
       ...prevData,
       business_social: {

@@ -101,7 +101,7 @@ const QrAnalytics = () => {
       // toast.error("Failed to fetch products. Please try again later.");
     },
   });
-  console.log("getQrScanActivity", getQrScanActivity);
+  // console.log("getQrScanActivity", getQrScanActivity);
 
   const monthNames = [
     "Jan",

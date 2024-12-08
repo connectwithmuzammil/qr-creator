@@ -47,7 +47,7 @@ const LOGINSCREEN = () => {
       toast.error(errorMessage);
     },
     onSuccess: ({ data: signupSucess, status }) => {
-      // console.log("signupSucessfully!!:", signupSucess);
+      console.log("signupSucessfully!!:", signupSucess);
       if (signupSucess?.success) {
         toast.success(signupSucess?.message);
         setModalType("login");

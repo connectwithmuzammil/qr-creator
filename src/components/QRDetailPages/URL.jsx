@@ -10,7 +10,7 @@ import ViewPreviewModal from "../Modal/QR/ViewPreviewModal";
 const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [showModalPreview, setShowModalPreview] = useState(false);
   const location = useLocation();
-  console.log("LOCATIONURL", location);
+  // console.log("LOCATIONURL", location);
 
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
@@ -36,7 +36,7 @@ const URL = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
 
-  console.log("QRDATAUPDATED", localQrData);
+  // console.log("QRDATAUPDATED", localQrData);
   return (
     <>
       <div className="url">

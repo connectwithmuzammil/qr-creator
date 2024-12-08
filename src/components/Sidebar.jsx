@@ -64,7 +64,8 @@ const Sidebar = () => {
   const logoutHandler = async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      await apis.logout(token);
+     let res = await apis.logout(token);
+     console.log("testttoken",res)
       toast.success("Logout Successfully");
       localStorage.removeItem("token");
       dispatch(logout());

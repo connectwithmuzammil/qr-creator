@@ -41,7 +41,6 @@ const MyAccount = () => {
         // toast.error(error?.message);
       },
       onSuccess: ({ data: updateProfileSucess, status }) => {
-        console.log("update profile successfully!!:", updateProfileSucess);
         if (updateProfileSucess?.success) {
           toast.success(updateProfileSucess?.message);
           dispatch(setUser(updateProfileSucess?.data));
@@ -54,8 +53,8 @@ const MyAccount = () => {
     useMutation({
       mutationFn: apis.updateEmail,
       onError: function (error) {
-        console.log("error", error);
-        toast.error(error?.message);
+        // console.log("error", error?.response?.data?.confirm_email);
+        toast.error(error?.response?.data?.confirm_email[0]);
       },
       onSuccess: ({ data: updateEmailSucess, status }) => {
         // console.log("EMAIL update successfully!!:", updateEmailSucess);
@@ -85,7 +84,6 @@ const MyAccount = () => {
       toast.error(error?.message || "Failed to send reset email");
     },
     onSuccess: (response) => {
-      console.log("RESPONSE", response);
       if (response?.status) {
         toast.success(response?.data?.message);
         setResetPassword(false);

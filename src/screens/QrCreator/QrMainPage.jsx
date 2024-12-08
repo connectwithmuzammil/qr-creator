@@ -693,7 +693,7 @@ const QrMainPage = () => {
                         const isLoading = loadingMap[qrCode.id];
                         // const currentStatus = statuses[qrCode.id] || 2; // Default to "Paused" if no status set
                         const isPaused = 2;
-                        console.log("qrcodeee", qrCode);
+                        // console.log("qrcodeee", qrCode);
                         const products = [
                           "wine",
                           "beer",

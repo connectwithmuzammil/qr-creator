@@ -24,7 +24,7 @@ function BottomWrapperStages({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("qrDataqrData", generateQrPayload);
+  // console.log("qrDataqrData", generateQrPayload);
 
   // console.log("generateQrPayload?.business_logo",typeof(generateQrPayload?.business_logo))
 
@@ -142,7 +142,7 @@ function BottomWrapperStages({
       // formData.append("questions", JSON.stringify(generateQrPayload.questions));
 
       const cleanQuestionsText = (questions) => {
-        console.log("questooo", questions);
+        // console.log("questooo", questions);
         return questions?.map((question) => ({
           ...question,
           text: question.text.trim().replace(/\s+/g, " "),

@@ -36,7 +36,7 @@ const ImageUploadComponent = ({
     }
   };
 
-  console.log("onEditImagePreview", onEditImagePreview);
+  // console.log("onEditImagePreview", onEditImagePreview);
   return (
     <div className="img-upload-comp">
       <div className="wrap">

@@ -30,7 +30,7 @@ const ScanAndRedirectQr = () => {
   const [outcomeContent, setOutcomeContent] = useState(null);
   const [error, setError] = useState(null);
   const [qrType, setQrType] = useState(null);
-  console.log("qrCodeId", qrCodeId);
+  // console.log("qrCodeId", qrCodeId);
 
   // Function to detect the operating system
   const getOperatingSystem = () => {
@@ -57,11 +57,11 @@ const ScanAndRedirectQr = () => {
         // console.log("DATATOSEND", dataToSend);
 
         let res = await apis.scanQrCode(dataToSend);
-        console.log("Response Scan QR Code", res?.data?.outcome?.questions);
+        // console.log("Response Scan QR Code", res?.data?.outcome?.questions);
 
         if (res && res.data && res.data.outcome) {
           const outcome = res.data.outcome;
-          console.log("outcomeLog", outcome);
+          // console.log("outcomeLog", outcome);
 
           if (outcome.type === "url") {
             window.location.href = outcome.field_url;
@@ -84,10 +84,10 @@ const ScanAndRedirectQr = () => {
     trackQrScan();
   }, [qrCodeId]);
 
-  console.log("outcomeContent", outcomeContent);
+  // console.log("outcomeContent", outcomeContent);
 
   useEffect(() => {
-    console.log("qrType", qrType);
+    // console.log("qrType", qrType);
   }, [qrType]);
 
   const renderContentByType = () => {
@@ -97,7 +97,7 @@ const ScanAndRedirectQr = () => {
       const matchedProduct = products.find(
         (product) => outcomeContent[product] === "true"
       );
-      console.log("matchedProduct", matchedProduct);
+      // console.log("matchedProduct", matchedProduct);
 
       switch (matchedProduct) {
         case "wine":

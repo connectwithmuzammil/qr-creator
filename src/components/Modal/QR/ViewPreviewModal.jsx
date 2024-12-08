@@ -63,7 +63,7 @@ const ViewPreviewModal = ({
     frameTextColor,
     frameText,
   } = style;
-  console.log("check type", style);
+  // console.log("check type", style);
   const location = useLocation();
 
   const [selectedOption, setSelectedOption] = useState(

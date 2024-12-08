@@ -69,7 +69,7 @@ const QRCodeDetail = () => {
   const QRres = location.state || {};
   const qrCode = useRef(null);
 
-  console.log("QRres", QRres);
+  // console.log("QRres", QRres);
 
   const selectedFrame = QRres?.singleViewDetail?.style?.frameName;
   // console.log("selectedFrame", selectedFrame);
@@ -92,7 +92,7 @@ const QRCodeDetail = () => {
   let backgroundColor = QRres?.singleViewDetail?.style?.backgroundColor;
   let frameText = QRres?.singleViewDetail?.style?.frameText;
   let frameTextColor = QRres?.singleViewDetail?.style?.frameTextColor;
-  console.log("frameText",frameText)
+  // console.log("frameText",frameText)
 
   const qrCodeOptions = {
     width: 130,
@@ -129,7 +129,6 @@ const QRCodeDetail = () => {
   const [isUserQRStatsLoading, setIsUserQRStatsLoading] = useState(true);
   useEffect(() => {
     const UserQRStat = async () => {
-      console.log("testtt");
       setIsUserQRStatsLoading(true);
       try {
         const fetchedUserQrStats = await apis.getEachUserQRStat(
@@ -263,7 +262,7 @@ const QRCodeDetail = () => {
     },
   });
 
-  console.log("getReviewsStarr", getReviewsStar);
+  // console.log("getReviewsStarr", getReviewsStar);
   return (
     <>
       <Header />
@@ -518,7 +517,7 @@ const QRCodeDetail = () => {
               </div>
             ) : getReviews?.data?.length > 0 ? (
               getReviews.data.map((review, index) => {
-                console.log("review", review);
+                // console.log("review", review);
                 return (
                   <ReviewItem
                     key={index}

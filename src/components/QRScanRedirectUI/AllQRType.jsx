@@ -104,10 +104,8 @@ const iconsApps = {
 };
 
 export const QRYOUTUBE = ({ qrContent }) => {
-  console.log("qrcontent0", qrContent);
   // Extract the video ID from the short URL
   const videoId = qrContent?.youtube_url.split("v=")[1]?.split("&")[0];
-  console.log("videoId", videoId); // "0Yxf4hY8zjI"
 
   // Create the embed URL
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
@@ -250,6 +248,7 @@ export const QRPDF = ({ qrContent }) => {
 };
 
 export const QRVIDEO = ({ qrContent }) => {
+  // console.log("qrContentVideo", qrContent);
   return (
     <div
       style={{
@@ -262,64 +261,73 @@ export const QRVIDEO = ({ qrContent }) => {
         padding: "0 20px", // Added padding for small screens
       }}
     >
-      <h5 style={{ textAlign: "center" }}>{qrContent?.video_name}</h5>
-      <h5 style={{ textAlign: "center" }}>{qrContent?.video_title}</h5>
-      <h6 style={{ textAlign: "center", marginBottom: "12px" }}>
-        {qrContent?.video_description}
-      </h6>
-
-      <button
-        style={{
-          background: qrContent?.color?.button,
-          width: "100%", // Set to 100% for responsiveness
-          maxWidth: "630px", // Max width for the button
-          height: "34px",
-          borderRadius: "4px",
-          outline: "none",
-          border: "none",
-          color: "#fff",
-          marginTop: "12px",
-          marginBottom: "16px",
-          cursor: "pointer", // Change cursor to pointer
-        }}
-      >
-        <Link
-          to={qrContent?.video_url}
-          target="_blank"
+      {qrContent?.video_name && (
+        <h5 style={{ textAlign: "center" }}>{qrContent?.video_name}</h5>
+      )}
+      {qrContent?.video_title && qrContent?.video_title !== "undefined" && (
+        <h5 style={{ textAlign: "center" }}>{qrContent?.video_title}</h5>
+      )}
+      {qrContent?.video_description && (
+        <h6 style={{ textAlign: "center", marginBottom: "12px" }}>
+          {qrContent?.video_description}
+        </h6>
+      )}
+      {qrContent?.video_button && (
+        <button
           style={{
-            textDecoration: "none",
+            background: qrContent?.color?.button,
+            width: "100%", // Set to 100% for responsiveness
+            maxWidth: "630px", // Max width for the button
+            height: "34px",
+            borderRadius: "4px",
+            outline: "none",
+            border: "none",
             color: "#fff",
-            display: "block",
-            height: "100%",
-          }} // Ensure link covers the button
+            marginTop: "12px",
+            marginBottom: "16px",
+            cursor: "pointer", // Change cursor to pointer
+          }}
         >
-          {qrContent?.video_button}
-        </Link>
-      </button>
+          <Link
+            to={qrContent?.video_url}
+            target="_blank"
+            style={{
+              textDecoration: "none",
+              color: "#fff",
+              display: "block",
+              height: "100%",
+            }} // Ensure link covers the button
+          >
+            {qrContent?.video_button}
+          </Link>
+        </button>
+      )}
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "630px",
-          height: "auto", // Set height to auto
-          aspectRatio: "16 / 9", // Maintain a 16:9 aspect ratio for the video
-          marginBottom: "20px",
-          position: "relative", // For absolute positioning of video
-        }}
-      >
-        <video
-          src={qrContent?.video_path}
+      {qrContent?.video_path && (
+        <div
           style={{
             width: "100%",
-            height: "100%",
-            borderRadius: "4px",
-            position: "absolute",
-            top: 0,
-            left: 0,
+            maxWidth: "630px",
+            height: "auto", // Set height to auto
+            aspectRatio: "16 / 9", // Maintain a 16:9 aspect ratio for the video
+            marginBottom: "20px",
+            position: "relative", // For absolute positioning of video
           }}
-          controls
-        />
-      </div>
+        >
+          <video
+            src={qrContent?.video_path}
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "4px",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+            controls
+          />
+        </div>
+      )}
 
       <div
         style={{
@@ -328,7 +336,7 @@ export const QRVIDEO = ({ qrContent }) => {
           flexWrap: "wrap",
           gap: "12px",
           width: "100%",
-          maxWidth: "630px", // Max width for social icons container
+          maxWidth: "630px",
         }}
       >
         {Object.entries(qrContent?.video_social).map(([key, url]) => {
@@ -1158,7 +1166,6 @@ export const QRAPPS = ({ qrContent }) => {
 };
 
 export const QRLINK = ({ qrContent }) => {
-  console.log("localQrDataLink",qrContent)
 
   return (
     <div
@@ -1262,7 +1269,6 @@ export const QRLINK = ({ qrContent }) => {
 };
 
 export const QRGALLERY = ({ qrContent }) => {
-  console.log("qrcontent", qrContent);
   const images = Array.isArray(qrContent?.gallery_image)
     ? qrContent.gallery_image.map((image) =>
         image instanceof File ? URL.createObjectURL(image) : image
@@ -1393,7 +1399,6 @@ export const QRGALLERY = ({ qrContent }) => {
 };
 
 export const QRLANDING = ({ qrContent }) => {
-
   return (
     <div
       style={{
@@ -1492,7 +1497,6 @@ export const QRLANDING = ({ qrContent }) => {
 };
 
 export const QREVENT = ({ qrContent }) => {
-  console.log("qrContent", qrContent);
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 

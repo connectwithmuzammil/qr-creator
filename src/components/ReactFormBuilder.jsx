@@ -12,7 +12,7 @@ const ReviewFormBuilder = ({
   const { control, handleSubmit, reset } = useForm();
   const [questions, setQuestions] = useState([]);
 
-  console.log("tesss", localQrData?.questions);
+  // console.log("tesss", localQrData?.questions);
 
   useEffect(() => {
     if (localQrData?.questions) {
@@ -28,7 +28,7 @@ const ReviewFormBuilder = ({
     }));
   }, [questions, setLocalQrData]);
 
-  console.log("questionsquestions", questions);
+  // console.log("questionsquestions", questions);
 
   const addQuestion = () => {
     if (
@@ -110,10 +110,10 @@ const ReviewFormBuilder = ({
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
-  console.log("localqrdatachhe", localQrData);
+  // console.log("localqrdatachhe", localQrData);
 
   return (
     <div className="form-builder-container">

@@ -62,8 +62,7 @@ const APPS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+ 
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -72,7 +71,7 @@ const APPS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   const handleImageDelete = (fieldName) => {
-    console.log("Image deleted");
+
     setLocalQrData((prevData) => ({
       ...prevData,
       [fieldName]: "",
@@ -92,7 +91,7 @@ const APPS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
+
     setLocalQrData((prevData) => ({
       ...prevData,
       app_social: {

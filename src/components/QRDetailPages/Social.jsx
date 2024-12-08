@@ -59,7 +59,7 @@ const icons = {
 };
 
 const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
-  console.log("rrrerrr", errors);
+  // console.log("rrrerrr", errors);
   const [showModalPreview, setShowModalPreview] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const handleToggle = (option) => {
@@ -73,7 +73,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
       // If there's color data in localQrData, ensure it's set correctly
@@ -108,8 +108,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -117,7 +116,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleImageDelete = (fieldName) => {
-    console.log("Image deleted");
+
     // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -125,7 +124,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
+
     setLocalQrData((prevData) => ({
       ...prevData,
       media_social: {
@@ -135,7 +134,7 @@ const Social = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
 
-  console.log("localQrDataSocial", localQrData);
+  // console.log("localQrDataSocial", localQrData);
   return (
     <>
       <div className="social-page">

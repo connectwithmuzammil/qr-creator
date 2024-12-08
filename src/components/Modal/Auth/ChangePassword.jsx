@@ -28,11 +28,11 @@ const ChangePassword = ({ newPassword, setNewPassword }) => {
   const { mutate: mutateChangePass, isPending } = useMutation({
     mutationFn: apis.changePassword,
     onError: function (error) {
-      console.log("error", error);
+      // console.log("error", error);
       toast.error(error?.response?.data?.error);
     },
     onSuccess: ({ data: changePassword, status }) => {
-      console.log("changePassword successfully!!:", changePassword);
+      // console.log("changePassword successfully!!:", changePassword);
       if ((!user?.user || !user) && tokenFromUrl == null) {
         navigate("/login");
       } else if (tokenFromUrl) {
@@ -48,7 +48,7 @@ const ChangePassword = ({ newPassword, setNewPassword }) => {
       password: values.newPassword,
       email: email,
     };
-    console.log("Changing password with values:", values);
+    // console.log("Changing password with values:", values);
 
     mutateChangePass(payload, {
       onSuccess: () => {

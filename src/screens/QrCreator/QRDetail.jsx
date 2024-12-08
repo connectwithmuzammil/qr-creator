@@ -29,7 +29,7 @@ const QRDetail = () => {
   const [localQrData, setLocalQrData] = useState(qrDataVar);
   const [errors, setErrors] = useState({});
   // console.log("qrDataVarr", qrDataVar);
-  console.log("localQrDataDetail", localQrData);
+  // console.log("localQrDataDetail", localQrData);
 
   const validateField = (type, name, value, mode) => {
     // console.log("valuetest", value);
@@ -253,10 +253,10 @@ const QRDetail = () => {
   const handleNextClick = async () => {
     const isEdit = Boolean(localQrData.id);
     const mode = isEdit ? "edit" : "create";
-    console.log("mode", mode);
+    // console.log("mode", mode);
     const isValid = handleSubmit(mode);
-    console.log("isValiddd", isValid);
-    console.log("localqrdataio", localQrData);
+    // console.log("isValiddd", isValid);
+    // console.log("localqrdataio", localQrData);
 
     if (!isValid) {
       const errorMessages = Object.values(errors).filter(Boolean);
@@ -538,7 +538,7 @@ const QRDetail = () => {
       dispatch(setsQrData(localQrData));
       navigate(`/qr-editor/${type}/design`, { state: { qrData: dataToSend } });
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       toast.error(error.errors[0]);
     }
   };

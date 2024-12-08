@@ -70,12 +70,12 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
 
   //EDIT
   const location = useLocation();
-  console.log("LINKSDATA", location);
+  // console.log("LINKSDATA", location);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
       // If there's color data in localQrData, ensure it's set correctly
@@ -119,7 +119,7 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
 
   // Function to add the link to the array and store it in local storage/redux
   const handleAddLink = () => {
-    console.log("Link data before adding:", linkData);
+    // console.log("Link data before adding:", linkData);
     if (linkData.image && linkData.text && linkData.url) {
       const updatedLinks = [...localQrData.all_links, linkData];
       setLocalQrData({ ...localQrData, all_links: updatedLinks });
@@ -145,7 +145,7 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     return QRLogo || "/assets/images/default-img.png";
   };
 
-  console.log("linkdatata", linkData);
+  // console.log("linkdatata", linkData);
   // ----------------------------------------------
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -170,11 +170,9 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
       ...prevData,
       [fieldName]: "",
     }));
-    console.log(`Deleted image for field: ${fieldName}`);
   };
 
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => ({
       ...prevData,
       links_social: {
@@ -184,7 +182,7 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
 
-  console.log("linksLocalQrdata", localQrData);
+  // console.log("linksLocalQrdata", localQrData);
 
   return (
     <>
@@ -295,7 +293,7 @@ const LINKS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
                     <h4>All Links</h4>
                     <ul>
                       {localQrData.all_links.map((link, index) => {
-                        console.log("linkk", link);
+                        // console.log("linkk", link);
                         const imageUrl =
                           link.image instanceof File
                             ? URL.createObjectURL(link.image)

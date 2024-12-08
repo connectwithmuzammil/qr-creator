@@ -60,7 +60,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
     setSelectedOption(option);
   };
 
-  console.log("checklocalqrdata", localQrData);
+  // console.log("checklocalqrdata", localQrData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,7 +81,7 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const localQrDataFromLocation = location?.state?.qrData?.data;
-      console.log("localQrDataFromLocation", localQrDataFromLocation);
+      // console.log("localQrDataFromLocation", localQrDataFromLocation);
       setLocalQrData(localQrDataFromLocation);
       setIsEditMode(true);
 
@@ -139,7 +139,6 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       product: product === "product",
     }));
     // setLocalQrData(null);
-
   };
 
   // Use a separate effect to set selectedProduct based on localQrData changes
@@ -169,13 +168,20 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       setShowRatings(!showRatings);
       setLocalQrData((prevData) => ({
         ...prevData,
-        is_rating: !prevData.is_rating,
+        is_rating:
+          prevData.is_rating === "true" || prevData.is_rating === true
+            ? false
+            : true, 
       }));
     } else if (checkboxType === "questions") {
       setShowCustomQuestion(!showCustomQuestion);
       setLocalQrData((prevData) => ({
         ...prevData,
-        is_question: !prevData.is_question,
+        // is_question: !prevData.is_question,
+        is_question:
+          prevData.is_question === "true" || prevData.is_question === true
+            ? false
+            : true, 
       }));
     }
   };
@@ -186,10 +192,9 @@ const ELabels = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [fieldName]: "",
     }));
-    console.log(`Deleted image for field: ${fieldName}`);
   };
 
-  // console.log("lcaooqrdtata", localQrData);
+  // console.log("lcaooqrdtataelabels", localQrData);
 
   return (
     <>

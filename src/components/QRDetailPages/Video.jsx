@@ -74,7 +74,7 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
       // If there's color data in localQrData, ensure it's set correctly
@@ -95,7 +95,6 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => ({
       ...prevData,
       video_social: {
@@ -105,7 +104,6 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleVideoUpload = (video) => {
-    console.log("VIDEO UPLOAD", video);
     // const videoUrl = URL.createObjectURL(video);
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -119,8 +117,6 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
       video_path: null,
     }));
   };
-
-  console.log("oneditcheckLocal", localQrData?.video_path);
 
   return (
     <>
@@ -279,7 +275,11 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
                 name={"video_title"}
                 placeholder={"e.g. Assemble your flat-pack wardrobe"}
                 onChange={handleInputChange}
-                value={localQrData?.video_title}
+                value={
+                  localQrData?.video_title === "undefined"
+                    ? ""
+                    : localQrData?.video_title
+                }
               />
               <InputComponent
                 label={"Description"}
@@ -299,10 +299,7 @@ const Video = ({ localQrData, setLocalQrData, errors, setErrors }) => {
                 onChange={handleInputChange}
                 value={localQrData?.video_button}
               />
-              {console.log(
-                "localQrData?.video_button",
-                localQrData?.video_button
-              )}
+
               <InputComponent
                 label={"URL"}
                 name={"video_url"}

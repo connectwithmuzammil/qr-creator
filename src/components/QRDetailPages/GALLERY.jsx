@@ -28,12 +28,12 @@ const GALLERY = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   const location = useLocation();
-  console.log("editDataGallery", location);
+  // console.log("editDataGallery", location);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
       // const { gallery_image, ...restQrData } = qrDataFromLocation;
       // setLocalQrData((prevQrData) => ({
@@ -60,10 +60,9 @@ const GALLERY = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const hasExecutedRef = useRef(false);
-  console.log("hashhh", hasExecutedRef);
+  // console.log("hashhh", hasExecutedRef);
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+
 
     // setLocalQrData((prevData) => ({
     //   ...prevData,
@@ -93,7 +92,7 @@ const GALLERY = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   const handleImageDelete = (fieldName, imageIndex) => {
-    console.log("All images deleted");
+    // console.log("All images deleted");
     setLocalQrData((prevData) => ({
       ...prevData,
       [fieldName]: prevData[fieldName].filter(

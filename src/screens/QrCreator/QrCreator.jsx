@@ -25,7 +25,6 @@ const QrCreator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  console.log("userdaraatta", user);
 
   useEffect(() => {
     dispatch(resetQrData());
@@ -33,7 +32,7 @@ const QrCreator = () => {
   // const { user } = useSelector((store) => store.user);
   // console.log("userrSTAGING", user);
   const subPlan = user?.user?.subscription_plan || user?.subscription_plan;
-  console.log("subPlan", subPlan);
+  // console.log("subPlan", subPlan);
   const [selectedCard, setSelectedCard] = useState(null);
   const qrCodesList = [
     {

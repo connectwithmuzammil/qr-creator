@@ -108,7 +108,6 @@ const Payment = () => {
       name: cardHolderName,
     });
 
-    console.log("tokenIDD", token);
     if (error) {
       setCardNumberError(error.message);
       setProcessing(false);
@@ -121,15 +120,13 @@ const Payment = () => {
       stripeToken: token.id,
       sub_plan: subPlan,
     };
-    console.log("PAYMENTDATA", paymentData);
+    // console.log("PAYMENTDATA", paymentData);
     // mutatePayment(paymentData);
 
     try {
       const response = await apis.checkout(paymentData);
-      console.log("responsee", response);
-      console.log("response?.data?.user", response?.data?.user);
+      // console.log("response?.data?.user", response?.data?.user);
       if (response?.data?.success) {
-        console.log("INSIDE STATUS 200");
         dispatch(setUser(response?.data?.user));
         // await new Promise((resolve) => setTimeout(resolve, 300));
         toast.success(response.data.message);

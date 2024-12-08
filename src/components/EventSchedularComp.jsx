@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import { InputComponent } from "./InputComponent";
 
 const EventSchedularComp = ({ qrData, setQrData, onChangeTime, isEdit }) => {
-  console.log("qrDataOnEdit",qrData)
+  // console.log("qrDataOnEdit",qrData)
   const [selectedTimeZone, setSelectedTimeZone] = useState(
     qrData.event_time_timezone || moment.tz.guess()
   );

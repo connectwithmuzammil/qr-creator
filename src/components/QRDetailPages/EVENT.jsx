@@ -66,7 +66,7 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
 
       // const { event_image, ...restQrData } = qrDataFromLocation;
@@ -86,7 +86,7 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
   }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media name", name); // media name
+  
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -101,7 +101,7 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
       ...prevData,
       [fieldName]: "",
     }));
-    console.log(`Deleted image for field: ${fieldName}`);
+
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -121,7 +121,7 @@ const EVENT = ({ localQrData, setLocalQrData }) => {
     }));
   };
 
-  console.log("localQrData?.event_facilities", localQrData?.event_facilities);
+  // console.log("localQrData?.event_facilities", localQrData?.event_facilities);
   return (
     <>
     <div className="event-page">

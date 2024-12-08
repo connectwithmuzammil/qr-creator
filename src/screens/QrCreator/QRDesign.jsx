@@ -96,7 +96,7 @@ const QRDesign = () => {
   const [QRLogo, setQRLogo] = useState(qrData?.qrDesignLogo || null);
   // console.log("QRLogotetstt", QRLogo);
 
-  console.log("qrDataStateValueDesignPage", qrData);
+  // console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
     if (!qrData) {
       navigate("/");
@@ -213,7 +213,7 @@ const QRDesign = () => {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    console.log("fileee", file);
+    // console.log("fileee", file);
     if (file) {
       setQRLogo(file);
       event.target.value = null;
@@ -227,7 +227,7 @@ const QRDesign = () => {
   };
   if (qrData) {
     qrData.qrDesignLogo = QRLogo;
-    console.log("qrData with uploaded logo file:", qrData);
+    // console.log("qrData with uploaded logo file:", qrData);
   }
   const handleImageDelete = () => {
     setQRLogo(null);

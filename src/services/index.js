@@ -23,7 +23,7 @@ const createBackendServer = (baseURL) => {
   api.interceptors.response.use(
     (response) => response,
     (error) => {
-      console.log("axioseroor", error);
+      // console.log("axioseroor", error);
       const message = error?.response?.data?.message;
       // console.log("message", message);
       error.message = message ?? error.message;

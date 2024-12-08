@@ -37,7 +37,7 @@ const UpdateEmailAndPassword = ({
         .required("Confirm email is required")
         .test(
           "emails-dont-match",
-          "Confirm email must not match email",
+          "The new email address cannot be the same as your current one.",
           function (value) {
             return value !== this.parent.email;
           }

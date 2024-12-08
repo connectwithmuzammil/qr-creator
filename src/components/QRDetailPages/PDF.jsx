@@ -83,9 +83,9 @@ const PDF = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     { id: "red", background: "#fecdd6", button: "#b00223" },
   ];
 
-  console.log("file", file);
+  // console.log("file", file);
 
-  console.log("updatedQRData", localQrData);
+  // console.log("updatedQRData", localQrData);
   return (
     <>
       <div className="pdf-page">

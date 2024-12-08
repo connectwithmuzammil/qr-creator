@@ -159,7 +159,7 @@ const CustomButton = ({ text, url, backgroundColor, icon, onClick }) => {
 const SocialMediaLinks = ({ socialLinks, icons }) => {
   if (!socialLinks) return null;
 
-  console.log("socialLinks", socialLinks);
+  // console.log("socialLinks", socialLinks);
 
   return (
     <div
@@ -259,7 +259,6 @@ export const QRPreviewLanding = ({ localQrData }) => {
   //   : localQrData?.landing_logo instanceof File
   //   ? URL.createObjectURL(localQrData.landing_logo)
   //   : localQrData?.landing_logo;
-
 
   return (
     <div
@@ -631,7 +630,7 @@ export const QRPreviewVCard = ({ localQrData }) => {
 };
 
 export const QRPreviewBusiness = ({ localQrData }) => {
-  console.log("LocalDataBusiness", localQrData);
+  // console.log("LocalDataBusiness", localQrData);
   return (
     <div
       className="layout-content showBrowser "
@@ -1286,7 +1285,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
   // Check if specific fields are empty to decide how to display the video
   const hasDetails =
     localQrData?.video_name ||
-    localQrData?.video_title ||
+    (localQrData?.video_title && localQrData.video_title !== "undefined") ||
     (localQrData?.video_social &&
       Object.keys(localQrData.video_social).length > 0);
 
@@ -1297,7 +1296,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
         localQrData?.video_path.trim() !== ""
       ? localQrData.video_path
       : null;
-  console.log("videoURL", localQrData?.video);
+  // console.log("videoURL", localQrData?.video);
 
   return (
     <div
@@ -1399,7 +1398,7 @@ export const QRPreviewVideo = ({ localQrData }) => {
 };
 
 export const QRPreviewLinks = ({ localQrData }) => {
-  console.log("localQrDataLink", localQrData);
+  // console.log("localQrDataLink", localQrData);
   return (
     <div
       className="layout-content showBrowser "
@@ -1475,7 +1474,7 @@ export const QRPreviewLinks = ({ localQrData }) => {
                   style={{ width: "28px", height: "28px", borderRadius: "6px" }}
                 />
               )}
-              {console.log("link?.link_image", link)}
+              {/* {console.log("link?.link_image", link)} */}
               {/* Optional: Set image size */}
               <h6 style={{ margin: "0" }}>{link?.text}</h6>
             </Link>
@@ -1656,7 +1655,7 @@ export const QRPreviewYoutube = ({ localQrData }) => {
 };
 
 export const QRPreviewEvent = ({ localQrData }) => {
-  console.log("localQrData", localQrData);
+  // console.log("localQrData", localQrData);
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -2115,23 +2114,23 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
   const { mutate: mutateReview, isPending: isLoading } = useMutation({
     mutationFn: apis.PostReviews,
     onError: function (error) {
-      console.log("error", error);
+      // console.log("error", error);
       toast.error("An error occurred while submitting your review.");
     },
     onSuccess: ({ data: reviewSubmitSuccess, status }) => {
-      console.log("reviewSubmitSuccess!!:", reviewSubmitSuccess);
+      // console.log("reviewSubmitSuccess!!:", reviewSubmitSuccess);
       toast.success(
         "Your review has been successfully submitted! Thank you for your feedback."
       );
       questions.forEach((_, index) => {
         setValue(`question-${index}`, "");
       });
-      console.log("Form State after reset:", control._formValues);
+      // console.log("Form State after reset:", control._formValues);
     },
   });
 
   const onSubmit = (data) => {
-    console.log(data, "formloggg");
+    // console.log(data, "formloggg");
 
     const payload = Object.entries(data).map(([key, value]) => {
       const questionIndex = key.split("-")[1];
@@ -2143,7 +2142,7 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
       };
     });
 
-    console.log("Payload to be sent:", payload);
+    // console.log("Payload to be sent:", payload);
 
     // payload.forEach((payload) => {
     mutateReview(payload);
@@ -2155,11 +2154,11 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
     useMutation({
       mutationFn: apis.PostReviewsRating,
       onError: function (error) {
-        console.log("error", error);
+        // console.log("error", error);
         toast.error("An error occurred while submitting your review.");
       },
       onSuccess: ({ data: reviewSubmitRating, status }) => {
-        console.log("reviewSubmitSuccess!!:", reviewSubmitRating);
+        // console.log("reviewSubmitSuccess!!:", reviewSubmitRating);
       },
     });
 
@@ -2487,7 +2486,7 @@ const ReviewFormSubmit = ({ questions, qrCodeObj }) => {
         </div>
       )}
 
-      {qrCodeObj?.is_question === "true" && (
+      {questions.length > 0 && (
         <button type="submit" className="submit-btn" disabled={isLoading}>
           {isLoading ? "Submitting..." : "Submit"}
         </button>
@@ -2674,7 +2673,7 @@ export const QRPreviewElabelsWine = ({
   className,
   showReview,
 }) => {
-  console.log("localQrData", localQrData);
+  // console.log("localQrData", localQrData);
 
   return (
     <>
@@ -2749,9 +2748,9 @@ export const QRPreviewElabelsWine = ({
                 {localQrData.task_notes || "N/A"}
               </p>
             )}
-            {localQrData?.year !=0 && (
+            {localQrData?.year != 0 && (
               <p>
-                <strong>Year:</strong> {localQrData.year || "N/A"} 
+                <strong>Year:</strong> {localQrData.year || "N/A"}
               </p>
             )}
 
@@ -2782,26 +2781,23 @@ export const QRPreviewElabelsWine = ({
                 {localQrData.stored_days_open || "N/A"}
               </p>
             )}
-        
           </div>
           {localQrData?.description && (
-              <p>
-                {localQrData.description || "N/A"}
-              </p>
-            )}
-            {localQrData?.website && (
-              <p className="beer-website">
-                <FaGlobe className="icon-globe" />
-                <strong>Website:</strong>{" "}
-                <a
-                  href={localQrData.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {localQrData.website}
-                </a>
-              </p>
-            )}
+            <p>{localQrData.description || "N/A"}</p>
+          )}
+          {localQrData?.website && (
+            <p className="beer-website">
+              <FaGlobe className="icon-globe" />
+              <strong>Website:</strong>{" "}
+              <a
+                href={localQrData.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {localQrData.website}
+              </a>
+            </p>
+          )}
         </div>
         {localQrData.nutrition_image && (
           <footer className="beer-footer">
@@ -2823,7 +2819,7 @@ export const QRPreviewElabelsWine = ({
 
       {/* Show Review Section */}
       {showReview &&
-        (localQrData?.is_question === "true" ||
+        (localQrData?.questions.length > 0 ||
           localQrData?.is_rating === "true") && (
           <div className="review-container">
             <AccordianComponent title="📝 Share Your Feedback">
@@ -2844,6 +2840,7 @@ export const QRPreviewElabelsBeer = ({
   showReview,
 }) => {
   // console.log("localQrDatamm", localQrData?.alcohol_percentage !== 0);
+  // console.log("localqrdata", localQrData);
   return (
     <>
       <div
@@ -2932,13 +2929,18 @@ export const QRPreviewElabelsBeer = ({
           </footer>
         )}
       </div>
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
-          </AccordianComponent>
-        </div>
-      )}
+      {showReview &&
+        (localQrData?.questions.length > 0 ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };
@@ -3049,13 +3051,18 @@ export const QRPreviewElabelsCigar = ({
           )}
         </div>
       </div>
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
-          </AccordianComponent>
-        </div>
-      )}
+      {showReview &&
+        (localQrData?.questions.length > 0 ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };
@@ -3210,13 +3217,18 @@ export const QRPreviewElabelsCoffee = ({
         )}
       </div>
 
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
-          </AccordianComponent>
-        </div>
-      )}
+      {showReview &&
+        (localQrData?.questions.length > 0 ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };
@@ -3297,13 +3309,18 @@ export const QRPreviewElabelsFood = ({
         </div>
       </div>
 
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
-          </AccordianComponent>
-        </div>
-      )}
+      {showReview &&
+        (localQrData?.questions.length > 0 ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };
@@ -3387,13 +3404,18 @@ export const QRPreviewElabelsProduct = ({
         </div>
       </div>
 
-      {showReview && (
-        <div className="review-container">
-          <AccordianComponent title="📝 Share Your Feedback">
-            <ReviewFormSubmit questions={localQrData?.questions} />
-          </AccordianComponent>
-        </div>
-      )}
+      {showReview &&
+        (localQrData?.questions.length > 0 ||
+          localQrData?.is_rating === "true") && (
+          <div className="review-container">
+            <AccordianComponent title="📝 Share Your Feedback">
+              <ReviewFormSubmit
+                questions={localQrData?.questions}
+                qrCodeObj={localQrData}
+              />
+            </AccordianComponent>
+          </div>
+        )}
     </>
   );
 };

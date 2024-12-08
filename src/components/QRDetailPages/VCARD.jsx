@@ -69,7 +69,7 @@ const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   useEffect(() => {
     if (location.state?.qrData) {
       const qrDataFromLocation = location.state.qrData.data;
-      console.log("qrDataFromLocation", qrDataFromLocation);
+      // console.log("qrDataFromLocation", qrDataFromLocation);
       setLocalQrData(qrDataFromLocation);
       // const { vcard_image, ...restQrData } = qrDataFromLocation;
       // setLocalQrData((prevQrData) => ({
@@ -99,7 +99,6 @@ const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   }, [location.state, setLocalQrData]);
 
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received file name", file); // file
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -107,7 +106,6 @@ const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleImageDelete = (fieldName) => {
-    console.log("Image deleted");
     // dispatch(resetField({ field: fieldName }));
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -128,7 +126,6 @@ const VCARD = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }));
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => ({
       ...prevData,
       vcard_social: {

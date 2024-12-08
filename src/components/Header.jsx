@@ -36,7 +36,7 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
   const location = useLocation();
-  console.log("locationn", location);
+  // console.log("locationn", location);
 
   //OPEN CHANGE PASSWORD MODAL ON RESET
   useEffect(() => {
@@ -51,7 +51,7 @@ const Header = () => {
   //OPEN CHANGE PASSWORD MODAL ON FORGOT
   useEffect(() => {
     if (location.pathname === "/reset") {
-      console.log("inside iFFF");
+      // console.log("inside iFFF");
       setNewPassword(true);
     }
   }, [location]);
@@ -117,11 +117,11 @@ const Header = () => {
   const { mutate: mutateForgot, isPending: isLoadingForgot } = useMutation({
     mutationFn: apis.sendPasswordResetEmail,
     onError: (error) => {
-      console.log("erroceh", error);
+      // console.log("erroceh", error);
       toast.error(error?.message || "Failed to send reset email");
     },
     onSuccess: (response) => {
-      console.log("RESPONSE", response);
+      // console.log("RESPONSE", response);
       if (response?.status) {
         toast.success(response?.data?.message);
         // setResetPassword(false);

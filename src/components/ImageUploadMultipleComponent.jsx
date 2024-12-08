@@ -81,7 +81,7 @@ const ImageUploadMultipleComponent = ({
                   alt={`Uploaded ${index}`}
                   className="uploaded-img"
                 />
-                {console.log("img", img)}
+                {/* {console.log("img", img)} */}
                 <button
                   className="delete-btn"
                   onClick={() => handleImageDelete(index)}

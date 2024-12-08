@@ -67,13 +67,13 @@ const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
 
   //EDIT
   const location = useLocation();
-  console.log("LANDINGDATAEDITT", location);
-  console.log("localQrData", localQrData);
+  // console.log("LANDINGDATAEDITT", location);
+  // console.log("localQrData", localQrData);
 
   useEffect(() => {
     if (location.state?.qrData) {
       const localQrDataFromLocation = location?.state?.qrData?.data;
-      console.log("localQrDataFromLocation", localQrDataFromLocation);
+      // console.log("localQrDataFromLocation", localQrDataFromLocation);
       setLocalQrData(localQrDataFromLocation);
 
       // If there's color data in localQrData, ensure it's set correctly
@@ -95,8 +95,7 @@ const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
   };
 
   const handleImageUpload = (mediaData, name, file) => {
-    console.log("Received media data", mediaData); // media data base64
-    console.log("Received media name", name); // media name
+ 
 
     setLocalQrData((prevData) => ({
       ...prevData,
@@ -109,10 +108,9 @@ const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
       ...prevData,
       [fieldName]: "",
     }));
-    console.log(`Deleted image for field: ${fieldName}`);
+
   };
   const handleSocialIconChange = (iconName, url) => {
-    console.log("ICONS NAME, URL", iconName, url);
     setLocalQrData((prevData) => {
       const updatedLandingSocial = { ...prevData.landing_social };
 
@@ -131,7 +129,7 @@ const LANDING = ({ localQrData, setLocalQrData,errors, setErrors }) => {
     });
   };
 
-  console.log("localqrdatalanding_social", localQrData?.landing_social);
+  // console.log("localqrdatalanding_social", localQrData?.landing_social);
   return (
     <>
       <div className="landing-page">
