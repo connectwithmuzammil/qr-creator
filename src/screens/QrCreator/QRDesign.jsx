@@ -96,7 +96,7 @@ const QRDesign = () => {
   const [QRLogo, setQRLogo] = useState(qrData?.qrDesignLogo || null);
   // console.log("QRLogotetstt", QRLogo);
 
-  // console.log("qrDataStateValueDesignPage", qrData);
+  console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
     if (!qrData) {
       navigate("/");

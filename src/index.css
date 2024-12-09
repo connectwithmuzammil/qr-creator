@@ -260,3 +260,10 @@
 .css-eegpc0-MuiTimeClock-root {
   width: auto !important;
 }
+
+.css-gqp4xl-MuiPickersLayout-root .MuiPickersLayout-actionBar{
+  display: none !important;
+}
+.css-2x8kvt-MuiPickersArrowSwitcher-root-MuiTimeClock-arrowSwitcher{
+  display: none !important;
+}

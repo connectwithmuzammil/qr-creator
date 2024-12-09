@@ -1690,12 +1690,12 @@ footer .bottom p {
   .two
   .modifiedDate-con
   .wrap
-  h6.link{
-    /* white-space: nowrap;
+  h6.link {
+  /* white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 150px; */
-  }
+}
 .qr-main-page .bottom .all-qrCode-con .result-cardd .three {
   display: flex;
   flex-direction: column;
@@ -2868,7 +2868,6 @@ footer .bottom p {
   position: relative;
   display: inline-block;
   width: 100%;
-
 }
 .select-wrap-comp label {
   color: #262626;
@@ -2886,7 +2885,7 @@ footer .bottom p {
   font-size: 14px;
   transition: border 0.2s ease-in-out; */
   width: 100%;
-  padding: 12px 30px 12px 10px; 
+  padding: 12px 30px 12px 10px;
   font-size: 16px;
   border-radius: 0.25rem;
   border: 1px solid #bfbfbf;
@@ -2900,13 +2899,13 @@ footer .bottom p {
   outline: none;
   border-color: #bfbfbf;
 }
-.select-wrap-comp  .custom-select-icon {
+.select-wrap-comp .custom-select-icon {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
   color: #aaa;
-  pointer-events: none; 
+  pointer-events: none;
   font-size: 18px;
 }
 /* WIFI PAGE */
@@ -4619,17 +4618,17 @@ p.social-con-content {
 }
 /* CSS for disabled buttons */
 .product-selection-buttons button:disabled {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
   border-color: #ccc;
-  color: #888; 
-  cursor: not-allowed; 
-  opacity: 0.6; 
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .product-selection-buttons button:disabled:hover {
-  background-color: #f5f5f5; 
-  color: #888; 
-  box-shadow: none; 
+  background-color: #f5f5f5;
+  color: #888;
+  box-shadow: none;
 }
 
 /* ADD REVIEW CSS START */
@@ -4936,7 +4935,7 @@ input[type="checkbox"] {
   display: flex;
   gap: 10px;
 }
-.checkbox-group.wifi{
+.checkbox-group.wifi {
   width: 300px;
   justify-content: end;
 }
@@ -4949,7 +4948,7 @@ input[type="checkbox"] {
   font-weight: 500;
   cursor: pointer;
 }
-.checkbox-group label.wifi{
+.checkbox-group label.wifi {
   flex-direction: row-reverse;
 }
 .checkbox-group input[type="checkbox"] {
@@ -5004,7 +5003,7 @@ input[type="checkbox"] {
   padding-top: 20px;
   padding-bottom: 10px;
   margin-bottom: 50px;
-  left: 0px !important; 
+  left: 0px !important;
 }
 .beer-container.ScanPageClass .beer-header {
   background-color: transparent;
@@ -5122,7 +5121,7 @@ input[type="checkbox"] {
 }
 
 .beer-container.ScanPageClass .beer-footer {
-  padding: 10px ;
+  padding: 10px;
   background-color: transparent;
 }
 .beer-container .nutrition-image img {
@@ -5236,12 +5235,158 @@ input[type="checkbox"] {
   background-color: #b81917;
 }
 
-.review-container{
+.review-container {
   max-width: 600px;
   width: 100%;
   margin-bottom: 20px;
   margin-inline: auto;
 }
-.review-container .accordion-body{
+.review-container .accordion-body {
   padding: 16px;
 }
+
+/* BUSINESS PAGE CSS FOR CLOCK TIMER START */
+/* Styling for the business container */
+.business-container-timeclock {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.business-container-timeclock .time-format-selector {
+  margin-bottom: 20px;
+}
+
+.business-container-timeclock .time-format-label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.business-container-timeclock .time-format-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.business-container-timeclock .time-format-button {
+  width: 120px;
+  color: #e0201c;
+  border: 1px solid #e0201c;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  &:hover {
+    color: #e0201c;
+    background-color: transparent;
+  }
+}
+.time-format-button.selected {
+  background-color: #e0201c !important;
+  color: #fff !important;
+}
+
+/* Styling for day containers */
+.business-container-timeclock .day-container {
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.business-container-timeclock .day-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.business-container-timeclock .time-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.business-container-timeclock .time-input {
+  width: 45%;
+}
+
+/* Styling for dialog */
+.business-container-timeclock .time-picker-dialog {
+  min-width: 400px;
+}
+
+.business-container-timeclock .time-picker-dialog .MuiDialogTitle-root {
+  font-weight: bold;
+}
+
+/* Styling for buttons in the dialog */
+.business-container-timeclock .MuiDialogActions-root {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.business-container-timeclock .MuiButton-contained {
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.business-container-timeclock .MuiButton-outlined {
+  border-color: #007bff;
+  color: #007bff;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.business-container-timeclock .MuiButton-outlined:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.business-container-timeclock .checkbox-container {
+  margin-bottom: 10px;
+}
+
+.business-container-timeclock .time-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.business-container-timeclock .time-slot {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.business-container-timeclock .time-slot-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.business-container-timeclock .time-slot-container .MuiTextField-root {
+  flex-grow: 1;
+}
+
+.business-container-timeclock .add-time-slot {
+  margin-top: 6px;
+  align-self: flex-start; /* Align the icon to the left */
+  border: 1px solid #e0201c;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  &:hover {
+    background-color: #f1a0a0;
+    color: white;
+  }
+}
+.business-container-timeclock .add-time-slot svg {
+  fill: #e0201c !important;
+}
+/* BUSINESS PAGE CSS FOR CLOCK TIMER END */

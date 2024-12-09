@@ -93,15 +93,16 @@ const initialState = {
   business_state: "", //
   business_about: "", //
 
-  opening_hours_days: {
-    monday: { enabled: false, times: [] },
-    tuesday: { enabled: false, times: [] },
-    wednesday: { enabled: false, times: [] },
-    thursday: { enabled: false, times: [] },
-    friday: { enabled: false, times: [] },
-    saturday: { enabled: false, times: [] },
-    sunday: { enabled: false, times: [] },
-  },
+opening_hours_days: { 
+  monday: { enabled: false, times: [{ start: null, end: null }] },
+  tuesday: { enabled: false, times: [{ start: null, end: null }] },
+  wednesday: { enabled: false, times: [{ start: null, end: null }] },
+  thursday: { enabled: false, times: [{ start: null, end: null }] },
+  friday: { enabled: false, times: [{ start: null, end: null }] },
+  saturday: { enabled: false, times: [{ start: null, end: null }] },
+  sunday: { enabled: false, times: [{ start: null, end: null }] },
+},
+
   opening_hours_format: "AM-PM",
 
   business_facilities: "",

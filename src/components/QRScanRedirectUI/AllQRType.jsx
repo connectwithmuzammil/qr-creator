@@ -702,7 +702,7 @@ export const QRBUSINESS = ({ qrContent }) => {
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       {schedule.times.length > 0 ? (
                         schedule.times.map((time, index) => (
-                          <span key={index}>
+                          <span key={index} style={{color:"#8c8c8c"}}>
                             {time.start} - {time.end}
                           </span>
                         ))

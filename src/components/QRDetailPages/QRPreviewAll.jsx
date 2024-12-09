@@ -648,7 +648,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
         style={{
           maxWidth: "300px",
           height: "120px",
-          objectFit: "cover",
+          objectFit: "contain",
           marginBottom: "16px",
         }}
       />
@@ -720,10 +720,10 @@ export const QRPreviewBusiness = ({ localQrData }) => {
                   <div
                     key={day}
                     style={{
-                      marginBottom: "8px",
+                      marginBottom: "4px",
                       display: "flex",
                       justifyContent: "space-between",
-                      fontSize: "13px",
+                      fontSize: "12px",
                     }}
                   >
                     <strong>
@@ -732,7 +732,7 @@ export const QRPreviewBusiness = ({ localQrData }) => {
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       {schedule.times.length > 0 ? (
                         schedule.times.map((time, index) => (
-                          <span key={index}>
+                          <span key={index} style={{color:"#8c8c8c"}}>
                             {time.start} - {time.end}
                           </span>
                         ))
@@ -1026,7 +1026,7 @@ export const QRPreviewSocial = ({ localQrData }) => {
           style={{
             maxWidth: "300px",
             height: "120px",
-            objectFit: "cover",
+            objectFit: "contain",
             marginBottom: "16px",
           }}
         />
@@ -1412,7 +1412,7 @@ export const QRPreviewLinks = ({ localQrData }) => {
         data={localQrData}
         imageKey="linkslogo"
         altText="Link Logo"
-        style={{ width: "100%", height: "120px", objectFit: "cover" }}
+        style={{ width: "100%", height: "120px", objectFit: "contain" }}
       />
       <p
         style={{
@@ -1548,7 +1548,7 @@ export const QRPreviewGallery = ({ localQrData }) => {
                     height: "160px",
 
                     marginTop: "10px",
-                    objectFit: "cover",
+                    objectFit: "contain",
                     borderRadius: "8px",
                   }}
                 />
@@ -1709,7 +1709,7 @@ export const QRPreviewEvent = ({ localQrData }) => {
         altText="Event Logo"
         style={{
           width: "100%",
-          objectFit: "cover",
+          objectFit: "contain",
           height: "130px",
           borderRadius: "6px",
           objectPosition: "center",

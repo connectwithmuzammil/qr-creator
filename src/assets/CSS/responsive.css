@@ -553,8 +553,24 @@
   .input-box-wrapper-social.app-social .wrap {
     flex-direction: column;
   }
-  .qr-design .three .choose-contrasting-color{
+  .qr-design .three .choose-contrasting-color {
     flex-direction: column;
+  }
+  .business-container-timeclock{
+    padding: 0;
+  }
+  .business-container-timeclock .day-container {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    margin-bottom:12px;
+  }
+  .business-container-timeclock .day-title{
+    margin: 0;
+  }
+  .business-container-timeclock .checkbox-container{
+    margin: 0;
+
   }
 }
 @media screen and (max-width: 500px) {
