@@ -96,7 +96,7 @@ const QRDesign = () => {
   const [QRLogo, setQRLogo] = useState(qrData?.qrDesignLogo || null);
   // console.log("QRLogotetstt", QRLogo);
 
-  console.log("qrDataStateValueDesignPage", qrData);
+  // console.log("qrDataStateValueDesignPage", qrData);
   useEffect(() => {
     if (!qrData) {
       navigate("/");
@@ -723,6 +723,7 @@ const QRDesign = () => {
                     src="/assets/images/phone-frame.jpeg"
                     alt=""
                     className="mobile-frame"
+                    loading="lazy"
                   />
                   {renderFrame()}
                 </div>

@@ -132,6 +132,28 @@ const convertTimeFormat = (time, format) => {
 const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   const [selectedOption, setSelectedOption] = useState("Preview Page");
   const [showModalPreview, setShowModalPreview] = useState(false);
+  const [dayTimes, setDayTimes] = useState(() => {
+    // Try to retrieve dayTimes from localStorage
+    const savedState = localStorage.getItem("dayTimes");
+
+    // If savedState exists, parse it and convert ISO strings to dayjs objects
+    if (savedState) {
+      const parsedState = JSON.parse(savedState);
+      Object.keys(parsedState).forEach((day) => {
+        // Convert saved ISO string back to dayjs object
+        parsedState[day].start = dayjs(parsedState[day].start);
+        parsedState[day].end = dayjs(parsedState[day].end);
+      });
+      return parsedState;
+    }
+
+    return {};
+  });
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentDay, setCurrentDay] = useState(null);
+  const [selectedTimeType, setSelectedTimeType] = useState("start");
+  const [timeFormat, setTimeFormat] = useState("AM-PM");
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handleToggle = (option) => {
     setSelectedOption(option);
@@ -166,6 +188,31 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
           };
           return acc;
         }, {});
+        // console.log("updatedOpeningHoursDaysnn", updatedOpeningHoursDays);
+
+        setDayTimes(
+          Object.keys(updatedOpeningHoursDays).reduce((acc, day) => {
+            // Convert saved ISO string back to dayjs object
+            const updatedDay = updatedOpeningHoursDays[day];
+
+            // Ensure that start and end times are valid before using dayjs
+            const start = updatedDay.start ? dayjs(updatedDay.start) : null;
+            const end = updatedDay.end ? dayjs(updatedDay.end) : null;
+
+            acc[day] = {
+              ...updatedDay,
+              start,
+              end,
+            };
+
+            return acc;
+          }, {})
+        );
+        // console.log("updatedOpeningHoursDaysmcmcm", updatedOpeningHoursDays);
+        localStorage.setItem(
+          "dayTimes",
+          JSON.stringify(updatedOpeningHoursDays)
+        );
 
         setLocalQrData((prevState) => ({
           ...prevState,
@@ -182,7 +229,40 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }
   }, [location.state, setLocalQrData]);
 
-  console.log("updatedQrDataBusiness", localQrData);
+  // Store dayTimes in localStorage whenever it changes
+  useEffect(() => {
+    if (Object.keys(dayTimes).length > 0) {
+      const validDayTimes = {};
+
+      Object.keys(dayTimes).forEach((day) => {
+        // Ensure times are valid dayjs objects before saving
+        if (
+          dayjs(dayTimes[day].start).isValid() &&
+          dayjs(dayTimes[day].end).isValid()
+        ) {
+          validDayTimes[day] = {
+            start: dayTimes[day].start.toISOString(), // Store start as ISO string
+            end: dayTimes[day].end.toISOString(), // Store end as ISO string
+          };
+        }
+      });
+
+      // console.log("validDayTimes", validDayTimes);
+
+      // Save the valid times in localStorage
+      // localStorage.setItem("dayTimes", JSON.stringify(validDayTimes));
+    }
+  }, [dayTimes]);
+
+  useEffect(() => {
+    if (localQrData.opening_hours_format !== timeFormat) {
+      setTimeFormat(localQrData?.opening_hours_format);
+      setLocalQrData((prev) => ({
+        ...prev,
+        opening_hours_format: localQrData?.opening_hours_format,
+      }));
+    }
+  }, [localQrData]);
 
   const handleImageUpload = (mediaData, name, file) => {
     setLocalQrData((prevData) => ({
@@ -216,52 +296,8 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
   };
 
   //CODE FOR TIMER START
-  const [openDialog, setOpenDialog] = useState(false);
-  const [currentDay, setCurrentDay] = useState(null);
-  const [selectedTimeType, setSelectedTimeType] = useState("start");
-  const [timeFormat, setTimeFormat] = useState("AM-PM");
 
   // Create separate state for each day's times (start and end)
-  const [dayTimes, setDayTimes] = useState(() => {
-    // Try to retrieve dayTimes from localStorage
-    const savedState = localStorage.getItem("dayTimes");
-
-    // If savedState exists, parse it and convert ISO strings to dayjs objects
-    if (savedState) {
-      const parsedState = JSON.parse(savedState);
-      Object.keys(parsedState).forEach((day) => {
-        // Convert saved ISO string back to dayjs object
-        parsedState[day].start = dayjs(parsedState[day].start);
-        parsedState[day].end = dayjs(parsedState[day].end);
-      });
-      return parsedState;
-    }
-
-    return {}; // Return an empty object if nothing is saved
-  });
-
-  // Store dayTimes in localStorage whenever it changes
-  useEffect(() => {
-    if (Object.keys(dayTimes).length > 0) {
-      const validDayTimes = {};
-
-      Object.keys(dayTimes).forEach((day) => {
-        // Ensure times are valid dayjs objects before saving
-        if (
-          dayjs(dayTimes[day].start).isValid() &&
-          dayjs(dayTimes[day].end).isValid()
-        ) {
-          validDayTimes[day] = {
-            start: dayTimes[day].start.toISOString(), // Store start as ISO string
-            end: dayTimes[day].end.toISOString(), // Store end as ISO string
-          };
-        }
-      });
-
-      // Save the valid times in localStorage
-      localStorage.setItem("dayTimes", JSON.stringify(validDayTimes));
-    }
-  }, [dayTimes]);
 
   // Handle time format change (AM/PM vs 24-hour)
   const handleTimeFormatChange = (newFormat) => {
@@ -271,6 +307,11 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }
 
     setTimeFormat(newFormat);
+    setLocalQrData((prev)=>({
+      ...prev,
+      opening_hours_format : newFormat
+    }))
+
 
     // Create a deep copy of the opening_hours_days object
     const updatedOpeningHours = Object.keys(
@@ -294,11 +335,33 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     });
   };
 
-  const handleOpenDialog = (day, timeType) => {
+  // const handleOpenDialog = (day, timeType,index) => {
+  //   setCurrentDay(day);
+  //   setSelectedTimeType(timeType);
+
+  //   const currentDayTimes = localQrData.opening_hours_days[day].times[0];
+
+  //   if (!dayTimes[day]) {
+  //     setDayTimes((prev) => ({
+  //       ...prev,
+  //       [day]: {
+  //         start: dayjs(currentDayTimes.start || dayjs().startOf("minute")),
+  //         end: dayjs(
+  //           currentDayTimes.end || dayjs().startOf("minute").add(1, "hour")
+  //         ),
+  //       },
+  //     }));
+  //   }
+
+  //   setOpenDialog(true);
+  // };
+
+  const handleOpenDialog = (day, timeType, index) => {
     setCurrentDay(day);
     setSelectedTimeType(timeType);
+    setSelectedIndex(index); // Store the index of the time slot
 
-    const currentDayTimes = localQrData.opening_hours_days[day].times[0];
+    const currentDayTimes = localQrData.opening_hours_days[day].times[index];
 
     if (!dayTimes[day]) {
       setDayTimes((prev) => ({
@@ -319,58 +382,91 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     setOpenDialog(false);
   };
 
-  const handleSaveTime = () => {
-    if (currentDay) {
-      // Create a deep copy of the entire opening_hours_days object
-      const updatedOpeningHours = {
-        ...localQrData.opening_hours_days,
-      };
+  // const handleSaveTime = () => {
+  //   if (currentDay) {
+  //     // Create a deep copy of the entire opening_hours_days object
+  //     const updatedOpeningHours = {
+  //       ...localQrData.opening_hours_days,
+  //     };
 
-      // Get existing times for the current day
+  //     // Get existing times for the current day
+  //     const existingTimes = updatedOpeningHours[currentDay].times;
+
+  //     // If we're saving the first time slot or updating the first slot
+  //     if (existingTimes.length === 0) {
+  //       // Add a new time slot if no existing times
+  //       updatedOpeningHours[currentDay] = {
+  //         ...updatedOpeningHours[currentDay], // Spread to copy the existing properties
+  //         times: [
+  //           {
+  //             start: dayTimes[currentDay].start.format(
+  //               timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
+  //             ),
+  //             end: dayTimes[currentDay].end.format(
+  //               timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
+  //             ),
+  //           },
+  //         ],
+  //       };
+  //     } else {
+  //       // Update the last time slot in the array immutably
+  //       const lastIndex = existingTimes.length - 1;
+
+  //       // Create a new updated time slot
+  //       const updatedSlot = {
+  //         ...existingTimes[lastIndex], // Copy the existing slot properties
+  //         start: dayTimes[currentDay].start.format(
+  //           timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
+  //         ),
+  //         end: dayTimes[currentDay].end.format(
+  //           timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
+  //         ),
+  //       };
+
+  //       // Update the times array immutably
+  //       updatedOpeningHours[currentDay] = {
+  //         ...updatedOpeningHours[currentDay], // Copy other properties of the current day object
+  //         times: [
+  //           ...existingTimes.slice(0, lastIndex), // Keep all previous times
+  //           updatedSlot, // Add the updated time slot
+  //         ],
+  //       };
+  //     }
+
+  //     // Now update the localQrData with the modified opening_hours_days
+  //     setLocalQrData({
+  //       ...localQrData,
+  //       opening_hours_days: updatedOpeningHours,
+  //     });
+  //   }
+
+  //   setOpenDialog(false);
+  // };
+
+  const handleSaveTime = () => {
+    if (currentDay && selectedIndex !== null) {
+      const updatedOpeningHours = JSON.parse(
+        JSON.stringify(localQrData.opening_hours_days)
+      );
+
       const existingTimes = updatedOpeningHours[currentDay].times;
 
-      // If we're saving the first time slot or updating the first slot
-      if (existingTimes.length === 0) {
-        // Add a new time slot if no existing times
-        updatedOpeningHours[currentDay] = {
-          ...updatedOpeningHours[currentDay], // Spread to copy the existing properties
-          times: [
-            {
-              start: dayTimes[currentDay].start.format(
-                timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
-              ),
-              end: dayTimes[currentDay].end.format(
-                timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
-              ),
-            },
-          ],
-        };
-      } else {
-        // Update the last time slot in the array immutably
-        const lastIndex = existingTimes.length - 1;
+      // Fallback if dayTimes[currentDay] is null or undefined
+      const startTime = dayTimes[currentDay]?.start || dayjs();
+      const endTime = dayTimes[currentDay]?.end || dayjs().add(1, "hour");
 
-        // Create a new updated time slot
-        const updatedSlot = {
-          ...existingTimes[lastIndex], // Copy the existing slot properties
-          start: dayTimes[currentDay].start.format(
-            timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
-          ),
-          end: dayTimes[currentDay].end.format(
-            timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
-          ),
-        };
+      const updatedSlot = {
+        ...existingTimes[selectedIndex],
+        start: startTime.format(timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"),
+        end: endTime.format(timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"),
+      };
 
-        // Update the times array immutably
-        updatedOpeningHours[currentDay] = {
-          ...updatedOpeningHours[currentDay], // Copy other properties of the current day object
-          times: [
-            ...existingTimes.slice(0, lastIndex), // Keep all previous times
-            updatedSlot, // Add the updated time slot
-          ],
-        };
-      }
+      updatedOpeningHours[currentDay].times = [
+        ...existingTimes.slice(0, selectedIndex),
+        updatedSlot,
+        ...existingTimes.slice(selectedIndex + 1),
+      ];
 
-      // Now update the localQrData with the modified opening_hours_days
       setLocalQrData({
         ...localQrData,
         opening_hours_days: updatedOpeningHours,
@@ -426,14 +522,35 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     }
 
     // Log the updated opening hours for debugging
-    console.log("updatedOpeningHours", updatedOpeningHours);
+    // console.log("updatedOpeningHours", updatedOpeningHours);
 
     // Update the localQrData with the new opening_hours_days
     setLocalQrData(updatedOpeningHours);
   };
 
+  // const addTimeSlot = (day) => {
+  //   const updatedOpeningHours = { ...localQrData };
+
+  //   // Add a new time slot with default valid times (current time and 1 hour later)
+  //   const newStartTime = dayjs().format(
+  //     timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm"
+  //   );
+  //   const newEndTime = dayjs()
+  //     .add(1, "hour")
+  //     .format(timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm");
+
+  //   updatedOpeningHours.opening_hours_days[day].times.push({
+  //     start: newStartTime,
+  //     end: newEndTime,
+  //   });
+
+  //   // Update the localQrData state with the new time slot
+  //   setLocalQrData(updatedOpeningHours);
+  // };
+
   const addTimeSlot = (day) => {
-    const updatedOpeningHours = { ...localQrData };
+    // Deep clone localQrData to ensure the arrays and objects are mutable
+    const updatedOpeningHours = JSON.parse(JSON.stringify(localQrData));
 
     // Add a new time slot with default valid times (current time and 1 hour later)
     const newStartTime = dayjs().format(
@@ -443,6 +560,7 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
       .add(1, "hour")
       .format(timeFormat === "AM-PM" ? "hh:mm A" : "HH:mm");
 
+    // Make sure to add the new time slot to the times array
     updatedOpeningHours.opening_hours_days[day].times.push({
       start: newStartTime,
       end: newEndTime,
@@ -456,7 +574,9 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
     // Prevent removal of the first time slot (default one)
     if (index === 0) return;
 
-    const updatedOpeningHours = { ...localQrData };
+    // const updatedOpeningHours = { ...localQrData };
+    const updatedOpeningHours = JSON.parse(JSON.stringify(localQrData));
+
     updatedOpeningHours.opening_hours_days[day].times.splice(index, 1);
 
     setLocalQrData(updatedOpeningHours);
@@ -464,7 +584,8 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
 
   //CODE FOR TIMER END
 
-  console.log("LocalQRdataBusiness", localQrData);
+  // console.log("LocalQRdataBusiness", localQrData);
+  console.log("dayTimesnnnn", dayTimes);
 
   return (
     <>
@@ -630,14 +751,18 @@ const BUSINESS = ({ localQrData, setLocalQrData, errors, setErrors }) => {
                                 <TextField
                                   label="Start Time"
                                   value={time.start || ""}
-                                  onClick={() => handleOpenDialog(day, "start")}
+                                  onClick={() =>
+                                    handleOpenDialog(day, "start", index)
+                                  }
                                   fullWidth
                                   InputProps={{ readOnly: true }}
                                 />
                                 <TextField
                                   label="End Time"
                                   value={time.end || ""}
-                                  onClick={() => handleOpenDialog(day, "end")}
+                                  onClick={() =>
+                                    handleOpenDialog(day, "end", index)
+                                  }
                                   fullWidth
                                   InputProps={{ readOnly: true }}
                                 />

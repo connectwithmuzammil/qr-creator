@@ -11,7 +11,7 @@ const PrivateRoute = ({ element: Component, ...rest }) => {
   // If there is no user (not authenticated), redirect to login page
   if (!user) {
     // console.log("locationtest", location);
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   // If user is authenticated, render the component
